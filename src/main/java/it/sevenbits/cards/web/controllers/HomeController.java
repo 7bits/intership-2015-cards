@@ -1,9 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.web.domain.BindForm;
-import it.sevenbits.cards.web.domain.DiscountModel;
-import it.sevenbits.cards.web.domain.SendForm;
-import it.sevenbits.cards.web.domain.UseForm;
+import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountsService;
 import it.sevenbits.cards.web.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +73,15 @@ public class HomeController {
     @ResponseBody
     public List<DiscountModel> getSubscriptions() throws ServiceException {
         return service.findAll();
+    }
+
+    @RequestMapping(value = "/add_discount", method = RequestMethod.GET)
+    public String add_discount(@ModelAttribute DiscountForm form, final Model model) throws ServiceException {
+        // В модель добавим новый объект формы подписки
+        service.save(form);
+        model.addAttribute("add_discount", new DiscountForm());
+        // Так как нет аннотации @ResponseBody, то spring будет искать шаблон по адресу home/index
+        // Если шаблона не будет найдено, то вернется 404 ошибка
+        return "home/add_discount";
     }
 }
