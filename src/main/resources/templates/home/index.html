@@ -11,21 +11,21 @@
     <form action="#" th:action="@{/send_discount}" th:object="${send}" method="post">
         <input th:field="*{userName}" name="userName" placeholder="Your userName" type="text" />
         <input th:field="*{uin}" name="uin" placeholder="Your uin" type="text"/>
-        <input type="submit" value="OK" />
+        <input type="submit" value="Send" />
     </form>
 </div>
 <div>
     <h3>Bind</h3>
     <form action="#" th:action="@{/bind_discount}" th:object="${bind}" method="post">
         <input th:field="*{uin}" name="uin" placeholder="Your uin" type="text"/>
-        <input type="submit" value="OK" />
+        <input type="submit" value="Bind" />
     </form>
 </div>
 <div>
     <h3>Use</h3>
     <form action="#" th:action="@{/use_discount}" th:object="${use}" method="post">
         <input th:field="*{uin}" name="uin" placeholder="Your uin" type="text"/>
-        <input type="submit" value="OK" />
+        <input type="submit" value="Use" />
     </form>
 </div>
 </body>

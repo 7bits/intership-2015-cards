@@ -1,8 +1,5 @@
 package it.sevenbits.cards.web.domain;
 
-/**
- * Created by deamor on 08.07.15.
- */
 public class UseForm {
     private int uin;
 
@@ -12,5 +9,10 @@ public class UseForm {
 
     public void setUin(int uin) {
         this.uin = uin;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("BindForm[uin=%s]", uin);
     }
 }

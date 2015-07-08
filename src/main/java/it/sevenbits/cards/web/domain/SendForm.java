@@ -18,4 +18,9 @@ public class SendForm {
     public void setUin(int uin) {
         this.uin = uin;
     }
+
+    @Override
+    public String toString() {
+        return String.format("BindForm[userName=%s, uin=%s]", userName, uin);
+    }
 }

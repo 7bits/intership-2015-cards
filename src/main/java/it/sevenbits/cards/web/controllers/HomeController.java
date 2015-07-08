@@ -1,16 +1,28 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.web.domain.BindForm;
+import it.sevenbits.cards.web.domain.DiscountModel;
 import it.sevenbits.cards.web.domain.SendForm;
 import it.sevenbits.cards.web.domain.UseForm;
+import it.sevenbits.cards.web.service.DiscountsService;
+import it.sevenbits.cards.web.service.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private DiscountsService service;
+
     //Index
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(final Model model) {
@@ -58,5 +70,11 @@ public class HomeController {
         // В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
         model.addAttribute("use", form);
         return "home/use_discount";
+    }
+
+    @RequestMapping(value = "/discounts", method = RequestMethod.GET)
+    @ResponseBody
+    public List<DiscountModel> getSubscriptions() throws ServiceException {
+        return service.findAll();
     }
 }
