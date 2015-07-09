@@ -31,4 +31,15 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
+    @Override
+    public void delete(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            throw new RepositoryException("Discount is null");
+        }
+        try {
+            mapper.delete(discount);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
+        }
+    }
 }

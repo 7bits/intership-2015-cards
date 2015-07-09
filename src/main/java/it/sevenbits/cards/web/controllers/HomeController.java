@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountsService;
 import it.sevenbits.cards.web.service.ServiceException;
@@ -70,9 +71,11 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public String use(@ModelAttribute UseForm form, final Model model) {
+    public String use(@ModelAttribute UseForm form, final Model model) throws ServiceException {
         // В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
+        DiscountForm discountForm = new DiscountForm(form.getUin());
         model.addAttribute("use", form);
+        service.delete(discountForm);
         return "home/use_discount";
     }
 

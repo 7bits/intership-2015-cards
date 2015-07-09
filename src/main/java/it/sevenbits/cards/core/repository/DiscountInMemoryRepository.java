@@ -39,6 +39,14 @@ public class DiscountInMemoryRepository implements DiscountRepository {
     }
 
     @Override
+    public void delete(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            LOG.error("Discount is null");
+            throw new RepositoryException("Discount is null");
+        }
+        LOG.info("Start deleting: " + discount.toString());
+    }
+    @Override
     public List<Discount> findAll() {
         return new ArrayList<>(discounts.values());
     }
