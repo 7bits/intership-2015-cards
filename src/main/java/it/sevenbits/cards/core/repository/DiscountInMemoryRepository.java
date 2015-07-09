@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
-@Qualifier(value = "subscriptionInMemoryRepository")
+@Qualifier(value = "discountInMemoryRepository")
 public class DiscountInMemoryRepository implements DiscountRepository {
     private final static Logger LOG = Logger.getLogger(DiscountInMemoryRepository.class);
 

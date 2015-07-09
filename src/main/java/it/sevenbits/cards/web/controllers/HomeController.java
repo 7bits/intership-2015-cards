@@ -78,7 +78,7 @@ public class HomeController {
 
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
     @ResponseBody
-    public List<DiscountModel> getSubscriptions() throws ServiceException {
+    public List<DiscountModel> getDiscounts() throws ServiceException {
         return service.findAll();
     }
 
