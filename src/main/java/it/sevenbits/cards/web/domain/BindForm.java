@@ -1,13 +1,13 @@
 package it.sevenbits.cards.web.domain;
 
 public class BindForm {
-    private int uin;
+    private String uin;
 
-    public int getUin() {
+    public String getUin() {
         return uin;
     }
 
-    public void setUin(int uin) {
+    public void setUin(String uin) {
         this.uin = uin;
     }
 

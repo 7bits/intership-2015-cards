@@ -1,7 +1,7 @@
 package it.sevenbits.cards.web.domain;
 public class SendForm {
     private String userName;
-    private int uin;
+    private String uin;
 
     public String getUserName() {
         return userName;
@@ -11,11 +11,11 @@ public class SendForm {
         this.userName = userName;
     }
 
-    public int getUin() {
+    public String getUin() {
         return uin;
     }
 
-    public void setUin(int uin) {
+    public void setUin(String uin) {
         this.uin = uin;
     }
 
