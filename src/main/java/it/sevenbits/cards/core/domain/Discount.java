@@ -41,12 +41,12 @@ public class Discount implements Serializable{
         this.isHidden = isHidden;
     }
 
-    public String getUserID() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userId = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

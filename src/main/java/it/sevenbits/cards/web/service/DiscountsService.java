@@ -17,11 +17,10 @@ public class DiscountsService {
 
     public void save(final DiscountForm form) throws ServiceException {
         final Discount discount = new Discount();
-        discount.setId(form.getId());
         discount.setKey(form.getKey());
         discount.setUin(form.getUin());
         discount.setIsHidden(form.getIsHidden());
-        discount.setUserID(form.getUserID());
+        discount.setUserId(form.getUserId());
         try {
             repository.save(discount);
         } catch (Exception e) {
@@ -39,7 +38,7 @@ public class DiscountsService {
                         d.getKey(),
                         d.getUin(),
                         d.getIsHidden(),
-                        d.getUserID()
+                        d.getUserId()
                         ));
             }
             return models;

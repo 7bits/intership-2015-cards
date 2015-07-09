@@ -9,7 +9,7 @@
 <div>
     <h3>Send</h3>
     <form action="#" th:action="@{/send_discount}" th:object="${send}" method="post">
-        <input th:field="*{userName}" name="userName" placeholder="Your userName" type="text" />
+        <input th:field="*{userId}" name="userId" placeholder="Your userId" type="text" />
         <input th:field="*{uin}" name="uin" placeholder="Your uin" type="text"/>
         <input type="submit" value="Send" />
     </form>
