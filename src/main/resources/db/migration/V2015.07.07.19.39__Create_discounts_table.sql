@@ -1,8 +1,7 @@
 CREATE TABLE discounts (
-  `id` INT(20) NOT NULL AUTO_INCREMENT,
-  `key` VARCHAR(4) NOT NULL,
-  `uin` VARCHAR(4) NOT NULL,
-  `isHidden` BOOLEAN NOT NULL,
-  `userId` VARCHAR(4),
-  PRIMARY KEY(id)
-)ENGINE =InnoDB CHARACTER SET=utf8;
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "key" VARCHAR(4) NOT NULL,
+  "uin" VARCHAR(4) NOT NULL,
+  "is_hidden" BOOLEAN NOT NULL,
+  "user_id" VARCHAR(4) NOT NULL
+);
