@@ -6,11 +6,7 @@ public class DiscountForm {
     private String uin;
     private Boolean isHidden;
     private String userId;
-    public DiscountForm(){
-    }
-    public DiscountForm(String uin){
-        this.uin = uin;
-    }
+
     public Long getId() {
         return id;
     }

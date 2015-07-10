@@ -73,7 +73,8 @@ public class HomeController {
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
     public String use(@ModelAttribute UseForm form, final Model model) throws ServiceException {
         // В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
-        DiscountForm discountForm = new DiscountForm(form.getUin());
+        DiscountForm discountForm = new DiscountForm();
+        discountForm.setUin(form.getUin());
         model.addAttribute("use", form);
         service.delete(discountForm);
         return "home/use_discount";
