@@ -96,6 +96,7 @@ public class HomeController {
     public String show_discounts(@ModelAttribute DiscountForm form, final Model model) throws ServiceException {
         LOG.debug(form);
         service.save(form);
+        //
         return "redirect:/discounts";
     }
 }
