@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
-@Qualifier(value = "subscriptionInMemoryRepository")
+@Qualifier(value = "discountInMemoryRepository")
 public class DiscountInMemoryRepository implements DiscountRepository {
     private final static Logger LOG = Logger.getLogger(DiscountInMemoryRepository.class);
 
@@ -38,6 +38,14 @@ public class DiscountInMemoryRepository implements DiscountRepository {
         LOG.info("Saved: " + discount.toString());
     }
 
+    @Override
+    public void delete(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            LOG.error("Discount is null");
+            throw new RepositoryException("Discount is null");
+        }
+        LOG.info("Start deleting: " + discount.toString());
+    }
     @Override
     public List<Discount> findAll() {
         return new ArrayList<>(discounts.values());

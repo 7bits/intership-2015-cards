@@ -1,0 +1,7 @@
+CREATE TABLE discounts (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "key" VARCHAR(4) NOT NULL,
+  "uin" VARCHAR(4) NOT NULL,
+  "is_hidden" BOOLEAN NOT NULL,
+  "user_id" VARCHAR(4) NOT NULL
+);

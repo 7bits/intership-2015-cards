@@ -39,11 +39,17 @@ public class DiscountForm {
         this.isHidden = isHidden;
     }
 
-    public String getUserID() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userId = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s]",
+                id, key, uin, isHidden, userId);
     }
 }

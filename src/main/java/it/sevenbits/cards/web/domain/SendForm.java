@@ -1,14 +1,14 @@
 package it.sevenbits.cards.web.domain;
 public class SendForm {
-    private String userName;
+    private String userId;
     private String uin;
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(String userName) {
+        this.userId = userName;
     }
 
     public String getUin() {
@@ -21,6 +21,6 @@ public class SendForm {
 
     @Override
     public String toString() {
-        return String.format("BindForm[userName=%s, uin=%s]", userName, uin);
+        return String.format("BindForm[userName=%s, uin=%s]", userId, uin);
     }
 }

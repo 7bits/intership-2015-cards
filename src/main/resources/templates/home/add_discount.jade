@@ -1,0 +1,11 @@
+extends ../layout
+block append content
+     h1 Aloha, Cards team! Do you want add new discount to database?
+     div
+          h3 Add discount
+          form(action="/add_discount", method="post")
+               input(name="key", placeholder="Your key", type="text")
+               input(name="uin", placeholder="Your uin", type="text")
+               input(name="isHidden", placeholder="Your isHidden", type="text")
+               input(name="userId", placeholder="Your userId", type="text")
+               input(type="submit", value="Add")
