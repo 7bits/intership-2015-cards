@@ -42,4 +42,20 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
     }
+    @Override
+    public List<Discount> findAllDiscountsToUse() throws RepositoryException {
+        try {
+            return mapper.findAllDiscountsToUse();
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public List<Discount> findAllDiscountsToSend() throws RepositoryException {
+        try {
+            return mapper.findAllDiscountsToSend();
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
 }

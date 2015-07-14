@@ -2,19 +2,6 @@ extends ../layout
 block append content
      h1 Aloha, Cards team!
      div
-          h3 Send
-          form(action="/send_discount", method="post")
-               input(name="userId", placeholder="Your userId", type="text")
-               input(name="uin", placeholder="Your uin", type="text")
-               button(type="submit") Send
-     div
-          h3 Bind
-          form(action="/bind_discount", method="post")
-               input(name="uin", placeholder="Your uin", type="text")
-               button(type="submit") Bind
-     div
-          h3 Use
-          form(action="/use_discount", method="post")
-               input(name="uin", placeholder="Your uin", type="text")
-               button(type="submit") Use
+          form(action="/authorization", method="post")
+               button(type="submit") Sign in
 

@@ -10,5 +10,7 @@ public interface DiscountRepository {
     void save(final Discount discount) throws RepositoryException;
     List<Discount> findAll() throws RepositoryException;
     void delete(final Discount discount) throws RepositoryException;
+    List<Discount> findAllDiscountsToUse() throws RepositoryException;
+    List<Discount> findAllDiscountsToSend() throws RepositoryException;
 }
 
