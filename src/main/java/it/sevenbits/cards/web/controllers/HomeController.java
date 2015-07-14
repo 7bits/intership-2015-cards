@@ -17,16 +17,49 @@ public class HomeController {
     @Autowired
     private DiscountsService service;
     private Logger LOG = Logger.getLogger(HomeController.class);
-    //Index
+    //Index page
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(final Model model) {
-// В модель добавим новый объект формы подписки
-        model.addAttribute("send", new SendForm());
-        model.addAttribute("bind", new BindForm());
-        model.addAttribute("use", new UseForm());
         return "home/index";
     }
-    //Send
+    //Authorization page
+    @RequestMapping(value = "/authorization", method = RequestMethod.POST)
+    public String authorization(final Model model) {
+        model.addAttribute("authorization", new AuthorizationForm());
+        return "home/authorization";
+    }
+    //Repsonal use area page
+    @RequestMapping(value = "/personal_area_use", method = RequestMethod.POST)
+    public String personalAreaUse(final Model model) throws ServiceException {
+        model.addAttribute("discounts", service.findAllDiscountsToUse());
+        return "home/discountsToUse";
+    }
+    //Repsonal send area page
+    @RequestMapping(value = "/personal_area_send", method = RequestMethod.POST)
+    public String personalAreaSend(final Model model) throws ServiceException {
+        model.addAttribute("discounts", service.findAllDiscountsToSend());
+        return "home/discountsToSend";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping(value = "/send_discount", method = RequestMethod.GET)
     public String index_from_send(final Model model) {
 // В модель добавим новый объект формы подписки
@@ -69,9 +102,9 @@ public class HomeController {
         return "home/use_discount";
     }
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
-    @ResponseBody
-    public List<DiscountModel> getDiscounts() throws ServiceException {
-        return service.findAll();
+    public String getDiscounts(final Model model) throws ServiceException {
+        model.addAttribute("discounts", service.findAll());
+        return "home/discounts";
     }
     @RequestMapping(value = "/add_discount", method = RequestMethod.GET)
     public String add_discount(final Model model) {

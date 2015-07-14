@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface DiscountMapper {
+    //FindAll
     @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts")
     @Results({
             @Result(column = "id", property = "id"),
@@ -14,8 +15,30 @@ public interface DiscountMapper {
             @Result(column = "user_id", property = "userId")
     })
     List<Discount> findAll();
+    //save
     @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id) VALUES (#{key}, #{uin}, #{isHidden}, #{userId})")
     void save(final Discount discount);
+    //delete
     @Delete("DELETE FROM discounts WHERE uin = #{uin}")
     void delete(final Discount discount);
+    //findAllDiscountsToUse
+    @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts WHERE is_hidden = false")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "key", property = "key"),
+            @Result(column = "uin", property = "uin"),
+            @Result(column = "is_hidden", property = "isHidden"),
+            @Result(column = "user_id", property = "userId")
+    })
+    List<Discount> findAllDiscountsToUse();
+    //findAllDiscountsToSend
+    @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts WHERE is_hidden = true")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "key", property = "key"),
+            @Result(column = "uin", property = "uin"),
+            @Result(column = "is_hidden", property = "isHidden"),
+            @Result(column = "user_id", property = "userId")
+    })
+    List<Discount> findAllDiscountsToSend();
 }

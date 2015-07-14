@@ -51,6 +51,43 @@ public class DiscountsService {
         }
     }
 
+    public List<DiscountModel> findAllDiscountsToUse() throws ServiceException {
+        try {
+            List<Discount> discounts = repository.findAllDiscountsToUse();
+            List<DiscountModel> models = new ArrayList<>(discounts.size());
+            for (Discount d: discounts) {
+                models.add(new DiscountModel(
+                        d.getId(),
+                        d.getKey(),
+                        d.getUin(),
+                        d.getIsHidden(),
+                        d.getUserId()
+                ));
+            }
+            return models;
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
+    public List<DiscountModel> findAllDiscountsToSend() throws ServiceException {
+        try {
+            List<Discount> discounts = repository.findAllDiscountsToSend();
+            List<DiscountModel> models = new ArrayList<>(discounts.size());
+            for (Discount d: discounts) {
+                models.add(new DiscountModel(
+                        d.getId(),
+                        d.getKey(),
+                        d.getUin(),
+                        d.getIsHidden(),
+                        d.getUserId()
+                ));
+            }
+            return models;
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
+
     public void delete(final DiscountForm discountForm) throws ServiceException {
         final Discount discount = new Discount();
         discount.setUin(discountForm.getUin());

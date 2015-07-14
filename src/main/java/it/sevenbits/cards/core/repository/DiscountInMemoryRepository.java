@@ -50,4 +50,15 @@ public class DiscountInMemoryRepository implements DiscountRepository {
     public List<Discount> findAll() {
         return new ArrayList<>(discounts.values());
     }
+
+    @Override
+    public List<Discount> findAllDiscountsToUse() {
+        return new ArrayList<>(discounts.values());
+    }
+
+    @Override
+    public List<Discount> findAllDiscountsToSend() {
+        return new ArrayList<>(discounts.values());
+    }
+
 }

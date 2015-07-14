@@ -1,0 +1,13 @@
+extends ../layout
+
+block append content
+    table
+        thead
+            tr
+            th Uin
+            th UserId
+        tbody
+            for discount in discounts
+                tr
+                    td= discount.uin
+                    td= discount.userId
