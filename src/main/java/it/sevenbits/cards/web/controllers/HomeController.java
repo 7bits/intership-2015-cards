@@ -24,7 +24,7 @@ public class HomeController {
     }
     //Authorization page
     @RequestMapping(value = "/authorization", method = RequestMethod.POST)
-    public String authorization(final Model model) {
+    public String authorization_post(final Model model) {
         model.addAttribute("authorization", new AuthorizationForm());
         return "home/authorization";
     }
@@ -40,26 +40,6 @@ public class HomeController {
         model.addAttribute("discounts", service.findAllDiscountsToSend());
         return "home/discountsToSend";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @RequestMapping(value = "/send_discount", method = RequestMethod.GET)
     public String index_from_send(final Model model) {
 // В модель добавим новый объект формы подписки
