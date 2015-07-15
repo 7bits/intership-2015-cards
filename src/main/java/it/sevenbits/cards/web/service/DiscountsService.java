@@ -1,10 +1,9 @@
 package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.DiscountRepository;
-import it.sevenbits.cards.web.domain.DiscountForm;
-import it.sevenbits.cards.web.domain.DiscountModel;
-import it.sevenbits.cards.web.domain.UseForm;
+import it.sevenbits.cards.web.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

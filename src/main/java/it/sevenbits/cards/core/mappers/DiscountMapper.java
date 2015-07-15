@@ -1,5 +1,6 @@
 package it.sevenbits.cards.core.mappers;
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.web.domain.DiscountForm;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
@@ -41,4 +42,14 @@ public interface DiscountMapper {
             @Result(column = "user_id", property = "userId")
     })
     List<Discount> findAllDiscountsToSend();
+    //findRegisteredUsers
+    @Select("SELECT id, email, user_id, password, is_store FROM users WHERE email = #{email} AND  password = #{password}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "email", property = "email"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "is_store", property = "isStore")
+    })
+    boolean findRegisteredUsers(final User user);
 }

@@ -1,5 +1,6 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.mappers.DiscountMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

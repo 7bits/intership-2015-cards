@@ -2,7 +2,7 @@ extends ../layout
 block append content
      h1 Aloha, Cards team! Do you want authorize?
      div
-          form(action="/personal_area_send", method="post")
+          form(action="/authentication", method="post")
                input(name="email", placeholder="Your E-mail", type="email")
                input(name="password", placeholder="Your password", type="password")
                input(type="submit", value="Login")

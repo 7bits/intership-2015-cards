@@ -1,6 +1,7 @@
 package it.sevenbits.cards.core.repository;
 
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.DiscountRepository;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import org.apache.log4j.Logger;
@@ -20,10 +21,12 @@ public class DiscountInMemoryRepository implements DiscountRepository {
 
     private final Map<Long, Discount> discounts;
     private final AtomicLong keySequence;
+    private final Map<Long, User> users;
 
     public DiscountInMemoryRepository() {
         discounts = new HashMap<>();
         keySequence = new AtomicLong(1L);
+        users = new HashMap<>();
     }
 
     @Override
@@ -60,5 +63,4 @@ public class DiscountInMemoryRepository implements DiscountRepository {
     public List<Discount> findAllDiscountsToSend() {
         return new ArrayList<>(discounts.values());
     }
-
 }
