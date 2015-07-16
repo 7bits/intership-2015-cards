@@ -4,7 +4,7 @@ public class UserModel {
     private Long id;
     private String email;
     private String userId;
-    private String password;
+    private String passwordHash;
     private Boolean isStore;
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class UserModel {
         this.userId = userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public Boolean getIsStore() {
@@ -47,17 +47,17 @@ public class UserModel {
         this.isStore = isStore;
     }
 
-    public UserModel(long id, String email, String userId, String password, Boolean isStore){
+    public UserModel(long id, String email, String userId, String passwordHash, Boolean isStore){
         this.id = id;
         this.email = email;
         this.userId = userId;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.isStore = isStore;
     }
 
     @Override
     public String toString() {
         return String.format("Discount[id=%d, email=%s, user_id=%s, password=%s, isStore=%b]",
-                id, email, userId, password, isStore);
+                id, email, userId, passwordHash, isStore);
     }
 }

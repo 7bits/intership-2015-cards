@@ -11,13 +11,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 @Qualifier(value = "userInMemoryRepository")
-public class UserInMemoryRepository implements UserRepository {
-    private final static Logger LOG = Logger.getLogger(UserInMemoryRepository.class);
+public class UsersInMemoryRepository implements UsersRepository {
+    private final static Logger LOG = Logger.getLogger(UsersInMemoryRepository.class);
 
     private final Map<Long, User> users;
     private final AtomicLong keySequence;
 
-    public UserInMemoryRepository() {
+    public UsersInMemoryRepository() {
         users = new HashMap<>();
         keySequence = new AtomicLong(1L);
     }

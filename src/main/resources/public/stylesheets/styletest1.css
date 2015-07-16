@@ -1,0 +1,243 @@
+body {
+	margin: auto;
+	width: 80%;
+	min-width: 320px;
+	max-width: 960px;
+}
+.header {
+	margin: 0 auto;
+	width: 100%;
+	background-color: white;
+	max-height: 150px;
+	overflow: hidden;
+		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.h_img {
+	float: left;
+	width: 50%;
+	min-width: 320px;
+	/*max-height: 150px;*/
+}
+
+.h_img img {
+	width: 100%;
+}
+
+.h_text {
+	height: 100%;
+}
+
+.h_btn {
+	margin-top: 10px;
+	text-align: center;
+	background-color: white;
+	color: black;
+	width: 120px;
+	line-height: 50px;
+	height: 50px;
+	float: right;
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.main {
+	clear: both;
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+.main .discounts {
+	float: left;
+	width: 60%;
+	background-color: white;
+	height: 100%;
+}
+
+.main .advertisment {
+	float: right;
+	width: 35%;
+	background-color: white;
+	height: 300px;
+		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.main .advertisment img {
+	margin: 4%;
+	width: 92%;
+}
+
+.shadow {
+	clear: both;
+	height: 20px;
+	width: 100%;
+}
+
+.tabs {
+	border-radius: 0;
+}
+
+.tabs ul {
+	margin-left: 20%;
+	margin-bottom: 10px;
+}
+
+.tabs li {
+	border-radius: 0;
+	width: 30%;
+	text-align: center;
+		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.tabs a {
+	text-decoration: none;
+	color: black;
+}
+
+.discount {
+	margin-bottom: 5px;
+}
+
+.discount .heading {
+	position: relative;
+	padding: 2%;
+	padding-left: 3%;
+	background-color: white;
+	color: black;
+	-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.discount .heading:before,
+.discount .heading:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+}
+
+.discount .describe {
+	overflow: hidden;
+	background-color: #f0f0f0;
+}
+
+.describe_shadow {
+	width: 100%;
+	height: 0px;
+	/*background: linear-gradient(to top, #f0f0f0, #000 70%);*/
+}
+
+.describe_shadow_down {
+	float: left;
+	width: 100%;
+	height: 0px;
+	/*background: linear-gradient(to top, #000 5%, #a6a6a6, #f0f0f0);*/
+}
+
+.discount .text {
+	float: left;
+	width: 70%;
+	padding: 3%;
+}
+
+.discount .btn {
+	float: right;
+	clear: both;
+}
+
+.discount .describe a {
+	color: black;
+	text-decoration: none;
+}
+
+.b_text {
+	background-color: white;
+	color: black;
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	margin-right: 3%;
+	padding: 10px 10px;
+}
+
+.morph-button-logout .morph-content {
+	height: 280px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 599px) {
+	
+	.h_img {
+		width: 100%;
+	}
+
+	.h_text {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+	}
+
+	.h_btn {
+		margin-top: 0;
+		margin: auto;
+		float: none;
+	}
+
+	.h_text .morph-button {
+		width: 100%;
+		margin: 0;
+	}
+
+	.h_text .morph-button button {
+		width: 30%;
+	}
+
+	.h_text .morph-content button {
+		width: 30%;
+	}
+
+	
+}
+
+@media screen and (min-width: 320px) and (max-width: 799px) {
+	.main .discounts {
+		float: none;
+		width: 100%;
+	}
+
+	.main .advertisment {
+		width: 0px;
+	}
+}
+
+/*#h_sign_btn {
+	height: 100%;
+	position: relative;
+	float: right;
+	
+}
+
+#h_sign_btn_txt {
+	margin-top: 25%;
+	text-align: center;
+	width: 120px;
+	height: 40px;
+	line-height: 250%;
+	background-color: orange;
+	z-index: 999;
+}*/

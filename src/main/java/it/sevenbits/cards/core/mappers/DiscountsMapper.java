@@ -5,7 +5,7 @@ import it.sevenbits.cards.web.domain.DiscountForm;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 
-public interface DiscountMapper {
+public interface DiscountsMapper {
     //FindAll
     @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts")
     @Results({

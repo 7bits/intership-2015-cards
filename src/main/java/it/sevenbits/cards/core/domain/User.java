@@ -4,7 +4,7 @@ public class User {
     private Long id;
     private String email;
     private String userId;
-    private String password;
+    private String passwordHash;
     private Boolean isStore;
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class User {
         this.userId = userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public Boolean getIsStore() {
@@ -50,6 +50,6 @@ public class User {
     @Override
     public String toString() {
         return String.format("Discount[id=%d, email=%s, user_id=%s, password=%s, isStore=%b]",
-                id, email, userId, password, isStore);
+                id, email, userId, passwordHash, isStore);
     }
 }
