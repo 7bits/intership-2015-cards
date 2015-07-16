@@ -52,55 +52,36 @@ html
           // Содержимое 1 вкладки
           #send_tab.tab-pane
             #accordion1.accordion
-              .accordion-group.discount
-                .accordion-heading
-                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_1')
-                    .heading Discount 1
-                #collapse_send_1.accordion-body.collapse.describe_bg
-                  .accordion-inner.describe
-                    .describe_shadow
-                    .text
-                      | Discount describe 1
-                    .btn
-                      a(href='#')
-                        .b_text Send
-                    .describe_shadow_down
-              .accordion-group.discount
-                .accordion-heading
-                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_2')
-                    .heading Discount 2
-                #collapse_send_2.accordion-body.collapse.describe_bg
-                  .accordion-inner.describe
-                    .text
-                      | Discount describe 2
-                    .btn
-                      a(href='#')
-                        .b_text Send
-              .accordion-group.discount
-                .accordion-heading
-                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_3')
-                    .heading Discount 3
-                #collapse_send_3.accordion-body.collapse.describe_bg
-                  .accordion-inner.describe
-                    .text
-                      | Discount describe 3
-                    .btn
-                      a(href='#')
-                        .b_text Send
+              for discount in discounts
+                .accordion-group.discount
+                  .accordion-heading
+                    a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
+                      .heading Discount 1
+                    .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
+                      .accordion-inner.describe
+                        .describe_shadow
+                        .text
+                          | #{discount.userId}
+                        .btn
+                          a(href='#')
+                            .b_text Send
+                          .describe_shadow_down
           // Содержимое 2 вкладки
           #use_tab.tab-pane
             #accordion2.accordion
-              .accordion-group.discount
-                .accordion-heading
-                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_1')
-                    .heading Discount 1
-                #collapse_use_1.accordion-body.collapse.describe_bg
-                  .accordion-inner.describe
-                    .text
-                      | Discount describe 1
-                    .btn
-                      a(href='#')
-                        .b_text Use
+              for discount in discounts
+                .accordion-group.discount
+                  .accordion-heading
+                    a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                      .heading Discount fdsfsdfsd
+                    .accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
+                      .accordion-inner.describe
+                        .describe_shadow
+                        .text
+                          | #{discount.userId}
+                        .btn
+                          a(href='#')
+                            .b_text Use
         // Tabs content end
         // DISCOUNTS LIST END
       .advertisment
