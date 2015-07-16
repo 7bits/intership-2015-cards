@@ -23,6 +23,8 @@ public class DiscountsService {
         discount.setUin(form.getUin());
         discount.setIsHidden(form.getIsHidden());
         discount.setUserId(form.getUserId());
+        discount.setStoreName(form.getStoreName());
+        discount.setDescription(form.getDescription());
         try {
             repository.save(discount);
         } catch (Exception e) {
@@ -40,7 +42,9 @@ public class DiscountsService {
                         d.getKey(),
                         d.getUin(),
                         d.getIsHidden(),
-                        d.getUserId()
+                        d.getUserId(),
+                        d.getStoreName(),
+                        d.getDescription()
                         ));
             }
             return models;
@@ -59,7 +63,9 @@ public class DiscountsService {
                         d.getKey(),
                         d.getUin(),
                         d.getIsHidden(),
-                        d.getUserId()
+                        d.getUserId(),
+                        d.getStoreName(),
+                        d.getDescription()
                 ));
             }
             return models;
@@ -77,7 +83,9 @@ public class DiscountsService {
                         d.getKey(),
                         d.getUin(),
                         d.getIsHidden(),
-                        d.getUserId()
+                        d.getUserId(),
+                        d.getStoreName(),
+                        d.getDescription()
                 ));
             }
             return models;

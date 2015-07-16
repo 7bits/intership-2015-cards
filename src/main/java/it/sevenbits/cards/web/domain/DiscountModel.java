@@ -6,6 +6,8 @@ public class DiscountModel {
     private String uin;
     private Boolean isHidden;
     private String userId;
+    private String storeName;
+    private String description;
 
     public Long getId() {
         return id;
@@ -47,17 +49,36 @@ public class DiscountModel {
         this.userId = userId;
     }
 
-    public DiscountModel(long id, String key, String uin, Boolean isHidden, String userId){
+    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description){
         this.id = id;
         this.key = key;
         this.uin = uin;
         this.isHidden = isHidden;
         this.userId = userId;
+        this.storeName = storeName;
+        this.description = description;
+
     }
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s]",
-                id, key, uin, isHidden, userId);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
+                id, key, uin, isHidden, userId, storeName,description);
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

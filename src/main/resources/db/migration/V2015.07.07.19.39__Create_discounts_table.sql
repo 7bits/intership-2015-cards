@@ -3,7 +3,9 @@ CREATE TABLE discounts (
   "key" VARCHAR(8) NOT NULL,
   "uin" VARCHAR(8) NOT NULL,
   "is_hidden" BOOLEAN NOT NULL,
-  "user_id" VARCHAR(8) NOT NULL
+  "user_id" VARCHAR(8) NOT NULL,
+  "store_name" VARCHAR(255) NOT NULL,
+  "description" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE users (

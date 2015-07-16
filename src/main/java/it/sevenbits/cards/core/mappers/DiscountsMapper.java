@@ -7,17 +7,19 @@ import java.util.List;
 
 public interface DiscountsMapper {
     //FindAll
-    @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
             @Result(column = "uin", property = "uin"),
             @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId")
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description")
     })
     List<Discount> findAll();
     //save
-    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id) VALUES (#{key}, #{uin}, #{isHidden}, #{userId})")
+    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description})")
     void save(final Discount discount);
     //delete
     @Delete("DELETE FROM discounts WHERE uin = #{uin}")
@@ -29,7 +31,9 @@ public interface DiscountsMapper {
             @Result(column = "key", property = "key"),
             @Result(column = "uin", property = "uin"),
             @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId")
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description")
     })
     List<Discount> findAllDiscountsToUse();
     //findAllDiscountsToSend
@@ -39,7 +43,9 @@ public interface DiscountsMapper {
             @Result(column = "key", property = "key"),
             @Result(column = "uin", property = "uin"),
             @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId")
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description")
     })
     List<Discount> findAllDiscountsToSend();
     //findRegisteredUsers
