@@ -7,9 +7,11 @@ html
     script(src='http://code.jquery.com/jquery-latest.js')
     script(src='scripts/jquery-1.9.1.js')
     script(src='scripts/bootstrap.js')
+    script(src='scripts/search.js')
     link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
     script(src='scripts/modernizr.custom.js')
     link(rel='stylesheet', type='text/css', href='stylesheets/normalize.css')
+    link(rel='stylesheet', type='text/css', href='stylesheets/searchstyle.css')
     link(rel='stylesheet', type='text/css', href='stylesheets/component.css')
     link(rel='stylesheet', type='text/css', href='stylesheets/content.css')
     // BOOTSTRAP END
@@ -51,6 +53,8 @@ html
         .tab-content
           // Содержимое 1 вкладки
           #send_tab.tab-pane
+            input#send-search.send-use-search(type='text')
+            img.search-icon(src='img/ios7-search-strong.svg')
             #accordion1.accordion
               for discount in discounts
                 if discount.isHidden == true
@@ -69,6 +73,8 @@ html
                             .describe_shadow_down
           // Содержимое 2 вкладки
           #use_tab.tab-pane
+            input#use-search.send-use-search(type='text')
+            img.search-icon(src='img/ios7-search-strong.svg')
             #accordion2.accordion
               for discount in discounts
                 if discount.isHidden == false

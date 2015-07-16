@@ -1,0 +1,15 @@
+input.send-use-search[type='text'] {
+    width: 90%;
+    height:30px;
+    border: 2px solid #e0e0e0;
+    background: transparent;
+    color: black;
+}
+input.send-use-search[type='text']:focus{
+    border-color: black;
+}
+.search-icon{
+    display: inline-table;
+    height:30px;
+    width:9%;
+}
