@@ -135,6 +135,7 @@ public class DiscountsService {
     public void sendDiscount(final DiscountForm discountForm) throws ServiceException {
         Discount discount = new Discount();
         discount.setUin(discountForm.getUin());
+        discount.setUserId(discountForm.getUserId());
         try {
             repository.sendDiscount(discount);
         } catch (Exception e) {

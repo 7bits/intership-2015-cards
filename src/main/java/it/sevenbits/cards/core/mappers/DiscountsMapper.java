@@ -71,5 +71,5 @@ public interface DiscountsMapper {
     })
     List<Discount> findUserId(final Discount discount);
     @Update("UPDATE discounts SET user_id = 'user' WHERE uin = #{uin}") void changeUserId(final Discount discount);
-    @Update("UPDATE discounts SET user_id = 'store' WHERE uin = #{uin}") void sendDiscount(final Discount discount);
+    @Update("UPDATE discounts SET user_id = #{userId} WHERE uin = #{uin}") void sendDiscount(final Discount discount);
 }
