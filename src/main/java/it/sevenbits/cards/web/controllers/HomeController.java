@@ -1,4 +1,5 @@
 package it.sevenbits.cards.web.controllers;
+import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountsService;
@@ -43,5 +44,30 @@ public class HomeController {
     public String authorization_post(final Model model) {
         model.addAttribute("authorization", new AuthorizationForm());
         return "home/authorization";
+    }
+    //Trade discount GET
+    @RequestMapping(value = "/trade", method = RequestMethod.GET)
+    public String tradeGet(final Model model) {
+        return "home/trade";
+    }
+    //Trade discount POST
+    @RequestMapping(value = "/trade", method = RequestMethod.POST)
+    public String tradePost(@ModelAttribute UseForm form, final Model model) throws ServiceException{
+        Discount discount = new Discount();
+        discount.setUin(form.getUin());
+        DiscountForm discountForm = new DiscountForm();
+        discountForm.setUin(form.getUin());
+        discountsService.changeUserId(discountForm);
+        model.addAttribute("discounts", discountsService.findUserId(discount));
+        return "home/discounts";
+    }
+
+    @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
+    public String send(@ModelAttribute SendForm form, final Model model) throws ServiceException{
+        DiscountForm discountForm = new DiscountForm();
+        discountForm.setUin(form.getUin());
+        discountForm.setUserId(form.getUserId());
+        discountsService.sendDiscount(discountForm);
+        return "redirect:/personal_area";
     }
 }

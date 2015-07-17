@@ -1,6 +1,7 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.mappers.DiscountsMapper;
+import it.sevenbits.cards.web.service.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,4 +59,36 @@ public class DiscountsPersistRepository implements DiscountsRepository {
             throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
+    @Override
+    public List<Discount> findUserId(Discount discount) throws RepositoryException {
+        try {
+            return mapper.findUserId(discount);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void changeUserId(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            throw new RepositoryException("Discount is null");
+        }
+        try {
+            mapper.changeUserId(discount);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public void sendDiscount(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            throw new RepositoryException("Discount is null");
+        }
+        try {
+            mapper.sendDiscount(discount);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
+        }
+    }
+
 }

@@ -2,7 +2,7 @@ doctype html
 html
     head
         meta(charset='utf-8')
-        title Personal Area
+        title All discounts
         // BOOTSTRAP
         script(src='http://code.jquery.com/jquery-latest.js')
         script(src='scripts/jquery-1.9.1.js')
@@ -21,13 +21,9 @@ html
                     .accordion-group.discount
                         .accordion-heading
                             a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
-                                .heading Discount 1
+                                .heading Info about discount with id #{discount.id}
                             .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
                                 .accordion-inner.describe
                                     .describe_shadow
                                     .text
-                                        | #{discount.userId}
-                                    .btn
-                                        a(href='#')
-                                            .b_text Send
-                                        .describe_shadow_down
+                                        | Key: #{discount.key} Uin: #{discount.uin} IsHidden: #{discount.isHidden} UserId: #{discount.userId} StoreName: #{discount.storeName} Description: #{discount.description}

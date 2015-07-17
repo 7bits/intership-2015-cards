@@ -13,5 +13,8 @@ public interface DiscountsRepository {
     void delete(final Discount discount) throws RepositoryException;
     List<Discount> findAllDiscountsToUse() throws RepositoryException;
     List<Discount> findAllDiscountsToSend() throws RepositoryException;
+    List<Discount> findUserId(final Discount discount) throws RepositoryException;
+    void changeUserId(final Discount discount) throws RepositoryException;
+    void sendDiscount(final Discount discount) throws RepositoryException;
 }
 

@@ -61,4 +61,26 @@ public class DiscountsInMemoryRepository implements DiscountsRepository {
     public List<Discount> findAllDiscountsToSend() {
         return new ArrayList<>(discounts.values());
     }
+
+    @Override
+    public List<Discount> findUserId(final Discount discount) {
+        return new ArrayList<>(discounts.values());
+    }
+
+    @Override
+    public void changeUserId(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            LOG.error("Discount is null");
+            throw new RepositoryException("Discount is null");
+        }
+        LOG.info("Start changing: " + discount.toString());
+    }
+    @Override
+    public void sendDiscount(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            LOG.error("Discount is null");
+            throw new RepositoryException("Discount is null");
+        }
+        LOG.info("Start changing: " + discount.toString());
+    }
 }

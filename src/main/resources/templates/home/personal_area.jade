@@ -58,19 +58,24 @@ html
             #accordion1.accordion
               for discount in discounts
                 if discount.isHidden == true
-                  .accordion-group.discount
-                    .accordion-heading
-                      a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
-                        .heading #{discount.storeName}
-                      .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
-                        .accordion-inner.describe
-                          .describe_shadow
-                          .text
-                            | #{discount.description}
-                          .btn
-                            a(href='#')
-                              .b_text Send
-                            .describe_shadow_down
+                  if discount.userId == "user"
+                    .accordion-group.discount
+                      .accordion-heading
+                        a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
+                          .heading #{discount.storeName}
+                        .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
+                          .accordion-inner.describe
+                            .describe_shadow
+                            .text
+                              | #{discount.description}
+                            .btn
+                              a(href='#')
+                                .b_text Send
+                                  form(action="/send_discount", method="post")
+                                    input.form-control(name="uin", type="hidden", value="#{discount.uin}")
+                                    input.form-control(name="userId", placeholder="Получатель", type="text")
+                                    input.btn.btn-primary(type="submit", value="Отправить")
+                              .describe_shadow_down
           // Содержимое 2 вкладки
           #use_tab.tab-pane
             input#use-search.send-use-search(type='text')
@@ -78,18 +83,19 @@ html
             #accordion2.accordion
               for discount in discounts
                 if discount.isHidden == false
-                  .accordion-group.discount
-                    .accordion-heading
-                      a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
-                        .heading #{discount.storeName}
-                      .accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
-                        .accordion-inner.describe
-                          .describe_shadow
-                          .text
-                            | #{discount.description}
-                          .btn
-                            a(href='#')
-                              .b_text Use
+                  if discount.userId == "user"
+                    .accordion-group.discount
+                      .accordion-heading
+                        a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                          .heading #{discount.storeName}
+                        .accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
+                          .accordion-inner.describe
+                            .describe_shadow
+                            .text
+                              | #{discount.description}
+                            .btn
+                              a(href='#')
+                                .b_text Use
         // Tabs content end
         // DISCOUNTS LIST END
       .advertisment

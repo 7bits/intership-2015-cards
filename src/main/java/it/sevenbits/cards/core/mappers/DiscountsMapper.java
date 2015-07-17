@@ -25,7 +25,7 @@ public interface DiscountsMapper {
     @Delete("DELETE FROM discounts WHERE uin = #{uin}")
     void delete(final Discount discount);
     //findAllDiscountsToUse
-    @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts WHERE is_hidden = false")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = false")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -37,7 +37,7 @@ public interface DiscountsMapper {
     })
     List<Discount> findAllDiscountsToUse();
     //findAllDiscountsToSend
-    @Select("SELECT id, key, uin, is_hidden, user_id FROM discounts WHERE is_hidden = true")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = true")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -58,4 +58,18 @@ public interface DiscountsMapper {
             @Result(column = "is_store", property = "isStore")
     })
     boolean findRegisteredUsers(final User user);
+    //findUserId
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE uin = #{uin}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "key", property = "key"),
+            @Result(column = "uin", property = "uin"),
+            @Result(column = "is_hidden", property = "isHidden"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description")
+    })
+    List<Discount> findUserId(final Discount discount);
+    @Update("UPDATE discounts SET user_id = 'user' WHERE uin = #{uin}") void changeUserId(final Discount discount);
+    @Update("UPDATE discounts SET user_id = 'store' WHERE uin = #{uin}") void sendDiscount(final Discount discount);
 }

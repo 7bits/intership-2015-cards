@@ -25,12 +25,6 @@ public class DiscountsController {
         model.addAttribute("send", new SendForm());
         return "home/index";
     }
-    @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public String send(@ModelAttribute SendForm form, final Model model) {
-// В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
-        model.addAttribute("send", form);
-        return "home/send_discount";
-    }
     //Bind
     @RequestMapping(value = "/bind_discount", method = RequestMethod.GET)
     public String index_from_bind(final Model model) {
