@@ -1,103 +1,145 @@
 doctype html
 html
-  head
-    meta(charset='utf-8')
-    title Discounts
-    // BOOTSTRAP
-    link(rel='stylesheet', type='text/css', href='stylesheets/normalize.css')
-    link(rel='stylesheet', type='text/css', href='stylesheets/component.css')
-    script(src='http://code.jquery.com/jquery-latest.js')
-    script(src='scripts/login.js')
-    link(rel='stylesheet', type='text/css', href='stylesheets/content.css')
-    script(src='scripts/modernizr.custom.js')
-    // BOOTSTRAP END
-    link(href='stylesheets/styletest1.css', rel='stylesheet')
-  body
-    // HEADER
-    .header
-      .h_img
-        img(src='img/logoOS.png')
-      .h_text
-        .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-          button(type='button') Log in
-          .morph-content
-            div
-              .content-style-form.content-style-form-1
-                span.icon.icon-close Close the dialog
-                h2 Login
-                form
-                  p
-                    label Email
-                    input#js-email(type='text')
-                  p
-                    label Password
-                    input#js-password(type='password')
-                  p
-                    button#js-login-button Login
-        // morph-button
-    // HEADER END
-    // MAIN
-    .main
-      .homepage_describe
-      .advertisment
-      .shadow
-    // MAIN END
-    // SCRIPTS
-    script(src='scripts/classie.js')
-    script(src='scripts/uiMorphingButton_fixed.js')
-    script.
-      (function() {
-      var docElem = window.document.documentElement, didScroll, scrollPosition;
-      // trick to prevent scrolling when opening/closing button
-      function noScrollFn() {
-      window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
-      }
-      function noScroll() {
-      window.removeEventListener( 'scroll', scrollHandler );
-      window.addEventListener( 'scroll', noScrollFn );
-      }
-      function scrollFn() {
-      window.addEventListener( 'scroll', scrollHandler );
-      }
-      function canScroll() {
-      window.removeEventListener( 'scroll', noScrollFn );
-      scrollFn();
-      }
-      function scrollHandler() {
-      if( !didScroll ) {
-      didScroll = true;
-      setTimeout( function() { scrollPage(); }, 60 );
-      }
-      };
-      function scrollPage() {
-      scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
-      didScroll = false;
-      };
-      scrollFn();
-      [].slice.call( document.querySelectorAll( '.morph-button' ) ).forEach( function( bttn ) {
-      new UIMorphingButton( bttn, {
-      closeEl : '.icon-close',
-      onBeforeOpen : function() {
-      // don't allow to scroll
-      noScroll();
-      },
-      onAfterOpen : function() {
-      // can scroll again
-      canScroll();
-      },
-      onBeforeClose : function() {
-      // don't allow to scroll
-      noScroll();
-      },
-      onAfterClose : function() {
-      // can scroll again
-      canScroll();
-      }
-      } );
-      } );
-      // for demo purposes only
-      [].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) {
-      bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );
-      } );
-      })();
-    // SCRIPTS END
+     head
+          meta(charset='utf-8')
+          title Домашняя страница
+          // BOOTSTRAP
+          link(rel='stylesheet', type='text/css', href='stylesheets/normalize.css')
+          link(rel='stylesheet', type='text/css', href='stylesheets/component.css')
+          script(src='http://code.jquery.com/jquery-latest.js')
+          link(rel='stylesheet', type='text/css', href='stylesheets/content.css')
+          script(src='scripts/modernizr.custom.js')
+          script(src='scripts/login.js')
+          // BOOTSTRAP END
+          link(href='stylesheets/style.css', rel='stylesheet')
+          link(rel='stylesheet', type='text/css', href='stylesheets/header.css')
+     body
+          // HEADER
+          .header_container
+               .header
+                    .header-image
+                    .header-buttons
+                         .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-logout
+                              button(type='button') Войти
+                              .morph-content
+                                   .content-style-form.content-style-form-1
+                                        span.icon.icon-close Закрыть окно
+                                        h2 Войти
+                                        form
+                                             p
+                                                  label Email
+                                                  input#js-email(type='text')
+                                             p
+                                                  label Пароль
+                                                  input#js-password(type='password')
+                                             p
+                                                  button#js-login-button Войти
+                         // morph-button
+                         #js_info_button.info-button(tabindex='1')
+                              | Информация
+                              ul.dropdown
+                                   li
+                                        a(href='#') О проекте
+                                   li
+                                        a(href='#') Разработчики
+                                   li
+                                        a(href='#') Поддержка
+          // HEADER END
+          // MAIN
+          .main
+               .homepage_describe
+               .advertisment
+               .shadow
+          // MAIN END
+          // SCRIPTS
+          script(src='scripts/classie.js')
+          script(src='scripts/uiMorphingButton_fixed.js')
+          script.
+               (function () {
+                    var docElem = window.document.documentElement, didScroll, scrollPosition;
+                    // trick to prevent scrolling when opening/closing button
+                    function noScrollFn() {
+                         window.scrollTo(scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0);
+                    }
+
+                    function noScroll() {
+                         window.removeEventListener('scroll', scrollHandler);
+                         window.addEventListener('scroll', noScrollFn);
+                    }
+
+                    function scrollFn() {
+                         window.addEventListener('scroll', scrollHandler);
+                    }
+
+                    function canScroll() {
+                         window.removeEventListener('scroll', noScrollFn);
+                         scrollFn();
+                    }
+
+                    function scrollHandler() {
+                         if (!didScroll) {
+                              didScroll = true;
+                              setTimeout(function () {
+                                   scrollPage();
+                              }, 60);
+                         }
+                    };
+                    function scrollPage() {
+                         scrollPosition = {
+                              x: window.pageXOffset || docElem.scrollLeft,
+                              y: window.pageYOffset || docElem.scrollTop
+                         };
+                         didScroll = false;
+                    };
+                    scrollFn();
+                    [].slice.call(document.querySelectorAll('.morph-button')).forEach(function (bttn) {
+                         new UIMorphingButton(bttn, {
+                              closeEl: '.icon-close',
+                              onBeforeOpen: function () {
+                                   // don't allow to scroll
+                                   noScroll();
+                              },
+                              onAfterOpen: function () {
+                                   // can scroll again
+                                   canScroll();
+                              },
+                              onBeforeClose: function () {
+                                   // don't allow to scroll
+                                   noScroll();
+                              },
+                              onAfterClose: function () {
+                                   // can scroll again
+                                   canScroll();
+                              }
+                         });
+                    });
+                    // for demo purposes only
+                    [].slice.call(document.querySelectorAll('form button')).forEach(function (bttn) {
+                         bttn.addEventListener('click', function (ev) {
+                              ev.preventDefault();
+                         });
+                    });
+               })();
+          script(type='text/javascript').
+               function DropDown(el) {
+                    this.dd = el;
+                    this.initEvents();
+               }
+               DropDown.prototype = {
+                    initEvents: function () {
+                         var obj = this;
+                         obj.dd.on('click', function (event) {
+                              $(this).toggleClass('active');
+                              event.stopPropagation();
+                         });
+                    }
+               }
+               $(function () {
+                    var js_info_button = new DropDown($('#js_info_button'));
+                    $(document).click(function () {
+                         // all dropdowns
+                         $('.info-button').removeClass('active');
+                    });
+               });
+          // SCRIPTS END
+                    

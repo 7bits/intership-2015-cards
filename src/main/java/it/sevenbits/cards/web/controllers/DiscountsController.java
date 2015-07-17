@@ -19,32 +19,7 @@ public class DiscountsController {
     @Autowired
     private DiscountsService discountsService;
     private Logger LOG = Logger.getLogger(HomeController.class);
-    @RequestMapping(value = "/send_discount", method = RequestMethod.GET)
-    public String index_from_send(final Model model) {
-// В модель добавим новый объект формы подписки
-        model.addAttribute("send", new SendForm());
-        return "home/index";
-    }
-    //Bind
-    @RequestMapping(value = "/bind_discount", method = RequestMethod.GET)
-    public String index_from_bind(final Model model) {
-// В модель добавим новый объект формы подписки
-        model.addAttribute("bind", new BindForm());
-        return "home/index";
-    }
-    @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String bind(@ModelAttribute BindForm form, final Model model) {
-// В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
-        model.addAttribute("bind", form);
-        return "home/bind_discount";
-    }
-    //Use
-    @RequestMapping(value = "/use_discount", method = RequestMethod.GET)
-    public String index_from_use(final Model model) {
-// В модель добавим новый объект формы подписки
-        model.addAttribute("use", new UseForm());
-        return "home/index";
-    }
+
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
     public String use(@ModelAttribute UseForm form, final Model model) throws ServiceException {
 // В запросе пришла заполненная форма. Отправим в модель этот объект и отрендерим ее на другом шаблоне.
@@ -52,7 +27,7 @@ public class DiscountsController {
         discountForm.setUin(form.getUin());
         model.addAttribute("use", form);
         discountsService.delete(discountForm);
-        return "home/use_discount";
+        return "redirect:/store_area";
     }
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
     public String getDiscounts(final Model model) throws ServiceException {

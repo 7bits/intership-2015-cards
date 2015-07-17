@@ -34,24 +34,19 @@ public class HomeController {
         model.addAttribute("discounts", discountsService.findAll());
         return "home/personal_area";
     }
+    @RequestMapping(value = "/personal_area", method = RequestMethod.POST)
+    public String personalAreaPost(final Model model) throws ServiceException {
+
+        return "redirect:/personal_area";
+    }
     //Index page
     @RequestMapping(value = "/store_area", method = RequestMethod.GET)
     public String storeArea(final Model model) {
         return "home/store_area";
     }
     //Authorization page
-    @RequestMapping(value = "/authorization", method = RequestMethod.GET)
-    public String authorization_post(final Model model) {
-        model.addAttribute("authorization", new AuthorizationForm());
-        return "home/authorization";
-    }
-    //Trade discount GET
-    @RequestMapping(value = "/trade", method = RequestMethod.GET)
-    public String tradeGet(final Model model) {
-        return "home/trade";
-    }
     //Trade discount POST
-    @RequestMapping(value = "/trade", method = RequestMethod.POST)
+    @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
     public String tradePost(@ModelAttribute UseForm form, final Model model) throws ServiceException{
         Discount discount = new Discount();
         discount.setUin(form.getUin());
@@ -59,7 +54,7 @@ public class HomeController {
         discountForm.setUin(form.getUin());
         discountsService.changeUserId(discountForm);
         model.addAttribute("discounts", discountsService.findUserId(discount));
-        return "home/discounts";
+        return "redirect:/personal_area";
     }
 
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)

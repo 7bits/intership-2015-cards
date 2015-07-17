@@ -1,0 +1,210 @@
+body {
+	margin: auto;
+	width: 100%;
+	background-color: #eaecf3;
+	outline: 0 solid red;
+	color: white;
+}
+
+a {
+	text-decoration: none;
+}
+
+.main {
+	width: 80%;
+	margin: 0 auto;
+	clear: both;
+	margin-top: 40px;
+	max-width: 960px;
+	min-width: 320px;
+	overflow: hidden;
+}
+
+.main .add-button {
+	float: right;
+	width: 35%;
+	height: 40px;
+	margin-bottom: 20px;
+}
+
+.main .add-button .morph-button-add{
+		width: 100%;
+	}
+
+
+.main .discounts {
+	margin-top: 0;
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+
+.main .advertisment {
+	clear: right;
+	float: right;
+	width: 35%;
+}
+
+.main .advertisment img {
+	width: 100%;
+}
+
+.shadow {
+	clear: both;
+	height: 20px;
+	width: 100%;
+}
+
+.tabs {
+	border-radius: 0;
+	overflow: hidden;
+}
+
+.tabs ul {
+	overflow: hidden;
+	margin-top: 0;
+	margin-bottom: 20px;
+
+}
+
+.tabs li {
+	border-radius: 0;
+	width: 50%;
+	text-align: center;
+}
+
+.tabs a {
+	text-decoration: none;
+}
+
+.discount {
+	margin-bottom: 3px;
+}
+
+
+
+.discount .collapsed .heading{
+	box-shadow: none;
+	border-radius: 3px;
+	position: relative;
+	padding: 2%;
+	padding-left: 3%;
+	background-color: #3956a3;
+	color: #fff;
+	font-weight: bold;
+}
+
+.discount .heading{
+	/*border-radius: 3px;*/
+	box-shadow: 0 4px 2px 0 rgba(0,0,0,0.6);
+	border-radius: 3px 3px 0 0;
+	position: relative;
+	padding: 2%;
+	padding-left: 3%;
+	background-color: #3956a3;
+	color: #fff;
+	font-weight: bold;
+}
+
+.discount .collapsed{
+}
+
+.discount .heading:before,
+.discount .heading:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+}
+
+.discount .describe {
+	overflow: hidden;
+	color: black;
+	background-color: #dcdee6;
+	border-radius: 0 0 3px 3px;
+}
+
+.describe_shadow {
+	width: 100%;
+	height: 0px;
+	/*background: linear-gradient(to top, #f0f0f0, #000 70%);*/
+}
+
+.describe_shadow_down {
+	float: left;
+	width: 100%;
+	height: 0px;
+	/*background: linear-gradient(to top, #000 5%, #a6a6a6, #f0f0f0);*/
+}
+
+.discount .text {
+	float: left;
+	width: 70%;
+	padding: 3%;
+}
+
+.discount .btn {
+	float: right;
+	width: 25%;
+}
+
+.discount .describe a {
+	color: black;
+	text-decoration: none;
+}
+
+.b_text {
+	width: 140px;
+	float: right;
+	text-align: center;
+	background-color: #ff466a;
+	color: white;
+	font-weight: bold;
+	margin: 10%;
+	padding: 10px 10px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 799px) {
+
+	.main .add-button {
+		width: 100%;
+		float: none;
+	}
+	.main .add-button .morph-button-add{
+		width: 100%;
+	}
+
+	.main .discounts {
+		width: 100%;
+	}
+
+	.main .advertisment {
+		width: 0px;
+	}
+
+	.discount .text {
+	width: 100%;
+	padding: 3%;
+}
+
+	.discount .btn {
+		clear: both;
+	float: right;
+}
+}
+
+/*#h_sign_btn {
+	height: 100%;
+	position: relative;
+	float: right;
+	
+}
+
+#h_sign_btn_txt {
+	margin-top: 25%;
+	text-align: center;
+	width: 120px;
+	height: 40px;
+	line-height: 250%;
+	background-color: orange;
+	z-index: 999;
+}*/
