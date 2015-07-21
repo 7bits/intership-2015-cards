@@ -24,7 +24,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String root(HttpServletRequest request) {
+    public String root() {
         return "home/homepage";
     }
     //Homepage
