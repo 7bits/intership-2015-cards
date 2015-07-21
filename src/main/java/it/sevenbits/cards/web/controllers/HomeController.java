@@ -16,7 +16,7 @@ public class HomeController {
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Homepage from root
-
+    //Aloha
     //Index page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request) {
