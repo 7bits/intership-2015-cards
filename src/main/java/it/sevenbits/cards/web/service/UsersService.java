@@ -1,5 +1,8 @@
 package it.sevenbits.cards.web.service;
 
+
+
+
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.web.domain.RegistrationForm;
 import it.sevenbits.cards.web.domain.UserForm;
@@ -7,6 +10,7 @@ import it.sevenbits.cards.core.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import it.sevenbits.cards.validation.EmailValidation;
 
 @Service
 public class UsersService {
@@ -17,7 +21,12 @@ public class UsersService {
 
     public void saveUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
-        user.setEmail(form.getEmail());
+        String s = form.getEmail();
+        if (EmailValidation.checkEmailValidity(s)) {
+            user.setEmail(form.getEmail());
+        } else {
+            user.setEmail("invalid email");
+        }
         user.setPasswordHash(form.getPassword());
         user.setIsStore(false);
         user.setUserId("123");
