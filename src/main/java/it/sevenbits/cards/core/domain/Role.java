@@ -4,8 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
  * Created by deamor on 20.07.15.
  */
 public enum Role implements GrantedAuthority {
-    ROLE_USER (0, "User"),
-    ROLE_ANONIMOUS (1, "Anonymous");
+    ROLE_ADMIN (0, "Admin"),
+    ROLE_USER (1, "User"),
+    ROLE_ANONIMOUS (2, "Anonymous");
 
     private Integer order;
     private String description;

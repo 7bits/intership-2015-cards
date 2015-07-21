@@ -7,9 +7,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by deamor on 20.07.15.
- */
 @Service
 public class CsrfInterceptor extends HandlerInterceptorAdapter {
 
@@ -20,7 +17,7 @@ public class CsrfInterceptor extends HandlerInterceptorAdapter {
             Object handler,
             ModelAndView mav
     ) throws Exception {
-// Специальный фикс для jade, так как сама библиотека jade не складывает csrf токен в модель.
+        // Специальный фикс для jade, так как сама библиотека jade не складывает csrf токен в модель.
         mav.addObject("_csrf", request.getAttribute("_csrf"));
     }
 

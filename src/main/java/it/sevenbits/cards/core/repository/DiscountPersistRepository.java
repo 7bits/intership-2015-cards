@@ -1,7 +1,6 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.mappers.DiscountsMapper;
-import it.sevenbits.cards.web.service.ServiceException;
+import it.sevenbits.cards.core.mappers.DiscountMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 @Qualifier(value = "discountPersistRepository")
-public class DiscountsPersistRepository implements DiscountsRepository {
-    private static Logger LOG = Logger.getLogger(DiscountsPersistRepository.class);
+public class DiscountPersistRepository implements DiscountRepository {
+    private static Logger LOG = Logger.getLogger(DiscountPersistRepository.class);
     @Autowired
-    private DiscountsMapper mapper;
+    private DiscountMapper mapper;
     @Override
     public void save(final Discount discount) throws RepositoryException {
         if (discount == null) {

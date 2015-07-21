@@ -1,7 +1,7 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.web.domain.*;
-import it.sevenbits.cards.web.service.DiscountsService;
+import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class DiscountsController {
+public class DiscountController {
     @Autowired
-    private DiscountsService discountsService;
+    private DiscountService discountService;
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
@@ -23,12 +23,12 @@ public class DiscountsController {
         DiscountForm discountForm = new DiscountForm();
         discountForm.setUin(form.getUin());
         model.addAttribute("use", form);
-        discountsService.delete(discountForm);
+        discountService.delete(discountForm);
         return "redirect:/store_area";
     }
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
     public String getDiscounts(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountsService.findAll());
+        model.addAttribute("discounts", discountService.findAll());
         return "home/discounts";
     }
     @RequestMapping(value = "/add_discount", method = RequestMethod.GET)
@@ -40,19 +40,19 @@ public class DiscountsController {
     @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
     public String show_discounts(@ModelAttribute DiscountForm form, final Model model) throws ServiceException {
         LOG.debug(form);
-        discountsService.save(form);
+        discountService.save(form);
         return "redirect:/discounts";
     }
     //Personal use area page
     @RequestMapping(value = "/personal_area_use", method = RequestMethod.POST)
     public String personalAreaUse(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountsService.findAllDiscountsToUse());
+        model.addAttribute("discounts", discountService.findAllDiscountsToUse());
         return "home/discountsToUse";
     }
     //Personal send area page
     @RequestMapping(value = "/personal_area_send", method = RequestMethod.POST)
     public String personalAreaSend(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountsService.findAllDiscountsToSend());
+        model.addAttribute("discounts", discountService.findAllDiscountsToSend());
         return "home/discountsToSend";
     }
 }

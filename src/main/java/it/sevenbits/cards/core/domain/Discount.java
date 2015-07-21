@@ -2,7 +2,7 @@ package it.sevenbits.cards.core.domain;
 
 import java.io.Serializable;
 
-public class Discount implements Serializable{
+public class Discount implements Serializable {
     private Long id;
     private String key;
     private String uin;
@@ -51,12 +51,6 @@ public class Discount implements Serializable{
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
-                id, key, uin, isHidden, userId, storeName, description);
-    }
-
     public String getStoreName() {
         return storeName;
     }
@@ -72,4 +66,11 @@ public class Discount implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
+                id, key, uin, isHidden, userId, storeName, description);
+    }
 }
+

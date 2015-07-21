@@ -22,7 +22,7 @@ public class UserRepository implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        LOG.info(encoder.encode("qwerty"));
+        LOG.info(encoder.encode("redline"));
         try {
             LOG.info("Loading user by username: " + username);
             User userDetails = this.findByUsername(username);
