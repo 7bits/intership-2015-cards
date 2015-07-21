@@ -12,13 +12,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
     @Autowired
     private DiscountsService discountsService;
     private Logger LOG = Logger.getLogger(HomeController.class);
+
     //Homepage from root
+
+    //Index page
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin(HttpServletRequest request) {
+        return "home/login";
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root(final Model model) {
         return "home/homepage";
@@ -28,13 +37,10 @@ public class HomeController {
     public String homepage(final Model model) {
         return "home/homepage";
     }
-    //Registration
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration() {return "home/registration";}
     //Personal Area Get Method
     @RequestMapping(value = "/personal_area", method = RequestMethod.GET)
     public String personalArea(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountsService.findAllDiscounts());
+        model.addAttribute("discounts", discountsService.findAll());
         return "home/personal_area";
     }
     //Personal Area Post Method

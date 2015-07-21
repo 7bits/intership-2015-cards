@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DiscountsRepository {
     void save(final Discount discount) throws RepositoryException;
-    List<Discount> findAllDiscounts() throws RepositoryException;
+    List<Discount> findAll() throws RepositoryException;
     void delete(final Discount discount) throws RepositoryException;
     List<Discount> findAllDiscountsToUse() throws RepositoryException;
     List<Discount> findAllDiscountsToSend() throws RepositoryException;

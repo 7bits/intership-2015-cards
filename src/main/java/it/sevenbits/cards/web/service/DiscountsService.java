@@ -32,9 +32,9 @@ public class DiscountsService {
         }
     }
 
-    public List<DiscountModel> findAllDiscounts() throws ServiceException {
+    public List<DiscountModel> findAll() throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAllDiscounts();
+            List<Discount> discounts = repository.findAll();
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(

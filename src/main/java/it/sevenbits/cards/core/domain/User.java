@@ -1,11 +1,65 @@
 package it.sevenbits.cards.core.domain;
 
-public class User {
+
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class User implements UserDetails {
     private Long id;
     private String email;
     private String userId;
-    private String passwordHash;
+    private String password;
+    private Role role;
+    private Boolean enabled;
     private Boolean isStore;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(role);
+        return roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
@@ -15,12 +69,20 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public Role getRole() {
+        return role;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
     public String getUserId() {
@@ -31,25 +93,11 @@ public class User {
         this.userId = userId;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
     public Boolean getIsStore() {
         return isStore;
     }
 
     public void setIsStore(Boolean isStore) {
         this.isStore = isStore;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Discount[id=%d, email=%s, user_id=%s, password=%s, isStore=%b]",
-                id, email, userId, passwordHash, isStore);
     }
 }

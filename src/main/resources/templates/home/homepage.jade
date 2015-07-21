@@ -4,15 +4,19 @@ html
           meta(charset='utf-8')
           title Домашняя страница
           // BOOTSTRAP
-          link(rel='stylesheet', type='text/css', href='stylesheets/normalize.css')
-          link(rel='stylesheet', type='text/css', href='stylesheets/component.css')
+          meta(name="_csrf", content="#{_csrf.token}")
+          meta(name="_csrf_header", content="#{_csrf.headerName}")
+          
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
           script(src='http://code.jquery.com/jquery-latest.js')
-          link(rel='stylesheet', type='text/css', href='stylesheets/content.css')
-          script(src='scripts/modernizr.custom.js')
-          script(src='scripts/login.js')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
+
+          script(src='/resources/scripts/modernizr.custom.js')
+          script(src='/resources/scripts/login.js')
           // BOOTSTRAP END
-          link(href='stylesheets/style.css', rel='stylesheet')
-          link(rel='stylesheet', type='text/css', href='stylesheets/header.css')
+          link(href='/resources/stylesheets/style.css', rel='stylesheet')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
      body
           // HEADER
           .header_container
@@ -54,8 +58,8 @@ html
                .shadow
           // MAIN END
           // SCRIPTS
-          script(src='scripts/classie.js')
-          script(src='scripts/uiMorphingButton_fixed.js')
+          script(src='/resources/scripts/classie.js')
+          script(src='/resources/scripts/uiMorphingButton_fixed.js')
           script.
                (function () {
                     var docElem = window.document.documentElement, didScroll, scrollPosition;

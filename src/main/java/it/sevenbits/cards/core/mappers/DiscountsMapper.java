@@ -17,7 +17,7 @@ public interface DiscountsMapper {
             @Result(column = "store_name", property = "storeName"),
             @Result(column = "description", property = "description")
     })
-    List<Discount> findAllDiscounts();
+    List<Discount> findAll();
     //save
     @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description})")
     void save(final Discount discount);
