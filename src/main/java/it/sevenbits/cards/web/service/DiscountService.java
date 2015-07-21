@@ -1,7 +1,7 @@
 package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.repository.DiscountsRepository;
+import it.sevenbits.cards.core.repository.DiscountRepository;
 import it.sevenbits.cards.web.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DiscountsService {
+public class DiscountService {
     @Autowired
 
     @Qualifier(value = "discountPersistRepository")
-    private DiscountsRepository repository;
+    private DiscountRepository repository;
 
     public void save(final DiscountForm form) throws ServiceException {
         final Discount discount = new Discount();

@@ -7,7 +7,7 @@ import it.sevenbits.cards.web.domain.UseForm;
 
 import java.util.List;
 
-public interface DiscountsRepository {
+public interface DiscountRepository {
     void save(final Discount discount) throws RepositoryException;
     List<Discount> findAll() throws RepositoryException;
     void delete(final Discount discount) throws RepositoryException;

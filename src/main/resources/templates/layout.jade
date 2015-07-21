@@ -13,6 +13,16 @@ html
                script(type="application/javascript", src="vendor/scripts/jquery-2.1.4.min.js")
                script(type="application/javascript", src="vendor/scripts/bootstrap.min.js")
 
+               link(rel="stylesheet", href="/resources/vendor/stylesheets/bootstrap.min.css")
+               link(rel="stylesheet", href="/resources/vendor/stylesheets/bootstrap-theme.min.css")
+
+               meta(name="_csrf", content="#{_csrf.token}")
+               meta(name="_csrf_header", content="#{_csrf.headerName}")
+
+               script(type="application/javascript", src="/resources/vendor/scripts/jquery-2.1.4.min.js")
+               script(type="application/javascript", src="/resources/vendor/scripts/bootstrap.min.js")
+
+
      body
           .container
                block content
