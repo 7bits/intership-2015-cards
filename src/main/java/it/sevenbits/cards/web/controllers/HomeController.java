@@ -24,6 +24,8 @@ public class HomeController {
         return "home/homepage";
     }
     //Index page
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration() {return "home/registration";}
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String homepage(final Model model) {
         return "home/homepage";

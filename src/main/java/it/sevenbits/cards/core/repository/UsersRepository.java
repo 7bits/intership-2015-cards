@@ -6,8 +6,8 @@ import it.sevenbits.cards.web.domain.UserForm;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public interface UsersRepository{
+    void saveUser(final User user) throws RepositoryException;
 }
 

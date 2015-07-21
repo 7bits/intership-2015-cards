@@ -1,9 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.web.domain.BindForm;
-import it.sevenbits.cards.web.domain.DiscountForm;
-import it.sevenbits.cards.web.domain.SendForm;
-import it.sevenbits.cards.web.domain.UseForm;
+import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountsService;
 import it.sevenbits.cards.web.service.ServiceException;
 import org.apache.log4j.Logger;
