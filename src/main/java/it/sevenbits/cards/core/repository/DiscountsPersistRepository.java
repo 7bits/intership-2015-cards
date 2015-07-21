@@ -25,9 +25,9 @@ public class DiscountsPersistRepository implements DiscountsRepository {
         }
     }
     @Override
-    public List<Discount> findAll() throws RepositoryException {
+    public List<Discount> findAllDiscounts() throws RepositoryException {
         try {
-            return mapper.findAll();
+            return mapper.findAllDiscounts();
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }

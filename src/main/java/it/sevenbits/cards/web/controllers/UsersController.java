@@ -18,8 +18,8 @@ public class UsersController {
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     @RequestMapping(value = "/user_registration", method = RequestMethod.POST)
-    public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException {
-        usersService.saveUser(form);
+    public String user_registration(@ModelAttribute RegistrationForm registrationForm) throws ServiceException {
+        usersService.saveUser(registrationForm);
         return "redirect:/homepage";
     }
 }

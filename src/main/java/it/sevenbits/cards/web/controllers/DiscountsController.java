@@ -28,7 +28,7 @@ public class DiscountsController {
     }
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
     public String getDiscounts(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountsService.findAll());
+        model.addAttribute("discounts", discountsService.findAllDiscounts());
         return "home/discounts";
     }
     @RequestMapping(value = "/add_discount", method = RequestMethod.GET)
