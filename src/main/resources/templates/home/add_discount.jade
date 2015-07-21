@@ -4,6 +4,8 @@ html
           meta(charset='utf-8')
           title Добавить скидку
           // BOOTSTRAP
+          meta(name="_csrf", content="#{_csrf.token}")
+          meta(name="_csrf_header", content="#{_csrf.headerName}")
           script(src='http://code.jquery.com/jquery-latest.js')
           script(src='/resources/scripts/bootstrap.js')
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
@@ -24,6 +26,7 @@ html
      div
           h3 Add discount
           form(action="/add_discount", method="post")
+               input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                input.form-control(name="key", placeholder="Your key", type="text")
                input.form-control(name="uin", placeholder="Your uin", type="text")
                input.form-control(name="isHidden", placeholder="Your isHidden", type="text")

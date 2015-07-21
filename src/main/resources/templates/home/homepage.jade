@@ -13,7 +13,6 @@ html
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
 
           script(src='/resources/scripts/modernizr.custom.js')
-          script(src='/resources/scripts/login.js')
           // BOOTSTRAP END
           link(href='/resources/stylesheets/style.css', rel='stylesheet')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
@@ -29,15 +28,18 @@ html
                                    .content-style-form.content-style-form-1
                                         span.icon.icon-close Закрыть окно
                                         h2 Войти
-                                        form
-                                             p
+                                        if param.error
+                                             .aler.alert-danger
+                                                  p= param.error
+                                        form(action="/login", method="post")
+                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                             .form-group
                                                   label Email
-                                                  input#js-email(type='text')
-                                             p
+                                                  input(name="username", type="text")
+                                             .form-group
                                                   label Пароль
-                                                  input#js-password(type='password')
-                                             p
-                                                  button#js-login-button Войти
+                                                  input(name="password", type="password")
+                                             input(type="submit", value="Войти")
                                              p
                                                   a(href="registration") Регистрация
                          // morph-button
