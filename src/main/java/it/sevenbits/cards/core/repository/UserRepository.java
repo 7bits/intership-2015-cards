@@ -66,17 +66,5 @@ public class UserRepository implements UserDetailsService {
         }
     }
 
-    public User createUser(String email) throws RepositoryException {
-        User user = new User();
-        user.setEmail(email);
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode("qwerty"));
-        try {
-            userMapper.save(user);
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
-        }
 
-        return user;
-    }
 }

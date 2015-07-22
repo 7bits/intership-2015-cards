@@ -1,6 +1,4 @@
 package it.sevenbits.cards.web.controllers;
-import it.sevenbits.cards.web.service.DiscountService;
-import it.sevenbits.cards.web.service.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,15 +6,21 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.net.Authenticator;
+import it.sevenbits.cards.web.domain.RegistrationForm;
+import it.sevenbits.cards.web.service.DiscountService;
+import it.sevenbits.cards.web.service.ServiceException;
+import it.sevenbits.cards.web.service.UserService;
 
 @Controller
 public class HomeController {
     @Autowired
     private DiscountService discountService;
+    private UserService userService;
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Login
@@ -35,6 +39,17 @@ public class HomeController {
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String homepage(final Model model) {
         return "home/homepage";
+    }
+
+    //Registration
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration() {return "home/registration";
+    }
+
+    @RequestMapping(value = "/user_registration", method = RequestMethod.POST)
+    public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException {
+        userService.createUser(form);
+        return "redirect:/registration";
     }
 
     //Personal Area Get Method
