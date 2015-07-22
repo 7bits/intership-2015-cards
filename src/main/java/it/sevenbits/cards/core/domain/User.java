@@ -15,7 +15,7 @@ public class User implements UserDetails {
     private String password;
     private Role role;
     private Boolean enabled;
-    private Boolean isStore;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> roles = new ArrayList<>();
@@ -91,13 +91,5 @@ public class User implements UserDetails {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public Boolean getIsStore() {
-        return isStore;
-    }
-
-    public void setIsStore(Boolean isStore) {
-        this.isStore = isStore;
     }
 }
