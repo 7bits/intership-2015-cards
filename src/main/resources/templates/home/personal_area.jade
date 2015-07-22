@@ -31,10 +31,10 @@ html
                                    .content-style-form.content-style-form-1
                                         span.icon.icon-close Закрыть окно
                                         h2 Выйти?
-                                        form
-                                             .morph-in-button
-                                                  button(onclick="window.location.href='homepage.html'") Да
-                                                  button.no Нет
+                                        .morph-in-button
+                                             form(action="/logout", method="post")
+                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                  input(type="submit", value="Да")
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация
@@ -82,77 +82,74 @@ html
                               .ss
                                    input#send-search.send-use-search(type='text')
                                    .yellow
-                                        img.search-icon(src='img/ios7-search-strong.svg')
+                                        img.search-icon(src='resources/img/ios7-search-strong.svg')
                               #accordion1.accordion
-                                   for discount in discounts
-                                        if discount.isHidden == true
-                                             if discount.userId == "user"
-                                                  .accordion-group.discount
-                                                       .accordion-heading
-                                                            a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
-                                                                 .heading #{discount.storeName}
-                                                       .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
-                                                            .accordion-inner.describe
-                                                                 .describe_shadow
-                                                                 .text
-                                                                      | #{discount.description}
-                                                                 .btn
-                                                                      .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                                           button(type='button') Отправить
-                                                                           .morph-content
-                                                                                div
-                                                                                     .content-style-form.content-style-form-1
-                                                                                          span.icon.icon-close Закрыть окно
-                                                                                          h2 Скидка
-                                                                                          form(action="/send_discount", method="post")
-                                                                                               p
-                                                                                                    label Пользователь
-                                                                                                    input.form-control(name="uin", type="hidden", value="#{discount.uin}")
-                                                                                                    input.form-control(name="userId", placeholder="Получатель", type="text")
+                                   for discount in discountsForSend
+                                        .accordion-group.discount
+                                             .accordion-heading
+                                                  a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
+                                                       .heading #{discount.storeName}
+                                             .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
+                                                  .accordion-inner.describe
+                                                       .describe_shadow
+                                                       .text
+                                                            | #{discount.description}
+                                                       .btn
+                                                            .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                                                 button(type='button') Отправить
+                                                                 .morph-content
+                                                                      div
+                                                                           .content-style-form.content-style-form-1
+                                                                                span.icon.icon-close Закрыть окно
+                                                                                h2 Скидка
+                                                                                form(action="/send_discount", method="post")
+                                                                                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                                                     p
+                                                                                          label Пользователь
+                                                                                          input.form-control(name="uin", type="hidden", value="#{discount.uin}")
+                                                                                          input.form-control(name="userId", placeholder="Получатель", type="text")
 
-                                                                                               .morph-in-button
-                                                                                                    input(type="submit",value="Отправить")
-                                                                      // morph-button
-                                                                 .describe_shadow_down
+                                                                                     .morph-in-button
+                                                                                          input(type="submit",value="Отправить")
+                                                            // morph-button
+                                                       .describe_shadow_down
 
                          #use_tab.tab-pane
                               .ss
                                    input#use-search.send-use-search(type='text')
                                    .yellow
-                                        img.search-icon(src='img/ios7-search-strong.svg')
+                                        img.search-icon(src='/resources/img/ios7-search-strong.svg')
                               #accordion2.accordion
-                                   for discount in discounts
-                                        if discount.isHidden == false
-                                             if discount.userId == "user"
-                                                  .accordion-group.discount
-                                                       .accordion-heading
-                                                            a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
-                                                                 .heading #{discount.storeName}
-                                                       #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
-                                                            .accordion-inner.describe
-                                                                 .text
-                                                                      | #{discount.description}
-                                                                 .btn
-                                                                      // <a href="#"><div class="b_text">Использовать</div></a>
-                                                                      .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                                           button(type='button') Использовать
-                                                                           .morph-content
-                                                                                div
-                                                                                     .content-style-form.content-style-form-1
-                                                                                          span.icon.icon-close Закрыть окно
-                                                                                          h2 Скидка
-                                                                                          form(action="/personal_area",method="post")
-                                                                                               p
-                                                                                                    label Ключ
-                                                                                                    input(type='text',value="#{discount.key}")
-                                                                                               .morph-in-button
-                                                                                                    input(type="submit",value="OK")
-                                                       // morph-button
+                                   for discount in discountsForUse
+                                        .accordion-group.discount
+                                             .accordion-heading
+                                                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                                                       .heading #{discount.storeName}
+                                             #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
+                                                  .accordion-inner.describe
+                                                       .text
+                                                            | #{discount.description}
+                                                       .btn
+                                                            // <a href="#"><div class="b_text">Использовать</div></a>
+                                                            .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                                                 button(type='button') Использовать
+                                                                 .morph-content
+                                                                      div
+                                                                           .content-style-form.content-style-form-1
+                                                                                span.icon.icon-close Закрыть окно
+                                                                                h2 Ск идка
+                                                                                form(action="/personal_area",method="post")
+                                                                                     p
+                                                                                          label Ключ
+                                                                                          input(type='text',value="#{discount.key}")
+                                                                                     .morph-in-button
+                                                                                          input(type="submit",value="OK")
+                                             // morph-button
                     // Tabs content end
                     // DISCOUNTS LIST END
                div
                .advertisment
-                    img(src='img/mediamarkt.png')
+                    img(src='/resources/img/mediamarkt.png')
                .shadow
           // MAIN END
           // SCRIPTS

@@ -43,17 +43,17 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
-    public List<Discount> findAllDiscountsToUse() throws RepositoryException {
+    public List<Discount> findAllForUse(String userName) throws RepositoryException {
         try {
-            return mapper.findAllDiscountsToUse();
+            return mapper.findAllForUse(userName);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
     @Override
-    public List<Discount> findAllDiscountsToSend() throws RepositoryException {
+    public List<Discount> findAllForSend(String userName) throws RepositoryException {
         try {
-            return mapper.findAllDiscountsToSend();
+            return mapper.findAllForSend(userName);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
@@ -79,12 +79,18 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
-    public void sendDiscount(final Discount discount) throws RepositoryException {
-        if (discount == null) {
-            throw new RepositoryException("Discount is null");
+    public void send(String userId, String uin, String userName) throws RepositoryException {
+        if (userId == null) {
+            throw new RepositoryException("userId is null");
+        }
+        if (uin == null) {
+            throw new RepositoryException("Uin is null");
+        }
+        if (userName == null) {
+            throw new RepositoryException("userName is null");
         }
         try {
-            mapper.sendDiscount(discount);
+            mapper.send(userId, uin, userName);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
         }

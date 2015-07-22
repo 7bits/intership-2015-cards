@@ -11,10 +11,10 @@ public interface DiscountRepository {
     void save(final Discount discount) throws RepositoryException;
     List<Discount> findAll() throws RepositoryException;
     void delete(final Discount discount) throws RepositoryException;
-    List<Discount> findAllDiscountsToUse() throws RepositoryException;
-    List<Discount> findAllDiscountsToSend() throws RepositoryException;
+    List<Discount> findAllForUse(String userName) throws RepositoryException;
+    List<Discount> findAllForSend(String userName) throws RepositoryException;
     List<Discount> findUserId(final Discount discount) throws RepositoryException;
     void changeUserId(final Discount discount) throws RepositoryException;
-    void sendDiscount(final Discount discount) throws RepositoryException;
+    void send(String userId, String uin, String userName) throws RepositoryException;
 }
 

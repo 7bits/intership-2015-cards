@@ -53,9 +53,9 @@ public class DiscountService {
         }
     }
 
-    public List<DiscountModel> findAllDiscountsToUse() throws ServiceException {
+    public List<DiscountModel> findAllForUse(String userName) throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAllDiscountsToUse();
+            List<Discount> discounts = repository.findAllForUse(userName);
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(
@@ -73,9 +73,9 @@ public class DiscountService {
             throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
-    public List<DiscountModel> findAllDiscountsToSend() throws ServiceException {
+    public List<DiscountModel> findAllForSend(String userName) throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAllDiscountsToSend();
+            List<Discount> discounts = repository.findAllForSend(userName);
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(
@@ -132,12 +132,9 @@ public class DiscountService {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
     }
-    public void sendDiscount(final DiscountForm discountForm) throws ServiceException {
-        Discount discount = new Discount();
-        discount.setUin(discountForm.getUin());
-        discount.setUserId(discountForm.getUserId());
+    public void send(String userId, String uin, String userName) throws ServiceException {
         try {
-            repository.sendDiscount(discount);
+            repository.send(userId, uin, userName);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while sending discount: " + e.getMessage(), e);
         }
