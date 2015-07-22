@@ -34,6 +34,6 @@ public class RegistrationForm {
 
     @Override
     public String toString() {
-        return String.format("RegistrationForm[email=%s, password=%s, conf_password=%s]", email, password, confirmPassword);
+        return String.format("RegistrationForm[email=%s, password=%s, confirmPassword=%s]", email, password, confirmPassword);
     }
 }

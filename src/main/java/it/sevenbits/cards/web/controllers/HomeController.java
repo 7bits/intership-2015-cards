@@ -20,6 +20,7 @@ import it.sevenbits.cards.web.service.UserService;
 public class HomeController {
     @Autowired
     private DiscountService discountService;
+    @Autowired
     private UserService userService;
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -46,7 +47,7 @@ public class HomeController {
     public String registration() {return "home/registration";
     }
 
-    @RequestMapping(value = "/user_registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException {
         userService.createUser(form);
         return "redirect:/registration";

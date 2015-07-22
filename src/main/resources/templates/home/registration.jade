@@ -5,7 +5,8 @@ html
         title Домашняя страница
     body
         h2 Регистрация
-        form(action="/user_registration", method="post")
+        form(action="/registration", method="post")
+            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
             p
                 label Email
                 input(name='email', type='text')
@@ -14,6 +15,6 @@ html
                 input(name='password', type='password')
             p
                 label Confirm password
-                input(name='conf_password', type='password')
+                input(name='confirmPassword', type='password')
             p
                 input(type='submit', value='Зарегистрироваться')

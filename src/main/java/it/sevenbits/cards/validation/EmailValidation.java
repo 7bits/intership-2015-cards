@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class EmailValidation {
 
     public static boolean checkEmailValidity(String email) {
-        Pattern pattern = Pattern.compile("^([-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.([a-z])+){5,255}$");
+        Pattern pattern = Pattern.compile("^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.[a-z]+$");
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }

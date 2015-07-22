@@ -7,37 +7,39 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.core.repository.UserRepository;
+import it.sevenbits.cards.core.repository.UserPersistRepository;
 import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.RegistrationForm;
+
+import org.apache.log4j.Logger;
+
 @Service
 public class UserService {
     @Autowired
 
-    @Qualifier(value = "userRepository")
-    private UserRepository repository;
+    @Qualifier(value = "userPersistRepository")
+    private UserPersistRepository repository;
+    Logger LOG = Logger.getLogger(UserService.class);
 
     public void createUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
         String email = form.getEmail();
         String pswd = form.getPassword();
         String confPswd = form.getConfirmPassword();
-        StringBuilder stringBuilder = new StringBuilder();
         boolean valid = true;
         if (EmailValidation.checkEmailValidity(email)) {
             user.setEmail(email);
         } else {
-            stringBuilder.append("not validity email\n");
+            LOG.error("not validity email\n");
             valid=false;
         }
-        if (pswd == confPswd) {
+        if (pswd.equals(confPswd)) {
             PasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(pswd));
         } else {
-            stringBuilder.append("password doesn't equal confirm password\n");
+            LOG.error("password doesn't equal confirm password\n");
             valid = false;
         }
-        user.setIsStore(false);
         user.setUserId("83HFd");
         if (valid) {
             try {
