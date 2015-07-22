@@ -35,8 +35,10 @@ html
                                         h2 Выйти?
                                         form
                                              .morph-in-button
-                                                  button(onclick="window.location.href='homepage.html'") Да
-                                                  button.no Нет
+                                                  form(action="/logout", method="post")
+                                                       input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                       input(type="submit", value="Да")
+                                                       button.no Нет
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация
@@ -201,4 +203,3 @@ html
                          });
                     });
                // SCRIPTS
-                                

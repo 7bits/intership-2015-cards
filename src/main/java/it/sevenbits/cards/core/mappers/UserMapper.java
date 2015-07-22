@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.*;
 
 public interface UserMapper {
 
-    @Select("SELECT id, email, user_id, password_hash, role, enabled, is_store\n" +
+    @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
             "FROM users\n" +
             "WHERE email=#{userName}")
     @Results({
@@ -17,12 +17,11 @@ public interface UserMapper {
         @Result(column = "user_id", property = "userId"),
         @Result(column = "password_hash", property = "password"),
         @Result(column = "role", property = "role", javaType = Role.class),
-        @Result(column = "enabled", property = "enabled"),
-        @Result(column = "is_store", property = "isStore")
+        @Result(column = "enabled", property = "enabled")
     })
     User findByUsername(@Param("userName") String userName);
 
-    @Select("SELECT id, email, user_id, password_hash, role, enabled, is_store\n" +
+    @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
             "FROM users\n" +
             "WHERE id=#{id}")
     @Results({
@@ -31,8 +30,7 @@ public interface UserMapper {
             @Result(column = "user_id", property = "userId"),
             @Result(column = "password_hash", property = "password"),
             @Result(column = "role", property = "role", javaType = Role.class),
-            @Result(column = "enabled", property = "enabled"),
-            @Result(column = "is_store", property = "isStore")
+            @Result(column = "enabled", property = "enabled")
     })
     User findById(@Param("id") Long id);
 

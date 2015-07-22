@@ -5,7 +5,6 @@ public class UserForm {
     private String email;
     private String userId;
     private String password;
-    private Boolean isStore;
 
     public Long getId() {
         return id;
@@ -37,13 +36,5 @@ public class UserForm {
 
     public String getPassword() {
         return password;
-    }
-
-    public Boolean getIsStore() {
-        return isStore;
-    }
-
-    public void setIsStore(Boolean isStore) {
-        this.isStore = isStore;
     }
 }
