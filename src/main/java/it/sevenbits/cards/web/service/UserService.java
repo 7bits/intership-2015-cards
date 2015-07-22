@@ -1,6 +1,7 @@
 package it.sevenbits.cards.web.service;
 
 
+import it.sevenbits.cards.core.repository.RepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,14 +22,21 @@ public class UserService {
     private UserPersistRepository repository;
     Logger LOG = Logger.getLogger(UserService.class);
 
-    public void createUser(RegistrationForm form) throws ServiceException {
+    public void createUser(RegistrationForm form) throws ServiceException, RepositoryException {
         final User user = new User();
+        User userExist = null;
         String email = form.getEmail();
         String pswd = form.getPassword();
         String confPswd = form.getConfirmPassword();
         boolean valid = true;
         if (EmailValidation.checkEmailValidity(email)) {
-            user.setEmail(email);
+            userExist = repository.findByUsername(email);
+            if (userExist == null) {
+                user.setEmail(email);
+            } else {
+                valid=false;
+                LOG.error("user already exist");
+            }
         } else {
             LOG.error("not validity email\n");
             valid=false;

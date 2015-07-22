@@ -1,4 +1,5 @@
 package it.sevenbits.cards.web.controllers;
+import it.sevenbits.cards.core.repository.RepositoryException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException {
+    public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException, RepositoryException {
         userService.createUser(form);
         return "redirect:/registration";
     }
