@@ -34,7 +34,7 @@ public class HomeController {
     //Homepage
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
-        return "home/homepage";
+        return "redirect:/homepage";
     }
 
     //Homepage

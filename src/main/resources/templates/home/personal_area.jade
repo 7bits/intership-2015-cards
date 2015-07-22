@@ -133,18 +133,17 @@ html
                                                        .btn
                                                             // <a href="#"><div class="b_text">Использовать</div></a>
                                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                                 button(type='button') Использовать
+                                                                 button(type='button') Показать код
                                                                  .morph-content
                                                                       div
                                                                            .content-style-form.content-style-form-1
                                                                                 span.icon.icon-close Закрыть окно
-                                                                                h2 Ск идка
+                                                                                h2 Скидка
                                                                                 form(action="/personal_area",method="post")
+                                                                                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                                                      p
                                                                                           label Ключ
                                                                                           input(type='text',value="#{discount.key}")
-                                                                                     .morph-in-button
-                                                                                          input(type="submit",value="OK")
                                              // morph-button
                     // Tabs content end
                     // DISCOUNTS LIST END

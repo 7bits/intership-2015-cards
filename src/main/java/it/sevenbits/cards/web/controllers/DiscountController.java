@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class DiscountController {
+
     @Autowired
     private DiscountService discountService;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount

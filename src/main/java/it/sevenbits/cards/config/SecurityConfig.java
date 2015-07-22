@@ -1,5 +1,5 @@
 package it.sevenbits.cards.config;
-import it.sevenbits.cards.core.repository.UserPersistRepository;
+import it.sevenbits.cards.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserPersistRepository userPersistRepository;
+    private UserRepository userPersistRepository;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
