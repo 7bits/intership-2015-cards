@@ -19,18 +19,18 @@ public class UserService {
     @Autowired
 
     @Qualifier(value = "userRepository")
-    private UserRepository userRepository;
+    private UserRepository repository;
     Logger LOG = Logger.getLogger(UserService.class);
 
     public void createUser(RegistrationForm form) throws ServiceException, RepositoryException {
         final User user = new User();
         User userExist = null;
         String email = form.getEmail();
-        String password = form.getPassword();
-        String confirmPassword = form.getConfirmPassword();
+        String pswd = form.getPassword();
+        String confPswd = form.getConfirmPassword();
         boolean valid = true;
         if (EmailValidation.checkEmailValidity(email)) {
-            userExist = userRepository.findByUsername(email);
+            userExist = repository.findByUsername(email);
             if (userExist == null) {
                 user.setEmail(email);
             } else {
@@ -38,23 +38,47 @@ public class UserService {
                 LOG.error("user already exist");
             }
         } else {
-            LOG.error("Not validity email.");
+            LOG.error("not validity email\n");
             valid=false;
         }
-        if (password.equals(confirmPassword)) {
+        if (pswd.equals(confPswd)) {
             PasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(password));
+            user.setPassword(encoder.encode(pswd));
         } else {
-            LOG.error("Password doesn't equal confirm password.");
+            LOG.error("password doesn't equal confirm password\n");
             valid = false;
         }
-        //!!!WARNING!!!
-        //There we must use random UserId from generation function
-        user.setUserId("83HFd");
-        //
+        String maxUserId = repository.maxUserId();
+        if (maxUserId == null) {
+            user.setUserId("1000");
+        } else {
+            String userId = maxUserId.substring(0, maxUserId.length() - 1);
+            boolean again = true;
+            char ch = ' ';
+            for (int i = 1; i <= maxUserId.length() && again; i++) {
+                again = false;
+                ch = maxUserId.charAt(maxUserId.length() - i);
+
+                if ((ch >= '0' && ch < '9') || (ch >= 'A' && ch < 'Z') || (ch >= 'a' && ch < 'z')) {
+                    ch = (char) ((int) ch + 1);
+                } else if (ch == '9') {
+                    ch = 'A';
+                } else if (ch == 'Z') {
+                    ch = 'a';
+                } else if (ch == 'z') {
+                    if (i == maxUserId.length()) {
+                        maxUserId = "0" + maxUserId;
+                    }
+                    ch = '0';
+                    again = true;
+                }
+            }
+            userId = userId + Character.toString(ch);
+            user.setUserId(userId);
+        }
         if (valid) {
             try {
-               userRepository.save(user);
+               repository.save(user);
             } catch (Exception e) {
                 throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
             }

@@ -19,7 +19,10 @@ public class UserRepository implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        LOG.info(encoder.encode("redline"));
         try {
             LOG.info("Loading user by username: " + username);
             User userDetails = this.findByUsername(username);
@@ -63,5 +66,12 @@ public class UserRepository implements UserDetailsService {
         }
     }
 
+    public String maxUserId() throws RepositoryException {
+        try {
+            return userMapper.maxUserId();
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
 
 }

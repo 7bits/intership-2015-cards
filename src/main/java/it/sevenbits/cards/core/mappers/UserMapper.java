@@ -38,4 +38,9 @@ public interface UserMapper {
             "VALUES (#{email}, #{userId}, #{password}, 'ROLE_USER')")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(User user);
+
+    @Select("SELECT max(user_id)\n" +
+            "FROM users")
+    @Result(column = "user_id")
+    String maxUserId();
 }
