@@ -5,18 +5,73 @@ html
         title Регистрация
         meta(name="_csrf", content="#{_csrf.token}")
         meta(name="_csrf_header", content="#{_csrf.headerName}")
+        meta(name="_csrf", content="#{_csrf.token}")
+        meta(name="_csrf_header", content="#{_csrf.headerName}")
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+        script(src='http://code.jquery.com/jquery-latest.js')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
+        script(src='/resources/scripts/modernizr.custom.js')
+        script(src='/resources/scripts/classie.js')
+        script(src='/resources/scripts/uiMorphingButton_fixed.js')
+        // BOOTSTRAP END
+        link(href='/resources/stylesheets/style.css', rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
     body
-        h2 Регистрация
-        form(action="/registration", method="post")
-            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-            p
-                label Email
-                input.form-control(name='email', type='text')
-            p
-                label Пароль
-                input.form-control(name='password', type='password')
-            p
-                label Подтверждение пароля
-                input.form-control(name='confirmPassword', type='password')
-            p
-                input.form-control(type='submit', value='Зарегистрироваться')
+        // HEADER
+        .header_container
+            .header
+                .header-image
+                .header-buttons
+                    .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-logout
+                        button(type='button') Войти
+                            .morph-content
+                                .content-style-form.content-style-form-1
+                                    span.icon.icon-close Закрыть окно
+                                    h2 Войти
+                                    if param.error
+                                        .aler.alert-danger
+                                            p= param.error
+                                    form(action="/login", method="post")
+                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                        .form-group
+                                            label Email
+                                            input(name="username", type="text")
+                                        .form-group
+                                            label Пароль
+                                            input(name="password", type="password")
+                                        input(type="submit", value="Войти")
+                                        p
+                                            a(href="registration") Регистрация
+                    // morph-button
+                    #js_info_button.info-button(tabindex='1')
+                        | Информация
+                        ul.dropdown
+                            li
+                                a(href='#') О проекте
+                            li
+                                a(href='#') Разработчики
+                            li
+                                a(href='#') Поддержка
+        // HEADER END
+        // MAIN
+        .main
+            .registration-form
+                h2 Регистрация
+                form(action="/registration", method="post")
+                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                    p
+                        label Email
+                        br
+                        input.form-control(name='email', type='text')
+                    p
+                        label Пароль
+                        br
+                        input.form-control(name='password', type='password')
+                    p
+                        label Подтверждение пароля
+                        br
+                        input.form-control(name='confirmPassword', type='password')
+                    p
+                        input.form-control.registration-button(type='submit', value='Зарегистрироваться')
+        // MAIN END

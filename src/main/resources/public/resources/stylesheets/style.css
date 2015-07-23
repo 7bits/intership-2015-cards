@@ -1,6 +1,7 @@
 body {
 	margin: auto;
 	width: 100%;
+	min-width:320px;
 	background-color: #eaecf3;
 	outline: 0 solid red;
 	color: white;
@@ -161,6 +162,49 @@ a {
 	font-weight: bold;
 	margin: 10%;
 	padding: 10px 10px;
+}
+
+.registration-form {
+width:50%;
+margin: auto;
+text-align:center;
+min-width:320px;
+color: #fff;
+background-color:#3956a3;
+outline: none;
+}
+
+.registration-form input {
+	text-decoration:none;
+	border:none;
+}
+
+input.form-control[type='text']{
+	padding-left: 5px;
+	height: 30px;
+	outline: none;
+}
+
+input.form-control[type='password']{
+	padding-left: 5px;
+	height: 30px;
+	outline: none;
+}
+
+input.form-control[type='text']:focus{
+	outline: none;
+}
+
+input.form-control[type='password']:focus{
+	outline: none;
+}
+
+.registration-button {
+	color: #fff;
+	height: 40px;
+	width: 180px;
+	background-color: #ff466a;
+	margin-bottom: 10px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 799px) {
