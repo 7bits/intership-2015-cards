@@ -34,7 +34,7 @@ html
                                         .morph-in-button
                                              form(action="/logout", method="post")
                                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                  input(type="submit", value="Да")
+                                                  input.yes(type="submit", value="Да")
                                                   button.no Нет
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
@@ -58,11 +58,13 @@ html
                                         span.icon.icon-close Закрыть окно
                                         h2 Добавить скидку
                                         form(action="/bind_discount", method="post")
+                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                              p
                                                   label Номер
                                                   input.form-control(name="uin", placeholder="UIN для добавления", type="text")
 
-                                                  input(type='submit',value="Добавить")
+                                                  input.yes#bind(type='submit',value="Добавить")
+
                     // morph-button
                .discounts
                     // DISCOUNTS LIST
@@ -111,7 +113,7 @@ html
                                                                                           input.form-control(name="userId", placeholder="Получатель", type="text")
 
                                                                                      .morph-in-button
-                                                                                          input(type="submit",value="Отправить")
+                                                                                          input.yes(type="submit",value="Отправить")
                                                             // morph-button
                                                        .describe_shadow_down
 
