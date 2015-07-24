@@ -22,7 +22,7 @@ public interface DiscountMapper {
     @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description})")
     void save(final Discount discount);
     //Delete
-    @Delete("DELETE FROM discounts WHERE uin = #{uin}")
+    @Delete("DELETE FROM discounts WHERE uin = #{uin} AND is_hidden = false")
     void delete(final Discount discount);
     //FindAllForUse
     @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = false and user_id = #{userName}")
@@ -61,7 +61,7 @@ public interface DiscountMapper {
     })
     List<Discount> findUserId(final Discount discount);
     //ChangeUserId
-    @Update("UPDATE discounts SET user_id = #{userId} WHERE uin = #{uin} AND user_id != #{userId}") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin} AND user_id != #{userId} AND is_hidden != false") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
     //Send
-    @Update("UPDATE discounts SET user_id = #{userId} WHERE uin = #{uin}") void send(@Param("userId") String userId,@Param("uin") String uin,@Param("userName") String userName);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void send(@Param("userId") String userId,@Param("uin") String uin,@Param("userName") String userName);
 }
