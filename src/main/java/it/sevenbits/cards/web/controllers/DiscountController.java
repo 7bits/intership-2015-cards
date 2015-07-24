@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
@@ -55,6 +56,18 @@ public class DiscountController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         discountService.send(form.getUserId(), form.getUin(), userName);
+        return "redirect:/personal_area";
+    }
+    //Bind discount
+    @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
+    public String tradePost(@ModelAttribute UseForm form, final Model model) throws ServiceException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        Discount discount = new Discount();
+        discount.setUin(form.getUin());
+        DiscountForm discountForm = new DiscountForm();
+        discountForm.setUin(form.getUin());
+        discountService.changeUserId(discountForm);
         return "redirect:/personal_area";
     }
 }
