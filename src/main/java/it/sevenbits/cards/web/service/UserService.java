@@ -22,8 +22,12 @@ public class UserService {
     private UserRepository repository;
     Logger LOG = Logger.getLogger(UserService.class);
 
-    public String findUserIdByUserName(String userName) throws RepositoryException, ServiceException {
-        return repository.findUserIdByUserName(userName);
+    public String findUserIdByUserName(String userName) throws ServiceException {
+        try {
+            return repository.findUserIdByUserName(userName);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+        }
     }
 
     public void createUser(RegistrationForm form) throws ServiceException, RepositoryException {
