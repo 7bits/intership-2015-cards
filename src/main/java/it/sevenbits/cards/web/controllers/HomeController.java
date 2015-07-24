@@ -60,9 +60,10 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         model.addAttribute("userName", userName);
-        model.addAttribute("userId", userService.findUserIdByUserName(userName));
-        model.addAttribute("discountsForUse", discountService.findAllForUse(userName));
-        model.addAttribute("discountsForSend", discountService.findAllForSend(userName));
+        String userId = userService.findUserIdByUserName(userName);
+        model.addAttribute("userId", userId);
+        model.addAttribute("discountsForUse", discountService.findAllForUse(userId));
+        model.addAttribute("discountsForSend", discountService.findAllForSend(userId));
         return "home/personal_area";
     }
 

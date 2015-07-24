@@ -1,9 +1,11 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
+import it.sevenbits.cards.web.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,9 @@ public class DiscountController {
 
     @Autowired
     private DiscountService discountService;
+
+    @Autowired
+    private UserService userService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -60,14 +65,10 @@ public class DiscountController {
     }
     //Bind discount
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String tradePost(@ModelAttribute UseForm form, final Model model) throws ServiceException{
+    public String tradePost(@ModelAttribute UseForm form) throws RepositoryException, ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        Discount discount = new Discount();
-        discount.setUin(form.getUin());
-        DiscountForm discountForm = new DiscountForm();
-        discountForm.setUin(form.getUin());
-        discountService.changeUserId(discountForm);
+        discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));
         return "redirect:/personal_area";
     }
 }

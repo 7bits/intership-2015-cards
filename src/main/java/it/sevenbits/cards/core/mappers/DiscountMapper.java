@@ -61,7 +61,7 @@ public interface DiscountMapper {
     })
     List<Discount> findUserId(final Discount discount);
     //ChangeUserId
-    @Update("UPDATE discounts SET user_id = 'user' WHERE uin = #{uin}") void changeUserId(final Discount discount);
+    @Update("UPDATE discounts SET user_id = #{userId} WHERE uin = #{uin} AND user_id != #{userId}") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
     //Send
     @Update("UPDATE discounts SET user_id = #{userId} WHERE uin = #{uin}") void send(@Param("userId") String userId,@Param("uin") String uin,@Param("userName") String userName);
 }

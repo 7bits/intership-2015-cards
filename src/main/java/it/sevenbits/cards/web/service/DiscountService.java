@@ -123,11 +123,9 @@ public class DiscountService {
             throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
-    public void changeUserId(final DiscountForm discountForm) throws ServiceException {
-        Discount discount = new Discount();
-        discount.setUin(discountForm.getUin());
+    public void changeUserId(String uin, String userId) throws ServiceException {
         try {
-            repository.changeUserId(discount);
+            repository.changeUserId(uin, userId);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }

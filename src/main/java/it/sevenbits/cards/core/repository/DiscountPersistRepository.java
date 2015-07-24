@@ -68,12 +68,15 @@ public class DiscountPersistRepository implements DiscountRepository {
     }
 
     @Override
-    public void changeUserId(final Discount discount) throws RepositoryException {
-        if (discount == null) {
+    public void changeUserId(String uin, String userId) throws RepositoryException {
+        if (uin == null) {
+            throw new RepositoryException("Uin is null");
+        }
+        if (userId == null) {
             throw new RepositoryException("Discount is null");
         }
         try {
-            mapper.changeUserId(discount);
+            mapper.changeUserId(uin, userId);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
