@@ -1,4 +1,5 @@
 package it.sevenbits.cards.config;
+import it.sevenbits.cards.core.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/homepage", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .authorizeRequests()
+                .antMatchers("/personal_area").hasRole("User")
+                .anyRequest().authenticated()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/store_area").hasRole("Store")
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                 .defaultSuccessUrl("/personal_area")
+
                 .loginPage("/login")
                 .failureUrl("/homepage")
                 .permitAll()

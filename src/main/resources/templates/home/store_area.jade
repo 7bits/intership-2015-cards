@@ -33,12 +33,11 @@ html
                                    .content-style-form.content-style-form-1
                                         span.icon.icon-close Закрыть окно
                                         h2 Выйти?
-                                        form
-                                             .morph-in-button
-                                                  form(action="/logout", method="post")
-                                                       input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                       input(type="submit", value="Да")
-                                                       button.no Нет
+                                        .morph-in-button
+                                             form(action="/logout", method="post")
+                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                  input.yes(type="submit", value="Да")
+                                                  button.no Нет
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация
@@ -70,7 +69,7 @@ html
                                         form(action="/use_discount", method="post")
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                              input.generate-input(type='text', name="uin")
-                                             input(type="submit", value="Использовать")
+                                             input.repay-ok(type="submit", value="ИСПОЛЬЗОВАТЬ")
                          #generateSection.generate-discount-block.tab-pane.fade
                               h3
                                    | СГЕНЕРИРОВАТЬ СКИДКУ

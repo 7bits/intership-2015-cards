@@ -92,6 +92,7 @@ a:hover, a:focus {
 .content-style-form form {
 	padding: 10%;
 	padding-top: 0;
+    font-size: 0.7em;
 }
 
 .content-style-form form p {
