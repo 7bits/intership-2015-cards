@@ -22,7 +22,11 @@
 	width: 50%;
     height: 110px;
 	min-width: 320px;
-    content: url('../img/logoOS.png');
+    content: url("../img/logoOS.png");
+}
+
+.header-image img {
+    height: 100px;
 }
 
 /*IMAGE END*/
