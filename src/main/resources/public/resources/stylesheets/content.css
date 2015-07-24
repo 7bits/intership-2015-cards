@@ -82,48 +82,47 @@ a:hover, a:focus {
 .content-style-form h2 {
 	color: #fff;
 	margin: 0;
-	padding: 0.4em 0 0.3em;
-	padding-top: 50px;
+	text-transform: uppercase;
+	padding-top: 25px;
 	text-align: center;
-	font-weight: 300;
+	font-weight: bold;
 	font-size: 3.5em;
 }
 
 .content-style-form form {
 	padding: 10%;
 	padding-top: 0;
-    font-size: 0.7em;
+	font-size: 0.7em;
 }
 
 .content-style-form form p {
 	margin: 0 0 5px 0;
-	font-size: 0.7em;
 }
 
 .content-style-form label {
 	display: block;
 	padding: 10px 0 0;
-	color: black;
+	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: bold;
+	font-size:1em;
 }
 
 .content-style-form input[type="text"],
 .content-style-form input[type="password"] {
-	padding: 10px;
+	padding: 15px;
+	height: 46px;
 	width: 100%;
-	border: 2px solid #e0e0e0;
-	background: transparent;
+	border: 0px solid #e0e0e0;
+	background: white;
 	color: black;
 	font-weight: 300;
-	font-size: 2.2em;
+	font-size: 1.5em;
 }
 
 .content-style-form input[type="text"]:focus,
 .content-style-form input[type="password"]:focus {
-	border-color: black;
-	color: black;
 }
 
 .content-style-form input:focus {
@@ -133,18 +132,13 @@ a:hover, a:focus {
 .content-style-form button {
 	display: block;
 	margin-top: 2.5em;
-	padding: 1.5em;
+	height: 50px;
+	line-height: 50px;
 	width: 100%;
 	border: none;
-	background-color: white;
-	/*background: #e75854;*/
-	-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-       -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-	color: black;
+	border-bottom: 4px solid #868ea1;
+	background-color: #bbc0d0;
+	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 800;

@@ -63,7 +63,7 @@ html
                                                   label Номер
                                                   input.form-control(name="uin", placeholder="UIN для добавления", type="text")
 
-                                                  input.yes#bind(type='submit',value="Добавить")
+                                                  input.add#bind(type='submit',value="Добавить")
 
                     // morph-button
                .discounts
@@ -113,7 +113,7 @@ html
                                                                                           input.form-control(name="userId", placeholder="Получатель", type="text")
 
                                                                                      .morph-in-button
-                                                                                          input.yes(type="submit",value="Отправить")
+                                                                                          input.add(type="submit",value="Отправить")
                                                             // morph-button
                                                        .describe_shadow_down
 
@@ -126,7 +126,7 @@ html
                                    for discount in discountsForUse
                                         .accordion-group.discount
                                              .accordion-heading
-                                                  a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                                                  a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
                                                        .heading #{discount.storeName}
                                              #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
                                                   .accordion-inner.describe
