@@ -43,4 +43,10 @@ public interface UserMapper {
             "FROM users")
     @Result(column = "user_id")
     String maxUserId();
+
+    @Select("SELECT user_id\n" +
+            "FROM users\n" +
+            "WHERE email=#{userName}")
+    @Result(column = "user_id")
+    String findUserIdByUserName(@Param("userName") String userName);
 }

@@ -72,4 +72,15 @@ public class UserRepository implements UserDetailsService {
         }
     }
 
+    public String findUserIdByUserName(final String userName) throws RepositoryException {
+        if (userName == null) {
+            throw new RepositoryException("User Name is null");
+        }
+        try {
+            return userMapper.findUserIdByUserName(userName);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
+
 }

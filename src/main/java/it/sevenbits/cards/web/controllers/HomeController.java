@@ -56,11 +56,11 @@ public class HomeController {
 
     //Personal Area Get Method
     @RequestMapping(value = "/personal_area", method = RequestMethod.GET)
-    public String personalArea(final Model model) throws ServiceException {
+    public String personalArea(final Model model) throws ServiceException, RepositoryException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         model.addAttribute("userName", userName);
-        //model.addAttribute("userId", userService.findUserIdByUserName(userName));
+        model.addAttribute("userId", userService.findUserIdByUserName(userName));
         model.addAttribute("discountsForUse", discountService.findAllForUse(userName));
         model.addAttribute("discountsForSend", discountService.findAllForSend(userName));
         return "home/personal_area";

@@ -22,6 +22,10 @@ public class UserService {
     private UserRepository repository;
     Logger LOG = Logger.getLogger(UserService.class);
 
+    public String findUserIdByUserName(String userName) throws RepositoryException, ServiceException {
+        return repository.findUserIdByUserName(userName);
+    }
+
     public void createUser(RegistrationForm form) throws ServiceException, RepositoryException {
         final User user = new User();
         User userExist = null;

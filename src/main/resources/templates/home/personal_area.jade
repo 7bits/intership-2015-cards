@@ -83,7 +83,7 @@ html
                          // Содержимое 1 вкладки
                          #send_tab.tab-pane
                               .ss
-                                   input#send-search.send-use-search(type='text')
+                                   input#send-search.send-use-search(type='text', placeholder="#{userId}")
                                    .yellow
                                         img.search-icon(src='resources/img/ios7-search-strong.svg')
                               #accordion1.accordion
@@ -119,7 +119,7 @@ html
 
                          #use_tab.tab-pane
                               .ss
-                                   input#use-search.send-use-search(type='text')
+                                   input#use-search.send-use-search(type='text', placeholder="#{userId}")
                                    .yellow
                                         img.search-icon(src='/resources/img/ios7-search-strong.svg')
                               #accordion2.accordion
