@@ -30,7 +30,7 @@ public class UserService {
         }
     }
 
-    public void createUser(RegistrationForm form) throws ServiceException, RepositoryException {
+    public void createUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
         User userExist = null;
         String email = form.getEmail();
@@ -38,7 +38,11 @@ public class UserService {
         String confPswd = form.getConfirmPassword();
         boolean valid = true;
         if (EmailValidation.checkEmailValidity(email)) {
-            userExist = repository.findByUsername(email);
+            try {
+                userExist = repository.findByUsername(email);
+            } catch (Exception e) {
+                throw new ServiceException("An error occurred while finding by User Name: " + e.getMessage(), e);
+            }
             if (userExist == null) {
                 user.setEmail(email);
             } else {
@@ -56,7 +60,12 @@ public class UserService {
             LOG.error("password doesn't equal confirm password\n");
             valid = false;
         }
-        String maxUserId = repository.maxUserId();
+        String maxUserId;
+        try {
+           maxUserId = repository.maxUserId();
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding by User Name: " + e.getMessage(), e);
+        }
         if (maxUserId == null) {
             user.setUserId("1000");
         } else {
