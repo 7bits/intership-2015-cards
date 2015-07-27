@@ -95,5 +95,4 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
         }
     }
-
 }

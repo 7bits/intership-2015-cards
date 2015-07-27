@@ -1,4 +1,6 @@
 package it.sevenbits.cards.web.controllers;
+import it.sevenbits.cards.core.domain.Role;
+import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,22 @@ public class HomeController {
     private UserService userService;
     private Logger LOG = Logger.getLogger(HomeController.class);
 
+    //Success
+    @RequestMapping(value="/success",method = RequestMethod.GET)
+    public String success(){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOG.info(user.getRole());
+        if(user.getRole().equals(Role.ROLE_ADMIN)) {
+            return "redirect:/admin_area";
+        }
+        if(user.getRole().equals(Role.ROLE_STORE)) {
+            return "redirect:/store_area";
+        }
+        if(user.getRole().equals(Role.ROLE_USER)) {
+            return "redirect:/personal_area";
+        }
+        return "redirect:/403";
+    }
 
     @RequestMapping(value="/403",method = RequestMethod.GET)
     public String accessDeny(){
@@ -84,7 +102,7 @@ public class HomeController {
     //Personal Area Post Method
     @Secured("ROLE_USER")
     @RequestMapping(value = "/personal_area", method = RequestMethod.POST)
-    public String personalAreaPost(final Model model) throws ServiceException {
+    public String personalAreaPost() throws ServiceException {
         return "redirect:/personal_area";
     }
 
@@ -92,14 +110,29 @@ public class HomeController {
 
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.GET)
-    public String storeAreaGet(final Model model){
+    public String storeAreaGet(){
         return "home/store_area";
     }
 
     //Store Area Post Method
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.POST)
-    public String storeAreaPost(final Model model) {
+    public String storeAreaPost() {
         return "home/store_area";
+    }
+
+    //Store Area Get Method
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/admin_area", method = RequestMethod.GET)
+    public String adminAreaGet(){
+        return "home/admin_area";
+    }
+
+    //Store Area Post Method
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/admin_area", method = RequestMethod.POST)
+    public String adminAreaPost() {
+        return "home/admin_area";
     }
 }

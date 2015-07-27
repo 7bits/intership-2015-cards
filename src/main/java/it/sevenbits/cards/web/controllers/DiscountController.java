@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
@@ -61,7 +62,12 @@ public class DiscountController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public String send(@ModelAttribute SendForm form) throws ServiceException{
-        discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+        if( EmailValidation.checkEmailValidity(form.getEmail())) {
+            discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+        }
+        else {
+            discountService.send(form.getEmail(), form.getUin());
+        }
         return "redirect:/personal_area";
     }
     //Bind discount
