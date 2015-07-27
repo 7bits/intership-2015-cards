@@ -2,9 +2,11 @@ package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.net.Authenticator;
+import java.security.Principal;
+import java.util.Collection;
+
 import it.sevenbits.cards.web.domain.RegistrationForm;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
@@ -28,7 +33,12 @@ public class HomeController {
     private UserService userService;
     private Logger LOG = Logger.getLogger(HomeController.class);
 
-    //Login
+
+    @RequestMapping(value="/403",method = RequestMethod.GET)
+    public String accessDeny(){
+        return "/403";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request) {
         return "redirect:/homepage";
@@ -82,7 +92,7 @@ public class HomeController {
 
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.GET)
-    public String storeAreaGet(final Model model) {
+    public String storeAreaGet(final Model model){
         return "home/store_area";
     }
 
