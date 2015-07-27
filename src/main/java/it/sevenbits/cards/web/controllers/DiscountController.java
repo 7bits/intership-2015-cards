@@ -29,11 +29,8 @@ public class DiscountController {
 
     //Use Discount
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public String use(@ModelAttribute UseForm useForm, final Model model) throws ServiceException {
-        DiscountForm discountForm = new DiscountForm();
-        discountForm.setUin(useForm.getUin());
-        model.addAttribute("use", useForm);
-        discountService.delete(discountForm);
+    public String use(@ModelAttribute UseForm useForm) throws ServiceException {
+        discountService.delete(useForm.getUin());
         return "redirect:/store_area";
     }
     //Show All Discounts

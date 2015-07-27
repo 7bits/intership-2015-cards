@@ -32,12 +32,12 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
-    public void delete(final Discount discount) throws RepositoryException {
-        if (discount == null) {
-            throw new RepositoryException("Discount is null");
+    public void delete(String key) throws RepositoryException {
+        if (key == null) {
+            throw new RepositoryException("Key is null");
         }
         try {
-            mapper.delete(discount);
+            mapper.delete(key);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
         }

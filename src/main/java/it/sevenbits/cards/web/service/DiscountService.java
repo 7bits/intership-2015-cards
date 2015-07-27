@@ -94,11 +94,9 @@ public class DiscountService {
         }
     }
 
-    public void delete(final DiscountForm discountForm) throws ServiceException {
-        final Discount discount = new Discount();
-        discount.setUin(discountForm.getUin());
+    public void delete(String key) throws ServiceException {
         try {
-            repository.delete(discount);
+            repository.delete(key);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
