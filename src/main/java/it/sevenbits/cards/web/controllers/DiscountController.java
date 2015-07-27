@@ -47,7 +47,7 @@ public class DiscountController {
     public String showAllAfterAdd(@ModelAttribute DiscountForm discountForm) throws ServiceException {
         LOG.debug(discountForm);
         discountService.save(discountForm);
-        return "redirect:/discounts";
+        return "redirect:/add_discount";
     }
     //Add discount
     @RequestMapping(value = "/add_discount", method=RequestMethod.GET)
