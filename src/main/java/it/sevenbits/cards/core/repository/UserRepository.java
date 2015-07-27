@@ -24,7 +24,7 @@ public class UserRepository implements UserDetailsService {
         try {
             LOG.info("Loading user by username: " + username);
             User userDetails = this.findByUsername(username);
-            if (userDetails != null && userDetails.getRole().equals(Role.ROLE_USER)) {
+            if (userDetails != null && (userDetails.getRole().equals(Role.ROLE_ADMIN)||userDetails.getRole().equals(Role.ROLE_STORE)||userDetails.getRole().equals(Role.ROLE_USER))) {
                 return userDetails;
             }
         } catch (Exception e) {
