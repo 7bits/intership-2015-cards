@@ -29,16 +29,9 @@ html
                          img(src="/resources/img/logoOS.png")
                     .header-buttons
                          .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-                              button(type='button') Выход
-                              .morph-content
-                                   .content-style-form.content-style-form-1
-                                        span.icon.icon-close Закрыть окно
-                                        h2 Выйти?
-                                        .morph-in-button
-                                             form(action="/logout", method="post")
-                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                  input.yes(type="submit", value="Да")
-                                                  button.no Нет
+                              form(action="/logout", method="post")
+                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                   input(type='submit', value='Выход')
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация

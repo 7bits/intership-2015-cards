@@ -10,7 +10,7 @@ import java.util.List;
 public interface DiscountRepository {
     void save(final Discount discount) throws RepositoryException;
     List<Discount> findAll() throws RepositoryException;
-    void delete(final Discount discount) throws RepositoryException;
+    void delete(String key) throws RepositoryException;
     List<Discount> findAllForUse(String userName) throws RepositoryException;
     List<Discount> findAllForSend(String userName) throws RepositoryException;
     List<Discount> findUserId(final Discount discount) throws RepositoryException;

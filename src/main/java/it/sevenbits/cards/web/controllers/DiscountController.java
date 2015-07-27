@@ -8,6 +8,7 @@ import it.sevenbits.cards.web.service.ServiceException;
 import it.sevenbits.cards.web.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,21 +29,21 @@ public class DiscountController {
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
+    @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public String use(@ModelAttribute UseForm useForm, final Model model) throws ServiceException {
-        DiscountForm discountForm = new DiscountForm();
-        discountForm.setUin(useForm.getUin());
-        model.addAttribute("use", useForm);
-        discountService.delete(discountForm);
+    public String use(@ModelAttribute UseForm useForm) throws ServiceException {
+        discountService.delete(useForm.getUin());
         return "redirect:/store_area";
     }
     //Show All Discounts
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
     public String showAll(final Model model) throws ServiceException {
         model.addAttribute("discounts", discountService.findAll());
         return "home/discounts";
     }
     //Show all discount after add
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
     public String showAllAfterAdd(@ModelAttribute DiscountForm discountForm) throws ServiceException {
         LOG.debug(discountForm);
@@ -50,12 +51,14 @@ public class DiscountController {
         return "redirect:/add_discount";
     }
     //Add discount
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add_discount", method=RequestMethod.GET)
     public String addDiscount(Model model) throws ServiceException{
         model.addAttribute("add", new DiscountForm());
         return "home/add_discount";
     }
     //Send discount
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public String send(@ModelAttribute SendForm form) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,6 +67,7 @@ public class DiscountController {
         return "redirect:/personal_area";
     }
     //Bind discount
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
     public String tradePost(@ModelAttribute UseForm form) throws RepositoryException, ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
