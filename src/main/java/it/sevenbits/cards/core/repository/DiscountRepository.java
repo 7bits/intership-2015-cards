@@ -15,6 +15,6 @@ public interface DiscountRepository {
     List<Discount> findAllForSend(String userName) throws RepositoryException;
     List<Discount> findUserId(final Discount discount) throws RepositoryException;
     void changeUserId(String uin, String userId) throws RepositoryException;
-    void send(String userId, String uin, String userName) throws RepositoryException;
+    void send(String userId, String uin) throws RepositoryException;
 }
 

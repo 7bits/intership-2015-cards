@@ -82,18 +82,15 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
-    public void send(String userId, String uin, String userName) throws RepositoryException {
+    public void send(String userId, String uin) throws RepositoryException {
         if (userId == null) {
             throw new RepositoryException("userId is null");
         }
         if (uin == null) {
             throw new RepositoryException("Uin is null");
         }
-        if (userName == null) {
-            throw new RepositoryException("userName is null");
-        }
         try {
-            mapper.send(userId, uin, userName);
+            mapper.send(userId, uin);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
         }

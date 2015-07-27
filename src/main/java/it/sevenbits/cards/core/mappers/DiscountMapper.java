@@ -63,5 +63,5 @@ public interface DiscountMapper {
     //ChangeUserId
     @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin} AND user_id != #{userId} AND is_hidden != false") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
     //Send
-    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void send(@Param("userId") String userId,@Param("uin") String uin,@Param("userName") String userName);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin} AND user_id!=#{userId}") void send(@Param("userId") String userId, @Param("uin") String uin);
 }

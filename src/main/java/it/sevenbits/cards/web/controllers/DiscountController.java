@@ -61,15 +61,13 @@ public class DiscountController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public String send(@ModelAttribute SendForm form) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        discountService.send(form.getUserId(), form.getUin(), userName);
+        discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
         return "redirect:/personal_area";
     }
     //Bind discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String tradePost(@ModelAttribute UseForm form) throws RepositoryException, ServiceException{
+    public String tradePost(@ModelAttribute UseForm form) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));

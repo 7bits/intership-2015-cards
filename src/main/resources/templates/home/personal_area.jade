@@ -26,9 +26,16 @@ html
                     .header-image
                     .header-buttons
                          .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-                              form(action="/logout", method="post")
-                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                   input(type='submit', value='Выход')
+                              button(type='button') Выход
+                              .morph-content
+                                   .content-style-form.content-style-form-1
+                                        span.icon.icon-close Закрыть окно
+                                        h2 Выйти?
+                                        .morph-in-button
+                                             form(action="/logout", method="post")
+                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                  input.yes(type="submit", value="Да")
+                                                  button.no Нет
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация
@@ -103,7 +110,7 @@ html
                                                                                      p
                                                                                           label Пользователь
                                                                                           input.form-control(name="uin", type="hidden", value="#{discount.uin}")
-                                                                                          input.form-control(name="userId", placeholder="Получатель", type="text")
+                                                                                          input.form-control(name="email", placeholder="Email получателя", type="text")
 
                                                                                      .morph-in-button
                                                                                           input.add(type="submit",value="Отправить")
