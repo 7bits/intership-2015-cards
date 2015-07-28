@@ -101,4 +101,11 @@ public class UserService {
             }
         }
     }
+    public void changeUserRoleByUserId(String userRole, String userId) throws ServiceException {
+        try {
+            repository.changeUserRoleByUserId(userRole, userId);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+        }
+    }
 }

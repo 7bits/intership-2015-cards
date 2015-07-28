@@ -83,4 +83,18 @@ public class UserRepository implements UserDetailsService {
         }
     }
 
+    public void changeUserRoleByUserId(String userRole, String userId) throws RepositoryException {
+        if (userRole == null) {
+            throw new RepositoryException("User Role is null");
+        }
+        if (userId == null) {
+            throw new RepositoryException("User Id is null");
+        }
+        try {
+            userMapper.changeUserRoleByUserId(userRole, userId);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
+
 }

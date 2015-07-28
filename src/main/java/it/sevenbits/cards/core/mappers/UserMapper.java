@@ -49,4 +49,8 @@ public interface UserMapper {
             "WHERE email=#{userName}")
     @Result(column = "user_id")
     String findUserIdByUserName(@Param("userName") String userName);
+
+    @Update("UPDATE users SET role =#{userRole} WHERE user_id = #{userId}")
+    void changeUserRoleByUserId(@Param("userRole") String userRole, @Param("userId") String userId);
+
 }
