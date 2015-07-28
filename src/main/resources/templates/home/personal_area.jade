@@ -7,6 +7,7 @@ html
           script(src='http://code.jquery.com/jquery-latest.js')
           script(src='/resources/scripts/jquery-1.9.1.js')
           script(src='/resources/scripts/bootstrap.js')
+          link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
           script(src='/resources/scripts/modernizr.custom.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
@@ -48,7 +49,7 @@ html
           .main
                .add-button
                     .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-add
-                         button(type='button') Добавить скидку
+                         button.before-morph(type='button') Добавить скидку
                          .morph-content
                               div
                                    .content-style-form.content-style-form-1
@@ -92,11 +93,22 @@ html
                                              .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
                                                   .accordion-inner.describe
                                                        .describe_shadow
-                                                       .text
-                                                            | #{discount.description}
+                                                       .description-container
+                                                            .text
+                                                                 .description-heading
+                                                                      | Описание скидки:
+                                                            .store-img-container
+                                                                 img.store-img(src='/resources/img/mediamarkt.png')
+                                                            .text
+                                                                 | #{discount.description}
+
+
+
+
                                                        .btn
                                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                                 button(type='button') Отправить
+
+                                                                 button.before-morph(type='button') Отправить
                                                                  .morph-content
                                                                       div
                                                                            .content-style-form.content-style-form-1
@@ -132,7 +144,7 @@ html
                                                        .btn
                                                             // <a href="#"><div class="b_text">Использовать</div></a>
                                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                                 button(type='button') Показать код
+                                                                 button.before-morph(type='button') Показать код
                                                                  .morph-content
                                                                       div
                                                                            .content-style-form.content-style-form-1
