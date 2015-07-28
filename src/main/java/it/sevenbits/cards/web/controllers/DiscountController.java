@@ -6,6 +6,7 @@ import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
+import it.sevenbits.cards.web.service.StoreService;
 import it.sevenbits.cards.web.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,18 @@ public class DiscountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StoreService storeService;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
     public String use(@ModelAttribute UseForm useForm) throws ServiceException {
-        discountService.delete(useForm.getUin());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        discountService.delete(useForm.getUin(), storeName);
         return "redirect:/store_area";
     }
     //Show All Discounts

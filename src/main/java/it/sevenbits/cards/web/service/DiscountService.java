@@ -94,9 +94,9 @@ public class DiscountService {
         }
     }
 
-    public void delete(String key) throws ServiceException {
+    public void delete(String key, String storeName) throws ServiceException {
         try {
-            repository.delete(key);
+            repository.delete(key, storeName);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }

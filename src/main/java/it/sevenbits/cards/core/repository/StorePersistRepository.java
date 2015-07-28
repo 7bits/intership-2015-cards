@@ -11,16 +11,27 @@ import org.springframework.stereotype.Repository;
 public class StorePersistRepository implements StoreRepository {
     private static Logger LOG = Logger.getLogger(StorePersistRepository.class);
     @Autowired
-    private StoreMapper storeMapper;
+    private StoreMapper mapper;
     @Override
     public void save(final Store store) throws RepositoryException {
         if (store == null) {
             throw new RepositoryException("Store is null");
         }
         try {
-            storeMapper.save(store);
+            mapper.save(store);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while saving store: " + e.getMessage(), e);
         }
-    };
+    }
+    @Override
+    public String findStoreNameByUserId(final String userId) throws RepositoryException {
+        if (userId == null) {
+            throw new RepositoryException("UserId is null");
+        }
+        try {
+            return mapper.findStoreNameByUserId(userId);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
 }

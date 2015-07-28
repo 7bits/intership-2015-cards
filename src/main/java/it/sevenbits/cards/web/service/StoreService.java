@@ -12,7 +12,7 @@ public class StoreService {
     @Autowired
 
     @Qualifier(value = "storePersistRepository")
-    private StoreRepository storeRepository;
+    private StoreRepository repository;
 
     public void save(SaveStoreForm saveStoreForm) throws ServiceException {
         Store store = new Store();
@@ -20,9 +20,16 @@ public class StoreService {
         store.setStoreName(saveStoreForm.getStoreName());
         store.setStoreImage(saveStoreForm.getStoreImage());
         try {
-            storeRepository.save(store);
+            repository.save(store);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving store: " + e.getMessage(), e);
+        }
+    }
+    public String findStoreNameByUserId(String userId) throws ServiceException {
+        try {
+            return repository.findStoreNameByUserId(userId);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
         }
     }
 }
