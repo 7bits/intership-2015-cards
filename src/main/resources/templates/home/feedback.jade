@@ -72,23 +72,16 @@ html
         // MAIN
         .main
             .registration-form
-                h2 Регистрация
+                h2 ОБРАТНАЯ СВЯЗЬ
                 form(action="/feedback", method="post")
                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                    p
-                        label Title
-                        br
-                        input.form-control(name='title', type='text')
-                    p
-                        label Email
-                        br
-                        input.form-control(name='email', type='text', value="#{userName}")
-                    p
-                        label Сообщение
-                        br
-                        textarea(name='describe', rows="5", cols="5")
-                    p
-                        input.form-control.registration-button(type='submit', value='Зарегистрироваться')
+                    label.reglable Title
+                    input.form-control.not-morph(name='title', type='text')
+                    label.reglable Email
+                    input.form-control.not-morph(name='email', type='text', value="#{userName}")
+                    label.reglable Сообщение
+                    textarea(name='describe', rows="5", cols="5")
+                    input.form-control.registration-button.yes(type='submit', value='Отправить сообщение')
         // MAIN END
         // SCRIPTS
         script(src='/resources/scripts/classie.js')
