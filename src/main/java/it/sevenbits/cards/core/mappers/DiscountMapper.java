@@ -1,7 +1,5 @@
 package it.sevenbits.cards.core.mappers;
 import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.web.domain.DiscountForm;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 

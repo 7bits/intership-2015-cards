@@ -21,7 +21,7 @@ public class DiscountService {
         final Discount discount = new Discount();
         discount.setKey(form.getKey());
         discount.setUin(form.getUin());
-        discount.setIsHidden(form.getIsHidden());
+        discount.setIsHidden(Boolean.parseBoolean(form.getIsHidden()));
         discount.setUserId(form.getUserId());
         discount.setStoreName(form.getStoreName());
         discount.setDescription(form.getDescription());
