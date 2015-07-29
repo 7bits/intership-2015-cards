@@ -1,7 +1,5 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
@@ -31,7 +29,7 @@ public class DiscountController {
     private StoreService storeService;
 
     @Autowired
-    private DiscountFormValidator validator;
+    private DiscountFormValidator discountFormValidator;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -56,7 +54,7 @@ public class DiscountController {
     @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
     public String saveDiscountAndShowAllAfterAdd(@ModelAttribute DiscountForm discountForm, Model model) throws ServiceException {
         LOG.debug(discountForm);
-        final Map<String, String> errors = validator.validate(discountForm);
+        final Map<String, String> errors = discountFormValidator.validate(discountForm);
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);
             return "home/add_discount";

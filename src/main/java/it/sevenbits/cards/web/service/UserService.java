@@ -34,36 +34,12 @@ public class UserService {
 
     public void createUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
-        User userExist = null;
-        String email = form.getEmail();
-        String pswd = form.getPassword();
-        boolean valid = true;
-        if (EmailValidation.checkEmailValidity(email)) {
-            try {
-                userExist = repository.findByUsername(email);
-            } catch (Exception e) {
-                throw new ServiceException("An error occurred while finding by User Name: " + e.getMessage(), e);
-            }
-            if (userExist == null) {
-                user.setEmail(email);
-            } else {
-                valid=false;
-                LOG.error("user already exist");
-            }
-        } else {
-            LOG.error("not validity email\n");
-            valid=false;
-        }
-        if (pswd.length() > 0) {
-            PasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(pswd));
-        } else {
-            LOG.error("password is empty\n");
-            valid = false;
-        }
+        user.setEmail(form.getEmail());
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(form.getPassword()));
         String maxUserId;
         try {
-           maxUserId = repository.maxUserId();
+            maxUserId = repository.maxUserId();
         } catch (Exception e) {
             throw new ServiceException("An error occurred while finding by User Name: " + e.getMessage(), e);
         }
@@ -94,12 +70,10 @@ public class UserService {
             userId = userId + Character.toString(ch);
             user.setUserId(userId);
         }
-        if (valid) {
-            try {
-               repository.save(user);
-            } catch (Exception e) {
-                throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
-            }
+        try {
+            repository.save(user);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
     public void changeUserRoleByUserId(String userRole, String userId) throws ServiceException {

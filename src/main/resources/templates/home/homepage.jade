@@ -53,15 +53,15 @@ html
                                    if security.isUserInRole("ROLE_USER")
                                         form(action="/personal_area", method="post")
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input(type='submit', value="ЛК")
+                                             input.exit-button(type='submit', value="ЛК")
                                    if security.isUserInRole("ROLE_ADMIN")
                                         form(action="/admin_area", method="post")
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input(type='submit', value="ЛК")
+                                             input.exit-button(type='submit', value="ЛК")
                                    if security.isUserInRole("ROLE_STORE")
                                         form(action="/store_area", method="post")
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input(type='submit', value="ЛК")
+                                             input.exit-button(type='submit', value="ЛК")
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация

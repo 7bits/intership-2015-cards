@@ -1,5 +1,9 @@
 package it.sevenbits.cards.web.service;
 
+import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.core.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -8,6 +12,10 @@ import java.util.regex.Pattern;
 
 @Service
 public class CommonFieldValidator {
+    @Autowired
+
+    @Qualifier(value = "userRepository")
+    private UserRepository userRepository;
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.[a-z]+$", Pattern.CASE_INSENSITIVE
     );
@@ -41,18 +49,6 @@ public class CommonFieldValidator {
             }
         }
     }
-    public void isEmptyBoolean(
-            final Boolean value,
-            final Map<String, String> errors,
-            final String field,
-            final String key
-    ) {
-        if (!errors.containsKey(field)) {
-            if (value == null) {
-                errors.put(field, key);
-            }
-        }
-    }
 
     public void isEmail(final String value, final Map<String, String> errors, final String field, final String key) {
         if (value != null && !errors.containsKey(field)) {
@@ -72,6 +68,26 @@ public class CommonFieldValidator {
     ) {
         if (value != null && !errors.containsKey(field)) {
             if (value.length() > maxLength) {
+                errors.put(field, key);
+            }
+        }
+    }
+
+    public void isUserAlreadyExist(
+            final String value,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ){
+        if(!value.equals("")){
+            String userName;
+            try {
+                userName = userRepository.findByUsername(value).getUsername();
+            }
+            catch (Exception e){
+                userName="";
+            }
+            if(!userName.equals("")){
                 errors.put(field, key);
             }
         }

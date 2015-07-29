@@ -5,7 +5,7 @@ import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.FeedbackForm;
 import it.sevenbits.cards.web.domain.NewPasswordForm;
 import it.sevenbits.cards.web.domain.PasswordRestoreForm;
-import it.sevenbits.cards.web.service.PasswordRestoreService;
+import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -24,11 +24,9 @@ import javax.swing.*;
 import java.net.Authenticator;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Map;
 
 import it.sevenbits.cards.web.domain.RegistrationForm;
-import it.sevenbits.cards.web.service.DiscountService;
-import it.sevenbits.cards.web.service.ServiceException;
-import it.sevenbits.cards.web.service.UserService;
 
 @Controller
 public class HomeController {
@@ -41,6 +39,9 @@ public class HomeController {
 
     @Autowired
     private PasswordRestoreService restoreService;
+
+    @Autowired
+    private RegistrationFormValidator registrationFormValidator;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -89,9 +90,14 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute RegistrationForm form) throws ServiceException, RepositoryException {
-        userService.createUser(form);
-        return "redirect:/registration";
+    public String registration(@ModelAttribute RegistrationForm registrationForm, Model model) throws ServiceException, RepositoryException {
+        final Map<String, String> errors = registrationFormValidator.validate(registrationForm);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "home/registration";
+        }
+        userService.createUser(registrationForm);
+        return "home/registration";
     }
 
     //Password restore
