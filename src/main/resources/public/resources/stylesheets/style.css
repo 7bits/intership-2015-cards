@@ -374,7 +374,9 @@ input.exit-button[type="submit"]{
     border-bottom:3px solid #CE253C !important;
 }
 
-.registration-form input[type="email"], .registration-form input[type="password"]{
+.registration-form input[type="email"],
+.registration-form input[type="password"],
+.registration-form input[type="text"]{
     /*padding: 15px;*/
     height: 46px;
     width: 100%;
@@ -420,4 +422,19 @@ label.reglable{
 }
  .reginp{
      margin-top:15px !important;
+ }
+ .fb-textarea{
+     max-width: 100%;
+     min-width: 100%;
+     min-height:90px;
+ }
+ .fb-button{
+     margin-top:15px;
+ }
+
+ body {
+     user-select:none;
+     -moz-user-select: none;
+     -khtml-user-select: none;
+     -webkit-user-select: none;
  }

@@ -7,6 +7,7 @@ html
         meta(name="_csrf_header", content="#{_csrf.headerName}")
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
         script(src='http://code.jquery.com/jquery-latest.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
         script(src='/resources/scripts/modernizr.custom.js')
@@ -72,16 +73,17 @@ html
         // MAIN
         .main
             .registration-form
-                h2 ОБРАТНАЯ СВЯЗЬ
+                h2.reg-fill-heading ОБРАТНАЯ СВЯЗЬ
                 form(action="/feedback", method="post")
-                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                    label.reglable Title
-                    input.form-control.not-morph(name='title', type='text')
-                    label.reglable Email
-                    input.form-control.not-morph(name='email', type='text', value="#{userName}")
-                    label.reglable Сообщение
-                    textarea(name='describe', rows="5", cols="5")
-                    input.form-control.registration-button.yes(type='submit', value='Отправить сообщение')
+                    .reg-input-lable-container
+                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                        label.reglable Заголовок сообщения
+                        input.form-control.not-morph(name='title', type='text')
+                        label.reglable Email
+                        input.form-control.not-morph(name='email', type='text', value="#{userName}")
+                        label.reglable Сообщение
+                        textarea.fb-textarea(name='describe', rows="5", cols="5")
+                        input.form-control.registration-button.yes.fb-button(type='submit', value='Отправить сообщение')
         // MAIN END
         // SCRIPTS
         script(src='/resources/scripts/classie.js')
