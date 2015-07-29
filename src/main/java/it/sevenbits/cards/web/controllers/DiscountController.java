@@ -2,9 +2,11 @@ package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
+import it.sevenbits.cards.web.service.StoreService;
 import it.sevenbits.cards.web.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,18 @@ public class DiscountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StoreService storeService;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
     public String use(@ModelAttribute UseForm useForm) throws ServiceException {
-        discountService.delete(useForm.getUin());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        discountService.delete(useForm.getUin(), storeName);
         return "redirect:/store_area";
     }
     //Show All Discounts
@@ -61,15 +68,18 @@ public class DiscountController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public String send(@ModelAttribute SendForm form) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        discountService.send(form.getUserId(), form.getUin(), userName);
+        if( EmailValidation.checkEmailValidity(form.getEmail())) {
+            discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+        }
+        else {
+            discountService.send(form.getEmail(), form.getUin());
+        }
         return "redirect:/personal_area";
     }
     //Bind discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String tradePost(@ModelAttribute UseForm form) throws RepositoryException, ServiceException{
+    public String tradePost(@ModelAttribute UseForm form) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));

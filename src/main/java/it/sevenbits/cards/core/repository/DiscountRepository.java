@@ -10,11 +10,11 @@ import java.util.List;
 public interface DiscountRepository {
     void save(final Discount discount) throws RepositoryException;
     List<Discount> findAll() throws RepositoryException;
-    void delete(String key) throws RepositoryException;
+    void delete(String key, String storeName) throws RepositoryException;
     List<Discount> findAllForUse(String userName) throws RepositoryException;
     List<Discount> findAllForSend(String userName) throws RepositoryException;
     List<Discount> findUserId(final Discount discount) throws RepositoryException;
     void changeUserId(String uin, String userId) throws RepositoryException;
-    void send(String userId, String uin, String userName) throws RepositoryException;
+    void send(String email, String uin) throws RepositoryException;
 }
 

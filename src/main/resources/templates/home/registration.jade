@@ -6,6 +6,7 @@ html
         meta(name="_csrf", content="#{_csrf.token}")
         meta(name="_csrf_header", content="#{_csrf.headerName}")
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+        link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         script(src='http://code.jquery.com/jquery-latest.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
@@ -40,7 +41,7 @@ html
                                         input(name="password", type="password")
                                     input.yes(type="submit", value="Войти")
                                     p
-                                        a(href="registration")
+                                        a.reg-href(href="registration")
                                             .registrarion-btn
                                                 Регистрация
                     #js_info_button.info-button(tabindex='1')
