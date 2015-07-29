@@ -6,6 +6,7 @@ html
         meta(name="_csrf", content="#{_csrf.token}")
         meta(name="_csrf_header", content="#{_csrf.headerName}")
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         script(src='http://code.jquery.com/jquery-latest.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
@@ -19,7 +20,6 @@ html
         .header_container
             .header
                 .header-image
-                    img(src="/resources/img/logoOS.png")
                 .header-buttons
                     .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-logout
                         button(type='button') Войти
@@ -34,15 +34,15 @@ html
                                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                     .form-group
                                         label Email
-                                        input(name="username", type="text")
+                                        input(name="username", type="email")
                                     .form-group
                                         label Пароль
                                         input(name="password", type="password")
+                                    .forget-password-href
+                                        a(href="password_restore") Забыли пароль?
                                     input.yes(type="submit", value="Войти")
                                     p
-                                        a(href="password_restore") Забыли пароль?
-                                    p
-                                        a(href="registration")
+                                        a.reg-href(href="registration")
                                             .registrarion-btn
                                                 Регистрация
                     #js_info_button.info-button(tabindex='1')
@@ -58,19 +58,15 @@ html
         // MAIN
         .main
             .registration-form
-                h2 Регистрация
+                h2.reg-fill-heading РЕГИСТРАЦИЯ
                 form(action="/registration", method="post")
-                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                    p
-                        label Email
-                        br
-                        input.form-control(name='email', type='text')
-                    p
-                        label Пароль
-                        br
-                        input.form-control(name='password', type='password')
-                    p
-                        input.form-control.registration-button(type='submit', value='Зарегистрироваться')
+                    .reg-input-lable-container
+                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                        label.reglable Введите адрес эл. почты
+                        input.form-control.not-morph(name='email', type='email')
+                        label.reglable Введите пароль
+                        input.form-control.not-morph(name='password', type='password')
+                        input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
         // MAIN END
         // SCRIPTS
         script(src='/resources/scripts/classie.js')

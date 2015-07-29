@@ -110,7 +110,8 @@ a:hover, a:focus {
 }
 
 .content-style-form input[type="text"],
-.content-style-form input[type="password"] {
+.content-style-form input[type="password"],
+.content-style-form input[type="email"]{
 	padding: 15px;
 	height: 46px;
 	width: 100%;

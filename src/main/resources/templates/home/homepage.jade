@@ -7,7 +7,7 @@ html
           meta(name="_csrf", content="#{_csrf.token}")
           meta(name="_csrf_header", content="#{_csrf.headerName}")
 
-          link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
+          link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
           script(src='http://code.jquery.com/jquery-latest.js')
@@ -42,11 +42,13 @@ html
                                                   .form-group
                                                        label Пароль
                                                        input(name="password", type="password")
+                                                  .forget-password-href
+                                                       a(href="password_restore") Забыли пароль?
                                                   input.yes(type="submit", value="Войти")
-                                                  p
-                                                       a.reg-href(href="registration")
-                                                            .registrarion-btn
-                                                                 Регистрация
+
+                                                  a.reg-href(href="registration")
+                                                       .registrarion-btn
+                                                            Регистрация
                               else
                                    if security.isUserInRole("ROLE_USER")
                                         form(action="/personal_area", method="post")

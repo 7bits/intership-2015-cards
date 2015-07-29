@@ -8,7 +8,7 @@ html
           script(src='/resources/scripts/jquery-1.9.1.js')
           script(src='/resources/scripts/bootstrap.js')
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
-          link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
+          link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
           script(src='/resources/scripts/modernizr.custom.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
@@ -27,16 +27,13 @@ html
                     .header-image
                     .header-buttons
                          .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-                              button(type='button') Выход
+                              form(action="/logout", method="post")
+                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                   input.exit-button(type='submit',value='Выход')
                               .morph-content
                                    .content-style-form.content-style-form-1
-                                        span.icon.icon-close Закрыть окно
-                                        h2 Выйти?
                                         .morph-in-button
-                                             form(action="/logout", method="post")
-                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                  input.yes(type="submit", value="Да")
-                                                  button.no Нет
+                                             button magicbuttonwhichishidden
                          // morph-button
                          #js_info_button.info-button(tabindex='1')
                               | Информация

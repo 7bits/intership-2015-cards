@@ -25,6 +25,12 @@
 	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    border:none;
+    border-bottom:4px solid #de003c;
+    background-color:#ff466a;
+    color:#fff;
+    letter-spacing: 1px;
+    font-weight:800;
 }
 
 .main .generate-discount-block {
