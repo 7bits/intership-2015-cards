@@ -4,7 +4,7 @@ public class DiscountForm {
     private Long id;
     private String key;
     private String uin;
-    private Boolean isHidden;
+    private String isHidden;
     private String userId;
     private String storeName;
     private String description;
@@ -33,11 +33,11 @@ public class DiscountForm {
         this.uin = uin;
     }
 
-    public Boolean getIsHidden() {
+    public String getIsHidden() {
         return isHidden;
     }
 
-    public void setIsHidden(Boolean isHidden) {
+    public void setIsHidden(String isHidden) {
         this.isHidden = isHidden;
     }
 
@@ -51,7 +51,7 @@ public class DiscountForm {
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%s, userId=%s, storeName=%s, description=%s]",
                 id, key, uin, isHidden, userId, storeName, description);
     }
 
