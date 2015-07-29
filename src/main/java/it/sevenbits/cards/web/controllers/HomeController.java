@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.web.domain.FeedbackForm;
 import it.sevenbits.cards.web.domain.NewPasswordForm;
 import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import it.sevenbits.cards.web.service.PasswordRestoreService;
@@ -119,6 +120,25 @@ public class HomeController {
         restoreService.sendEmail(restoreService.generateHash(form));
         return "redirect:/password_restore";
     }
+
+    //feedback
+    @RequestMapping(value = "/feedback", method = RequestMethod.GET)
+    public String feedback(final Model model) throws ServiceException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        if (userName == "anonymousUser") {
+            userName = "";
+        }
+        model.addAttribute("userName", userName);
+        return "home/feedback";
+    }
+
+    @RequestMapping(value = "/feedback", method = RequestMethod.POST)
+    public String feedback(@ModelAttribute FeedbackForm form) throws ServiceException {
+        userService.sendMailToFeedback(form);
+        return "redirect:/feedback";
+    }
+
     //Personal Area Get Method
     @Secured("ROLE_USER")
     @RequestMapping(value = "/personal_area", method = RequestMethod.GET)

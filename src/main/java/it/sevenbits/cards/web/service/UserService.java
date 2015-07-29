@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.service;
 
 
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.web.domain.FeedbackForm;
 import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -107,5 +108,14 @@ public class UserService {
         } catch (Exception e) {
             throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
         }
+    }
+
+    public void sendMailToFeedback(FeedbackForm form) {
+        String email = form.getEmail();
+        String title = form.getTitle();
+        String describe = form.getDescribe();
+        LOG.info(email);
+        LOG.info(title);
+        LOG.info(describe);
     }
 }
