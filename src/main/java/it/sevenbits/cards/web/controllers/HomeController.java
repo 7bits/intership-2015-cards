@@ -2,6 +2,9 @@ package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.web.domain.NewPasswordForm;
+import it.sevenbits.cards.web.domain.PasswordRestoreForm;
+import it.sevenbits.cards.web.service.PasswordRestoreService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -13,10 +16,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import java.net.Authenticator;
 import java.security.Principal;
 import java.util.Collection;
@@ -25,14 +28,19 @@ import it.sevenbits.cards.web.domain.RegistrationForm;
 import it.sevenbits.cards.web.service.DiscountService;
 import it.sevenbits.cards.web.service.ServiceException;
 import it.sevenbits.cards.web.service.UserService;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private DiscountService discountService;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordRestoreService restoreService;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Success
@@ -80,11 +88,37 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String user_registration(@ModelAttribute RegistrationForm form) throws ServiceException, RepositoryException {
+    public String registration(@ModelAttribute RegistrationForm form) throws ServiceException, RepositoryException {
         userService.createUser(form);
         return "redirect:/registration";
     }
 
+    //Password restore
+    @RequestMapping(value = "/password_restore", method = RequestMethod.GET)
+    public String restorePassword() {return "home/password_restore";}
+
+    @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
+    public String restorePasswordHash(@RequestParam String hash, Model model) {
+        if (hash == null || hash.length() == 0) {
+            return "home/password_restore";
+        } else {
+            restoreService.printHash(hash);
+            model.addAttribute("hash", hash);
+            return "home/new_password";
+        }
+    }
+
+    @RequestMapping(value = "/password_restore/", method = RequestMethod.POST)
+    public String newPassword(@ModelAttribute NewPasswordForm form) throws ServiceException{
+        restoreService.restorePassword(form);
+        return "redirect:/password_restore";
+    }
+
+    @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
+    public String restorePassword(@ModelAttribute PasswordRestoreForm form) throws ServiceException {
+        restoreService.sendEmail(restoreService.generateHash(form));
+        return "redirect:/password_restore";
+    }
     //Personal Area Get Method
     @Secured("ROLE_USER")
     @RequestMapping(value = "/personal_area", method = RequestMethod.GET)

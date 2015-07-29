@@ -6,11 +6,6 @@ package it.sevenbits.cards.web.domain;
 public class RegistrationForm {
     private String email;
     private String password;
-    private String confirmPassword;
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
 
     public String getEmail() {
         return email;
@@ -18,10 +13,6 @@ public class RegistrationForm {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public void setEmail(String email) {
@@ -34,6 +25,6 @@ public class RegistrationForm {
 
     @Override
     public String toString() {
-        return String.format("RegistrationForm[email=%s, password=%s, confirmPassword=%s]", email, password, confirmPassword);
+        return String.format("RegistrationForm[email=%s, password=%s]", email, password);
     }
 }

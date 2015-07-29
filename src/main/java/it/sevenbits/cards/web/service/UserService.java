@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.service;
 
 
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,7 +36,6 @@ public class UserService {
         User userExist = null;
         String email = form.getEmail();
         String pswd = form.getPassword();
-        String confPswd = form.getConfirmPassword();
         boolean valid = true;
         if (EmailValidation.checkEmailValidity(email)) {
             try {
@@ -53,11 +53,11 @@ public class UserService {
             LOG.error("not validity email\n");
             valid=false;
         }
-        if (pswd.equals(confPswd)) {
+        if (pswd.length() > 0) {
             PasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(pswd));
         } else {
-            LOG.error("password doesn't equal confirm password\n");
+            LOG.error("password is empty\n");
             valid = false;
         }
         String maxUserId;
