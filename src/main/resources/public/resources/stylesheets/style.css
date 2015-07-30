@@ -27,6 +27,9 @@ a.reg-href {
     margin-top:0.3em;
     display:block;
 }
+a.reg-href:hover, a.reg-href:focus{
+    color:#fff;
+}
 input.yes#bind[type="submit"]{
     font-size: 1.45em;
 }
