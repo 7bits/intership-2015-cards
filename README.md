@@ -3,8 +3,6 @@ Cards Project
 <p> С помощью нашего продукта вы можете делиться скидками с друзьями.
 <p> [Ссылка на активную версию сайта , staging]( http://discounts.7bits.it ) <br>
 (логин: admin пароль:redline) <br>
-<p> Доступ к staging по SSH: <br>
-`ssh root@192.168.200.108`
 <p> Для запуска проекта понадобятся: <br>
 <ol>
 <li>Java Development Kit 7</li>
