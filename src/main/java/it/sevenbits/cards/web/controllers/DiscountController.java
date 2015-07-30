@@ -31,6 +31,9 @@ public class DiscountController {
     @Autowired
     private DiscountFormValidator discountFormValidator;
 
+    @Autowired
+    private SendFormValidator sendFormValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
@@ -72,13 +75,13 @@ public class DiscountController {
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public String sendDiscount(@ModelAttribute SendForm form) throws ServiceException{
-        if( EmailValidation.checkEmailValidity(form.getEmail())) {
-            discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+    public String sendDiscount(@ModelAttribute SendForm sendForm, Model model ) throws ServiceException{
+        final Map<String, String> errors = sendFormValidator.validate(sendForm);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "redirect:/personal_area";
         }
-        else {
-            discountService.send(form.getEmail(), form.getUin());
-        }
+        discountService.send(userService.findUserIdByUserName(sendForm.getEmail()), sendForm.getUin());
         return "redirect:/personal_area";
     }
     //Bind discount

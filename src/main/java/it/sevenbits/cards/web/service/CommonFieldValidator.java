@@ -92,4 +92,22 @@ public class CommonFieldValidator {
             }
         }
     }
+    public void isUserExist(
+            final String value,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ){
+        if (!errors.containsKey(field)) {
+            String userName;
+            try {
+                userName = userRepository.findByUsername(value).getUsername();
+            } catch (Exception e) {
+                userName = "";
+            }
+            if (userName.equals("")) {
+                errors.put(field, key);
+            }
+        }
+    }
 }

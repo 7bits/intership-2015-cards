@@ -18,7 +18,7 @@ public class DiscountFormValidator {
     private static final Logger LOG = Logger.getLogger(DiscountFormValidator.class);
 
     public HashMap<String, String> validate(final DiscountForm form) {
-        LOG.info("SubscriptionFormValidator started for: " + form.toString());
+        LOG.info("DiscountFormValidator started for: " + form.toString());
         HashMap<String, String> errors = new HashMap<>();
 
         validator.isNotNullOrEmpty(form.getKey(), errors, "key", "Поле не должно быть пустым");

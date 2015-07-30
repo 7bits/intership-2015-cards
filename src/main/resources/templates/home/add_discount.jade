@@ -32,7 +32,6 @@ html
                     .text
                          | Ошибка обнаружена в поле: #{key}.
                          |  #{value}
-               pstic
      div
           form(action="/add_discount", method="post")
                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
