@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.service;
 
+import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.SendForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class SendFormValidator {
 
     private static final Logger LOG = Logger.getLogger(SendFormValidator.class);
 
-    public HashMap<String, String> validate(final SendForm form) {
+    public HashMap<String, String> validate(final SendForm form) throws RepositoryException{
         LOG.info("SendFormValidator started for: " + form.toString());
         HashMap<String, String> errors = new HashMap<>();
 
@@ -27,6 +28,7 @@ public class SendFormValidator {
 
         validator.isEmail(form.getEmail(), errors, "email", "В поле должен быть введён Email.");
         validator.isUserExist(form.getEmail(), errors, "email", "Пользователь должен существовать в системе.");
+        validator.isUserSelfSend(form.getEmail(), form.getUin(), errors, "email", "Пользователь не может отправить скидку самому себе.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",

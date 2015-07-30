@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
@@ -75,7 +76,7 @@ public class DiscountController {
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public String sendDiscount(@ModelAttribute SendForm sendForm, Model model ) throws ServiceException{
+    public String sendDiscount(@ModelAttribute SendForm sendForm, Model model ) throws ServiceException, RepositoryException{
         final Map<String, String> errors = sendFormValidator.validate(sendForm);
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);

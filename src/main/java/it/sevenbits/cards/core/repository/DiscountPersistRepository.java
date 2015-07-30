@@ -98,4 +98,15 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
         }
     }
+    @Override
+    public String findDiscountOwner(String uin) throws RepositoryException{
+        if (uin == null) {
+            throw new RepositoryException("Uin is null");
+        }
+        try{
+            return mapper.findDiscountOwner(uin);
+        }catch (Exception e) {
+            throw new RepositoryException("An error occurred while finding discount owner: " + e.getMessage(), e);
+        }
+    }
 }

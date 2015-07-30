@@ -1,7 +1,10 @@
 package it.sevenbits.cards.web.service;
 
+import it.sevenbits.cards.core.repository.DiscountRepository;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.UserRepository;
+import org.apache.log4j.Logger;
+import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,14 +15,21 @@ import java.util.regex.Pattern;
 
 @Service
 public class CommonFieldValidator {
-    @Autowired
 
+    @Autowired
     @Qualifier(value = "userRepository")
     private UserRepository userRepository;
+
+    @Autowired
+    @Qualifier(value = "discountPersistRepository")
+    private DiscountRepository discountRepository;
+
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.[a-z]+$", Pattern.CASE_INSENSITIVE
     );
     private static final String WHITESPACE_PATTERN = "\\s+";
+    private static final Logger LOG = Logger.getLogger(CommonFieldValidator.class);
+
 
     public void isNotNullOrEmpty(
             final String value,
@@ -107,6 +117,31 @@ public class CommonFieldValidator {
             }
             if (userName.equals("")) {
                 errors.put(field, key);
+            }
+        }
+    }
+    public void isUserSelfSend(
+            final String email,
+            final String uin,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) throws RepositoryException{
+        if (!errors.containsKey(field)) {
+            String userId = "";
+            try {
+                try {
+                    userId = discountRepository.findDiscountOwner(uin);
+                }
+                catch (Exception e){
+                    userId = "";
+                }
+                String userIdByEmail = userRepository.findUserIdByUserName(email);
+                if (userId.equals(userIdByEmail)) {
+                    errors.put(field, key);
+                }
+            } catch (Exception e) {
+
             }
         }
     }
