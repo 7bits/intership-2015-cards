@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.service;
 
 
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.validation.Sender;
 import it.sevenbits.cards.web.domain.FeedbackForm;
 import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class UserService {
     @Qualifier(value = "userRepository")
     private UserRepository repository;
     Logger LOG = Logger.getLogger(UserService.class);
+
+    private static Sender sender = new Sender();
 
     public String findUserIdByUserName(String userName) throws ServiceException {
         try {
@@ -88,8 +91,6 @@ public class UserService {
         String email = form.getEmail();
         String title = form.getTitle();
         String describe = form.getDescribe();
-        LOG.info(email);
-        LOG.info(title);
-        LOG.info(describe);
+        sender.send(title, "Спасибо. Ваше письмо очень важно для нас! Ожидайте ответ\n", email);
     }
 }

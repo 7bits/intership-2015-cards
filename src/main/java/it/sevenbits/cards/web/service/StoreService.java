@@ -3,6 +3,7 @@ package it.sevenbits.cards.web.service;
 import it.sevenbits.cards.core.domain.Store;
 import it.sevenbits.cards.core.repository.StoreRepository;
 import it.sevenbits.cards.web.domain.SaveStoreForm;
+import it.sevenbits.cards.web.domain.SettingsForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,37 @@ public class StoreService {
             return repository.findStoreNameByUserId(userId);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+        }
+    }
+
+    public void saveChanges(SettingsForm form, String userId) throws ServiceException {
+        Store store = new Store();
+        store.setDiscount(form.getDiscount());
+        store.setDescribe(form.getDescribe());
+        store.setUserId(userId);
+        store.setStoreName(form.getStoreName());
+        try {
+            repository.saveChanges(store);
+        } catch (Exception e) {
+            throw new ServiceException("saveChanges() service error: " + e.getMessage(), e);
+        }
+    }
+
+    public Store findStoreByUserId(String userId) throws ServiceException {
+        Store store;
+        try {
+            store = repository.findStoreByUserId(userId);
+            if (store == null) {
+                store = new Store();
+                store.setUserId(userId);
+                store.setStoreName("unknown");
+                store.setDescribe("Empty");
+                store.setDiscount(2);
+                store.setStoreImage("empty");
+            }
+            return store;
+        } catch (Exception e) {
+            throw new ServiceException("findStoreByUserId error: " + e.getMessage(), e);
         }
     }
 }

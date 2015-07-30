@@ -11,11 +11,11 @@ import javax.mail.internet.MimeMessage;
 
 public class Sender {
 
-    private String username = "dietzvv@gmail.com";
-    private String password = "5ZATY13POK5";
+    private final String username = "discountfeedback@gmail.com";
+    private final String password = "i8baM6J7lUaJ";
     private Properties props;
 
-    public Sender(String username, String password) {
+    public Sender() {
 
         props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -27,7 +27,7 @@ public class Sender {
     public void send(String subject, String text, String toEmail){
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("dietzvv@gmail.com", "5ZATY13POK5");
+                return new PasswordAuthentication(username, password);
             }
         });
 

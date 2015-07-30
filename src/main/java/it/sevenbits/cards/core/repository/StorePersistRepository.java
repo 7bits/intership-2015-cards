@@ -23,6 +23,27 @@ public class StorePersistRepository implements StoreRepository {
             throw new RepositoryException("An error occurred while saving store: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public Store findStoreByUserId(String userId) throws RepositoryException{
+        try {
+            return mapper.findStoreByUserId(userId);
+        } catch (Exception e) {
+            throw new RepositoryException("findStoreByUserId error: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void saveChanges(final Store store) throws RepositoryException{
+        //Validation. Check null
+        try {
+            mapper.updateDescribe(store.getUserId(), store.getDescribe());
+            mapper.updateDiscount(store.getUserId(), store.getDiscount());
+        } catch (Exception e) {
+            throw new RepositoryException("saveChanges() repository error: " + e.getMessage(), e);
+        }
+    }
+
     @Override
     public String findStoreNameByUserId(final String userId) throws RepositoryException {
         if (userId == null) {

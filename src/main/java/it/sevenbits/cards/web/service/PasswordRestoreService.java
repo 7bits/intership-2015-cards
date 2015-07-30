@@ -29,7 +29,7 @@ public class PasswordRestoreService {
     @Autowired
     private UserRepository userRepository;
 
-    private static Sender sender = new Sender("dietzvv@gmail.com", "5ZATY13POK5");
+    private static Sender sender = new Sender();
 
     Logger LOG = Logger.getLogger(UserService.class);
 
@@ -91,11 +91,31 @@ public class PasswordRestoreService {
         }
     }
 
+
+
     public void sendEmail(PasswordRestore restore) throws ServiceException {
         if (restore == null) {
             LOG.error("user doesn't exist3");
         } else {
-            //sender.send("Восстановление пароля Discounts", restore.getHash(), "kashinvsevolod@gmail.com");
+            sender.send("Восстановление пароля Discounts", "Ссылка для восстановления пароля:\n" +
+                    "http://localhost:9000/password_restore/?hash=" + restore.getHash() +
+                    "\n Для отмены операции перейдите по ссылке:\n" +
+                    "http://localhost:9000/password_restore/?hash=delete"
+                    + restore.getHash(), restore.getEmail());
+        }
+    }
+
+    public void deleteByHash(final String hash) {
+        String email = null;
+        try {
+            email = repository.findEmailByHash(hash.substring(6));
+        } catch (RepositoryException e) {
+            LOG.error("WTF?!?!?!");
+        }
+        try {
+            repository.delete(email);
+        } catch (RepositoryException e) {
+            LOG.error("WTF?!");
         }
     }
 }

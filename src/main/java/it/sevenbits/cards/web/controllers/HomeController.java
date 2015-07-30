@@ -1,10 +1,9 @@
 package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.Role;
+import it.sevenbits.cards.core.domain.Store;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
-import it.sevenbits.cards.web.domain.FeedbackForm;
-import it.sevenbits.cards.web.domain.NewPasswordForm;
-import it.sevenbits.cards.web.domain.PasswordRestoreForm;
+import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,6 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
 
-import it.sevenbits.cards.web.domain.RegistrationForm;
-
 @Controller
 public class HomeController {
 
@@ -42,6 +39,9 @@ public class HomeController {
 
     @Autowired
     private RegistrationFormValidator registrationFormValidator;
+
+    @Autowired
+    private StoreService storeService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -109,7 +109,10 @@ public class HomeController {
         if (hash == null || hash.length() == 0) {
             return "home/password_restore";
         } else {
-            restoreService.printHash(hash);
+            if (hash.substring(0, 6).equals("delete")) {
+                restoreService.deleteByHash(hash);
+                return "home/homepage";
+            }
             model.addAttribute("hash", hash);
             return "home/new_password";
         }
@@ -145,6 +148,24 @@ public class HomeController {
         return "redirect:/feedback";
     }
 
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    public String settings(final Model model) throws ServiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
+        model.addAttribute("storeName", store.getStoreName());
+        model.addAttribute("storeImage", store.getStoreImage());
+        model.addAttribute("describe", store.getDescribe());
+        model.addAttribute("discount", store.getDiscount());
+        return "home/settings";
+    }
+
+    @RequestMapping(value = "/settings", method = RequestMethod.POST)
+    public String settings(@ModelAttribute SettingsForm form) throws ServiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        storeService.saveChanges(form, userService.findUserIdByUserName(authentication.getName()));
+        return "redirect:/settings";
+    }
+
     //Personal Area Get Method
     @Secured("ROLE_USER")
     @RequestMapping(value = "/personal_area", method = RequestMethod.GET)
@@ -170,7 +191,12 @@ public class HomeController {
 
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.GET)
-    public String storeAreaGet(){
+    public String storeAreaGet(final Model model) throws ServiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
+        model.addAttribute("storeName", store.getStoreName());
+        model.addAttribute("describe", store.getDescribe());
+        model.addAttribute("discount", store.getDiscount());
         return "home/store_area";
     }
 
