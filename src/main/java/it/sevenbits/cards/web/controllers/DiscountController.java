@@ -35,15 +35,25 @@ public class DiscountController {
     @Autowired
     private SendFormValidator sendFormValidator;
 
+    @Autowired
+    private UseFormValidator useFormValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public String use(@ModelAttribute UseForm useForm) throws ServiceException {
+    public String use(@ModelAttribute UseForm useForm, Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        discountService.delete(useForm.getUin(), storeName);
+        LOG.info(useForm.getKey());
+        LOG.info(storeName);
+        final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "redirect:/store_area";
+        }
+        discountService.delete(useForm.getKey(), storeName);
         return "redirect:/store_area";
     }
     //Show All Discounts
@@ -91,7 +101,7 @@ public class DiscountController {
     public String bindDiscount(@ModelAttribute UseForm form) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));
+        discountService.changeUserId(form.getKey(), userService.findUserIdByUserName(userName));
         return "redirect:/personal_area";
     }
 }

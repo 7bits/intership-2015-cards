@@ -20,7 +20,7 @@ public interface DiscountMapper {
     @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description})")
     void save(final Discount discount);
     //Delete
-    @Delete("DELETE FROM discounts WHERE key = #{key} AND is_hidden = false AND store_name = #{storeName}")
+    @Delete("DELETE FROM discounts WHERE key = #{key} AND store_name = #{storeName}")
     void delete(@Param("key") String key, @Param("storeName") String storeName);
     //FindAllForUse
     @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = false and user_id = #{userName}")
@@ -68,4 +68,22 @@ public interface DiscountMapper {
             "WHERE uin=#{uin}")
     @Result(column = "user_id")
     String findDiscountOwner(@Param("uin") String uin);
+    //Find Discount maker
+    @Select("SELECT store_name\n" +
+            "FROM discounts\n" +
+            "WHERE key=#{key}")
+    @Result(column = "store_name")
+    String findDiscountMaker(@Param("key") String key);
+    //Find Hidden Status
+    @Select("SELECT is_hidden\n" +
+            "FROM discounts\n" +
+            "WHERE key=#{key}")
+    @Result(column = "is_hidden")
+    Boolean findHiddenStatus(@Param("key") String key);
+    //Find Discount Id
+    @Select("SELECT id\n" +
+            "FROM discounts\n" +
+            "WHERE key=#{key}")
+    @Result(column = "id")
+    Long findDiscountId(@Param("key") String key);
 }

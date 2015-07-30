@@ -66,7 +66,7 @@ html
                                         br
                                         form(action="/use_discount", method="post")
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input.generate-input(type='text', name="uin")
+                                             input.generate-input(type='text', name="key")
                                              input.repay-ok(type="submit", value="ИСПОЛЬЗОВАТЬ")
                          #generateSection.generate-discount-block.tab-pane.fade
                               h3

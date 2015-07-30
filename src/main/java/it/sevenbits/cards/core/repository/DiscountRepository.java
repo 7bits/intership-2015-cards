@@ -17,5 +17,8 @@ public interface DiscountRepository {
     void changeUserId(String uin, String userId) throws RepositoryException;
     void send(String email, String uin) throws RepositoryException;
     String findDiscountOwner(String uin) throws RepositoryException;
+    String findDiscountMaker(String key) throws RepositoryException;
+    Boolean findHiddenStatus(String key) throws RepositoryException;
+    Long findDiscountId(String key) throws RepositoryException;
 }
 

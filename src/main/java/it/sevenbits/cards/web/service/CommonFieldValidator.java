@@ -47,6 +47,7 @@ public class CommonFieldValidator {
             }
         }
     }
+
     public void isBoolean(
             final String value,
             final Map<String, String> errors,
@@ -54,7 +55,7 @@ public class CommonFieldValidator {
             final String key
     ) {
         if (!errors.containsKey(field)) {
-            if (!(value.equals("true"))||(value.equals("false"))) {
+            if (!((value.equals("true")) || (value.equals("false")))) {
                 errors.put(field, key);
             }
         }
@@ -62,7 +63,7 @@ public class CommonFieldValidator {
 
     public void isEmail(final String value, final Map<String, String> errors, final String field, final String key) {
         if (value != null && !errors.containsKey(field)) {
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(value);
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(value);
             if (!matcher.find()) {
                 errors.put(field, key);
             }
@@ -88,26 +89,26 @@ public class CommonFieldValidator {
             final Map<String, String> errors,
             final String field,
             final String key
-    ){
-        if(!value.equals("")){
+    ) {
+        if (!value.equals("")) {
             String userName;
             try {
                 userName = userRepository.findByUsername(value).getUsername();
+            } catch (Exception e) {
+                userName = "";
             }
-            catch (Exception e){
-                userName="";
-            }
-            if(!userName.equals("")){
+            if (!userName.equals("")) {
                 errors.put(field, key);
             }
         }
     }
+
     public void isUserExist(
             final String value,
             final Map<String, String> errors,
             final String field,
             final String key
-    ){
+    ) {
         if (!errors.containsKey(field)) {
             String userName;
             try {
@@ -120,20 +121,20 @@ public class CommonFieldValidator {
             }
         }
     }
+
     public void isUserSelfSend(
             final String email,
             final String uin,
             final Map<String, String> errors,
             final String field,
             final String key
-    ) throws RepositoryException{
+    ) throws RepositoryException {
         if (!errors.containsKey(field)) {
             String userId = "";
             try {
                 try {
                     userId = discountRepository.findDiscountOwner(uin);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     userId = "";
                 }
                 String userIdByEmail = userRepository.findUserIdByUserName(email);
@@ -145,4 +146,71 @@ public class CommonFieldValidator {
             }
         }
     }
+
+    public void isStoreMakerOfDiscount(
+            final String discountKey,
+            final String storeName,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            if (!discountKey.equals("")) {
+                String discountMaker;
+                try {
+                    discountMaker = discountRepository.findDiscountMaker(discountKey);
+                } catch (Exception e) {
+                    discountMaker = "";
+                }
+                if (discountMaker == null) {
+                    errors.put(field, key);
+                } else if (!discountMaker.equals(storeName)) {
+                    errors.put(field, key);
+                }
+            }
+        }
+    }
+
+    public void isDiscountHidden(
+            final String discountKey,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            if (!discountKey.equals("")) {
+                Boolean isHidden;
+                try {
+                    isHidden = discountRepository.findHiddenStatus(discountKey);
+                } catch (Exception e) {
+                    isHidden = true;
+                }
+                if (isHidden == null) {
+                    errors.put(field, key);
+                } else if (isHidden) {
+                    errors.put(field, key);
+                }
+            }
+        }
+    }
+
+    public void isDiscountExist(
+            final String discountKey,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            Long discountId;
+            try {
+                discountId = discountRepository.findDiscountId(discountKey);
+            } catch (Exception e) {
+                discountId = null;
+            }
+            if (discountId == null) {
+                errors.put(field, key);
+            }
+        }
+    }
 }
+

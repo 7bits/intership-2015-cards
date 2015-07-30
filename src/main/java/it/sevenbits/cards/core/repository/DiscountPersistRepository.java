@@ -1,6 +1,7 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.mappers.DiscountMapper;
+import org.apache.catalina.startup.ClassLoaderFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -107,6 +108,39 @@ public class DiscountPersistRepository implements DiscountRepository {
             return mapper.findDiscountOwner(uin);
         }catch (Exception e) {
             throw new RepositoryException("An error occurred while finding discount owner: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public String findDiscountMaker(String key) throws RepositoryException{
+        if(key==null){
+            throw new RepositoryException("Key is null");
+        }
+        try {
+            return mapper.findDiscountMaker(key);
+        }catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount maker: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public Boolean findHiddenStatus(String key) throws RepositoryException{
+        if(key==null){
+            throw new RepositoryException("Key is null");
+        }
+        try {
+            return mapper.findHiddenStatus(key);
+        }catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount maker: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public Long findDiscountId(String key) throws RepositoryException{
+        if(key==null){
+            throw new RepositoryException("Key is null");
+        }
+        try{
+            return mapper.findDiscountId(key);
+        }catch(Exception e){
+            throw new RepositoryException("An error occurred while finding discount id: " + e.getMessage(), e);
         }
     }
 }

@@ -1,18 +1,18 @@
 package it.sevenbits.cards.web.domain;
 
 public class UseForm {
-    private String uin;
+    private String key;
 
-    public String getUin() {
-        return uin;
+    public String getKey() {
+        return key;
     }
 
-    public void setUin(String uin) {
-        this.uin = uin;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
     public String toString() {
-        return String.format("BindForm[uin=%s]", uin);
+        return String.format("UseForm[key=%s]", key);
     }
 }
