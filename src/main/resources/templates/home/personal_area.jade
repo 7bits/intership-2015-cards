@@ -141,8 +141,15 @@ html
                                                        .heading #{discount.storeName}
                                              #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_'+discount.id)
                                                   .accordion-inner.describe
-                                                       .text
-                                                            | #{discount.description}
+                                                       .describe_shadow
+                                                       .description-container
+                                                            .text
+                                                                 .description-heading
+                                                                      | Описание скидки:
+                                                            .store-img-container
+                                                                 img.store-img(src='/resources/img/mediamarkt.png')
+                                                            .text
+                                                                 | #{discount.description}
                                                        .btn
                                                             // <a href="#"><div class="b_text">Использовать</div></a>
                                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send

@@ -64,7 +64,7 @@ html
                                    form(action="/use_discount", method="post")
                                         .reg-input-lable-container
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input.generate-input(type='text', name="key")
+                                             input.generate-input(type='text', name="key", placeholder="Введите ключ скидки")
                                              input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
 
                          #generateSection.generate-discount-block.tab-pane.fade
@@ -80,7 +80,7 @@ html
                                              label.reglable Введите UserId покупателя
                                              input.form-control.not-morph(type='text')
                                              label.reglable Введите описание скидки
-                                             textarea.form-control.not-morph(name="describe",type='text')
+                                             textarea.generate-textarea(name="describe",type='text')
                                              input.form-control.registration-button.yes.reginp(type='submit', value='СГЕНЕРИРОВАТЬ')
 
 
