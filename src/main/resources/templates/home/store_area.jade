@@ -64,7 +64,8 @@ html
                                    form(action="/use_discount", method="post")
                                         .reg-input-lable-container
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             input.generate-input(type='text', name="key", placeholder="Введите ключ скидки")
+                                             label.reglable Введите ключ скидки
+                                             input.generate-input(type='text', name="key")
                                              input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
 
                          #generateSection.generate-discount-block.tab-pane.fade
@@ -74,13 +75,13 @@ html
                                         .reg-input-lable-container
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                              label.reglable Наименование магазина
-                                             input.form-control.not-morph(name='storeName', type='text')
+                                             input.form-control.not-morph(name='storeName', type='text', readonly='', onkeydown="event.preventDefault()", value="#{store.storeName}")
                                              label.reglable Введите % скидки
-                                             input.form-control.not-morph(name='discount', type='text')
+                                             input.form-control.not-morph(name='discountPercent', type='text', value="#{store.discountPercent}")
                                              label.reglable Введите UserId покупателя
                                              input.form-control.not-morph(type='text')
                                              label.reglable Введите описание скидки
-                                             textarea.generate-textarea(name="describe",type='text')
+                                             textarea.generate-textarea(name="description",type='text') #{store.description}
                                              input.form-control.registration-button.yes.reginp(type='submit', value='СГЕНЕРИРОВАТЬ')
 
 

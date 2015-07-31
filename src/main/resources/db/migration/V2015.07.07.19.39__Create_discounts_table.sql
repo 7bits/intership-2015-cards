@@ -31,8 +31,8 @@ CREATE TABLE stores (
   "user_id" VARCHAR(8) NOT NULL UNIQUE,
   "store_name" VARCHAR(255) NOT NULL UNIQUE,
   "store_image" VARCHAR(255) NOT NULL,
-  "describe" VARCHAR(4000),
-  "discount" INTEGER NOT NULL
+  "description" VARCHAR(4000),
+  "discount_percent" INTEGER NOT NULL
 );
 
 

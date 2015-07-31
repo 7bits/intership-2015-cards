@@ -152,10 +152,7 @@ public class HomeController {
     public String settings(final Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("storeName", store.getStoreName());
-        model.addAttribute("storeImage", store.getStoreImage());
-        model.addAttribute("describe", store.getDescribe());
-        model.addAttribute("discount", store.getDiscount());
+        model.addAttribute("store", store);
         return "home/settings";
     }
 
@@ -194,9 +191,7 @@ public class HomeController {
     public String storeAreaGet(final Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("storeName", store.getStoreName());
-        model.addAttribute("describe", store.getDescribe());
-        model.addAttribute("discount", store.getDiscount());
+        model.addAttribute("store", store);
         return "home/store_area";
     }
 
