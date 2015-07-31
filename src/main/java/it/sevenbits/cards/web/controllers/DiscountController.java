@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -43,6 +44,14 @@ public class DiscountController {
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/social_add_discount/", method = RequestMethod.GET)
+    public String social_add_discount(@RequestParam String uin) throws ServiceException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        discountService.changeUserId(uin, userService.findUserIdByUserName(userName));
+        return "redirect:/personal_area";
+    }
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)

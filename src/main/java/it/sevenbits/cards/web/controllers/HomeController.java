@@ -84,6 +84,14 @@ public class HomeController {
         return "home/homepage";
     }
 
+    //About
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String about() {return "home/about";}
+
+    //Developers
+    @RequestMapping(value = "/developers", method = RequestMethod.GET)
+    public String developers() {return "home/developers";}
+
     //Registration
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration() {return "home/registration";

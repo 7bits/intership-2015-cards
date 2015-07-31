@@ -42,9 +42,9 @@ html
                               | Информация
                               ul.dropdown
                                    li
-                                        a(href='#') О проекте
+                                        a(href='about') О проекте
                                    li
-                                        a(href='#') Разработчики
+                                        a(href='developers') Разработчики
                                    li
                                         a(href='feedback') Поддержка
           // HEADER END
@@ -123,7 +123,7 @@ html
 
                                                                                      .morph-in-button
                                                                                           input.add(type="submit",value="Отправить")
-                                                                                     a(onclick="Share.vkontakte('http://localhost:9000/','Скидка от сервиса Discount','/resources/img/mediamarkt.png','#{discount.description}')")
+                                                                                     a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
                                                                                           img.social(src='/resources/img/vkontakte.png')
                                                             // morph-button
                                                        .describe_shadow_down
