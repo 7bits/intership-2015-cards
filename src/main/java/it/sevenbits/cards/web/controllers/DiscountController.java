@@ -38,6 +38,9 @@ public class DiscountController {
     @Autowired
     private UseFormValidator useFormValidator;
 
+    @Autowired
+    private BindFormValidator bindFormValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Use Discount
@@ -46,8 +49,6 @@ public class DiscountController {
     public String use(@ModelAttribute UseForm useForm, Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        LOG.info(useForm.getKey());
-        LOG.info(storeName);
         final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);
@@ -98,10 +99,15 @@ public class DiscountController {
     //Bind discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String bindDiscount(@ModelAttribute UseForm form) throws ServiceException{
+    public String bindDiscount(@ModelAttribute BindForm bindForm, Model model) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        discountService.changeUserId(form.getKey(), userService.findUserIdByUserName(userName));
+        final Map<String, String> errors = bindFormValidator.validate(bindForm, userName);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "redirect:/personal_area";
+        }
+        discountService.changeUserId(bindForm.getUin(), userService.findUserIdByUserName(userName));
         return "redirect:/personal_area";
     }
 }

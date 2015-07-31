@@ -122,25 +122,47 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
-    public Boolean findHiddenStatus(String key) throws RepositoryException{
+    public Boolean findHiddenStatusByKey(String key) throws RepositoryException{
         if(key==null){
             throw new RepositoryException("Key is null");
         }
         try {
-            return mapper.findHiddenStatus(key);
+            return mapper.findHiddenStatusByKey(key);
         }catch (Exception e){
-            throw new RepositoryException("An error occurred while finding discount maker: " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while finding discount hidden status by key: " + e.getMessage(), e);
         }
     }
     @Override
-    public Long findDiscountId(String key) throws RepositoryException{
+    public Boolean findHiddenStatusByUin(String uin) throws RepositoryException{
+        if(uin==null){
+            throw new RepositoryException("Uin is null");
+        }
+        try {
+            return mapper.findHiddenStatusByUin(uin);
+        }catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount hidden status by uin: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public Long findDiscountIdByKey(String key) throws RepositoryException{
         if(key==null){
             throw new RepositoryException("Key is null");
         }
         try{
-            return mapper.findDiscountId(key);
+            return mapper.findDiscountIdByKey(key);
         }catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount id: " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while finding discount id by key: " + e.getMessage(), e);
+        }
+    }
+    @Override
+    public Long findDiscountIdByUin(String uin) throws RepositoryException{
+        if(uin==null){
+            throw new RepositoryException("Uin is null");
+        }
+        try{
+            return mapper.findDiscountIdByUin(uin);
+        }catch(Exception e){
+            throw new RepositoryException("An error occurred while finding discount id by uin: " + e.getMessage(), e);
         }
     }
 }

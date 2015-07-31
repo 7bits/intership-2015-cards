@@ -128,7 +128,7 @@ public class CommonFieldValidator {
             final Map<String, String> errors,
             final String field,
             final String key
-    ) throws RepositoryException {
+    ) {
         if (!errors.containsKey(field)) {
             String userId = "";
             try {
@@ -171,7 +171,7 @@ public class CommonFieldValidator {
         }
     }
 
-    public void isDiscountHidden(
+    public void isDiscountPrivateByKey(
             final String discountKey,
             final Map<String, String> errors,
             final String field,
@@ -181,7 +181,7 @@ public class CommonFieldValidator {
             if (!discountKey.equals("")) {
                 Boolean isHidden;
                 try {
-                    isHidden = discountRepository.findHiddenStatus(discountKey);
+                    isHidden = discountRepository.findHiddenStatusByKey(discountKey);
                 } catch (Exception e) {
                     isHidden = true;
                 }
@@ -194,7 +194,30 @@ public class CommonFieldValidator {
         }
     }
 
-    public void isDiscountExist(
+    public void isDiscountPublicByUin(
+            final String discountUin,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            if (!discountUin.equals("")) {
+                Boolean isHidden;
+                try {
+                    isHidden = discountRepository.findHiddenStatusByUin(discountUin);
+                } catch (Exception e) {
+                    isHidden = false;
+                }
+                if (isHidden == null) {
+                    errors.put(field, key);
+                } else if (!isHidden) {
+                    errors.put(field, key);
+                }
+            }
+        }
+    }
+
+    public void isDiscountExistByKey(
             final String discountKey,
             final Map<String, String> errors,
             final String field,
@@ -203,7 +226,26 @@ public class CommonFieldValidator {
         if (!errors.containsKey(field)) {
             Long discountId;
             try {
-                discountId = discountRepository.findDiscountId(discountKey);
+                discountId = discountRepository.findDiscountIdByKey(discountKey);
+            } catch (Exception e) {
+                discountId = null;
+            }
+            if (discountId == null) {
+                errors.put(field, key);
+            }
+        }
+    }
+
+    public void isDiscountExistByUin(
+            final String discountUin,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            Long discountId;
+            try {
+                discountId = discountRepository.findDiscountIdByUin(discountUin);
             } catch (Exception e) {
                 discountId = null;
             }

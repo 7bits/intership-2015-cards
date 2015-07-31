@@ -16,7 +16,7 @@ public class SendFormValidator {
 
     private static final Logger LOG = Logger.getLogger(SendFormValidator.class);
 
-    public HashMap<String, String> validate(final SendForm form) throws RepositoryException{
+    public HashMap<String, String> validate(final SendForm form) {
         LOG.info("SendFormValidator started for: " + form.toString());
         HashMap<String, String> errors = new HashMap<>();
 

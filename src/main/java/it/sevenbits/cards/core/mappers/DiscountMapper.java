@@ -59,7 +59,7 @@ public interface DiscountMapper {
     })
     List<Discount> findUserId(final Discount discount);
     //ChangeUserId
-    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin} AND user_id != #{userId} AND is_hidden != false") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
     //Send
     @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void send(@Param("userId") String userId, @Param("uin") String uin);
     //Find Discount Owner
@@ -74,16 +74,28 @@ public interface DiscountMapper {
             "WHERE key=#{key}")
     @Result(column = "store_name")
     String findDiscountMaker(@Param("key") String key);
-    //Find Hidden Status
+    //Find Hidden Status By Key
     @Select("SELECT is_hidden\n" +
             "FROM discounts\n" +
             "WHERE key=#{key}")
     @Result(column = "is_hidden")
-    Boolean findHiddenStatus(@Param("key") String key);
-    //Find Discount Id
+    Boolean findHiddenStatusByKey(@Param("key") String key);
+    //Find Hidden Status By Uin
+    @Select("SELECT is_hidden\n" +
+            "FROM discounts\n" +
+            "WHERE uin=#{uin}")
+    @Result(column = "is_hidden")
+    Boolean findHiddenStatusByUin(@Param("uin") String uin);
+    //Find Discount Id By Key
     @Select("SELECT id\n" +
             "FROM discounts\n" +
             "WHERE key=#{key}")
     @Result(column = "id")
-    Long findDiscountId(@Param("key") String key);
+    Long findDiscountIdByKey(@Param("key") String key);
+    //Find Discount Id By Uin
+    @Select("SELECT id\n" +
+            "FROM discounts\n" +
+            "WHERE uin=#{uin}")
+    @Result(column = "id")
+    Long findDiscountIdByUin(@Param("uin") String uin);
 }
