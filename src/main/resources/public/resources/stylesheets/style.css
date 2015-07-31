@@ -441,3 +441,9 @@ label.reglable{
      -khtml-user-select: none;
      -webkit-user-select: none;
  }
+
+ .social {
+ 	width: 30px;
+ 	height: 30px;
+ 	float: left;
+ }
