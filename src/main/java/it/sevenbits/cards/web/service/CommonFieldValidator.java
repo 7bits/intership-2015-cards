@@ -236,23 +236,5 @@ public class CommonFieldValidator {
         }
     }
 
-    public void isDiscountExistByUin(
-            final String discountUin,
-            final Map<String, String> errors,
-            final String field,
-            final String key
-    ) {
-        if (!errors.containsKey(field)) {
-            Long discountId;
-            try {
-                discountId = discountRepository.findDiscountIdByUin(discountUin);
-            } catch (Exception e) {
-                discountId = null;
-            }
-            if (discountId == null) {
-                errors.put(field, key);
-            }
-        }
-    }
 }
 

@@ -41,6 +41,9 @@ public class HomeController {
     private RegistrationFormValidator registrationFormValidator;
 
     @Autowired
+    private SettingsFormValidator settingsFormValidator;
+
+    @Autowired
     private StoreService storeService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
@@ -155,7 +158,7 @@ public class HomeController {
         userService.sendMailToFeedback(form);
         return "redirect:/feedback";
     }
-
+    @Secured("ROLE_STORE")
     @RequestMapping(value = "/settings", method = RequestMethod.GET)
     public String settings(final Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -163,11 +166,16 @@ public class HomeController {
         model.addAttribute("store", store);
         return "home/settings";
     }
-
+    @Secured("ROLE_STORE")
     @RequestMapping(value = "/settings", method = RequestMethod.POST)
-    public String settings(@ModelAttribute SettingsForm form) throws ServiceException {
+    public String settings(@ModelAttribute SettingsForm settingsForm, Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        storeService.saveChanges(form, userService.findUserIdByUserName(authentication.getName()));
+        final Map<String, String> errors = settingsFormValidator.validate(settingsForm);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "redirect:/settings";
+        }
+        storeService.saveChanges(settingsForm, userService.findUserIdByUserName(authentication.getName()));
         return "redirect:/settings";
     }
 
