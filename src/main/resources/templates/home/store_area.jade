@@ -59,30 +59,31 @@ html
                                    a(data-toggle='tab', href='#generateSection') Сгенерировать скидки
                     .tab-content
                          #repaymentSection.repayment-block.tab-pane.fade.in.active
-                              h3
-                                   | ИСПОЛЬЗОВАТЬ СКИДКУ
-                                   p
-                                        label Ключ
-                                        br
-                                        form(action="/use_discount", method="post")
+                              .registration-form
+                                   h2.reg-fill-heading ИСПОЛЬЗОВАТЬ СКИДКУ
+                                   form(action="/use_discount", method="post")
+                                        .reg-input-lable-container
                                              input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                              input.generate-input(type='text', name="key")
-                                             input.repay-ok(type="submit", value="ИСПОЛЬЗОВАТЬ")
+                                             input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
+
                          #generateSection.generate-discount-block.tab-pane.fade
-                              h3
-                                   | СГЕНЕРИРОВАТЬ СКИДКУ
-                                   p
-                                        label Введите процент скидки
-                                        input.generate-input(type='text')
-                                   p
-                                        label Введите количество скидок
-                                        input.generate-input(type='text')
-                                   p
-                                        label Введите UserId покупателей
-                                        input.generate-input(type='text')
-                                   a(href='#')
-                                        .generate-ok
-                                             | СГЕНЕРИРОВАТЬ
+                              .registration-form
+                                   h2.reg-fill-heading ГЕНЕРАЦИЯ СКИДКИ
+                                   form(action="/generate_discount", method="post")
+                                        .reg-input-lable-container
+                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                             label.reglable Наименование магазина
+                                             input.form-control.not-morph(name='storeName', type='text')
+                                             label.reglable Введите % скидки
+                                             input.form-control.not-morph(name='discount', type='text')
+                                             label.reglable Введите UserId покупателя
+                                             input.form-control.not-morph(type='text')
+                                             label.reglable Введите описание скидки
+                                             textarea.form-control.not-morph(name="describe",type='text')
+                                             input.form-control.registration-button.yes.reginp(type='submit', value='СГЕНЕРИРОВАТЬ')
+
+
                // MAIN END
                // SCRIPTS
                script(src='/resources/scripts/classie.js')
