@@ -2,6 +2,8 @@ package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.DiscountRepository;
+import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.web.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +15,12 @@ import java.util.List;
 @Service
 public class DiscountService {
     @Autowired
-
     @Qualifier(value = "discountPersistRepository")
     private DiscountRepository repository;
+
+    @Autowired
+    @Qualifier(value = "userRepository")
+    private UserRepository userRepository;
 
     public void save(final DiscountForm form) throws ServiceException {
         final Discount discount = new Discount();
@@ -133,6 +138,22 @@ public class DiscountService {
             repository.send(email, uin);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while sending discount: " + e.getMessage(), e);
+        }
+    }
+    public void generateDiscount(final GenerateDiscountForm generateDiscountForm, String generateKey, String generateUin) throws ServiceException, RepositoryException
+    {
+        final Discount discount = new Discount();
+        discount.setKey(generateKey);
+        discount.setUin(generateUin);
+        discount.setIsHidden(Boolean.parseBoolean("true"));
+        discount.setUserId(userRepository.findUserIdByUserName(generateDiscountForm.getUserName()));
+        discount.setStoreName(generateDiscountForm.getStoreName());
+        discount.setDescription(generateDiscountForm.getDescription());
+        discount.setPercent(generateDiscountForm.getDiscountPercent());
+        try {
+            repository.save(discount);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
 }

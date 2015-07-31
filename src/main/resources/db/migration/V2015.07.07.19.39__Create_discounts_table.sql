@@ -5,7 +5,8 @@ CREATE TABLE discounts (
   "is_hidden" BOOLEAN NOT NULL,
   "user_id" VARCHAR(8) NOT NULL,
   "store_name" VARCHAR(255) NOT NULL,
-  "description" VARCHAR(255) NOT NULL
+  "description" VARCHAR(255) NOT NULL,
+  "percent" INT NOT NULL
 );
 
 

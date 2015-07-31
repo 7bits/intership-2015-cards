@@ -17,7 +17,7 @@ public interface DiscountMapper {
     })
     List<Discount> findAll();
     //Save
-    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description})")
+    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent})")
     void save(final Discount discount);
     //Delete
     @Delete("DELETE FROM discounts WHERE key = #{key} AND store_name = #{storeName}")

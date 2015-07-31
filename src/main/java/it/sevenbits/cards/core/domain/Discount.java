@@ -10,6 +10,7 @@ public class Discount implements Serializable {
     private String userId;
     private String storeName;
     private String description;
+    private int percent;
 
     public Long getId() {
         return id;
@@ -67,10 +68,18 @@ public class Discount implements Serializable {
         this.description = description;
     }
 
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
-                id, key, uin, isHidden, userId, storeName, description);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s, percent=%d]",
+                id, key, uin, isHidden, userId, storeName, description, percent);
     }
+
 }
 

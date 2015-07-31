@@ -28,6 +28,9 @@ public class DiscountController {
     private UserService userService;
 
     @Autowired
+    private GenerateUniqueCode generateUniqueCode;
+
+    @Autowired
     private StoreService storeService;
 
     @Autowired
@@ -85,6 +88,15 @@ public class DiscountController {
         }
         discountService.save(discountForm);
         return "home/add_discount";
+    }
+    //Generate discount
+    @Secured("ROLE_STORE")
+    @RequestMapping(value="/generate_discount", method = RequestMethod.POST)
+    public String generateDiscount(@ModelAttribute GenerateDiscountForm generateDiscountForm) throws ServiceException, RepositoryException{
+        String generateKey=generateUniqueCode.random();
+        String generateUin=generateUniqueCode.random();
+        discountService.generateDiscount(generateDiscountForm, generateKey, generateUin);
+        return "redirect:/store_area";
     }
     //Add discount
     @Secured("ROLE_ADMIN")
