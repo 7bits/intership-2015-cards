@@ -7,8 +7,8 @@ public class Store implements Serializable {
     private String userId;
     private String storeName;
     private String storeImage;
-    private String describe;
-    private int discount;
+    private String description;
+    private int discountPercent;
 
     public Long getId() {
         return id;
@@ -42,25 +42,25 @@ public class Store implements Serializable {
         this.storeImage = storeImage;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getDiscount() {
-        return discount;
+    public int getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setDiscount(int discount) {
-        this.discount = discount;
+    public void setDiscountPercent(int discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     @Override
     public String toString() {
-        return String.format("Store[id=%d, userId=%s, storeName=%s, storeImage=%s, describe=%s, discount=%d]",
-                id, userId, storeName, storeImage, describe, discount);
+        return String.format("Store[id=%d, userId=%s, storeName=%s, storeImage=%s, description=%s, discountPercent=%d]",
+                id, userId, storeName, storeImage, description, discountPercent);
     }
 }

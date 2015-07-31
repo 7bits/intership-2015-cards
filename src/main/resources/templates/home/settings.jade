@@ -78,12 +78,11 @@ html
                     .reg-input-lable-container
                         input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                         label.reglable Название магазина
-                        input.form-control.not-morph(name='storeName', type='text', value="#{storeName}")
+                        input.form-control.not-morph(name='storeName', type='text', value="#{store.storeName}")
                         label.reglable Скидка, %
-                        input.form-control.not-morph(name='discount', type='text', value="#{discount}")
+                        input.form-control.not-morph(name='discountPercent', type='text', value="#{store.discountPercent}")
                         label.reglable Описание скидки
-                        textarea.fb-textarea(name='describe', rows="5", cols="5")
-                            #{describe}
+                        textarea.fb-textarea(name='description') #{store.description}
                         input.form-control.registration-button.yes.fb-button(type='submit', value='Сохранить')
         // MAIN END
         // SCRIPTS
