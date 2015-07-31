@@ -24,7 +24,7 @@ public class BindFormValidator {
 
         validator.shorterThan(bindForm.getUin(), 8, errors, "uin", "Поле должно быть короче, чем 8 символов.");
 
-        validator.isDiscountExistByUin(bindForm.getUin(), errors, "uin", "Скидки с данным ключом не существует.");
+        validator.isDiscountPublicByUin(bindForm.getUin(), errors, "uin", "Скидки с данным ключом не существует.");
 
         validator.isDiscountPublicByUin(bindForm.getUin(), errors, "uin", "Скидка должна находиться в секции 'Скидки для отправки'.");
 
