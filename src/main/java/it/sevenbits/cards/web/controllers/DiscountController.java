@@ -92,20 +92,6 @@ public class DiscountController {
         }
         return res;
     }
-    /*
-    public String saveDiscountAndShowAllAfterAdd(@ModelAttribute DiscountForm discountForm, Model model) throws ServiceException {
-        final Map<String, String> errors = discountFormValidator.validate(discountForm);
-
-
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "home/add_discount";
-        }
-        discountService.save(discountForm);
-        return "home/add_discount";
-
-    }
-    */
     //Generate discount
     @Secured("ROLE_STORE")
     @RequestMapping(value="/generate_discount", method = RequestMethod.POST)
