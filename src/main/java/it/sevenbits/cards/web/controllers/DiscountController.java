@@ -1,7 +1,7 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.RepositoryException;
-import it.sevenbits.cards.validation.EmailValidation;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
@@ -11,10 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import it.sevenbits.cards.web.domain.JsonResponse;
+
 
 import java.util.Map;
 
@@ -79,16 +78,34 @@ public class DiscountController {
     //Save discount after add and show all discounts
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
-    public String saveDiscountAndShowAllAfterAdd(@ModelAttribute DiscountForm discountForm, Model model) throws ServiceException {
-        LOG.debug(discountForm);
+    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute(value="discount") DiscountForm discountForm) throws ServiceException {
+        JsonResponse res = new JsonResponse();
         final Map<String, String> errors = discountFormValidator.validate(discountForm);
+
+        if (errors.size() == 0) {
+            discountService.save(discountForm);
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        }
+        return res;
+    }
+    /*
+    public String saveDiscountAndShowAllAfterAdd(@ModelAttribute DiscountForm discountForm, Model model) throws ServiceException {
+        final Map<String, String> errors = discountFormValidator.validate(discountForm);
+
+
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);
             return "home/add_discount";
         }
         discountService.save(discountForm);
         return "home/add_discount";
+
     }
+    */
     //Generate discount
     @Secured("ROLE_STORE")
     @RequestMapping(value="/generate_discount", method = RequestMethod.POST)

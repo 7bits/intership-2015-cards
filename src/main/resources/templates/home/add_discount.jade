@@ -8,6 +8,7 @@ html
           meta(name="_csrf_header", content="#{_csrf.headerName}")
           script(src='http://code.jquery.com/jquery-latest.js')
           script(src='/resources/scripts/bootstrap.js')
+          script(src='/resources/scripts/addDiscount.js')
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
           link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
           script(src='http://code.jquery.com/jquery-latest.js')
@@ -32,14 +33,22 @@ html
                     .text
                          | Ошибка обнаружена в поле: #{key}.
                          |  #{value}
-     div
-          form(action="/add_discount", method="post")
+     .js-test
+          form#js-add-discount(action="/add_discount", method="post")
                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+               .remove-error-message#key
                input.form-control(name="key", placeholder="Your key", type="text")
+               .remove-error-message#uin
                input.form-control(name="uin", placeholder="Your uin", type="text")
+               .remove-error-message#isHidden
                input.form-control(name="isHidden", placeholder="Your isHidden", type="text")
+               .remove-error-message#userId
                input.form-control(name="userId", placeholder="Your userId", type="text")
+               .remove-error-message#storeName
                input.form-control(name="storeName", placeholder="Your storeName", type="text")
+               .remove-error-message#description
                input.form-control(name="description", placeholder="Your description", type="text")
                input.btn.btn-primary(type="submit", value="Add")
+     #info
+     #error
 
