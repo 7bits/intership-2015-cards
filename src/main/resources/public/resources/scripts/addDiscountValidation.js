@@ -17,10 +17,17 @@ function doAjaxPost(data, headers) {
         headers: headers,
         success: function(response){
             $('.remove-error-message').html('');
-            for (var p in response.result) {
-                if( response.result.hasOwnProperty(p) ) {
-                    $('#'+p).html(response.result[p]);
+            if(response.status =="FAIL") {
+
+                for (var p in response.result) {
+                    if (response.result.hasOwnProperty(p)) {
+                        $('#' + p).html(response.result[p]);
+                    }
                 }
+                $('#info').html("");
+            }
+            else {
+                $('#info').html("<h4>"+"Скидка успешно добавлена!"+"</h4>");
             }
         },
         error: function(e){
