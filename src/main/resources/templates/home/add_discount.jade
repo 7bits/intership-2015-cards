@@ -21,6 +21,7 @@ html
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
           // BOOTSTRAP END
           link(href='/resources/stylesheets/storestyle.css', rel='stylesheet')
+          link(href='/resources/stylesheets/ajaxstyle.css', rel='stylesheet')
           meta(name="_csrf", content="#{_csrf.token}")
           meta(name="_csrf_header", content="#{_csrf.headerName}")
      body
@@ -37,17 +38,17 @@ html
           form#js-add-discount(action="/add_discount", method="post")
                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                .remove-error-message#key
-               input.form-control(name="key", placeholder="Your key", type="text")
+               input.form-control.key_input.ad(name="key", placeholder="Your key", type="text")
                .remove-error-message#uin
-               input.form-control(name="uin", placeholder="Your uin", type="text")
+               input.form-control.uin_input.ad(name="uin", placeholder="Your uin", type="text")
                .remove-error-message#isHidden
-               input.form-control(name="isHidden", placeholder="Your isHidden", type="text")
+               input.form-control.isHidden_input.ad(name="isHidden", placeholder="Your isHidden", type="text")
                .remove-error-message#userId
-               input.form-control(name="userId", placeholder="Your userId", type="text")
+               input.form-control.userId_input.ad(name="userId", placeholder="Your userId", type="text")
                .remove-error-message#storeName
-               input.form-control(name="storeName", placeholder="Your storeName", type="text")
+               input.form-control.storeName_input.ad(name="storeName", placeholder="Your storeName", type="text")
                .remove-error-message#description
-               input.form-control(name="description", placeholder="Your description", type="text")
+               input.form-control.description_input.ad(name="description", placeholder="Your description", type="text")
                input.btn.btn-primary(type="submit", value="Add")
      #info
      #error

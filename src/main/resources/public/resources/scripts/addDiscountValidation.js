@@ -17,10 +17,12 @@ function doAjaxPost(data, headers) {
         headers: headers,
         success: function(response){
             $('.remove-error-message').html('');
+            $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
 
                 for (var p in response.result) {
                     if (response.result.hasOwnProperty(p)) {
+                        $('.'+p+'_input').addClass("red-error");
                         $('#' + p).html(response.result[p]);
                     }
                 }

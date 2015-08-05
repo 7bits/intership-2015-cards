@@ -1,0 +1,15 @@
+input.form-control.red-error[type="text"]{
+    outline:2px solid red;
+}
+input.form-control.red-error[type="text"]:focus{
+    outline: none !important;
+}
+
+.remove-error-message{
+    height: 15px;
+    width:100%;
+    color:#ff466a;
+}
+.ad{
+    margin:4px !important;
+}
