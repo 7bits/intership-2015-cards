@@ -214,7 +214,10 @@ public class HomeController {
     //Store Area Post Method
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.POST)
-    public String storeAreaPost() {
+    public String storeAreaPost(final Model model) throws ServiceException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
+        model.addAttribute("store", store);
         return "home/store_area";
     }
 

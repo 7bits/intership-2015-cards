@@ -1,6 +1,5 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
@@ -27,9 +26,6 @@ public class DiscountController {
     private UserService userService;
 
     @Autowired
-    private GenerateUniqueCode generateUniqueCode;
-
-    @Autowired
     private StoreService storeService;
 
     @Autowired
@@ -44,6 +40,15 @@ public class DiscountController {
     @Autowired
     private BindFormValidator bindFormValidator;
 
+    @Autowired
+    private GenerateDiscountFormValidator generateDiscountFormValidator;
+
+    @Autowired
+    private GenerateKey generateKey;
+
+    @Autowired
+    private GenerateUin generateUin;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     @Secured("ROLE_USER")
@@ -57,16 +62,20 @@ public class DiscountController {
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public String use(@ModelAttribute UseForm useForm, Model model) throws ServiceException {
+    public @ResponseBody JsonResponse use(@ModelAttribute UseForm useForm) throws ServiceException {
+        JsonResponse res = new JsonResponse();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/store_area";
+        if (errors.size() == 0) {
+            discountService.delete(useForm.getKey(), storeName);
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
         }
-        discountService.delete(useForm.getKey(), storeName);
-        return "redirect:/store_area";
+        return res;
     }
     //Show All Discounts
     @Secured("ROLE_ADMIN")
@@ -81,7 +90,6 @@ public class DiscountController {
     public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute(value="discount") DiscountForm discountForm) throws ServiceException {
         JsonResponse res = new JsonResponse();
         final Map<String, String> errors = discountFormValidator.validate(discountForm);
-
         if (errors.size() == 0) {
             discountService.save(discountForm);
             res.setStatus("SUCCESS");
@@ -95,10 +103,15 @@ public class DiscountController {
     //Generate discount
     @Secured("ROLE_STORE")
     @RequestMapping(value="/generate_discount", method = RequestMethod.POST)
-    public String generateDiscount(@ModelAttribute GenerateDiscountForm generateDiscountForm) throws ServiceException, RepositoryException{
-        String generateKey=generateUniqueCode.random();
-        String generateUin=generateUniqueCode.random();
-        discountService.generateDiscount(generateDiscountForm, generateKey, generateUin);
+    public String generateDiscount(@ModelAttribute GenerateDiscountForm generateDiscountForm, Model model) throws ServiceException, RepositoryException{
+        final Map<String, String> errors = generateDiscountFormValidator.validate(generateDiscountForm);
+        if (errors.size() != 0) {
+            model.addAttribute("errors", errors);
+            return "redirect:/store_area";
+        }
+        String generatedKey= generateKey.random();
+        String generatedUin= generateUin.random();
+        discountService.generateDiscount(generateDiscountForm, generatedKey, generatedUin);
         return "redirect:/store_area";
     }
     //Add discount

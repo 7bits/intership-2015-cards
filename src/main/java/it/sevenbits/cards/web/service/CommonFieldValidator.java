@@ -109,7 +109,7 @@ public class CommonFieldValidator {
             final String field,
             final String key
     ) {
-        if (!errors.containsKey(field)) {
+        if (!errors.containsKey(field) && value != null) {
             String userName;
             try {
                 userName = userRepository.findByUsername(value).getUsername();
@@ -235,6 +235,25 @@ public class CommonFieldValidator {
             }
         }
     }
+    public void isPercent(
+            final String discountPercent,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            int percent;
+            try {
+                percent = Integer.parseInt(discountPercent);
+            } catch (Exception e) {
+                percent = 0;
+            }
+            if (percent == 0) {
+                errors.put(field, key);
+            }
+        }
+    }
+
 
 }
 

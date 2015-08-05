@@ -11,6 +11,7 @@ html
           script(src='http://code.jquery.com/jquery-latest.js')
           script(src='/resources/scripts/jquery-1.9.1.js')
           script(src='/resources/scripts/bootstrap.js')
+          script(src='/resources/scripts/useDiscountValidation.js')
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
           script(src='/resources/scripts/modernizr.custom.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
@@ -61,12 +62,14 @@ html
                          #repaymentSection.repayment-block.tab-pane.fade.in.active
                               .registration-form
                                    h2.reg-fill-heading ИСПОЛЬЗОВАТЬ СКИДКУ
-                                   form(action="/use_discount", method="post")
-                                        .reg-input-lable-container
-                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                             label.reglable Введите ключ скидки
-                                             input.generate-input(type='text', name="key")
-                                             input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
+                                   .js-use
+                                        form#js-use-form(action="/use_discount", method="post")
+                                             .reg-input-lable-container
+                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                  .remove-error-message#key
+                                                  label.reglable Введите ключ скидки
+                                                  input.generate-input(type='text', name="key")
+                                                  input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
 
                          #generateSection.generate-discount-block.tab-pane.fade
                               .registration-form

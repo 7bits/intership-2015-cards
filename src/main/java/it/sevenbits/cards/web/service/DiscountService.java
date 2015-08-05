@@ -149,7 +149,7 @@ public class DiscountService {
         discount.setUserId(userRepository.findUserIdByUserName(generateDiscountForm.getUserName()));
         discount.setStoreName(generateDiscountForm.getStoreName());
         discount.setDescription(generateDiscountForm.getDescription());
-        discount.setPercent(generateDiscountForm.getDiscountPercent());
+        discount.setPercent(Integer.parseInt(generateDiscountForm.getDiscountPercent()));
         try {
             repository.save(discount);
         } catch (Exception e) {

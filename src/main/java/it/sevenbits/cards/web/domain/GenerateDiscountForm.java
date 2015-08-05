@@ -2,7 +2,7 @@ package it.sevenbits.cards.web.domain;
 
 public class GenerateDiscountForm {
     private String storeName;
-    private int discountPercent;
+    private String discountPercent;
     private String userName;
     private String description;
 
@@ -14,11 +14,11 @@ public class GenerateDiscountForm {
         this.storeName = storeName;
     }
 
-    public int getDiscountPercent() {
+    public String getDiscountPercent() {
         return discountPercent;
     }
 
-    public void setDiscountPercent(int discountPercent) {
+    public void setDiscountPercent(String discountPercent) {
         this.discountPercent = discountPercent;
     }
 
@@ -40,6 +40,6 @@ public class GenerateDiscountForm {
 
     @Override
     public String toString() {
-        return String.format("GenerateDiscountForm[storeName=%s, discountPercent=%d, userName=%s, description=%s]", storeName, discountPercent, userName, description);
+        return String.format("GenerateDiscountForm[storeName=%s, discountPercent=%s, userName=%s, description=%s]", storeName, discountPercent, userName, description);
     }
 }

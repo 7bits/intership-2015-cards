@@ -38,7 +38,7 @@ public class StoreService {
 
     public void saveChanges(SettingsForm form, String userId) throws ServiceException {
         Store store = new Store();
-        store.setDiscountPercent(form.getDiscountPercent());
+        store.setDiscountPercent(Integer.parseInt(form.getDiscountPercent()));
         store.setDescription(form.getDescription());
         store.setStoreName(form.getStoreName());
         store.setUserId(userId);

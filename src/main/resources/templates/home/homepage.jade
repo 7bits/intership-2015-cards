@@ -10,6 +10,7 @@ html
           link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+          script(src='/resources/scripts/loginValidation.js')
           script(src='http://code.jquery.com/jquery-latest.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
 
@@ -34,22 +35,23 @@ html
                                              h2 Войти
                                              if param.error
                                                   .aler.alert-danger
-                                                       p= param.error
-                                             form(action="/login", method="post")
-                                                  input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                  .form-group
-                                                       label Email
-                                                       input(name="username", type="text")
-                                                  .form-group
-                                                       label Пароль
-                                                       input(name="password", type="password")
-                                                  .forget-password-href
-                                                       a(href="password_restore") Забыли пароль?
-                                                  input.yes(type="submit", value="Войти")
+                                                       p= param.err
+                                             .js-login
+                                                  form#js-login-form(action="/login", method="post")
+                                                       input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                       .form-group
+                                                            label Email
+                                                            input(name="username", type="text")
+                                                       .form-group
+                                                            label Пароль
+                                                            input(name="password", type="password")
+                                                       .forget-password-href
+                                                            a(href="password_restore") Забыли пароль?
+                                                       input.yes(type="submit", value="Войти")
 
-                                                  a.reg-href(href="registration")
-                                                       .registrarion-btn
-                                                            Регистрация
+                                                       a.reg-href(href="registration")
+                                                            .registrarion-btn
+                                                                 Регистрация
                               else
                                    if security.isUserInRole("ROLE_USER")
                                         form(action="/personal_area", method="post")
