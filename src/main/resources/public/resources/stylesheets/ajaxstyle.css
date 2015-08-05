@@ -1,0 +1,6 @@
+input.form-control.red-error[type="text"]{
+    outline:2px solid red;
+}
+input.form-control.red-error[type="text"]:focus{
+    outline: none !important;
+}
