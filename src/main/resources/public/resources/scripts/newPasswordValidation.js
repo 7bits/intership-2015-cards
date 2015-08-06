@@ -12,7 +12,7 @@ $(document).ready(function(){
 function doAjaxPost(data, headers) {
     $.ajax({
         type: "POST",
-        url: "/new_password",
+        url: "/password_restore/",
         data: $(data).serialize(),
         headers: headers,
         success: function(response){
