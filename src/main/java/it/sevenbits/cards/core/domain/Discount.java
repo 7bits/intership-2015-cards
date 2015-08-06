@@ -11,6 +11,7 @@ public class Discount implements Serializable {
     private String storeName;
     private String description;
     private int percent;
+    private String storeImage;
 
     public Long getId() {
         return id;
@@ -81,5 +82,12 @@ public class Discount implements Serializable {
                 id, key, uin, isHidden, userId, storeName, description, percent);
     }
 
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
+    }
 }
 

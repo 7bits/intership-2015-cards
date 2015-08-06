@@ -3,7 +3,7 @@ CREATE TABLE discounts (
   "key" VARCHAR(8) NOT NULL UNIQUE,
   "uin" VARCHAR(8) NOT NULL UNIQUE,
   "is_hidden" BOOLEAN NOT NULL,
-  "user_id" VARCHAR(8) NOT NULL,
+  "user_id" VARCHAR(8),
   "store_name" VARCHAR(255) NOT NULL,
   "description" VARCHAR(255) NOT NULL,
   "percent" INT NOT NULL
@@ -31,11 +31,7 @@ CREATE TABLE stores (
   "id" BIGSERIAL NOT NULL PRIMARY KEY,
   "user_id" VARCHAR(8) NOT NULL UNIQUE,
   "store_name" VARCHAR(255) NOT NULL UNIQUE,
-  "store_image" VARCHAR(255) NOT NULL,
-  "description" VARCHAR(4000),
-  "discount_percent" INTEGER NOT NULL
+  "store_image" VARCHAR(255) NOT NULL
 );
-
-
 
 

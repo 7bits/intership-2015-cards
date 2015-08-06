@@ -1,0 +1,8 @@
+CREATE TABLE campaign (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "store_name" VARCHAR(255) NOT NULL,
+  "name" VARCHAR(255) NOT NULL,
+  "description" VARCHAR(255) NOT NULL,
+  "percent" INT NOT NULL,
+  "enabled" BOOLEAN NOT NULL DEFAULT TRUE
+);

@@ -33,18 +33,6 @@ public class StorePersistRepository implements StoreRepository {
         }
     }
 
-    @Override
-    public void saveChanges(final Store store) throws RepositoryException{
-        if (store == null) {
-            throw new RepositoryException("Store is null");
-        }
-        try {
-            mapper.updateDescription(store.getUserId(), store.getDescription());
-            mapper.updateDiscountPercent(store.getUserId(), store.getDiscountPercent());
-        } catch (Exception e) {
-            throw new RepositoryException("saveChanges() repository error: " + e.getMessage(), e);
-        }
-    }
 
     @Override
     public String findStoreNameByUserId(final String userId) throws RepositoryException {

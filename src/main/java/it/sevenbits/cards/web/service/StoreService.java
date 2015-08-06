@@ -20,8 +20,6 @@ public class StoreService {
         store.setUserId(saveStoreForm.getUserId());
         store.setStoreName(saveStoreForm.getStoreName());
         store.setStoreImage(saveStoreForm.getStoreImage());
-        store.setDiscountPercent(0);
-        store.setDescription("");
         try {
             repository.save(store);
         } catch (Exception e) {
@@ -36,18 +34,6 @@ public class StoreService {
         }
     }
 
-    public void saveChanges(SettingsForm form, String userId) throws ServiceException {
-        Store store = new Store();
-        store.setDiscountPercent(Integer.parseInt(form.getDiscountPercent()));
-        store.setDescription(form.getDescription());
-        store.setStoreName(form.getStoreName());
-        store.setUserId(userId);
-        try {
-            repository.saveChanges(store);
-        } catch (Exception e) {
-            throw new ServiceException("saveChanges() service error: " + e.getMessage(), e);
-        }
-    }
 
     public Store findStoreByUserId(String userId) throws ServiceException {
         Store store;
@@ -57,8 +43,6 @@ public class StoreService {
                 store = new Store();
                 store.setUserId(userId);
                 store.setStoreName("unknown");
-                store.setDescription("Empty");
-                store.setDiscountPercent(0);
                 store.setStoreImage("Empty");
             }
             return store;

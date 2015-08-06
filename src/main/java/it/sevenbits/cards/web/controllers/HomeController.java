@@ -44,6 +44,9 @@ public class HomeController {
     private SettingsFormValidator settingsFormValidator;
 
     @Autowired
+    private PasswordRestoreFormValidator passwordRestoreFormValidator;
+
+    @Autowired
     private StoreService storeService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
@@ -139,10 +142,21 @@ public class HomeController {
         return "redirect:/password_restore";
     }
 
+
+
     @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
-    public String restorePassword(@ModelAttribute PasswordRestoreForm form) throws ServiceException {
-        restoreService.sendEmail(restoreService.generateHash(form));
-        return "redirect:/password_restore";
+    public @ResponseBody JsonResponse restorePassword(@ModelAttribute PasswordRestoreForm passwordRestoreForm) throws ServiceException {
+        JsonResponse res = new JsonResponse();
+        final Map<String, String> errors = passwordRestoreFormValidator.validate(passwordRestoreForm);
+        if (errors.size() == 0) {
+            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        }
+        return res;
     }
 
     //feedback
@@ -179,7 +193,6 @@ public class HomeController {
             model.addAttribute("errors", errors);
             return "redirect:/settings";
         }
-        storeService.saveChanges(settingsForm, userService.findUserIdByUserName(authentication.getName()));
         return "redirect:/settings";
     }
 
