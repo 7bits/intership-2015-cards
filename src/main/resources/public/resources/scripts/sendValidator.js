@@ -29,7 +29,7 @@ function doAjaxPost(data, headers) {
                 $('.infoBlock').html("");
             }
             else {
-                $('.infoBlock').html("Скидка успешно добавлена!");
+                $('.infoBlock').html("Скидка успешно отправлена!");
             }
         },
         error: function(e){

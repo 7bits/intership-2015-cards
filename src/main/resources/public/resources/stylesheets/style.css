@@ -69,6 +69,26 @@ input.add[type="submit"]{
     line-height:50px;
 }
 
+input.add#bind[type="button"]{
+    font-size: 1.45em;
+}
+input.add[type="button"]{
+    display:block;
+    margin-top:5px;
+    width:100%;
+    border:none;
+    border-bottom:4px solid #CE253C;
+    border-radius:3px;
+    background-color: #ff466a;
+    color:#fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.25em;
+    height: 50px;
+    line-height:50px;
+}
+
 .main {
 	width: 80%;
 	margin: 0 auto;

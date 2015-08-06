@@ -27,15 +27,23 @@ input.red-error[type="password"]:focus{
 }
 
 .errors {
- 	height: 10px;
+    font-size:15px;
+ 	height: 15px;
  	color: red;
  }
 
  .infoBlock {
+     font-size:15px;
 	 color: green;
-	 height: 10px;
+	 height: 15px;
  }
 
 .ad{
     margin:4px !important;
+}
+
+.errorsBind{
+    font-size:15px;
+    height: 15px;
+    color: red;
 }

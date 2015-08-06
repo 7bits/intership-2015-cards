@@ -18,7 +18,7 @@ function doAjaxPost(data, headers) {
         success: function(response){
             $('.errors').html("");
             $('.infoBlock').html("");
-            $('.form-control').removeClass("red-error");
+            $('.key_input').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
                     if (response.result.hasOwnProperty(p)) {
@@ -29,7 +29,7 @@ function doAjaxPost(data, headers) {
                 $('.infoBlock').html("");
             }
             else {
-                $('.infoBlock').html("Скидка успешно добавлена!");
+                $('.infoBlock').html("Скидка успешно использована!");
             }
         },
         error: function(e){
