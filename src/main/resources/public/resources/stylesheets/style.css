@@ -253,7 +253,7 @@ background-color:#3956a3;
 outline: none;
 }
 
-.registration-form input {
+.registration-form input , .use-discount-form input {
 	text-decoration:none;
 	border:none;
 }
@@ -399,7 +399,10 @@ input.exit-button[type="submit"]{
 
 .registration-form input[type="email"],
 .registration-form input[type="password"],
-.registration-form input[type="text"]{
+.registration-form input[type="text"],
+.use-discount-form input[type="text"],
+.use-discount-form input[type="email"],
+.use-discount-form input[type="password"]{
     /*padding: 15px;*/
     height: 46px;
     width: 100%;
@@ -478,4 +481,45 @@ label.reglable{
  	max-width:920px;
  	width: 90%;
  }
+ .main .campaigns{
+     margin-top: 0;
+     float: left;
+     width: 60%;
+     height: 100%;
+ }
 
+.campaign-heading{
+    text-decoration: none;
+    color: #647ab7;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2.1em;
+    margin-bottom: 10px;
+ }
+.use-discount-form {
+    float: right;
+    width: 35%;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #3956a3;
+    outline: none;
+    min-width: 320px;
+    height:240px;
+}
+.add-campaign-button{
+    display: inline-block;
+    /* margin-top: 15px; */
+    height: 42px;
+    line-height: 42px;
+    width: 42px;
+    border: none;
+    background-color: #ff466a;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.25em;
+    float:right;
+}

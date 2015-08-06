@@ -1,0 +1,292 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        title Личный кабинет
+        // BOOTSTRAP
+        script(src='http://code.jquery.com/jquery-latest.js')
+        script(src='/resources/scripts/jquery-1.9.1.js')
+        script(src='/resources/scripts/bootstrap.js')
+        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
+        link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
+        script(src='/resources/scripts/modernizr.custom.js')
+        script(src='/resources/scripts/share.js')
+        script(src='/resources/scripts/bindValidator.js')
+        script(src='/resources/scripts/sendValidator.js')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+        meta(name="_csrf", content="#{_csrf.token}")
+        meta(name="_csrf_header", content="#{_csrf.headerName}")
+        script(src='/resources/scripts/search.js')
+        // BOOTSTRAP END
+        link(href='/resources/stylesheets/style.css', rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/searchstyle.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
+    body
+        // HEADER
+        .header_container
+            .header
+                a(href='homepage')
+                    .header-image
+                        img(src="/resources/img/logoOS.png")
+                .header-buttons
+                    .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
+                        form(action="/logout", method="post")
+                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                            input.exit-button(type='submit',value='Выход')
+                        .morph-content
+                            .content-style-form.content-style-form-1
+                                .morph-in-button
+                                    button magicbuttonwhichishidden
+                    // morph-button
+                    #js_info_button.info-button(tabindex='1')
+                        | Информация
+                        ul.dropdown
+                            li
+                                a(href='about') О проекте
+                            li
+                                a(href='developers') Разработчики
+                            li
+                                a(href='feedback') Поддержка
+        // HEADER END
+        // MAIN
+        .main
+            .use-discount-form
+                h2.reg-fill-heading ИСПОЛЬЗОВАТЬ СКИДКУ
+                .js-use
+                    form#js-use-form(action="/use_discount", method="post")
+                        .reg-input-lable-container
+                            .infoBlock
+                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                            label.reglable Введите ключ скидки
+                            input.generate-input.key_input(type='text', name="key")
+                            .errors#keyError
+                            input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
+                // morph-button
+            .campaigns
+                .campaign-heading
+                    | Кампании
+                    button.add-campaign-button +
+                // DISCOUNTS LIST
+                // Tabs
+                .tabs
+                    ul#myTabExample.nav.nav-pills(role='tablist')
+                        li(role='presentation')
+                            a#first(href='#send_tab', role='tab', data-toggle='tab')
+                                .tabs_text Активные
+                        li(role='presentation')
+                            a(href='#use_tab', role='tab', data-toggle='tab')
+                                .tabs_text Неактивные
+                // Tabs end
+                // Tabs content
+                .tab-content
+                    // Содержимое 1 вкладки
+                    #send_tab.tab-pane
+                        .ss
+                        #accordion1.accordion
+                            for discount in discountsForSend
+                                .accordion-group.discount
+                                    .accordion-heading
+                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_' + discount.id)
+                                            .heading #{discount.storeName}
+                                    .accordion-body.collapse.describe_bg(id='collapse_send_' + discount.id)
+                                        .accordion-inner.describe
+                                            .describe_shadow
+                                            .description-container
+                                                .text
+                                                    .description-heading
+                                                        | Описание скидки:
+                                                .store-img-container
+                                                    img.store-img(src='/resources/img/mediamarkt.png')
+                                                .text
+                                                    | #{discount.description}
+                                            .btn
+                                                .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                                    button.before-morph(type='button') Отправить
+                                                    .morph-content
+                                                        div
+                                                            .content-style-form.content-style-form-1
+                                                                span.icon.icon-close Закрыть окно
+                                                                h2 Скидка
+                                                                .js-send
+                                                                    form#js-send-form(action="/send_discount", method="post")
+                                                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                                        p
+                                                                            label Пользователь
+                                                                            .infoBlock
+                                                                            input.form-control(name="key", type="hidden", value="#{discount.key}")
+                                                                            input.form-control(name="uin", type="hidden", value="#{discount.uin}")
+                                                                            input.form-control.email_input(name="email", placeholder="Email получателя", type="text")
+                                                                            .errors#emailError
+                                                                        .morph-in-button
+                                                                            input.add(type="submit",value="Отправить")
+                                                                        a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                            img.social(src='/resources/img/vkontakte.png')
+                                                                        a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                            img.social(src='/resources/img/facebook.png')
+                                                                        a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                            img.social(src='/resources/img/twitter.png')
+                                                                        a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                            img.social(src='/resources/img/odnoklassniki.png')
+                                                                        a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                            img.social(src='/resources/img/mir.png')
+                                                // morph-button
+                                            .describe_shadow_down
+                    #use_tab.tab-pane
+                        .ss
+                            input#use-search.send-use-search(type='text', placeholder="#{userId}")
+                            .yellow
+                                img.search-icon(src='/resources/img/ios7-search-strong.svg')
+                        #accordion2.accordion
+                            for discount in discountsForUse
+                                .accordion-group.discount
+                                    .accordion-heading
+                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                                            .heading #{discount.storeName}
+                                    #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_' + discount.id)
+                                        .accordion-inner.describe
+                                            .describe_shadow
+                                            .description-container
+                                                .text
+                                                    .description-heading
+                                                        | Описание скидки:
+                                                .store-img-container
+                                                    img.store-img(src='/resources/img/mediamarkt.png')
+                                                .text
+                                                    | #{discount.description}
+                                            .btn
+                                                // <a href="#"><div class="b_text">Использовать</div></a>
+                                                .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                                    button.before-morph(type='button') Показать код
+                                                    .morph-content
+                                                        div
+                                                            .content-style-form.content-style-form-1
+                                                                span.icon.icon-close Закрыть окно
+                                                                h2 Скидка
+                                                                form(action="/personal_area",method="post")
+                                                                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                                    p
+                                                                        label Ключ
+                                                                        input(type='text',value="#{discount.key}")
+                                    // morph-button
+                // Tabs content end
+                // DISCOUNTS LIST END
+            .shadow
+        // MAIN END
+        // SCRIPTS
+        script(src='/resources/scripts/classie.js')
+        script(src='/resources/scripts/uiMorphingButton_fixed.js')
+        script.
+            (function () {
+                var docElem = window.document.documentElement, didScroll, scrollPosition;
+                // trick to prevent scrolling when opening/closing button
+                function noScrollFn() {
+                    window.scrollTo(scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0);
+                }
+
+                function noScroll() {
+                    window.removeEventListener('scroll', scrollHandler);
+                    window.addEventListener('scroll', noScrollFn);
+                }
+
+                function scrollFn() {
+                    window.addEventListener('scroll', scrollHandler);
+                }
+
+                function canScroll() {
+                    window.removeEventListener('scroll', noScrollFn);
+                    scrollFn();
+                }
+
+                function scrollHandler() {
+                    if (!didScroll) {
+                        didScroll = true;
+                        setTimeout(function () {
+                            scrollPage();
+                        }, 60);
+                    }
+                };
+                function scrollPage() {
+                    scrollPosition = {
+                        x: window.pageXOffset || docElem.scrollLeft,
+                        y: window.pageYOffset || docElem.scrollTop
+                    };
+                    didScroll = false;
+                };
+                scrollFn();
+                [].slice.call(document.querySelectorAll('.morph-button')).forEach(function (bttn) {
+                    new UIMorphingButton(bttn, {
+                        closeEl: '.icon-close',
+                        onBeforeOpen: function () {
+                            // don't allow to scroll
+                            noScroll();
+                        },
+                        onAfterOpen: function () {
+                            // can scroll again
+                            canScroll();
+                        },
+                        onBeforeClose: function () {
+                            // don't allow to scroll
+                            noScroll();
+                        },
+                        onAfterClose: function () {
+                            // can scroll again
+                            canScroll();
+                        }
+                    });
+                });
+                [].slice.call(document.querySelectorAll('.morph-button')).forEach(function (bttn) {
+                    new UIMorphingButton(bttn, {
+                        closeEl: '.no',
+                        onBeforeOpen: function () {
+                            // don't allow to scroll
+                            noScroll();
+                        },
+                        onAfterOpen: function () {
+                            // can scroll again
+                            canScroll();
+                        },
+                        onBeforeClose: function () {
+                            // don't allow to scroll
+                            noScroll();
+                        },
+                        onAfterClose: function () {
+                            // can scroll again
+                            canScroll();
+                        }
+                    });
+                });
+                // for demo purposes only
+                [].slice.call(document.querySelectorAll('form button')).forEach(function (bttn) {
+                    bttn.addEventListener('click', function (ev) {
+                        ev.preventDefault();
+                    });
+                });
+            })();
+        script.
+            $(function () {
+                $('#myTabExample a:first').tab('show')
+            });
+        script(type='text/javascript').
+            function DropDown(el) {
+                this.dd = el;
+                this.initEvents();
+            }
+            DropDown.prototype = {
+                initEvents: function () {
+                    var obj = this;
+                    obj.dd.on('click', function (event) {
+                        $(this).toggleClass('active');
+                        event.stopPropagation();
+                    });
+                }
+            }
+            $(function () {
+                var js_info_button = new DropDown($('#js_info_button'));
+                $(document).click(function () {
+                    // all dropdowns
+                    $('.info-button').removeClass('active');
+                });
+            });
