@@ -47,6 +47,9 @@ public class HomeController {
     private PasswordRestoreFormValidator passwordRestoreFormValidator;
 
     @Autowired
+    private NewPasswordFormValidator newPasswordFormValidator;
+
+    @Autowired
     private StoreService storeService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
@@ -137,21 +140,28 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/password_restore/", method = RequestMethod.POST)
-    public String newPassword(@ModelAttribute NewPasswordForm form) throws ServiceException{
-        restoreService.restorePassword(form);
-        return "redirect:/password_restore";
+    public @ResponseBody JsonResponse newPassword(@ModelAttribute NewPasswordForm newPasswordForm) throws ServiceException{
+        JsonResponse res = new JsonResponse();
+        final Map<String, String> errors = newPasswordFormValidator.validate(newPasswordForm);
+        if (errors.size() == 0) {
+            restoreService.restorePassword(newPasswordForm);
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        }
+        return res;
     }
-
-
 
     @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
     public @ResponseBody JsonResponse restorePassword(@ModelAttribute PasswordRestoreForm passwordRestoreForm) throws ServiceException {
         JsonResponse res = new JsonResponse();
         final Map<String, String> errors = passwordRestoreFormValidator.validate(passwordRestoreForm);
         if (errors.size() == 0) {
-            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
             res.setStatus("SUCCESS");
             res.setResult(null);
+            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
