@@ -7,7 +7,9 @@ import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class Sender {
 
@@ -40,7 +42,12 @@ public class Sender {
             //тема сообщения
             message.setSubject(subject);
             //текст
-            message.setText(text);
+            //message.setText(text);
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(text, "text/plain; charset=UTF-8");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            message.setContent(multipart);
 
             //отправляем сообщение
             Transport.send(message);
