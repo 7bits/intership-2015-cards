@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
@@ -62,13 +63,13 @@ public class DiscountController {
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse use(@ModelAttribute UseForm useForm) throws ServiceException {
-        JsonResponse res = new JsonResponse();
+    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute UseForm form) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JsonResponse res = new JsonResponse();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
+        final Map<String, String> errors = useFormValidator.validate(form, storeName);
         if (errors.size() == 0) {
-            discountService.delete(useForm.getKey(), storeName);
+            discountService.delete(form.getKey(), storeName);
             res.setStatus("SUCCESS");
             res.setResult(null);
         }else{
@@ -124,27 +125,36 @@ public class DiscountController {
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public String sendDiscount(@ModelAttribute SendForm sendForm, Model model ) throws ServiceException, RepositoryException{
-        final Map<String, String> errors = sendFormValidator.validate(sendForm);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/personal_area";
+    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm form) throws ServiceException {
+        final Map<String, String> errors = sendFormValidator.validate(form);
+        JsonResponse res = new JsonResponse();
+        if (errors.size() == 0) {
+            discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
         }
-        discountService.send(userService.findUserIdByUserName(sendForm.getEmail()), sendForm.getUin());
-        return "redirect:/personal_area";
+        return res;
     }
     //Bind discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public String bindDiscount(@ModelAttribute BindForm bindForm, Model model) throws ServiceException{
+    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute BindForm form) throws ServiceException {
+        JsonResponse res = new JsonResponse();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        final Map<String, String> errors = bindFormValidator.validate(bindForm, userName);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/personal_area";
+        final Map<String, String> errors = bindFormValidator.validate(form, userName);
+
+        if (errors.size() == 0) {
+            discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));
+            res.setStatus("SUCCESS");
+            res.setResult(null);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
         }
-        discountService.changeUserId(bindForm.getUin(), userService.findUserIdByUserName(userName));
-        return "redirect:/personal_area";
+        return res;
     }
 }

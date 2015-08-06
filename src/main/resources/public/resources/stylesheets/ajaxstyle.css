@@ -5,11 +5,37 @@ input.form-control.red-error[type="text"]:focus{
     outline: none !important;
 }
 
-.remove-error-message{
-    height: 15px;
-    width:100%;
-    color:#ff466a;
+input.form-control.red-error[type="password"]{
+    outline:2px solid red;
 }
+input.form-control.red-error[type="password"]:focus{
+    outline: none !important;
+}
+
+input.red-error[type="text"]{
+    outline:2px solid red;
+}
+input.red-error[type="text"]:focus{
+    outline: none !important;
+}
+
+input.red-error[type="password"]{
+    outline:2px solid red;
+}
+input.red-error[type="password"]:focus{
+    outline: none !important;
+}
+
+.errors {
+ 	height: 10px;
+ 	color: red;
+ }
+
+ .infoBlock {
+	 color: green;
+	 height: 10px;
+ }
+
 .ad{
     margin:4px !important;
 }

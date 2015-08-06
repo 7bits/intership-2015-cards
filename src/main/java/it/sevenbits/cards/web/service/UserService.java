@@ -91,6 +91,6 @@ public class UserService {
         String email = form.getEmail();
         String title = form.getTitle();
         String describe = form.getDescribe();
-        sender.send(title, "Спасибо. Ваше письмо очень важно для нас! Ожидайте ответ\n", email);
+        sender.send(title, "Spasibo. Vashe pis'mo ochen' vazhno dlja nas! Ozhidajte otvet\n", email);
     }
 }

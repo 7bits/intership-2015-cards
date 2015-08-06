@@ -90,7 +90,7 @@ public class CommonFieldValidator {
             final String field,
             final String key
     ) {
-        if (!value.equals("")) {
+        if (value != null && !value.equals("")) {
             String userName;
             try {
                 userName = userRepository.findByUsername(value).getUsername();

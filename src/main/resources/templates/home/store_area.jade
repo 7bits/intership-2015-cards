@@ -14,8 +14,10 @@ html
           script(src='/resources/scripts/useDiscountValidation.js')
           link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
           script(src='/resources/scripts/modernizr.custom.js')
+          script(src='/resources/scripts/useValidator.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
           meta(name="_csrf", content="#{_csrf.token}")
           meta(name="_csrf_header", content="#{_csrf.headerName}")
@@ -65,10 +67,11 @@ html
                                    .js-use
                                         form#js-use-form(action="/use_discount", method="post")
                                              .reg-input-lable-container
+                                                  .infoBlock
                                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                  .remove-error-message#key
                                                   label.reglable Введите ключ скидки
-                                                  input.generate-input(type='text', name="key")
+                                                  input.generate-input.key_input(type='text', name="key")
+                                                  .errors#ketError
                                                   input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
 
                          #generateSection.generate-discount-block.tab-pane.fade

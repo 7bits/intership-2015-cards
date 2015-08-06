@@ -13,6 +13,7 @@ html
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
         script(src='/resources/scripts/modernizr.custom.js')
+        script(src='/resources/scripts/registrationValidation.js')
         script(src='/resources/scripts/jquery-1.9.1.js')
         // BOOTSTRAP END
         link(href='/resources/stylesheets/style.css', rel='stylesheet')
@@ -77,16 +78,18 @@ html
         .main
             .registration-form
                 h2.reg-fill-heading РЕГИСТРАЦИЯ
-                form(action="/registration", method="post")
-                    .reg-input-lable-container
-                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                        label.reglable Введите адрес эл. почты
-                        input.form-control.not-morph(name='email', type='email')
-                        .remove-error-message#email
-                        label.reglable Введите пароль
-                        input.form-control.not-morph(name='password', type='password')
-                        .remove-error-message#password
-                        input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
+                .js-registration
+                    form#js-registration-form(action="/registration", method="post")
+                        .reg-input-lable-container
+                            .infoBlock
+                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                            label.reglable Введите адрес эл. почты
+                            input.form-control.email_input.not-morph(name='email', type='text')
+                            .errors#emailError
+                            label.reglable Введите пароль
+                            input.form-control.password_input.not-morph(name='password', type='password')
+                            .errors#passwordError
+                            input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
         // MAIN END
         // SCRIPTS
         script(src='/resources/scripts/classie.js')

@@ -453,3 +453,9 @@ label.reglable{
  	height: 30px;
  	float: left;
  }
+
+ #homepage_img img {
+ 	max-width:920px;
+ 	width: 90%;
+ }
+

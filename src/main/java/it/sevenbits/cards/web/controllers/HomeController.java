@@ -101,14 +101,18 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute RegistrationForm registrationForm, Model model) throws ServiceException, RepositoryException {
-        final Map<String, String> errors = registrationFormValidator.validate(registrationForm);
+    public @ResponseBody JsonResponse registration(@ModelAttribute RegistrationForm form) throws ServiceException {
+        final Map<String, String> errors = registrationFormValidator.validate(form);
+        JsonResponse res = new JsonResponse();
         if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "home/registration";
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        } else {
+            //userService.createUser(registrationForm);
+            res.setStatus("SUCCESS");
+            res.setResult(null);
         }
-        userService.createUser(registrationForm);
-        return "home/registration";
+        return res;
     }
 
     //Password restore
