@@ -108,7 +108,7 @@ public class HomeController {
             res.setStatus("FAIL");
             res.setResult(errors);
         } else {
-            //userService.createUser(registrationForm);
+            userService.createUser(form);
             res.setStatus("SUCCESS");
             res.setResult(null);
         }

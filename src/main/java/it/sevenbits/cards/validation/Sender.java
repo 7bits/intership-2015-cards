@@ -3,13 +3,11 @@ package it.sevenbits.cards.validation;
 /**
  * Created by taro on 27.07.15.
  */
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 
 public class Sender {
 
@@ -34,13 +32,19 @@ public class Sender {
         });
 
         try {
-            Message message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session);
             //от кого
             message.setFrom(new InternetAddress(username));
             //кому
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             //тема сообщения
-            message.setSubject(subject);
+            try {
+                message.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B"));
+            }
+            catch (UnsupportedEncodingException ex){
+                throw new RuntimeException(ex);
+            }
+
             //текст
             //message.setText(text);
             BodyPart messageBodyPart = new MimeBodyPart();
