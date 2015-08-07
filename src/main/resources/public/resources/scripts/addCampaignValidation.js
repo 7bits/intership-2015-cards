@@ -1,19 +1,15 @@
-$(document).ready(function(){
-    $('.js-add-campaign').on('submit', '#js-add-campaign-from' ,function(e){
-        e.preventDefault();
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        var headers = {};
-        headers[header] = token;
-        doAjaxPost(e.target, headers);
-    })
-});
-
-function doAjaxPost(data, headers) {
+function doAjaxPostAddCampaign() {
+    var name = $('#nameCampaign').val();
+    var description = $('#descriptionCampaign').val();
+    var percent = $('#percentCampaign').val();
+    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    var headers = {};
+                    headers[header] = token;
     $.ajax({
         type: "POST",
         url: "/add_campaign",
-        data: $(data).serialize(),
+        data: "name=" + name + "&description=" + description + "&percent=" + percent,
         headers: headers,
         success: function(response){
             $('.errors').html("");
@@ -22,7 +18,7 @@ function doAjaxPost(data, headers) {
             if(response.status =="FAIL") {
                 for (var p in response.result) {
                     if (response.result.hasOwnProperty(p)) {
-                        $('.'+p+'_input').addClass("red-error");
+                        $('.'+p+'_campaign_input').addClass("red-error");
                         $('#' + p + 'Error').html(response.result[p]);
                     }
                 }

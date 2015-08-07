@@ -252,13 +252,15 @@
 }
 
 .morph-button-add-campaign.open .morph-content {
-	height: 530px;
+	height: 450px;
 }
 
 .morph-button-add-campaign .morph-content {
 	pointer-events: none;
 	width: 42px;
 	font-size: 0.7em;
+	text-transform: none;
+	font-weight: normal;
 }
 
 
@@ -271,7 +273,7 @@
 
 .morph-button-add-campaign .morph-content h2 {
 	padding-top: 0;
-	font-size: 2em;
+	font-size: 1.25em;
 	/*background-color: #ff466a;*/
 }
 

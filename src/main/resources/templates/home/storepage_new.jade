@@ -14,6 +14,7 @@ html
         script(src='/resources/scripts/bindValidator.js')
         script(src='/resources/scripts/sendValidator.js')
         script(src='/resources/scripts/useDiscountValidation.js')
+        script(src='/resources/scripts/addCampaignValidation.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         meta(name="_csrf", content="#{_csrf.token}")
@@ -75,24 +76,24 @@ html
                             .morph-content#morph-content-campaign
                                 .content-style-form.content-style-form-1
                                     span.icon.icon-close Закрыть окно
-                                    p#campaign-info Aloha, Cards team! Do you want add new discount to database?
-                                    h2 Add discount
+                                    p#campaign-info
+                                    h2 Добавить кампанию
                                     .js-add-campaign
                                         form#js-add-campaign-from(action="/add_campaign", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                             p
                                                 .infoBlock
                                                 label Название кампании
-                                                input.form-control.name_input(name="name", type="text")
+                                                input.form-control.name_campaign_input#nameCampaign(type="text")
                                                 .errors#nameError
                                                 label Описание кампании
-                                                input.form-control.description_input(name="description", type="text")
+                                                input.form-control.description_campaign_input#descriptionCampaign(type="text")
                                                 .errors#descriptionError
                                                 label Процент скидки кампании
-                                                input.form-control.percent_input(name="percent", type="text")
+                                                input.form-control.percent_campaign_input#percentCampaign(type="text")
                                                 .errors#percentError
                                                 .morph-in-button
-                                                    input.add(type="submit",value="Создать")
+                                                    input.add(type="button",value="Создать", onClick='doAjaxPostAddCampaign()')
                     //button.add-campaign-button +
                 // DISCOUNTS LIST
                 // Tabs
