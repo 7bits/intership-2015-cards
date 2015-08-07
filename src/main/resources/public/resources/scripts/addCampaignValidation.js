@@ -38,5 +38,5 @@ function doAjaxPostAddCampaign() {
 }
 
 function timeoutRedirect() {
-    window.location.replace("http://localhost:9000/storepage_new")
+    window.location.replace("http://discounts.7bits.it/storepage_new")
 }
