@@ -168,22 +168,22 @@ html
                             .yellow
                                 img.search-icon(src='/resources/img/ios7-search-strong.svg')
                         #accordion2.accordion
-                            for discount in discountsForUse
+                            for campaign in notActiveCampaigns
                                 .accordion-group.discount
                                     .accordion-heading
-                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
-                                            .heading #{discount.storeName}
-                                    #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_' + discount.id)
+                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + campaign.id)
+                                            .heading #{campaign.name}
+                                    #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_' + campaign.id)
                                         .accordion-inner.describe
                                             .describe_shadow
                                             .description-container
                                                 .text
                                                     .description-heading
-                                                        | Описание скидки:
+                                                        | Описание кампании:
                                                 .store-img-container
                                                     img.store-img(src='/resources/img/mediamarkt.png')
                                                 .text
-                                                    | #{discount.description}
+                                                    | #{campaign.description}
                                             .btn
                                                 // <a href="#"><div class="b_text">Использовать</div></a>
                                                 .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
@@ -197,7 +197,7 @@ html
                                                                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                                     p
                                                                         label Ключ
-                                                                        input(type='text',value="#{discount.key}")
+                                                                        input(type='text',value="#{campaign.id}")
                                     // morph-button
                 // Tabs content end
                 // DISCOUNTS LIST END
