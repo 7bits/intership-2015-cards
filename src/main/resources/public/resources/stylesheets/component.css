@@ -237,6 +237,10 @@
 	}
 }
 
+.js-add-campaign {
+	border-bottom:none;
+}
+
 .morph-button-add-campaign > button {
 	width: 42px;
 	height: 42px;
@@ -244,7 +248,7 @@
 	background-color: #ff466a;
 	line-height: 42px;
 	color: #fff;
-	border: none;
+	border: none !important;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 800;
@@ -258,6 +262,7 @@
 .morph-button-add-campaign .morph-content {
 	pointer-events: none;
 	width: 42px;
+	height: 42px;
 	font-size: 0.7em;
 	text-transform: none;
 	font-weight: normal;

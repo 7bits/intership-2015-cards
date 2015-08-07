@@ -26,10 +26,17 @@ function doAjaxPostAddCampaign() {
             }
             else {
                 $('.infoBlock').html("Кампания успешно создана!");
+                setTimeout(function() {
+                timeoutRedirect();
+                }, 1500);
             }
         },
         error: function(e){
             alert('Error: ' + e);
         }
     });
+}
+
+function timeoutRedirect() {
+    window.location.replace("http://localhost:9000/storepage_new")
 }
