@@ -35,4 +35,11 @@ public interface StoreMapper {
     String findStoreNameByUserId(@Param("userId") String userId);
 
 
+    @Select("SELECT store_image\n" +
+            "FROM stores\n" +
+            "WHERE store_name=#{storeName}")
+    @Result(column = "store_image")
+    String findStoreImageByStoreName(@Param("storeName") String storeName);
+
+
 }

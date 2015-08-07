@@ -110,6 +110,7 @@ public class DiscountController {
     public String createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException, RepositoryException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        String storeImage = storeService.findStoreImageByStoreName(storeName);
         final Map<String, String> errors = discountByCampaignFormValidator.validate(discountByCampaignForm);
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);
@@ -117,7 +118,7 @@ public class DiscountController {
         }
         String generatedKey= generateKey.random();
         String generatedUin= generateUin.random();
-        discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName);
+        discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
         return "redirect:/store_area";
     }
     //Generate discount

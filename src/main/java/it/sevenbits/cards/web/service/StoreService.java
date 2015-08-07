@@ -50,4 +50,11 @@ public class StoreService {
             throw new ServiceException("findStoreByUserId error: " + e.getMessage(), e);
         }
     }
+    public String findStoreImageByStoreName(String storeName) throws ServiceException{
+        try{
+            return repository.findStoreImageByStoreName(storeName);
+        }catch (Exception e) {
+            throw new ServiceException("findStoreImageByStoreName error: " + e.getMessage(), e);
+        }
+    }
 }

@@ -45,4 +45,16 @@ public class StorePersistRepository implements StoreRepository {
             throw new RepositoryException("General database error " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public String findStoreImageByStoreName(final String storeName) throws RepositoryException{
+        if(storeName == null){
+            throw new RepositoryException("StoreName is null");
+        }
+        try {
+            return mapper.findStoreImageByStoreName(storeName);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
 }

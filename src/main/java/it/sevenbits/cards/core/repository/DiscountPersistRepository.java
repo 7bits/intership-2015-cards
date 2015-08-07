@@ -25,6 +25,17 @@ public class DiscountPersistRepository implements DiscountRepository {
         }
     }
     @Override
+    public void saveByAcoustics(final Discount discount) throws RepositoryException {
+        if (discount == null) {
+            throw new RepositoryException("Discount is null");
+        }
+        try {
+            mapper.saveByAcoustics(discount);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while saving discount: " + e.getMessage(), e);
+        }
+    }
+    @Override
     public List<Discount> findAll() throws RepositoryException {
         try {
             return mapper.findAll();

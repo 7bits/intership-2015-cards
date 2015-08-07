@@ -6,5 +6,6 @@ public interface StoreRepository {
     void save(final Store store) throws RepositoryException;
     String findStoreNameByUserId(String userId) throws RepositoryException;
     Store findStoreByUserId(String userId) throws RepositoryException;
+    String findStoreImageByStoreName(String storeName) throws RepositoryException;
 }
 
