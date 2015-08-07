@@ -156,4 +156,20 @@ public class DiscountService {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
+    public void createDiscountByCampaign(DiscountByCampaignForm discountByCampaignForm, String generatedKey, String generatedUin, String storeName) throws ServiceException, RepositoryException
+    {
+        final Discount discount = new Discount();
+        discount.setKey(generatedKey);
+        discount.setUin(generatedUin);
+        discount.setIsHidden(Boolean.parseBoolean("true"));
+        discount.setUserId(userRepository.findUserIdByUserName(discountByCampaignForm.getEmail()));
+        discount.setStoreName(storeName);
+        discount.setDescription(discountByCampaignForm.getDescription());
+        discount.setPercent(Integer.parseInt(discountByCampaignForm.getPercent()));
+        try {
+            repository.save(discount);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
+        }
+    }
 }

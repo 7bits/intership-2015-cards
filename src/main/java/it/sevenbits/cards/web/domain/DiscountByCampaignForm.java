@@ -1,18 +1,21 @@
 package it.sevenbits.cards.web.domain;
 
-public class AddCampaignForm {
-    private Long id;
+
+public class DiscountByCampaignForm {
     private String name;
     private String description;
     private String percent;
+    private String email;
 
-    public Long getId() {
-        return id;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
 
     public String getName() {
         return name;
@@ -38,12 +41,9 @@ public class AddCampaignForm {
         this.percent = percent;
     }
 
+
     @Override
     public String toString() {
-        return String.format("id=%d, name=%s, description=%s, percent=%s]",
-                id, name, description, percent);
+        return String.format("DiscountByCampaignForm[name=%s, description=%s, percent=%s, email=%s]", name, description, percent, email);
     }
-
 }
-
-

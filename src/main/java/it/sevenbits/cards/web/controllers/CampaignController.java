@@ -61,4 +61,15 @@ public class CampaignController {
         }
         return res;
     }
+    //Show Campaigns
+    @Secured("ROLE_STORE")
+    @RequestMapping(value = "/campaigns", method = RequestMethod.GET)
+    public String showAll(final Model model) throws ServiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+
+        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
+        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
+        return "home/campaigns";
+    }
 }

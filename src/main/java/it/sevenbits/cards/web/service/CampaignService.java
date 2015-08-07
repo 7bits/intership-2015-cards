@@ -1,9 +1,9 @@
 package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.core.domain.Campaign;
-import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.core.repository.CampaignRepository;
-import it.sevenbits.cards.core.repository.DiscountRepository;
+import it.sevenbits.cards.core.repository.CampaignRepository;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.web.domain.*;
@@ -33,6 +33,42 @@ public class CampaignService {
             campaignRepository.save(campaign);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving campaign: " + e.getMessage(), e);
+        }
+    }
+
+    public List<CampaignModel> findAllActive(String storeName) throws ServiceException {
+        try {
+            List<Campaign> campaigns = campaignRepository.findAllActive(storeName);
+            List<CampaignModel> models = new ArrayList<>(campaigns.size());
+            for (Campaign c: campaigns) {
+                models.add(new CampaignModel(
+                        c.getId(),
+                        c.getName(),
+                        c.getDescription(),
+                        Integer.toString(c.getPercent())
+                ));
+            }
+            return models;
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
+        }
+    }
+
+    public List<CampaignModel> findAllNotActive(String storeName) throws ServiceException {
+        try {
+            List<Campaign> campaigns = campaignRepository.findAllNotActive(storeName);
+            List<CampaignModel> models = new ArrayList<>(campaigns.size());
+            for (Campaign c: campaigns) {
+                models.add(new CampaignModel(
+                        c.getId(),
+                        c.getName(),
+                        c.getDescription(),
+                        Integer.toString(c.getPercent())
+                ));
+            }
+            return models;
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
 }
