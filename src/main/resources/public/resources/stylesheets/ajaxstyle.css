@@ -1,7 +1,13 @@
 input.form-control.red-error[type="text"]{
     outline:2px solid red;
 }
+input.form-control.red-error[type="email"]{
+    outline:2px solid red;
+}
 input.form-control.red-error[type="text"]:focus{
+    outline: none !important;
+}
+input.form-control.red-error[type="email"]:focus{
     outline: none !important;
 }
 
@@ -15,7 +21,14 @@ input.form-control.red-error[type="password"]:focus{
 input.red-error[type="text"]{
     outline:2px solid red;
 }
+input.red-error[type="email"]{
+    outline:2px solid red;
+}
+
 input.red-error[type="text"]:focus{
+    outline: none !important;
+}
+input.red-error[type="email"]:focus{
     outline: none !important;
 }
 

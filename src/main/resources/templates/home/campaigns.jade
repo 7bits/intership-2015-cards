@@ -20,12 +20,13 @@ html
     body
         #send_tab.tab-pane
             #accordion1.accordion
-                for campaign in notActiveCampaigns
+                for campaign in activeCampaigns
                     .accordion-group.discount
                         .accordion-heading
-                            a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
+                            a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+campaign.id)
                                 .heading Info about discount with id #{campaign.id}
                             .accordion-body.collapse.describe_bg(id='collapse_send_'+campaign.id)
                                 .accordion-inner.describe
                                     .describe_shadow
                                     .text
+                                        | Key: #{campaign.name}

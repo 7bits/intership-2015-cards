@@ -8,6 +8,9 @@ $(document).ready(function(){
         doAjaxPost(e.target, headers);
     })
 });
+function timeoutRedirect(){
+    window.location.replace("http://localhost:9000/homepage");
+}
 
 function doAjaxPost(data, headers) {
     $.ajax({
@@ -30,6 +33,13 @@ function doAjaxPost(data, headers) {
             }
             else {
                 $('.infoBlock').html("Регистрация прошла успешно!");
+
+                        $('.email_input').val('');
+                        $('.password_input').val('');
+
+                setTimeout(function() {
+                    timeoutRedirect();
+                }, 3000);
             }
         },
         error: function(e){

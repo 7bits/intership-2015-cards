@@ -35,6 +35,9 @@ public class HomeController {
     private UserService userService;
 
     @Autowired
+    private CampaignService campaignService;
+
+    @Autowired
     private PasswordRestoreService restoreService;
 
     @Autowired
@@ -241,9 +244,12 @@ public class HomeController {
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/storepage_new", method = RequestMethod.GET)
     public String storePageNew(final Model model) throws ServiceException {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("store", store);
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+
+        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
+        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         return "home/storepage_new";
     }
 

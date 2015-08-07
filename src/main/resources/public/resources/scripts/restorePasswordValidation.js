@@ -9,6 +9,10 @@ $(document).ready(function(){
     })
 });
 
+function timeoutRedirect(){
+    window.location.replace("http://localhost:9000/homepage");
+}
+
 function doAjaxPost(data, headers) {
     $.ajax({
         type: "POST",
@@ -30,10 +34,15 @@ function doAjaxPost(data, headers) {
             }
             else {
                 $('.infoBlock').html("Письмо отправлено!");
+                $('.email_input').val('');
+                setTimeout(function() {
+                    timeoutRedirect();
+                }, 3000);
             }
         },
         error: function(e){
             alert('Error: ' + e);
         }
     });
+
 }
