@@ -420,7 +420,7 @@ label.reglable{
     color: #fff;
     /*text-transform: uppercase;*/
     letter-spacing: 1px;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 1em;
 }
 .reg-input-lable-container{
@@ -431,6 +431,7 @@ label.reglable{
 }
 .reg-fill-heading{
  display:inline-block;
+ margin: 10px;
 }
 
 .forget-password-href a{
@@ -508,18 +509,12 @@ label.reglable{
     min-width: 320px;
     height:240px;
 }
+
 .add-campaign-button{
     display: inline-block;
-    /* margin-top: 15px; */
-    height: 42px;
-    line-height: 42px;
-    width: 42px;
-    border: none;
-    background-color: #ff466a;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 800;
-    font-size: 1.25em;
     float:right;
+}
+
+input[type='button'] {
+    outline:none;
 }

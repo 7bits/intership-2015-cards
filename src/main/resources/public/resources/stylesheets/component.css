@@ -32,7 +32,6 @@
 	width: 21%;
 }
 
-
 .morph-button-use-send .morph-content {
 	pointer-events: none;
 	width: 140px;
@@ -153,6 +152,7 @@
 	line-height: 40px;
 	background-color: #3956a3;
 }
+
 .morph-button-add > button,
 .morph-button-add .morph-content {	
 	background-color: #ff466a;
@@ -235,4 +235,57 @@
 	.morph-button-fixed > button {
 		font-size: 75%;
 	}
+}
+
+.morph-button-add-campaign > button {
+	width: 42px;
+	height: 42px;
+	padding: 0;
+	background-color: #ff466a;
+	line-height: 42px;
+	color: #fff;
+	border: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 800;
+	font-size: 1.25em;
+}
+
+.morph-button-add-campaign.open .morph-content {
+	height: 530px;
+}
+
+.morph-button-add-campaign .morph-content {
+	pointer-events: none;
+	width: 42px;
+	font-size: 0.7em;
+}
+
+
+.morph-button-add-campaign .morph-content label {
+	line-height: none;
+	text-transform: none;
+	letter-spacing: 0;
+	font-weight: normal;
+}
+
+.morph-button-add-campaign .morph-content h2 {
+	padding-top: 0;
+	font-size: 2em;
+	/*background-color: #ff466a;*/
+}
+
+#campaign-info {
+	line-height: none;
+	text-transform: none;
+	letter-spacing: 0;
+	font-weight: normal;
+	margin: 0;
+   	padding-top: 40px;
+
+}
+
+.morph-button-add-campaign .morph-content p {
+	margin: 0;
+	/*background-color: #ff466a;*/
 }

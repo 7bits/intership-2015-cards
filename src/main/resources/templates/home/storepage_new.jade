@@ -13,6 +13,7 @@ html
         script(src='/resources/scripts/share.js')
         script(src='/resources/scripts/bindValidator.js')
         script(src='/resources/scripts/sendValidator.js')
+        script(src='/resources/scripts/useDiscountValidation.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         meta(name="_csrf", content="#{_csrf.token}")
@@ -61,14 +62,38 @@ html
                             .infoBlock
                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                             label.reglable Введите ключ скидки
-                            input.generate-input.key_input(type='text', name="key")
+                            input.generate-input.key_use_input#keyUse(type='text')
                             .errors#keyError
-                            input.form-control.registration-button.yes.reginp(type='submit', value='ИСПОЛЬЗОВАТЬ')
+                            input.form-control.registration-button.yes.reginp.add(type='button', value='ИСПОЛЬЗОВАТЬ', onClick='doAjaxPostUse()')
                 // morph-button
             .campaigns
                 .campaign-heading
                     | Кампании
-                    button.add-campaign-button +
+                    .add-campaign-button
+                        .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-add-campaign
+                            button.before-morph(type='button') +
+                            .morph-content#morph-content-campaign
+                                .content-style-form.content-style-form-1
+                                    span.icon.icon-close Закрыть окно
+                                    p#campaign-info Aloha, Cards team! Do you want add new discount to database?
+                                    h2 Add discount
+                                    .js-add-campaign
+                                        form#js-add-campaign-from(action="/add_campaign", method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            p
+                                                .infoBlock
+                                                label Название кампании
+                                                input.form-control.name_input(name="name", type="text")
+                                                .errors#nameError
+                                                label Описание кампании
+                                                input.form-control.description_input(name="description", type="text")
+                                                .errors#descriptionError
+                                                label Процент скидки кампании
+                                                input.form-control.percent_input(name="percent", type="text")
+                                                .errors#percentError
+                                                .morph-in-button
+                                                    input.add(type="submit",value="Создать")
+                    //button.add-campaign-button +
                 // DISCOUNTS LIST
                 // Tabs
                 .tabs
@@ -139,26 +164,26 @@ html
                                             .describe_shadow_down
                     #use_tab.tab-pane
                         .ss
-                            input#use-search.send-use-search(type='text')
+                            input#use-search.send-use-search(type='text', placeholder="#{userId}")
                             .yellow
                                 img.search-icon(src='/resources/img/ios7-search-strong.svg')
                         #accordion2.accordion
-                            for campaign in notActiveCampaigns
+                            for discount in discountsForUse
                                 .accordion-group.discount
                                     .accordion-heading
-                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + campaign.id)
-                                            .heading #{campaign.storeName}
-                                    #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_' + campaign.id)
+                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_use_' + discount.id)
+                                            .heading #{discount.storeName}
+                                    #collapse_use_1.accordion-body.collapse.describe_bg(id='collapse_use_' + discount.id)
                                         .accordion-inner.describe
                                             .describe_shadow
                                             .description-container
                                                 .text
                                                     .description-heading
-                                                        | Описание кампании:
+                                                        | Описание скидки:
                                                 .store-img-container
                                                     img.store-img(src='/resources/img/mediamarkt.png')
                                                 .text
-                                                    | #{campaign.description}
+                                                    | #{discount.description}
                                             .btn
                                                 // <a href="#"><div class="b_text">Использовать</div></a>
                                                 .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
@@ -172,7 +197,7 @@ html
                                                                     input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                                     p
                                                                         label Ключ
-                                                                        input(type='text',value="#{campaign.id}")
+                                                                        input(type='text',value="#{discount.key}")
                                     // morph-button
                 // Tabs content end
                 // DISCOUNTS LIST END
