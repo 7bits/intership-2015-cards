@@ -9,7 +9,7 @@ $(document).ready(function(){
     })
 });
 function timeoutRedirect(){
-    window.location.replace("http://localhost:9000/homepage");
+    window.location.replace("http://discounts.7bits.it/homepage");
 }
 
 function doAjaxPost(data, headers) {
@@ -27,6 +27,7 @@ function doAjaxPost(data, headers) {
                     if (response.result.hasOwnProperty(p)) {
                         $('.'+p+'_input').addClass("red-error");
                         $('#' + p + 'Error').html(response.result[p]);
+
                     }
                 }
                 $('.infoBlock').html("");

@@ -96,9 +96,9 @@ public class PasswordRestoreService {
             LOG.error("User doesn't exist");
         } else {
             sender.send("Восстановление пароля Discounts", "Ссылка для восстановления пароля:\n" +
-                    "http://localhost:9000/password_restore/?hash=" + restore.getHash() +
+                    "http://discounts.7bits.it/password_restore/?hash=" + restore.getHash() +
                     "\n Для отмены операции перейдите по ссылке:\n" +
-                    "http://localhost:9000/password_restore/?hash=delete"
+                    "http://discounts.7bits.it/password_restore/?hash=delete"
                     + restore.getHash(), restore.getEmail());
         }
     }

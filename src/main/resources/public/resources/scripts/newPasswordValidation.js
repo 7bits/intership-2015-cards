@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 
 function timeoutRedirect(){
-    window.location.replace("http://localhost:9000/homepage");
+    window.location.replace("http://discounts.7bits.it/homepage");
 }
 
 function doAjaxPost(data, headers) {
@@ -37,7 +37,7 @@ function doAjaxPost(data, headers) {
                 $('.password_input').val('');
                 setTimeout(function() {
                     timeoutRedirect();
-                }, 3000);
+                }, 1500);
             }
         },
         error: function(e){

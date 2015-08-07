@@ -28,7 +28,7 @@ function doAjaxPostAddCampaign() {
                 $('.infoBlock').html("Кампания успешно создана!");
                 setTimeout(function() {
                 timeoutRedirect();
-                }, 1500);
+                }, 1400);
             }
         },
         error: function(e){
