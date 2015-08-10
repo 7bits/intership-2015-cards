@@ -53,6 +53,9 @@ public class HomeController {
     private NewPasswordFormValidator newPasswordFormValidator;
 
     @Autowired
+    private HashValidator hashValidator;
+
+    @Autowired
     private StoreService storeService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
@@ -130,15 +133,16 @@ public class HomeController {
 
     @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
     public String restorePasswordHash(@RequestParam String hash, Model model) {
-        if (hash == null || hash.length() == 0) {
-            return "home/password_restore";
-        } else {
+        final Map<String, String> errors = hashValidator.validate(hash);
+        if (errors.size()==0) {
             if (hash.substring(0, 6).equals("delete")) {
                 restoreService.deleteByHash(hash);
                 return "home/homepage";
             }
             model.addAttribute("hash", hash);
             return "home/new_password";
+        } else {
+            return "redirect:/password_restore";
         }
     }
 

@@ -2,6 +2,7 @@ package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.core.repository.DiscountRepository;
 import it.sevenbits.cards.core.repository.RepositoryException;
+import it.sevenbits.cards.core.repository.RestorePasswordRepository;
 import it.sevenbits.cards.core.repository.UserRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.internal.util.logging.Log;
@@ -23,6 +24,10 @@ public class CommonFieldValidator {
     @Autowired
     @Qualifier(value = "discountPersistRepository")
     private DiscountRepository discountRepository;
+
+    @Autowired
+    @Qualifier(value = "restorePasswordRepository")
+    private RestorePasswordRepository restorePasswordRepository;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.[a-z]+$", Pattern.CASE_INSENSITIVE
@@ -253,7 +258,23 @@ public class CommonFieldValidator {
             }
         }
     }
-
-
+    public void isHashExist(
+            final String hash,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            String email;
+            try {
+                email = restorePasswordRepository.findEmailByHash(hash);
+            } catch (Exception e) {
+                email = null;
+            }
+            if (email == null) {
+                errors.put(field, key);
+            }
+        }
+    }
 }
 
