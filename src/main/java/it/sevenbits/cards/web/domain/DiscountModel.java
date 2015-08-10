@@ -8,6 +8,7 @@ public class DiscountModel {
     private String userId;
     private String storeName;
     private String description;
+    private String storeImage;
 
     public Long getId() {
         return id;
@@ -49,7 +50,7 @@ public class DiscountModel {
         this.userId = userId;
     }
 
-    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description){
+    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage){
         this.id = id;
         this.key = key;
         this.uin = uin;
@@ -57,13 +58,14 @@ public class DiscountModel {
         this.userId = userId;
         this.storeName = storeName;
         this.description = description;
+        this.storeImage = storeImage;
 
     }
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s]",
-                id, key, uin, isHidden, userId, storeName,description);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s]",
+                id, key, uin, isHidden, userId, storeName,description, storeImage);
     }
 
     public String getStoreName() {
@@ -80,5 +82,13 @@ public class DiscountModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
     }
 }

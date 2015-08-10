@@ -107,19 +107,24 @@ public class DiscountController {
     //Create discount by campaign
     @Secured("ROLE_STORE")
     @RequestMapping(value="/create_discount_by_campaign", method = RequestMethod.POST)
-    public String createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException, RepositoryException{
+    public @ResponseBody JsonResponse createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException, RepositoryException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         String storeImage = storeService.findStoreImageByStoreName(storeName);
         final Map<String, String> errors = discountByCampaignFormValidator.validate(discountByCampaignForm);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/store_area";
+        JsonResponse res = new JsonResponse();
+        if (errors.size() == 0) {
+            String generatedKey= generateKey.random();
+            String generatedUin= generateUin.random();
+            discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
+            res.setStatus("SUCCESS");
+            res.setResult(null);
         }
-        String generatedKey= generateKey.random();
-        String generatedUin= generateUin.random();
-        discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
-        return "redirect:/store_area";
+        else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        }
+        return res;
     }
     //Generate discount
     @Secured("ROLE_STORE")

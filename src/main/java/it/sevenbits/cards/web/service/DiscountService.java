@@ -49,7 +49,8 @@ public class DiscountService {
                         d.getIsHidden(),
                         d.getUserId(),
                         d.getStoreName(),
-                        d.getDescription()
+                        d.getDescription(),
+                        d.getStoreImage()
                         ));
             }
             return models;
@@ -70,7 +71,8 @@ public class DiscountService {
                         d.getIsHidden(),
                         d.getUserId(),
                         d.getStoreName(),
-                        d.getDescription()
+                        d.getDescription(),
+                        d.getStoreImage()
                 ));
             }
             return models;
@@ -90,7 +92,8 @@ public class DiscountService {
                         d.getIsHidden(),
                         d.getUserId(),
                         d.getStoreName(),
-                        d.getDescription()
+                        d.getDescription(),
+                        d.getStoreImage()
                 ));
             }
             return models;
@@ -118,7 +121,8 @@ public class DiscountService {
                         d.getIsHidden(),
                         d.getUserId(),
                         d.getStoreName(),
-                        d.getDescription()
+                        d.getDescription(),
+                        d.getStoreImage()
                 ));
             }
             return models;

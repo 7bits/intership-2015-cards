@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DiscountMapper {
     //FindAll
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image FROM discounts")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -13,11 +13,13 @@ public interface DiscountMapper {
             @Result(column = "is_hidden", property = "isHidden"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description")
+            @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
+            @Result(column = "store_image", property = "storeImage")
     })
     List<Discount> findAll();
     //Save
-    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent})")
+    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent, store_image) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent})")
     void save(final Discount discount);
     //Save
     @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent, store_image) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent}, #{storeImage})")
@@ -26,7 +28,7 @@ public interface DiscountMapper {
     @Delete("DELETE FROM discounts WHERE key = #{key} AND store_name = #{storeName}")
     void delete(@Param("key") String key, @Param("storeName") String storeName);
     //FindAllForUse
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = false and user_id = #{userName}")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image FROM discounts WHERE is_hidden = false and user_id = #{userName}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -34,11 +36,12 @@ public interface DiscountMapper {
             @Result(column = "is_hidden", property = "isHidden"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description")
+            @Result(column = "description", property = "description"),
+            @Result(column = "store_image", property = "storeImage")
     })
     List<Discount> findAllForUse(@Param("userName") String userName);
     //FindAllForSend
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE is_hidden = true and user_id = #{userName}")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, store_image FROM discounts WHERE is_hidden = true and user_id = #{userName}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -46,11 +49,13 @@ public interface DiscountMapper {
             @Result(column = "is_hidden", property = "isHidden"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description")
+            @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
+            @Result(column = "store_image", property = "storeImage")
     })
     List<Discount> findAllForSend(@Param("userName") String userName);
     //FindUserId
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description FROM discounts WHERE uin = #{uin}")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, store_image FROM discounts WHERE uin = #{uin}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
@@ -58,7 +63,9 @@ public interface DiscountMapper {
             @Result(column = "is_hidden", property = "isHidden"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description")
+            @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
+            @Result(column = "store_image", property = "storeImage")
     })
     List<Discount> findUserId(final Discount discount);
     //ChangeUserId

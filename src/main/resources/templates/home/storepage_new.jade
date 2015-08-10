@@ -15,6 +15,8 @@ html
         script(src='/resources/scripts/sendValidator.js')
         script(src='/resources/scripts/useDiscountValidation.js')
         script(src='/resources/scripts/addCampaignValidation.js')
+        script(src='/resources/scripts/createDiscountByCampaignValidation.js')
+        create_discount_by_campaign
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         meta(name="_csrf", content="#{_csrf.token}")
@@ -139,18 +141,19 @@ html
                                                             .content-style-form.content-style-form-1
                                                                 span.icon.icon-close Закрыть окно
                                                                 h2 Скидка
-                                                                .js-send
-                                                                    form#js-send-form(action="/send_discount", method="post")
+                                                                .js-create-discount-by-campaign
+                                                                    form#js-create-discount-by-campaign-form(action="/create_discount_by_campaign", method="post")
                                                                         input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                                         p
-                                                                            label Пользователь
                                                                             .infoBlock
-                                                                            input.form-control(name="key", type="hidden", value="#{discount.key}")
-                                                                            input.form-control(name="uin", type="hidden", value="#{discount.uin}")
-                                                                            input.form-control.email_input(name="email", placeholder="Email получателя", type="text")
+                                                                            label Email
+                                                                            input.form-control.email_create_discount_by_campaign_input#discountEmail(name="email", type="text")
                                                                             .errors#emailError
+                                                                            input.form-control#discountName(name="name", value= "#{campaign.name}", type="hidden")
+                                                                            input.form-control#discountPercent(name="percent", value= "#{campaign.percent}", type="hidden")
+                                                                            input.form-control#discountDescription(name="description", value= "#{campaign.description}", type="hidden")
                                                                         .morph-in-button
-                                                                            input.add(type="submit",value="Отправить")
+                                                                            input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign()", value="Отправить")
                                                                         a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
                                                                             img.social(src='/resources/img/vkontakte.png')
                                                                         a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
