@@ -11,7 +11,7 @@ var key = $('#keyUse').val();
         headers: headers,
         success: function(response){
             $('.errors').html('');
-            $('.infoBlock').html('');
+            $('.infoBlockUseDiscount').html('');
             $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
@@ -22,7 +22,7 @@ var key = $('#keyUse').val();
                 }
             }
             else {
-                $('.infoBlock').html("Скидка успешно добавлена!");
+                $('.infoBlockUseDiscount').html("Скидка успешно добавлена!");
             }
         },
         error: function(e){

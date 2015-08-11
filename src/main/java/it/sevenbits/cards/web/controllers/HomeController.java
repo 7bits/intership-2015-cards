@@ -112,6 +112,7 @@ public class HomeController {
     public String registration() {return "home/registration";
     }
 
+    //Registration
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public @ResponseBody JsonResponse registration(@ModelAttribute RegistrationForm form) throws ServiceException {
         final Map<String, String> errors = registrationFormValidator.validate(form);
@@ -127,10 +128,11 @@ public class HomeController {
         return res;
     }
 
-    //Password restore
+    //Password Restore
     @RequestMapping(value = "/password_restore", method = RequestMethod.GET)
     public String restorePassword() {return "home/password_restore";}
 
+    //Password Restore
     @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
     public String restorePasswordHash(@RequestParam String hash, Model model) {
         final Map<String, String> errors = hashValidator.validate(hash);
@@ -145,7 +147,7 @@ public class HomeController {
             return "redirect:/password_restore";
         }
     }
-
+    //Password Restore
     @RequestMapping(value = "/password_restore/", method = RequestMethod.POST)
     public @ResponseBody JsonResponse newPassword(@ModelAttribute NewPasswordForm newPasswordForm) throws ServiceException{
         JsonResponse res = new JsonResponse();
@@ -161,6 +163,7 @@ public class HomeController {
         return res;
     }
 
+    //Password Restore
     @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
     public @ResponseBody JsonResponse restorePassword(@ModelAttribute PasswordRestoreForm passwordRestoreForm) throws ServiceException {
         JsonResponse res = new JsonResponse();
@@ -176,7 +179,7 @@ public class HomeController {
         return res;
     }
 
-    //feedback
+    //Feedback
     @RequestMapping(value = "/feedback", method = RequestMethod.GET)
     public String feedback(final Model model) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -192,25 +195,6 @@ public class HomeController {
     public String feedback(@ModelAttribute FeedbackForm form) throws ServiceException {
         userService.sendMailToFeedback(form);
         return "redirect:/feedback";
-    }
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/settings", method = RequestMethod.GET)
-    public String settings(final Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("store", store);
-        return "home/settings";
-    }
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/settings", method = RequestMethod.POST)
-    public String settings(@ModelAttribute SettingsForm settingsForm, Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final Map<String, String> errors = settingsFormValidator.validate(settingsForm);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/settings";
-        }
-        return "redirect:/settings";
     }
 
     //Personal Area Get Method
@@ -235,26 +219,14 @@ public class HomeController {
     }
 
     //Store Area Get Method
-
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/store_area", method = RequestMethod.GET)
-    public String storeAreaGet(final Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("store", store);
-        return "home/store_area";
-    }
-
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/storepage_new", method = RequestMethod.GET)
     public String storePageNew(final Model model) throws ServiceException {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
-        return "home/storepage_new";
+        return "home/store_area";
     }
 
     //Store Area Post Method
@@ -262,8 +234,9 @@ public class HomeController {
     @RequestMapping(value = "/store_area", method = RequestMethod.POST)
     public String storeAreaPost(final Model model) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Store store = storeService.findStoreByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("store", store);
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
+        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         return "home/store_area";
     }
 

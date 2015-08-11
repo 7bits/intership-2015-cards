@@ -1,8 +1,5 @@
 package it.sevenbits.cards.validation;
 
-/**
- * Created by taro on 27.07.15.
- */
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 

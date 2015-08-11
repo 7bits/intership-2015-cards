@@ -45,7 +45,7 @@ input.red-error[type="password"]:focus{
  	color: #f8aa26;
  }
 
- .infoBlock {
+ .infoBlock, .infoBlockCreateDiscountByCampaign, .infoBlockAddCampaign, .infoBlockUseDiscount {
      font-size:15px;
 	 color: #669966;
 	 height: 15px;

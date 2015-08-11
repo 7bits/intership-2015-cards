@@ -14,7 +14,7 @@ function doAjaxPostCreateDiscountByCampaign() {
         headers: headers,
         success: function(response){
             $('.errors').html("");
-            $('.infoBlock').html("");
+            $('.infoBlockCreateDiscountByCampaign').html("");
             $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
@@ -23,21 +23,14 @@ function doAjaxPostCreateDiscountByCampaign() {
                         $('#' + p + 'Error').html(response.result[p]);
                     }
                 }
-                $('.infoBlock').html("");
+                $('.infoBlockCreateDiscountByCampaign').html("");
             }
             else {
-                $('.infoBlock').html("Скидка успешно создана!");
-                setTimeout(function() {
-                timeoutRedirect();
-                }, 1400);
+                $('.infoBlockCreateDiscountByCampaign').html("Скидка успешно создана!");
             }
         },
         error: function(e){
             alert('Error: ' + e);
         }
     });
-}
-
-function timeoutRedirect() {
-    window.location.replace("http://discounts.7bits.it/storepage_new")
 }
