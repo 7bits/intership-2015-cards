@@ -35,7 +35,20 @@ function doAjaxPost(data, headers) {
             else {
                 $('.infoBlock').html("Пароль изменён!");
                 $('.password_input').val('');
+                var inputs = document.getElementsByTagName("input");
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].disabled = true;
+                }
+                $(".header a").click(function(e) {
+                    e.preventDefault();
+                });
+                $(".header_container").css('pointer-events','none');
+
                 setTimeout(function() {
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = false;
+                    }
+                    $(".header_container").css('pointer-events','');
                     timeoutRedirect();
                 }, 1500);
             }
