@@ -58,8 +58,8 @@ Cards Project
   </li>
   <li> Клонирование репозитория через терминал.<br>
   `cd`       
-  `git clone -b site git@github.com:7bits/intership-2015-cards.git`  <br>
-  (На данный момент самая актуальная версия находится на ветке site)
+  `git clone -b develop git@github.com:7bits/intership-2015-cards.git`  <br>
+  (На данный момент самая актуальная версия находится на ветке develop)
   </li>
 <li>Запуск проекта.<br>
 Запустите Intellij IDEA, и с помощью опции Open откройте папку intership-2015-cards.<br>
