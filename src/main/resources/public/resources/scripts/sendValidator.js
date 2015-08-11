@@ -1,35 +1,37 @@
-$(document).ready(function(){
-    $('.js-send').on('submit', '#js-send-form' ,function(e){
-        e.preventDefault();
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        var headers = {};
-        headers[header] = token;
-        doAjaxPost(e.target, headers);
-    })
-});
-
-function doAjaxPost(data, headers) {
+function doAjaxPostSend(data) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var headers = {};
+    headers[header] = token;
+    var thisId = data;
+    var send_email = $('#send_email_' + thisId).val();
+    var send_uin = $('#send_uin_' + thisId).val();
+    var send_key = $('#send_key_' + thisId).val();
     $.ajax({
         type: "POST",
         url: "/send_discount",
-        data: $(data).serialize(),
+        data: "uin=" + send_uin + "&email=" + send_email,
         headers: headers,
-        success: function(response, data){
+        success: function(response){
             $('.errors').html("");
             $('.infoBlock').html("");
             $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
                     if (response.result.hasOwnProperty(p)) {
-                        $('.'+p+'_input').addClass("red-error");
-                        $('#' + p + 'Error').html(response.result[p]);
+                        $('#send_'+p+'_'+thisId).addClass("red-error");
+                        $('#' + p + 'Error' + thisId).html(response.result[p]);
                     }
                 }
                 $('.infoBlock').html("");
+                //$('#ellement_'+thisId).remove();
+                //$('#element_'+thisId+"_sub").remove();
             }
             else {
-                $('.infoBlock').html("Скидка успешно отправлена!");
+                $('#infoBlock_send_'+thisId).html("Скидка успешно отправлена!");
+                $('#ellement_'+thisId+'_sub').remove();
+                $('#ellement_'+thisId).remove();
+
             }
         },
         error: function(e){

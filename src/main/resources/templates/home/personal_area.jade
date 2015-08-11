@@ -13,6 +13,7 @@ html
           script(src='/resources/scripts/share.js')
           script(src='/resources/scripts/bindValidator.js')
           script(src='/resources/scripts/sendValidator.js')
+          script(src='/resources/scripts/accordion.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
           meta(name="_csrf", content="#{_csrf.token}")
@@ -24,6 +25,7 @@ html
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/searchstyle.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/accordion.css')
      body
           // HEADER
           .header_container
@@ -92,57 +94,53 @@ html
                                    input#send-search.send-use-search(type='text', placeholder="#{userId}")
                                    .yellow
                                         img.search-icon(src='resources/img/ios7-search-strong.svg')
-                              #accordion1.accordion
-                                   for discount in discountsForSend
-                                        .accordion-group.discount
-                                             .accordion-heading
-                                                  a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+discount.id)
-                                                       .heading #{discount.storeName}
-                                             .accordion-body.collapse.describe_bg(id='collapse_send_'+discount.id)
-                                                  .accordion-inner.describe
-                                                       .describe_shadow
-                                                       .description-container
-                                                            .text
-                                                                 .description-heading
-                                                                      | Описание скидки:
-                                                            .store-img-container
-                                                                 img.store-img(src='/resources/img/'+discount.storeImage)
-                                                            .text
-                                                                 | #{discount.description}
+                              for discount in discountsForSend
+                                   .ellement(id='ellement_'+discount.id) #{discount.storeName}
+                                   .ellement_sub(id='ellement_'+discount.id+'_sub')
+                                        .accordion-inner.describe
+                                             .describe_shadow
+                                             .description-container
+                                                  .text
+                                                       .description-heading
+                                                            | Описание скидки:
+                                                  .store-img-container
+                                                       img.store-img(src='/resources/img/mediamarkt.png')
+                                                  .text
+                                                       | #{discount.description}
 
-                                                       .btn
-                                                            .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                             .btn
+                                                  .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
 
-                                                                 button.before-morph(type='button') Отправить
-                                                                 .morph-content
-                                                                      div
-                                                                           .content-style-form.content-style-form-1
-                                                                                span.icon.icon-close Закрыть окно
-                                                                                h2 Скидка
-                                                                                .js-send
-                                                                                     form#js-send-form(action="/send_discount", method="post")
-                                                                                          input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                                                          p
-                                                                                               label Пользователь
-                                                                                               .infoBlock
-                                                                                               input.form-control(name="key", type="hidden", value="#{discount.key}")
-                                                                                               input.form-control(name="uin", type="hidden", value="#{discount.uin}")
-                                                                                               input.form-control.email_input(name="email", placeholder="Email получателя", type="text")
-                                                                                               .errors#emailError
-                                                                                          .morph-in-button
-                                                                                               input.add(type="submit",value="Отправить")
-                                                                                          a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                               img.social(src='/resources/img/vkontakte.png')
-                                                                                          a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                               img.social(src='/resources/img/facebook.png')
-                                                                                          a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                                               img.social(src='/resources/img/twitter.png')
-                                                                                          a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                                               img.social(src='/resources/img/odnoklassniki.png')
-                                                                                          a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                               img.social(src='/resources/img/mir.png')
-                                                            // morph-button
-                                                       .describe_shadow_down
+                                                       button.before-morph(type='button') Отправить
+                                                       .morph-content
+                                                            div
+                                                                 .content-style-form.content-style-form-1
+                                                                      span.icon.icon-close Закрыть окно
+                                                                      h2 Скидка
+                                                                      .js-send
+                                                                           form#js-send-form(action="/send_discount", method="post")
+                                                                                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                                                p
+                                                                                     label Пользователь
+                                                                                     .infoBlock(id='infoBlock_send_'+discount_id)
+                                                                                     input.form-control(name="key", type="hidden", value="#{discount.key}", id="send_key_"+discount.id)
+                                                                                     input.form-control(name="uin", type="hidden", value="#{discount.uin}", id="send_uin_"+discount.id)
+                                                                                     input.form-control.email_input(name="email", placeholder="Email получателя", type="text", id="send_email_"+discount.id)
+                                                                                     .errors(id='emailError'+discount.id)
+                                                                                .morph-in-button
+                                                                                     input.add(type="button",value="Отправить", onclick='doAjaxPostSend("#{discount.id}")')
+                                                                                a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                                     img.social(src='/resources/img/vkontakte.png')
+                                                                                a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                                     img.social(src='/resources/img/facebook.png')
+                                                                                a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                                     img.social(src='/resources/img/twitter.png')
+                                                                                a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                                     img.social(src='/resources/img/odnoklassniki.png')
+                                                                                a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                                     img.social(src='/resources/img/mir.png')
+                                                  // morph-button
+                                             .describe_shadow_down
 
                          #use_tab.tab-pane
                               .ss
