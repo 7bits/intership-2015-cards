@@ -13,7 +13,7 @@ function doAjaxPostAddCampaign() {
         headers: headers,
         success: function(response){
             $('.errors').html("");
-            $('.infoBlockAddCampaign').html("");
+            $('.infoBlock').html("");
             $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
@@ -22,13 +22,13 @@ function doAjaxPostAddCampaign() {
                         $('#' + p + 'Error').html(response.result[p]);
                     }
                 }
-                $('.infoBlockAddCampaign').html("");
+                $('.infoBlock').html("");
             }
             else {
-                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
+                $('.infoBlock').html("Кампания успешно создана!");
                 setTimeout(function() {
                 timeoutRedirect();
-                }, 3000);
+                }, 1400);
             }
         },
         error: function(e){
@@ -38,5 +38,5 @@ function doAjaxPostAddCampaign() {
 }
 
 function timeoutRedirect() {
-    window.location.replace("http://discounts.7bits.it/store_area")
+    window.location.replace("http://localhost:9000/storepage_new")
 }
