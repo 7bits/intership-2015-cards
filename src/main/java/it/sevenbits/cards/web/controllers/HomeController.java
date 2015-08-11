@@ -99,6 +99,14 @@ public class HomeController {
         return "home/homepage";
     }
 
+    //Homepage Error
+    @RequestMapping(value = "/homepage/", method = RequestMethod.GET)
+    public String loginError(@RequestParam String loginError, Model model) {
+        LOG.info("U here, Acoustics!");
+        model.addAttribute("loginError", loginError);
+        return "home/homepage";
+    }
+
     //About
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {return "home/about";}
