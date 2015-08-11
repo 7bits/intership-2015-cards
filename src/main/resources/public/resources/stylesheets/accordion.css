@@ -1,0 +1,19 @@
+.ellement {
+	background-color: #3253a1;
+	border-radius: 4px;
+	height: 50px;
+	margin-top: 10px;
+}
+
+.head-open {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.ellement_sub {
+    overflow: hidden;
+	background-color: #dcdee6;
+	display: none;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
