@@ -30,6 +30,9 @@ public class DiscountController {
     private StoreService storeService;
 
     @Autowired
+    private NewDiscountNotificationService notificationService;
+
+    @Autowired
     private DiscountFormValidator discountFormValidator;
 
     @Autowired
@@ -117,6 +120,7 @@ public class DiscountController {
             String generatedKey= generateKey.random();
             String generatedUin= generateUin.random();
             discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
+            notificationService.notificateCreate(discountByCampaignForm);
             res.setStatus("SUCCESS");
             res.setResult(null);
         }
