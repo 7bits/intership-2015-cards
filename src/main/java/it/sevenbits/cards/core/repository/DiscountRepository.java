@@ -23,5 +23,6 @@ public interface DiscountRepository {
     Boolean findHiddenStatusByUin(String uin) throws RepositoryException;
     Long findDiscountIdByKey(String key) throws RepositoryException;
     Long findDiscountIdByUin(String uin) throws RepositoryException;
+    Discount findDiscountByUin(String uin) throws RepositoryException;
 }
 

@@ -176,4 +176,16 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while finding discount id by uin: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public Discount findDiscountByUin(String uin) throws RepositoryException {
+        if(uin==null){
+            throw new RepositoryException("Uin is null");
+        }
+        try{
+            return mapper.findDiscountByUin(uin);
+        }catch(Exception e){
+            throw new RepositoryException("An error occurred while finding discount by uin: " + e.getMessage(), e);
+        }
+    }
 }

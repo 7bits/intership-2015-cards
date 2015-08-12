@@ -177,4 +177,12 @@ public class DiscountService {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
+
+    public Discount findDiscountByUin(String uin) throws ServiceException {
+        try {
+            return repository.findDiscountByUin(uin);
+        } catch (Exception e) {
+            throw new ServiceException("An error while finding discount by uin: " + e.getMessage(), e);
+        }
+    }
 }
