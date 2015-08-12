@@ -84,6 +84,8 @@ html
                     form#js-registration-form(action="/registration", method="post")
                         .reg-input-lable-container
                             .infoBlock
+                                if accActivate!=null
+                                    | #{accActivate}
                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                             label.reglable Введите адрес эл. почты
                             input.form-control.email_input.not-morph(name='email', type='text')

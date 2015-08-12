@@ -73,7 +73,7 @@ public class AccounttActivationService {
             LOG.error("User doesn't exist");
         } else {
             sender.send("Активация аккаунта Discounts", "Ссылка для активации:\n" +
-                    "http://localhost:9000/activation/?hash=" + accountActivation.getHash(), accountActivation.getEmail());
+                    "http://localhost:9000/registration/?hash=" + accountActivation.getHash(), accountActivation.getEmail());
         }
     }
     public void activateByHash(String hash) {

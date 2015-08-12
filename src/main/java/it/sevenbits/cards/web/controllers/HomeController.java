@@ -133,10 +133,12 @@ public class HomeController {
         return res;
     }
 
-    @RequestMapping(value = "/activation/", method = RequestMethod.GET)
-    public String activatebyhash(@RequestParam String hash, Model model) {
-            activationService.activateByHash(hash);
-            return "redirect:/homepage";
+    @RequestMapping(value = "/registration/", method = RequestMethod.GET)
+    public String activatebyhash(@RequestParam(required = false) String hash, Model model) {
+        activationService.activateByHash(hash);
+        model.addAttribute("accActivate", "Регистрация успешно завершена");
+        return "home/registration";
+
     }
 
     //Password Restore
