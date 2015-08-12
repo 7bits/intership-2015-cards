@@ -66,7 +66,7 @@ function doAjaxPostBind() {
     });
 }
 
-//
+//trololo
 // +"<div class=\"js-send\">"
 //                                                +"<form id=\"js-send-form\" action=\"send_discount\" method=\"post\">"
 //                                                    +"<input type=\"hidden\" name=\"" + _csrf.name +"\" value=\"" + _csrf.token + "\">"
