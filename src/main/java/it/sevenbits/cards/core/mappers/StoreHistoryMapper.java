@@ -2,10 +2,7 @@ package it.sevenbits.cards.core.mappers;
 
 
 import it.sevenbits.cards.core.domain.StoreHistory;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -18,4 +15,8 @@ public interface StoreHistoryMapper {
             @Result(column = "description", property = "description")
     })
     List<StoreHistory> findAll(@Param("storeName") String storeName);
+    //Save
+    @Insert("INSERT INTO store_history (store_name, description) VALUES (#{storeName}, #{description})")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    void save(StoreHistory storeHistory);
 }

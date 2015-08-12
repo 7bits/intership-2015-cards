@@ -24,4 +24,12 @@ public class StoreHistoryPersistRepository implements StoreHistoryRepository{
             throw new RepositoryException("An error occurred while retrieving history: " + e.getMessage(), e);
         }
     }
+    @Override
+    public void save(StoreHistory storeHistory) throws RepositoryException{
+        try{
+            storeHistoryMapper.save(storeHistory);
+        }catch(Exception e){
+            throw new RepositoryException("An error occurred while saving history: " + e.getMessage(), e);
+        }
+    }
 }

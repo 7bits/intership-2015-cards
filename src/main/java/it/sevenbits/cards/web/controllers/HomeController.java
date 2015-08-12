@@ -1,6 +1,7 @@
 package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.Store;
+import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;

@@ -1,6 +1,7 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
@@ -55,6 +56,9 @@ public class DiscountController {
 
     @Autowired
     private GenerateUin generateUin;
+
+    @Autowired
+    private StoreHistoryService storeHistoryService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
