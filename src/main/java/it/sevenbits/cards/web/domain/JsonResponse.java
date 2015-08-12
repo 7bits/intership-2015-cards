@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class JsonResponse {
     private String status = null;
-    private Map<String, String> result = null;
+    private Object result = null;
     public String getStatus() {
         return status;
     }
@@ -14,7 +14,7 @@ public class JsonResponse {
     public Object getResult() {
         return result;
     }
-    public void setResult(Map<String, String> result) {
+    public void setResult(Object result) {
         this.result = result;
     }
 }

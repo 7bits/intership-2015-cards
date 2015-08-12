@@ -195,7 +195,7 @@ input.add[type="button"]{
     z-index:-2;
 }
 
-.discount .describe {
+.describe {
 	overflow: hidden;
 	color: black;
 	background-color: #dcdee6;
@@ -215,19 +215,19 @@ input.add[type="button"]{
 	/*background: linear-gradient(to top, #000 5%, #a6a6a6, #f0f0f0);*/
 }
 
-.discount .text {
+.text {
 	float: left;
 	width: 60%;
 	padding: 3%;
     word-break: break-all;
 }
 
-.discount .btn {
+.btn {
 	float: right;
 	width: 25%;
 }
 
-.discount .describe a {
+.describe a {
 	color: black;
 	text-decoration: none;
 }

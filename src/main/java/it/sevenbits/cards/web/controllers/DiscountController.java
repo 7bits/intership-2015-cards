@@ -179,7 +179,7 @@ public class DiscountController {
         if (errors.size() == 0) {
             discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));
             res.setStatus("SUCCESS");
-            res.setResult(null);
+            res.setResult(discountService.findDiscountByUin(form.getUin()));
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
