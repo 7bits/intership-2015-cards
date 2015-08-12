@@ -101,8 +101,9 @@ public class HomeController {
 
     //Homepage Error
     @RequestMapping(value = "/homepage/", method = RequestMethod.GET)
-    public String loginError(@RequestParam String loginError, Model model) {
-        LOG.info("U here, Acoustics!");
+    public String loginError(@RequestParam String loginError, Model model, HttpServletRequest request) {
+        String temp = request.getHeader("Referer");
+        LOG.info(temp);
         model.addAttribute("loginError", loginError);
         return "home/homepage";
     }

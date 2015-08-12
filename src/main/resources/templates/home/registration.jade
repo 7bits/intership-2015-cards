@@ -38,12 +38,14 @@ html
                                             p= param.error
                                     form(action="/login", method="post")
                                         input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                        if loginError
+                                            #loginErrorMessage.errors
                                         .form-group
                                             label Email
-                                            input(name="username", type="text")
+                                            input.errorOutline(name="username", type="text")
                                         .form-group
                                             label Пароль
-                                            input(name="password", type="password")
+                                            input.errorOutline(name="password", type="password")
                                         .forget-password-href
                                             a(href="password_restore") Забыли пароль?
                                         input.yes(type="submit", value="Войти")
@@ -92,6 +94,14 @@ html
                             input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
         // MAIN END
         // SCRIPTS
+        if loginError
+            script.
+                $(document).ready(function(){
+                    document.getElementById('login').click();
+                    $('.morph-content').show();
+                    $('#loginErrorMessage').html("Введён неверный Email или пароль.");
+                    $('.errorOutline').addClass("red-error");
+                })
         script(src='/resources/scripts/classie.js')
         script(src='/resources/scripts/uiMorphingButton_fixed.js')
         script.

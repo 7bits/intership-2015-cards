@@ -6,12 +6,12 @@ html
           // BOOTSTRAP
           meta(name="_csrf", content="#{_csrf.token}")
           meta(name="_csrf_header", content="#{_csrf.headerName}")
-
           link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
           script(src='http://code.jquery.com/jquery-latest.js')
           link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
+          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
 
           script(src='/resources/scripts/modernizr.custom.js')
           // BOOTSTRAP END
@@ -27,7 +27,7 @@ html
                     .header-buttons
                          .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-logout
                               if !(security.isUserInRole("ROLE_USER") || security.isUserInRole("ROLE_ADMIN") || security.isUserInRole("ROLE_STORE"))
-                                   button#acoustics(type='button') Войти
+                                   button#login(type='button') Войти
                                    .morph-content
                                         .content-style-form.content-style-form-1
                                              span.icon.icon-close Закрыть окно
@@ -39,13 +39,13 @@ html
                                                   form#js-login-form(action="/login", method="post")
                                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                        if loginError
-                                                            label Error!
+                                                            #loginErrorMessage.errors
                                                        .form-group
                                                             label Email
-                                                            input(name="username", type="text")
+                                                            input.errorOutline(name="username", type="text")
                                                        .form-group
                                                             label Пароль
-                                                            input(name="password", type="password")
+                                                            input.errorOutline(name="password", type="password")
                                                        .forget-password-href
                                                             a(href="password_restore") Забыли пароль?
                                                        input.yes(type="submit", value="Войти")
@@ -86,6 +86,14 @@ html
                .shadow
           // MAIN END
           // SCRIPTS
+          if loginError
+               script.
+                    $(document).ready(function(){
+                         document.getElementById('login').click();
+                         $('.morph-content').show();
+                         $('#loginErrorMessage').html("Введён неверный Email или пароль.");
+                         $('.errorOutline').addClass("red-error");
+                    })
           script(src='/resources/scripts/classie.js')
           script(src='/resources/scripts/uiMorphingButton_fixed.js')
           script.
