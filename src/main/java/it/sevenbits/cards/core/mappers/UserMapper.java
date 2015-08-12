@@ -53,4 +53,7 @@ public interface UserMapper {
     @Update("UPDATE users SET role =#{userRole} WHERE user_id = #{userId}")
     void changeUserRoleByUserId(@Param("userRole") String userRole, @Param("userId") String userId);
 
+    @Update("UPDATE users SET enabled = TRUE WHERE email = #{email}")
+    void enableUserByEmail(@Param("email") String email);
+
 }

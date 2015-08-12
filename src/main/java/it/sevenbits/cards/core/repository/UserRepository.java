@@ -97,4 +97,15 @@ public class UserRepository implements UserDetailsService {
         }
     }
 
+    public void enableUserByEmail(String email) throws RepositoryException {
+        if (email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        try {
+            userMapper.enableUserByEmail(email);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
+
 }

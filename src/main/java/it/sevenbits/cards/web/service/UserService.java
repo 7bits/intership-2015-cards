@@ -87,6 +87,14 @@ public class UserService {
         }
     }
 
+    public void enableUserByEmail(String email) throws ServiceException {
+        try {
+            repository.enableUserByEmail(email);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while changing User enabled property to true: " + e.getMessage(), e);
+        }
+    }
+
     public void sendMailToFeedback(FeedbackForm form) {
         String email = form.getEmail();
         String title = form.getTitle();

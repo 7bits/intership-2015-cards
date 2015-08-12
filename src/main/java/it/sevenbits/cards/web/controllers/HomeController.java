@@ -1,28 +1,19 @@
 package it.sevenbits.cards.web.controllers;
+import it.sevenbits.cards.core.domain.AccountActivation;
 import it.sevenbits.cards.core.domain.Role;
-import it.sevenbits.cards.core.domain.Store;
 import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
-import java.net.Authenticator;
-import java.security.Principal;
-import java.util.Collection;
 import java.util.Map;
 
 @Controller
@@ -33,6 +24,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AccounttActivationService activationService;
 
     @Autowired
     private CampaignService campaignService;
@@ -131,10 +125,18 @@ public class HomeController {
             res.setResult(errors);
         } else {
             userService.createUser(form);
+            AccountActivation activation = activationService.generateActivationHash(form);
+            activationService.sendEmail(activation);
             res.setStatus("SUCCESS");
             res.setResult(null);
         }
         return res;
+    }
+
+    @RequestMapping(value = "/activation/", method = RequestMethod.GET)
+    public String activatebyhash(@RequestParam String hash, Model model) {
+            activationService.activateByHash(hash);
+            return "redirect:/homepage";
     }
 
     //Password Restore

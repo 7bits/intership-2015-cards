@@ -33,7 +33,7 @@ function doAjaxPost(data, headers) {
                 $('.infoBlock').html("");
             }
             else {
-                $('.infoBlock').html("Регистрация прошла успешно!");
+                $('.infoBlock').html("Проверьте ваш почтовый ящик.");
 
                         $('.email_input').val('');
                         $('.password_input').val('');
