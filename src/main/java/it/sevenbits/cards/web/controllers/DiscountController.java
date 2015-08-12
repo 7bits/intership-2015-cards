@@ -82,6 +82,10 @@ public class DiscountController {
             discountService.delete(form.getKey(), storeName);
             res.setStatus("SUCCESS");
             res.setResult(null);
+            StoreHistory storeHistory = new StoreHistory();
+            storeHistory.setStoreName(storeName);
+            storeHistory.setDescription("Использована скидка с ключом " + form.getKey().toString());
+            storeHistoryService.save(storeHistory);
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
@@ -127,6 +131,10 @@ public class DiscountController {
             notificationService.notificateCreate(discountByCampaignForm);
             res.setStatus("SUCCESS");
             res.setResult(null);
+            StoreHistory storeHistory = new StoreHistory();
+            storeHistory.setStoreName(storeName);
+            storeHistory.setDescription("Скидка сгенерирована кампанией " + discountByCampaignForm.getName() + " и отправлена пользователю " + discountByCampaignForm.getEmail());
+            storeHistoryService.save(storeHistory);
         }
         else{
             res.setStatus("FAIL");
