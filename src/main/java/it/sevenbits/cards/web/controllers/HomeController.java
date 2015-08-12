@@ -32,6 +32,9 @@ public class HomeController {
     private CampaignService campaignService;
 
     @Autowired
+    private StoreHistoryService storeHistoryService;
+
+    @Autowired
     private PasswordRestoreService restoreService;
 
     @Autowired
@@ -266,5 +269,15 @@ public class HomeController {
     @RequestMapping(value = "/admin_area", method = RequestMethod.POST)
     public String adminAreaPost() {
         return "home/admin_area";
+    }
+
+    //Store Area Post Method
+    @Secured("ROLE_STORE")
+    @RequestMapping(value = "/store_history", method = RequestMethod.GET)
+    public String storeHistory(final Model model) throws ServiceException{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        model.addAttribute("history", storeHistoryService.findAll(storeName));
+        return "home/store_history";
     }
 }
