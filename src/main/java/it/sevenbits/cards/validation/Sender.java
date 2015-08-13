@@ -1,17 +1,19 @@
 package it.sevenbits.cards.validation;
 
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-
+@Component
 public class Sender {
 
     private final String username = "discountfeedback@gmail.com";
     private final String password = "i8baM6J7lUaJ";
     private Properties props;
-
     public Sender() {
 
         props = new Properties();
@@ -20,7 +22,7 @@ public class Sender {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
     }
-
+    @Async
     public void send(String subject, String text, String toEmail){
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {

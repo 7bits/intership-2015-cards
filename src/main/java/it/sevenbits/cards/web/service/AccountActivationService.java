@@ -10,6 +10,8 @@ import it.sevenbits.cards.validation.Sha;
 import it.sevenbits.cards.web.domain.RegistrationForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -66,7 +68,7 @@ public class AccountActivationService {
             return activation;
         }
     }
-
+    @Async
     public void sendEmail(AccountActivation accountActivation) throws ServiceException {
         if (accountActivation == null) {
             LOG.error("User doesn't exist");

@@ -171,6 +171,7 @@ public class DiscountController {
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
             discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
+            notificationService.notificateSend(form);
             res.setStatus("SUCCESS");
             res.setResult(null);
         }else{
