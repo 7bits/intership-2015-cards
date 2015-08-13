@@ -49,14 +49,12 @@
 	-webkit-transition: opacity 0.1s 0.5s;
 	transition: opacity 0.1s 0.5s;
 	font-family: inherit;
-	font-size: 130%;
 	margin: 0;
 	-webkit-appearance: button;
 	cursor: pointer;
 	padding: 0 1em;
 	border: none;
 	background-color: #3253a1;
-	box-shadow: 0 3px 0px 0px rgba(30, 58, 134, 1);
 	overflow: hidden;
 	color: white;
 	text-transform: uppercase;
@@ -65,6 +63,10 @@
 	z-index: 1000;
 	width: 100%;
 	border-radius: 3px;
+}
+#login {
+	box-shadow: 0 3px 0px 0px rgba(30, 58, 134, 1);
+	font-size: 130%;
 }
 
 .morph-button-fixed.open > button {

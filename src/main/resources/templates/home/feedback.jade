@@ -90,13 +90,13 @@ html
         // MAIN END
         // SCRIPTS
         if loginError
-        script.
-            $(document).ready(function(){
-                 document.getElementById('login').click();
-                 $('.morph-content').show();
-                 $('#loginErrorMessage').html("Введён неверный Email или пароль.");
-                 $('.errorOutline').addClass("red-error");
-            })
+            script.
+                $(document).ready(function(){
+                    document.getElementById('login').click();
+                    $('.morph-content').show();
+                    $('#loginErrorMessage').html("Введён неверный Email или пароль.");
+                    $('.errorOutline').addClass("red-error");
+                })
         script(src='/resources/scripts/classie.js')
         script(src='/resources/scripts/uiMorphingButton_fixed.js')
         script.

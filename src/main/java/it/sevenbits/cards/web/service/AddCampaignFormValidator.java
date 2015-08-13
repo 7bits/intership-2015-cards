@@ -21,9 +21,9 @@ public class AddCampaignFormValidator {
         LOG.info("AddCampaignFormValidator started for: " + addCampaignForm.toString());
         HashMap<String, String> errors = new HashMap<>();
 
-        validator.isNotNullOrEmpty(addCampaignForm.getName(), errors, "name", "Поле не должно быть путсым");
-        validator.isNotNullOrEmpty(addCampaignForm.getDescription(), errors, "description", "Поле не должно быть путсым");
-        validator.isNotNullOrEmpty(addCampaignForm.getPercent(), errors, "percent", "Поле не должно быть путсым");
+        validator.isNotNullOrEmpty(addCampaignForm.getName(), errors, "name", "Поле не должно быть пустым");
+        validator.isNotNullOrEmpty(addCampaignForm.getDescription(), errors, "description", "Поле не должно быть пустым");
+        validator.isNotNullOrEmpty(addCampaignForm.getPercent(), errors, "percent", "Поле не должно быть пустым");
 
         validator.shorterThan(addCampaignForm.getName(), 255, errors, "name", "Поле должно быть короче, чем 255 символов.");
         validator.shorterThan(addCampaignForm.getDescription(), 255, errors, "description", "Поле должно быть короче, чем 255 символов.");
