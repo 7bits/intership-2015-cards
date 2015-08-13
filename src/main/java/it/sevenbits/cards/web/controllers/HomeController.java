@@ -58,6 +58,9 @@ public class HomeController {
     @Autowired
     private StoreService storeService;
 
+    @Autowired
+    private IdFormValidator idFormValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Success
@@ -248,6 +251,7 @@ public class HomeController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
+        model.addAttribute("history", storeHistoryService.findAll(storeName));
         return "home/store_area";
     }
 
@@ -259,6 +263,7 @@ public class HomeController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
+        model.addAttribute("history", storeHistoryService.findAll(storeName));
         return "home/store_area";
     }
 
@@ -285,5 +290,15 @@ public class HomeController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         model.addAttribute("history", storeHistoryService.findAll(storeName));
         return "home/store_history";
+    }
+
+    @Secured("ROLE_STORE")
+    @RequestMapping(value = "/change_campaign_status", method = RequestMethod.POST)
+    public String changeCampaignEnableStatus(@ModelAttribute IdForm idForm) throws ServiceException{
+        final Map<String, String> errors = idFormValidator.validate(idForm.getId());
+        if(errors.size() == 0){
+            campaignService.changeCampaignEnableStatus(idForm.getId());
+        }
+        return "redirect:/store_area";
     }
 }

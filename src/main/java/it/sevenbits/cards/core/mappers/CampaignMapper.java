@@ -30,4 +30,7 @@ public interface CampaignMapper {
             @Result(column = "enabled", property = "enabled")
     })
     List<Campaign> findAllNotActive(@Param("storeName") String storeName);
+    //Change campaign enable status
+    @Update("UPDATE campaign SET enabled = not enabled where id = #{id}")
+    void changeCampaignEnableStatus(@Param("id") Long id);
 }

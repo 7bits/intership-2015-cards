@@ -71,4 +71,11 @@ public class CampaignService {
             throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
+    public void changeCampaignEnableStatus(String id) throws ServiceException{
+        try {
+            campaignRepository.changeCampaignEnableStatus(Long.parseLong(id));
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while changing campaign status: " + e.getMessage(), e);
+        }
+    }
 }

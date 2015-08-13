@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CampaignRepository {
     void save(final Campaign campaign) throws RepositoryException;
-
     List<Campaign> findAllActive(String storeName) throws RepositoryException;
     List<Campaign> findAllNotActive(String storeName) throws RepositoryException;
+    void changeCampaignEnableStatus(Long id) throws RepositoryException;
 }
