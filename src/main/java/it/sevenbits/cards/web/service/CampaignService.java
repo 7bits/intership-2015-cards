@@ -22,7 +22,7 @@ public class CampaignService {
     private CampaignRepository campaignRepository;
 
 
-    public void save(final AddCampaignForm form, String storeName) throws ServiceException {
+    public Campaign save(final AddCampaignForm form, String storeName) throws ServiceException {
         final Campaign campaign = new Campaign();
         campaign.setName(form.getName());
         campaign.setDescription(form.getDescription());
@@ -31,6 +31,7 @@ public class CampaignService {
         campaign.setStoreName(storeName);
         try {
             campaignRepository.save(campaign);
+            return campaign;
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving campaign: " + e.getMessage(), e);
         }

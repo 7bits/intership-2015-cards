@@ -56,9 +56,8 @@ public class CampaignController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
         if (errors.size() == 0) {
-            campaignService.save(addCampaignForm, storeName);
             res.setStatus("SUCCESS");
-            res.setResult(null);
+            res.setResult(campaignService.save(addCampaignForm, storeName));
             StoreHistory storeHistory = new StoreHistory();
             storeHistory.setStoreName(storeName);
             storeHistory.setDescription("Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%");
