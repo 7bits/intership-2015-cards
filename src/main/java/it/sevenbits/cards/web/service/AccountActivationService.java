@@ -10,7 +10,6 @@ import it.sevenbits.cards.validation.Sha;
 import it.sevenbits.cards.web.domain.RegistrationForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -19,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by deamor on 12.08.15.
  */
 @Service
-public class AccounttActivationService {
+public class AccountActivationService {
 
     @Autowired
     private AccountActivationRepository activationRepository;
@@ -29,7 +28,7 @@ public class AccounttActivationService {
 
     private static Sender sender = new Sender();
 
-    Logger LOG = Logger.getLogger(AccounttActivationService.class);
+    Logger LOG = Logger.getLogger(AccountActivationService.class);
 
     User user = new User();
 
@@ -89,6 +88,16 @@ public class AccounttActivationService {
             userRepository.enableUserByEmail(email);
         } catch (RepositoryException e) {
             LOG.error("Activation deleting exception");
+        }
+    }
+    public String findEmailByHash(String hash) throws RepositoryException {
+        if (hash == null) {
+            throw new RepositoryException("hash is empty");
+        }
+        try {
+            return activationRepository.findEmailByHash(hash);
+        } catch (Exception e) {
+            throw new RepositoryException("Find email by hash database error" + e.getMessage(), e);
         }
     }
 

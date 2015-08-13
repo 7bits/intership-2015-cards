@@ -26,7 +26,7 @@ public class HomeController {
     private UserService userService;
 
     @Autowired
-    private AccounttActivationService activationService;
+    private AccountActivationService activationService;
 
     @Autowired
     private CampaignService campaignService;
@@ -51,6 +51,9 @@ public class HomeController {
 
     @Autowired
     private HashValidator hashValidator;
+
+    @Autowired
+    private AccountActivateHashValidator accountActivateHashValidator;
 
     @Autowired
     private StoreService storeService;
@@ -138,8 +141,13 @@ public class HomeController {
 
     @RequestMapping(value = "/registration/", method = RequestMethod.GET)
     public String activatebyhash(@RequestParam(required = false) String hash, Model model) {
-        activationService.activateByHash(hash);
-        model.addAttribute("accActivate", "Регистрация успешно завершена");
+        final Map<String, String> errors = accountActivateHashValidator.validate(hash);
+        if (errors.size() ==0) {
+            activationService.activateByHash(hash);
+            model.addAttribute("accActivate", "Регистрация успешно завершена");
+        }else{
+            return "redirect:/registration";
+        }
         return "home/registration";
 
     }

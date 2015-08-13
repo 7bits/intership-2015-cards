@@ -1,11 +1,10 @@
 package it.sevenbits.cards.web.service;
 
+import it.sevenbits.cards.core.repository.AccountActivationRepository;
 import it.sevenbits.cards.core.repository.DiscountRepository;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.RestorePasswordRepository;
 import it.sevenbits.cards.core.repository.UserRepository;
 import org.apache.log4j.Logger;
-import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,9 @@ public class CommonFieldValidator {
     @Autowired
     @Qualifier(value = "restorePasswordRepository")
     private RestorePasswordRepository restorePasswordRepository;
+
+    @Autowired
+    private AccountActivationRepository accountActivationRepository;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?)*\\.[a-z]+$", Pattern.CASE_INSENSITIVE
@@ -268,6 +270,24 @@ public class CommonFieldValidator {
             String email;
             try {
                 email = restorePasswordRepository.findEmailByHash(hash);
+            } catch (Exception e) {
+                email = null;
+            }
+            if (email == null) {
+                errors.put(field, key);
+            }
+        }
+    }
+    public void isAccountHashExist(
+            final String hash,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            String email;
+            try {
+                email = accountActivationRepository.findEmailByHash(hash);
             } catch (Exception e) {
                 email = null;
             }
