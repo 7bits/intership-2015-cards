@@ -52,4 +52,16 @@ public class CampaignPersistRepository implements CampaignRepository {
             throw new RepositoryException("An error occurred while saving campaign: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public void changeCampaignEnableStatus(Long id) throws RepositoryException{
+        if(id == null) {
+            throw new RepositoryException("Id in null");
+        }
+        try{
+            campaignMapper.changeCampaignEnableStatus(id);
+        }catch (Exception e) {
+            throw new RepositoryException("An error occurred while changing campaign status: " + e.getMessage(), e);
+        }
+    }
 }
