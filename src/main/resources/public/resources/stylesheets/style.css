@@ -356,26 +356,25 @@ input.form-control[type='password']:focus{
 }*/
 
 input.exit-button[type="submit"]{
-    font-family: inherit;
-    font-size: 100%;
-    margin: 0;
-    -webkit-appearance: button;
-    cursor: pointer;
-    padding: 0 1em;
-    border: none;
-    background-color: #3253a1;
-    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.6);
-
-    overflow: hidden;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1px;
-    z-index: 1000;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-
+        font-family: inherit;
+        font-size: 130%;
+        margin: 0;
+        -webkit-appearance: button;
+        cursor: pointer;
+        padding: 0 1em;
+        border: none;
+        background-color: #3253a1;
+        box-shadow: 0 3px 0px 0px rgba(30, 58, 134, 1);
+        overflow: hidden;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        z-index: 1000;
+        width: 100%;
+        height: 37px;
+        line-height: 207%;
+        border-radius: 3px;
 }
 .description-heading{
     font-weight:bold;

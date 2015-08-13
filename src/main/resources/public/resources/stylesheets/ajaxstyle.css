@@ -1,8 +1,8 @@
 input.form-control.red-error[type="text"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 input.form-control.red-error[type="email"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 input.form-control.red-error[type="text"]:focus{
     outline: none !important;
@@ -12,17 +12,17 @@ input.form-control.red-error[type="email"]:focus{
 }
 
 input.form-control.red-error[type="password"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 input.form-control.red-error[type="password"]:focus{
     outline: none !important;
 }
 
 input.red-error[type="text"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 input.red-error[type="email"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 
 input.red-error[type="text"]:focus{
@@ -33,7 +33,7 @@ input.red-error[type="email"]:focus{
 }
 
 input.red-error[type="password"]{
-    outline:2px solid #f8aa26;
+    outline:2px solid #f6566d;
 }
 input.red-error[type="password"]:focus{
     outline: none !important;
@@ -42,7 +42,7 @@ input.red-error[type="password"]:focus{
 .errors {
     font-size:15px;
  	height: 15px;
- 	color: #f8aa26;
+ 	color: #f6566d;
  }
 
  .infoBlock, .infoBlockCreateDiscountByCampaign, .infoBlockAddCampaign, .infoBlockUseDiscount {
@@ -58,5 +58,5 @@ input.red-error[type="password"]:focus{
 .errorsBind{
     font-size:15px;
     height: 15px;
-    color: #f8aa26;
+    color: #f6566d;
 }
