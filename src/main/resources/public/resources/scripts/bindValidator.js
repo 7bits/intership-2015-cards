@@ -40,7 +40,7 @@ function doAjaxPostBind() {
                         +"</div>"
                         +"<div class=\"btn\">"
                             +"<div class=\"morph-button morph-button-modal morph-button-modal-2 morph-button-fixed morph-button-use-send\">"
-                                +"<button class=\"before-morph\" type=\"button\">Отправить</button>"
+                                +"<button class=\"before-morph\" type=\"button\">Показать код</button>"
                                 +"<div class=\"morph-content\">"
                                     +"<div>"
                                         +"<div class=\"content-style-form content-style-form-1\">"
