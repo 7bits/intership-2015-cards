@@ -11,7 +11,6 @@ html
         link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
         script(src='/resources/scripts/modernizr.custom.js')
         script(src='/resources/scripts/share.js')
-        script(src='/resources/scripts/bindValidator.js')
         script(src='/resources/scripts/sendValidator.js')
         script(src='/resources/scripts/useDiscountValidation.js')
         script(src='/resources/scripts/addCampaignValidation.js')
@@ -114,7 +113,7 @@ html
                 .tab-content
                     // Содержимое 1 вкладки
                     #send_tab.tab-pane
-                        .ss
+                        .ss#search_use
                             input#use-search.send-use-search(type='text')
                             .yellow
                                 img.search-icon(src='/resources/img/ios7-search-strong.svg')
@@ -144,15 +143,15 @@ html
                                                             form#js-create-discount-by-campaign-form(action="/create_discount_by_campaign", method="post")
                                                                 input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                                                 p
-                                                                    .infoBlockCreateDiscountByCampaign
+                                                                    .infoBlock(id="infoBlock_campaign_"+campaign.id)
                                                                     label Email
-                                                                    input.form-control.email_create_discount_by_campaign_input#discountEmail(name="email", type="text")
-                                                                    .errors#emailError
-                                                                    input.form-control#discountName(name="name", value= "#{campaign.name}", type="hidden")
-                                                                    input.form-control#discountPercent(name="percent", value= "#{campaign.percent}", type="hidden")
-                                                                    input.form-control#discountDescription(name="description", value= "#{campaign.description}", type="hidden")
+                                                                    input.form-control.email_create_discount_by_campaign_input(name="email", type="text", id="discount_email_"+campaign.id)
+                                                                    .errors(id="emailErrorActive_" + campaign.id)
+                                                                    input.form-control(name="name", value= "#{campaign.name}", type="hidden", id="discountName_"+campaign.id)
+                                                                    input.form-control(name="percent", value= "#{campaign.percent}", type="hidden", id="discountPercent_"+campaign.id)
+                                                                    input.form-control(name="description", value= "#{campaign.description}", type="hidden", id="discountDescription_"+campaign.id)
                                                                 .morph-in-button
-                                                                    input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign()", value="Отправить")
+                                                                    input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign(campaign.id)", value="Отправить")
                                                                 a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
                                                                     img.social(src='/resources/img/vkontakte.png')
                                                                 a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")

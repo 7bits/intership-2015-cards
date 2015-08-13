@@ -1,8 +1,8 @@
-function doAjaxPostCreateDiscountByCampaign() {
-    var email = $('#discountEmail').val();
-    var name = $('#discountName').val();
-    var description = $('#discountDescription').val();
-    var percent = $('#discountPercent').val();
+function doAjaxPostCreateDiscountByCampaign(thisId) {
+    var email = $('#discount_email_' + thisId).val();
+    var name = $('#discountName_' + thisId).val();
+    var description = $('#discountDescription_' + thisId).val();
+    var percent = $('#discountPercent_' + thisId).val();
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var headers = {};
@@ -14,19 +14,19 @@ function doAjaxPostCreateDiscountByCampaign() {
         headers: headers,
         success: function(response){
             $('.errors').html("");
-            $('.infoBlockCreateDiscountByCampaign').html("");
+            $('.infoBlock').html("");
             $('.form-control').removeClass("red-error");
             if(response.status =="FAIL") {
                 for (var p in response.result) {
                     if (response.result.hasOwnProperty(p)) {
-                        $('.'+p+'_create_discount_by_campaign_input').addClass("red-error");
-                        $('#' + p + 'Error').html(response.result[p]);
+                        $('#discount_'+p+'_'+thisId).addClass("red-error");
+                        $('#' + p + 'ErrorActive_'+thisId).html(response.result[p]);
                     }
                 }
-                $('.infoBlockCreateDiscountByCampaign').html("");
+                $('.infoBlock').html("");
             }
             else {
-                $('.infoBlockCreateDiscountByCampaign').html("Скидка успешно создана!");
+                $('#infoBlock_campaign_'+thisId).html("Скидка успешно создана!");
             }
         },
         error: function(e){

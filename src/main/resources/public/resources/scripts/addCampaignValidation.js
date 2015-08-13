@@ -25,8 +25,7 @@ function doAjaxPostAddCampaign() {
                 $('.infoBlockAddCampaign').html("");
             }
             else {
-
-                $('#search_use').after("<div class=\"ellement\" id=\"ellement_" + response.result.id + "\">" + response.result.storeName + "</div>\n" +
+                $('#search_use').after("<div class=\"ellement\" id=\"ellement_" + response.result.id + "\">" + response.result.name + "</div>\n" +
                     "<div class=\"ellement_sub\" id=\"ellement_" + response.result.id + "_sub\">\n"
                         +"<div class=\"describe\">\n"
                             +"<div class=\"description-container\">\n"
@@ -37,6 +36,7 @@ function doAjaxPostAddCampaign() {
                                     +"<img class=\"store-img\" src=\"/resources/img/mediamarkt.png\">"
                                 +"</div>"
                                 +"<div class=\"text\">"
+                                    +"Скидка: " + response.result.percent + "<br>"
                                     +response.result.description
                                 +"</div>"
                             +"</div>"
@@ -48,11 +48,20 @@ function doAjaxPostAddCampaign() {
                                             +"<div class=\"content-style-form content-style-form-1\">"
                                                 +"<span class=\"icon icon-close\">Закрыть окно</span>"
                                                 +"<h2>Скидка</h2>"
-                                                +"<form action=\"\\peonal_area\" method=\"post\">"
-                                                +"<p>"
-                                                    +"<label>Ключ</label>"
-                                                    +"<input type=\"text\" value=\"" + response.result.key + "\">"
-                                                +"</p>"
+                                                +"<div class=\"js-create-discount-by-campaign\">"
+                                                    +"<form id=\"js-create-discount-by-campaign-form\" action=\"/create_discount_by_campaign\" method=\"post\">"
+                                                        //+"<input type=\"hidden\" name=\"" + _csrf.name +"\" value=\"" + _csrf.token + "\">"
+                                                        +"<p>"
+                                                            +"<div class=\"infoBlock\" id=\"infoBlock_campaign_" + response.result.id + "\"></div>"
+                                                            +"<label>Email</label>"
+                                                            +"<input class=\"form-control email_create_discount_by_campaign_input\" name=\"email\" type=\"text\" id=\"discountEmail_" + response.result.id + "\">"
+                                                            +"<div class=\"errors\" id=\"emailErrorActive_" + response.result + "\"></div>"
+                                                            +"<input class=\"form-control\" name=\"name\" value=\"" +response.result.name + "\" type=\"hidden\" id=\"discountName_" + response.result.id + "\">"
+                                                            +"<input class=\"form-control\" name=\"percent\" value=\"" + response.result.percent + "\" type=\"hidden\" id=\"discountPercent_" + response.result.id + "\">"
+                                                            +"<input class=\"form-control\" name=\"description\" value=\"" + response.result.description + "\" type=\"hidden\" id=\"discountDescription_" + response.result.id + "\">"
+                                                        +"</p>"
+                                                    +"</form>"
+                                                +"</div>"
                                             +"</div>"
                                         +"</div>"
                                     +"</div>"
@@ -62,23 +71,23 @@ function doAjaxPostAddCampaign() {
                     +"</div>")
 
                 $('.infoBlock').html("Кампания успешно создана!");
-                var inputs = document.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length; i++) {
-                    inputs[i].disabled = true;
-                }
-                $(".header a").click(function(e) {
-                    e.preventDefault();
-                });
-                $(".header_container").css('pointer-events','none');
-
-                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
-                setTimeout(function() {
-                    for (var i = 0; i < inputs.length; i++) {
-                        inputs[i].disabled = false;
-                    }
-                    $(".header_container").css('pointer-events','');
-                timeoutRedirect();
-                }, 3000);
+//                var inputs = document.getElementsByTagName("input");
+//                for (var i = 0; i < inputs.length; i++) {
+//                    inputs[i].disabled = true;
+//                }
+//                $(".header a").click(function(e) {
+//                    e.preventDefault();
+//                });
+//                $(".header_container").css('pointer-events','none');
+//
+//                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
+//                setTimeout(function() {
+//                    for (var i = 0; i < inputs.length; i++) {
+//                        inputs[i].disabled = false;
+//                    }
+//                    $(".header_container").css('pointer-events','');
+//                timeoutRedirect();
+//                }, 3000);
             }
         },
         error: function(e){
