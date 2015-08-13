@@ -7,6 +7,7 @@ import java.util.List;
 public interface CampaignMapper {
     //Save
     @Insert("INSERT INTO campaign (store_name, name, description, percent, enabled) VALUES (#{storeName}, #{name}, #{description}, #{percent}, #{enabled})")
+    @Options(useGeneratedKeys = true)
     void save(final Campaign campaign);
     //Find All Active
     @Select("SELECT id, store_name, name, description, percent, enabled FROM campaign WHERE enabled = true and store_name = #{storeName}")

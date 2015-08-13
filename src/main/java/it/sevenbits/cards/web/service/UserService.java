@@ -100,6 +100,8 @@ public class UserService {
         String email = form.getEmail();
         String title = form.getTitle();
         String describe = form.getDescribe();
-        sender.send(title, "Спасибо, ваше мнение очень важно для нас. Ожидайте ответы в ближайшее время.\n", email);
+        sender.send("Уведомление о получении письма обратной связи", "Спасибо, ваше мнение очень важно для нас. Ожидайте ответы в ближайшее время.\n", email);
+        sender.send("Обращение в службу поддержки от пользователя " + email, "Заголовок: " + title +"\n"+"Источник отправки: " + email + "\n" + "Сообщение: \n" + describe, "discountfeedback@gmail.com");
+
     }
 }

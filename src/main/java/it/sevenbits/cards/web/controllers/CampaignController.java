@@ -1,5 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
+import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.web.domain.AddCampaignForm;
 import it.sevenbits.cards.web.domain.JsonResponse;
@@ -57,7 +58,8 @@ public class CampaignController {
         final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
         if (errors.size() == 0) {
             res.setStatus("SUCCESS");
-            res.setResult(campaignService.save(addCampaignForm, storeName));
+            Campaign campaign = campaignService.save(addCampaignForm, storeName);
+            res.setResult(campaign);
             StoreHistory storeHistory = new StoreHistory();
             storeHistory.setStoreName(storeName);
             storeHistory.setDescription("Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%");
