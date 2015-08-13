@@ -7,6 +7,7 @@ function doAjaxPostCreateDiscountByCampaign(thisId) {
     var header = $("meta[name='_csrf_header']").attr("content");
     var headers = {};
     headers[header] = token;
+    //
     $.ajax({
         type: "POST",
         url: "/create_discount_by_campaign",
