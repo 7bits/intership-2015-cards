@@ -7,6 +7,7 @@ import it.sevenbits.cards.web.domain.FeedbackForm;
 import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -94,11 +95,11 @@ public class UserService {
             throw new ServiceException("An error occurred while changing User enabled property to true: " + e.getMessage(), e);
         }
     }
-
+    @Async
     public void sendMailToFeedback(FeedbackForm form) {
         String email = form.getEmail();
         String title = form.getTitle();
         String describe = form.getDescribe();
-        sender.send(title, "Spasibo. Vashe pis'mo ochen' vazhno dlja nas! Ozhidajte otvet\n", email);
+        sender.send(title, "Спасибо, ваше мнение очень важно для нас. Ожидайте ответы в ближайшее время.\n", email);
     }
 }

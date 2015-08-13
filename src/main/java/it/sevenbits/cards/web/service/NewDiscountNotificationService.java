@@ -2,7 +2,9 @@ package it.sevenbits.cards.web.service;
 
 import it.sevenbits.cards.validation.Sender;
 import it.sevenbits.cards.web.domain.DiscountByCampaignForm;
+import it.sevenbits.cards.web.domain.SendForm;
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 /**
  * Created by deamor on 11.08.15.
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NewDiscountNotificationService {
     private Logger LOG = Logger.getLogger(NewDiscountNotificationService.class);
-
+    @Async
     public void notificateCreate(DiscountByCampaignForm form){
         Sender sender = new Sender();
         sender.send("Уведомление о получении новой скидки", "Пожалуйста проверьте свой аккаунт:\n" +
@@ -21,6 +23,15 @@ public class NewDiscountNotificationService {
                 "Подробности: " + form.getDescription() + "\n" +
                 "Процент: " + form.getPercent()
                 , form.getEmail());
-        LOG.info(form.getName());
+    }
+    @Async
+    public void notificateSend(SendForm form){
+        Sender sender = new Sender();
+        sender.send("Уведомление о получении новой скидки", "Пожалуйста проверьте свой аккаунт:\n" +
+                "http://localhost:9000/personal_area" +
+                "\n Кто-то поделился с вами своей скидкой. \n" +
+                "Информация о скидке: \n" +
+                "Идентификационный номер(UIN): " + form.getUin() + "\n"
+                , form.getEmail());
     }
 }

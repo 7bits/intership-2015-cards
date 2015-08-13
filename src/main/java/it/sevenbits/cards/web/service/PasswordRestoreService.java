@@ -12,6 +12,7 @@ import it.sevenbits.cards.web.domain.PasswordRestoreForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -90,7 +91,7 @@ public class PasswordRestoreService {
             return restore;
         }
     }
-
+    @Async
     public void sendEmail(PasswordRestore restore) throws ServiceException {
         if (restore == null) {
             LOG.error("User doesn't exist");
