@@ -12,6 +12,7 @@
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 1px;
+	border-radius: 3px;
 }
 
 .morph-button-add > button {
@@ -45,11 +46,25 @@
 /* Common styles for overlay and modal type (fixed morph) */
 
 .morph-button-fixed > button {
-	z-index: 1000;
-	width: 100%;
-	height: 100%;
 	-webkit-transition: opacity 0.1s 0.5s;
 	transition: opacity 0.1s 0.5s;
+	font-family: inherit;
+	font-size: 130%;
+	margin: 0;
+	-webkit-appearance: button;
+	cursor: pointer;
+	padding: 0 1em;
+	border: none;
+	background-color: #3253a1;
+	box-shadow: 0 3px 0px 0px rgba(30, 58, 134, 1);
+	overflow: hidden;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 1px;
+	z-index: 1000;
+	width: 100%;
+	border-radius: 3px;
 }
 
 .morph-button-fixed.open > button {
@@ -148,8 +163,8 @@
 	
 .morph-button-modal-2 > button,
 .morph-button-modal-2 .morph-content{
-	height: 40px;
-	line-height: 40px;
+	height: 37px;
+	line-height: 207%;
 	background-color: #3956a3;
 }
 
@@ -193,7 +208,7 @@
 }
 
 .morph-button-add.open .morph-content {
-	height:210px;
+	height:220px;
 	width:470px;
 }
 

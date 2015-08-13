@@ -102,10 +102,8 @@ public class HomeController {
     //Homepage Error
     @RequestMapping(value = "/login/", method = RequestMethod.GET)
     public String loginError(HttpServletRequest httpServletRequest, @RequestParam String loginError, Model model, HttpServletRequest request) {
-        String temp = httpServletRequest.getHeader("Referer").substring(httpServletRequest.getHeader("Referer").lastIndexOf('/'));
-        LOG.info(temp);
         model.addAttribute("loginError", loginError);
-        return "home"+temp;
+        return "home/homepage";
     }
 
     //About
