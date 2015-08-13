@@ -112,60 +112,56 @@ html
                 .tab-content
                     // Содержимое 1 вкладки
                     #send_tab.tab-pane
-                        .ss
+                        .ss#search_use
                             input#use-search.send-use-search(type='text')
                             .yellow
                                 img.search-icon(src='/resources/img/ios7-search-strong.svg')
-                        #accordion1.accordion
-                            for campaign in activeCampaigns
-                                .accordion-group.discount
-                                    .accordion-heading
-                                        a.accordion-toggle.collapsed(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_' + campaign.id)
-                                            .heading #{campaign.name}
-                                    .accordion-body.collapse.describe_bg(id='collapse_send_' + campaign.id)
-                                        .accordion-inner.describe
-                                            .describe_shadow
-                                            .description-container
-                                                .text
-                                                    .description-heading
-                                                        | Описание кампании:
-                                                .store-img-container
-                                                    img.store-img(src='/resources/img/mediamarkt.png')
-                                                .text
-                                                    | #{campaign.description}
-                                            .btn
-                                                .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
-                                                    button.before-morph(type='button') Сгенерировать
-                                                    .morph-content
-                                                        div
-                                                            .content-style-form.content-style-form-1
-                                                                span.icon.icon-close Закрыть окно
-                                                                h2 Скидка
-                                                                .js-create-discount-by-campaign
-                                                                    form#js-create-discount-by-campaign-form(action="/create_discount_by_campaign", method="post")
-                                                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                                        p
-                                                                            .infoBlockCreateDiscountByCampaign
-                                                                            label Email
-                                                                            input.form-control.email_create_discount_by_campaign_input#discountEmail(name="email", type="text")
-                                                                            .errors#emailError
-                                                                            input.form-control#discountName(name="name", value= "#{campaign.name}", type="hidden")
-                                                                            input.form-control#discountPercent(name="percent", value= "#{campaign.percent}", type="hidden")
-                                                                            input.form-control#discountDescription(name="description", value= "#{campaign.description}", type="hidden")
-                                                                        .morph-in-button
-                                                                            input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign()", value="Отправить")
-                                                                        a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                            img.social(src='/resources/img/vkontakte.png')
-                                                                        a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                            img.social(src='/resources/img/facebook.png')
-                                                                        a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                            img.social(src='/resources/img/twitter.png')
-                                                                        a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                            img.social(src='/resources/img/odnoklassniki.png')
-                                                                        a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                            img.social(src='/resources/img/mir.png')
-                                                // morph-button
-                                            .describe_shadow_down
+                        for campaign in activeCampaigns
+                            .ellement(id='ellement_'+campaign.id) #{campaign.name}
+                            .ellement_sub(id='ellement_'+campaign.id+'_sub')
+                                .describe
+                                    .describe_shadow
+                                    .description-container
+                                        .text
+                                            .description-heading
+                                                | Описание кампании:
+                                        .store-img-container
+                                            img.store-img(src='/resources/img/mediamarkt.png')
+                                        .text
+                                            | #{campaign.description}
+                                    .btn
+                                        .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                            button.before-morph(type='button') Сгенерировать
+                                            .morph-content
+                                                div
+                                                    .content-style-form.content-style-form-1
+                                                        span.icon.icon-close Закрыть окно
+                                                        h2 Скидка
+                                                        .js-create-discount-by-campaign
+                                                            form#js-create-discount-by-campaign-form(action="/create_discount_by_campaign", method="post")
+                                                                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                                                p
+                                                                    .infoBlockCreateDiscountByCampaign
+                                                                    label Email
+                                                                    input.form-control.email_create_discount_by_campaign_input#discountEmail(name="email", type="text")
+                                                                    .errors#emailError
+                                                                    input.form-control#discountName(name="name", value= "#{campaign.name}", type="hidden")
+                                                                    input.form-control#discountPercent(name="percent", value= "#{campaign.percent}", type="hidden")
+                                                                    input.form-control#discountDescription(name="description", value= "#{campaign.description}", type="hidden")
+                                                                .morph-in-button
+                                                                    input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign()", value="Отправить")
+                                                                a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                    img.social(src='/resources/img/vkontakte.png')
+                                                                a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                    img.social(src='/resources/img/facebook.png')
+                                                                a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                    img.social(src='/resources/img/twitter.png')
+                                                                a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
+                                                                    img.social(src='/resources/img/odnoklassniki.png')
+                                                                a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
+                                                                    img.social(src='/resources/img/mir.png')
+                                        // morph-button
+                                    .describe_shadow_down
                     #use_tab.tab-pane
                         .ss
                             input#use-search.send-use-search(type='text', placeholder="#{userId}")
