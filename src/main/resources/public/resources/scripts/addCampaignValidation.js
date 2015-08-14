@@ -71,23 +71,23 @@ function doAjaxPostAddCampaign() {
                     +"</div>")
 
                 $('.infoBlockAddCampaign').html("Кампания успешно создана!");
-//                var inputs = document.getElementsByTagName("input");
-//                for (var i = 0; i < inputs.length; i++) {
-//                    inputs[i].disabled = true;
-//                }
-//                $(".header a").click(function(e) {
-//                    e.preventDefault();
-//                });
-//                $(".header_container").css('pointer-events','none');
-//
-//                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
-//                setTimeout(function() {
-//                    for (var i = 0; i < inputs.length; i++) {
-//                        inputs[i].disabled = false;
-//                    }
-//                    $(".header_container").css('pointer-events','');
-//                timeoutRedirect();
-//                }, 3000);
+                var inputs = document.getElementsByTagName("input");
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].disabled = true;
+                }
+                $(".header a").click(function(e) {
+                    e.preventDefault();
+                });
+                $(".header_container").css('pointer-events','none');
+
+                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
+                setTimeout(function() {
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = false;
+                    }
+                    $(".header_container").css('pointer-events','');
+                timeoutRedirect();
+                }, 3000);
             }
         },
         error: function(e){
