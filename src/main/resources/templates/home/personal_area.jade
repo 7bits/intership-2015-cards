@@ -90,7 +90,7 @@ html
                          // Содержимое 1 вкладки
                          #send_tab.tab-pane
                               .ss#search_send
-                                   input#send-search.send-use-search(type='text', placeholder="#{userId}")
+                                   input#send-search.send-use-search(type='text')
                                    .yellow
                                         img.search-icon(src='resources/img/ios7-search-strong.svg')
                               for discount in discountsForSend
@@ -143,7 +143,7 @@ html
 
                          #use_tab.tab-pane
                               .ss#search_use
-                                   input#use-search.send-use-search(type='text', placeholder="#{userId}")
+                                   input#use-search.send-use-search(type='text')
                                    .yellow
                                         img.search-icon(src='/resources/img/ios7-search-strong.svg')
                               for discount in discountsForUse
