@@ -61,6 +61,9 @@ public class HomeController {
     @Autowired
     private IdFormValidator idFormValidator;
 
+    @Autowired
+    private FeedbackFormValidator feedbackFormValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Success
@@ -216,10 +219,20 @@ public class HomeController {
         return "home/feedback";
     }
 
+    //Feedback send
     @RequestMapping(value = "/feedback", method = RequestMethod.POST)
-    public String feedback(@ModelAttribute FeedbackForm form) throws ServiceException {
-        userService.sendMailToFeedback(form);
-        return "redirect:/feedback";
+    public @ResponseBody JsonResponse feedback(@ModelAttribute FeedbackForm feedbackForm) throws ServiceException {
+        JsonResponse res = new JsonResponse();
+        final Map<String, String> errors = feedbackFormValidator.validate(feedbackForm);
+        if (errors.size() == 0) {
+            res.setStatus("SUCCESS");
+            res.setResult("");
+            userService.sendMailToFeedback(feedbackForm);
+        }else{
+            res.setStatus("FAIL");
+            res.setResult(errors);
+        }
+        return res;
     }
 
     //Personal Area Get Method
