@@ -58,17 +58,29 @@
 	}
 
 	UIMorphingButton.prototype._initEvents = function() {
-		var self = this;
-		// open
-		this.button.addEventListener( 'click', function() { self.toggle(); } );
-		// close
-		if( this.options.closeEl !== '' ) {
-			var closeEl = this.el.querySelector( this.options.closeEl );
-			if( closeEl ) {
-				closeEl.addEventListener( 'click', function() { self.toggle(); } );
-			}
-		}
-	}
+            var self = this;
+            // open
+            $(this.button).on( 'click', function() {
+                if(support.transitions) {
+                  self.toggle();
+                } else {
+                  $(self.el).addClass('active open');
+
+                }
+            } );
+            // close
+            if( this.options.closeEl !== '' ) {
+                if( this.el.querySelector( this.options.closeEl ) ) {
+                    $(this.el.querySelector( this.options.closeEl )).on( 'click', function() {
+                        if(support.transitions) {
+                          self.toggle();
+                        } else {
+                          $(self.el).removeClass('active open');
+                        }
+                    } );
+                }
+            }
+        }
 
 	UIMorphingButton.prototype.toggle = function() {
 		if( this.isAnimating ) return false;
@@ -95,7 +107,6 @@
 					if( self.expanded && ev.propertyName !== 'opacity' || !self.expanded && ev.propertyName !== 'width' && ev.propertyName !== 'height' && ev.propertyName !== 'left' && ev.propertyName !== 'top' ) {
 						return false;
 					}
-					this.removeEventListener( transEndEventName, onEndTransitionFn );
 				}
 				self.isAnimating = false;
 				
@@ -113,7 +124,7 @@
 			};
 
 		if( support.transitions ) {
-			this.contentEl.addEventListener( transEndEventName, onEndTransitionFn );
+			$(this.contentEl).one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', onEndTransitionFn );
 		}
 		else {
 			onEndTransitionFn();
