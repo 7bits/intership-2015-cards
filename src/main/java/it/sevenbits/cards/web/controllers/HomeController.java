@@ -226,7 +226,7 @@ public class HomeController {
         final Map<String, String> errors = feedbackFormValidator.validate(feedbackForm);
         if (errors.size() == 0) {
             res.setStatus("SUCCESS");
-            res.setResult("");
+            res.setResult(null);
             userService.sendMailToFeedback(feedbackForm);
         }else{
             res.setStatus("FAIL");

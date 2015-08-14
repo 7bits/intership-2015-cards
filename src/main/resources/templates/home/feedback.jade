@@ -9,11 +9,13 @@ html
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
         link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
         script(src='http://code.jquery.com/jquery-latest.js')
+        script(src='/resources/scripts/feedbackValidation.js')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
         script(src='/resources/scripts/modernizr.custom.js')
         script(src='/resources/scripts/jquery-1.9.1.js')
         // BOOTSTRAP END
         link(href='/resources/stylesheets/style.css', rel='stylesheet')
+        link(href='/resources/stylesheets/ajaxstyle.css', rel='stylesheet')
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
     body
         // HEADER
@@ -77,16 +79,21 @@ html
         .main
             .registration-form
                 h2.reg-fill-heading ОБРАТНАЯ СВЯЗЬ
-                form(action="/feedback", method="post")
-                    .reg-input-lable-container
-                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                        label.reglable Заголовок сообщения
-                        input.form-control.not-morph(name='title', type='text')
-                        label.reglable Email
-                        input.form-control.not-morph(name='email', type='text', value="#{userName}")
-                        label.reglable Сообщение
-                        textarea.fb-textarea(name='describe', rows="5", cols="5")
-                        input.form-control.registration-button.yes.fb-button(type='submit', value='Отправить сообщение')
+                .js-feedback
+                    form#js-feedback-form(action="/feedback", method="post")
+                        .reg-input-lable-container
+                            .infoBlockFeedback
+                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                            label.reglable Заголовок сообщения
+                            input.form-control.not-morph.title_feedback_input#titleFeedback(type='text')
+                            .errors#titleError
+                            label.reglable Email
+                            input.form-control.not-morph.email_feedback_input#emailFeedback(type='text', value="#{userName}")
+                            .errors#emailError
+                            label.reglable Сообщение
+                            textarea.fb-textarea.describe_feedback_input#describeFeedback(rows="5", cols="5")
+                            .errors#describeError
+                            input.form-control.registration-button.yes.fb-button(type='button', value='Отправить сообщение', onClick='doAjaxPostFeedback()')
         // MAIN END
         // SCRIPTS
         if loginError

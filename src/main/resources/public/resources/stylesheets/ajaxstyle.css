@@ -60,3 +60,9 @@ input.red-error[type="password"]:focus{
     height: 15px;
     color: #f6566d;
 }
+textarea.fb-textarea.red-error{
+    outline:2px solid #f6566d;
+}
+textarea.fb-textarea.red-error:focus{
+    outline: none !important;
+}

@@ -19,7 +19,7 @@ public class FeedbackFormValidator {
 
     public HashMap<String, String> validate(FeedbackForm feedbackForm) {
 
-        LOG.info("IdFormValidator started for: " + feedbackForm.toString());
+        LOG.info("FeedbackFormValidator started for: " + feedbackForm.toString());
         HashMap<String, String> errors = new HashMap<>();
 
         validator.isNotNullOrEmpty(feedbackForm.getEmail(), errors, "email", "Поле не может быть пустым.");
