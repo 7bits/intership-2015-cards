@@ -1,0 +1,27 @@
+
+.project-description-container{
+ /*height:515px;*/
+    color:black;
+    /*text-align:center;*/
+}
+.homepage_describe{
+    margin:0 auto;
+}
+.about-header{
+    font-weight: bold;
+    font-size:46px;
+    text-align:center;
+    color: #4D64AC
+}
+.about-text{
+ font-size:28px;
+    /*max-width:860px;*/
+    margin-left:60px;
+    margin-right:60px;
+    color:#383C48
+
+}
+a.sbitshref{
+    text-decoration: underline;
+    color: #4D64AC;
+}

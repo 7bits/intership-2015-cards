@@ -1,0 +1,17 @@
+.dev-ava-first{
+ display:inline-block;
+    width:320px;
+}
+.dev-ava-second-one,.dev-ava-second-two{
+    display:inline-block;
+    width:480px;
+    /*text-align:center;*/
+}
+
+.dev-ava-second-one{
+    text-align:right;
+    padding-right:50px;
+}
+.dev-ava-second-two{
+    /*text-align:left;*/
+}
