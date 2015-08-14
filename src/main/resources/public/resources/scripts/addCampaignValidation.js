@@ -70,7 +70,7 @@ function doAjaxPostAddCampaign() {
                         +"</div>"
                     +"</div>")
 
-                $('.infoBlock').html("Кампания успешно создана!");
+                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
 //                var inputs = document.getElementsByTagName("input");
 //                for (var i = 0; i < inputs.length; i++) {
 //                    inputs[i].disabled = true;
