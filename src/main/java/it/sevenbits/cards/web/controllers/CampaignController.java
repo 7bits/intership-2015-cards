@@ -3,6 +3,7 @@ package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.web.domain.AddCampaignForm;
+import it.sevenbits.cards.web.domain.CampaignModel;
 import it.sevenbits.cards.web.domain.JsonResponse;
 import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -76,7 +78,11 @@ public class CampaignController {
     public String showAll(final Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-
+        List<CampaignModel> campaigns = campaignService.findAllActive(storeName);
+        if(campaigns.size()>10){
+            campaigns = campaigns.subList(campaigns.size()-10, campaigns.size());
+        }
+        model.addAttribute("campaigns", campaigns);
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         return "home/campaigns";

@@ -21,7 +21,7 @@ html
     body
         #send_tab.tab-pane
             #accordion1.accordion
-                for campaign in activeCampaigns
+                for campaign in campaigns
                     .accordion-group.discount
                         .accordion-heading
                             a.accordion-toggle(width='100px', data-toggle='collapse', data-parent='#accordion1', href='#collapse_send_'+campaign.id)
