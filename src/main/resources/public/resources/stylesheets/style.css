@@ -30,10 +30,10 @@ a.reg-href {
 a.reg-href:hover, a.reg-href:focus{
     color:#fff;
 }
-input.yes#bind[type="submit"]{
+input.yes#bind[type="submit"],input.yes#bind[type="button"]{
     font-size: 1.45em;
 }
-input.yes[type="submit"]{
+input.yes[type="submit"],input.yes[type="button"]{
     display:block;
     /*margin-top:15px;*/
     height:50px;

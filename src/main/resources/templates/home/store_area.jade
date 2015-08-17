@@ -72,7 +72,7 @@ html
                 // morph-button
             .campaigns
                 .campaign-heading
-                    | Кампании
+                    | Акции
                     .add-campaign-button
                         .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-add-campaign
                             button.before-morph(type='button') +
@@ -80,19 +80,19 @@ html
                                 .content-style-form.content-style-form-1
                                     span.icon.icon-close Закрыть окно
                                     p#campaign-info
-                                    h2 Добавить кампанию
+                                    h2 Добавить акцию
                                     .js-add-campaign
                                         form#js-add-campaign-from(action="/add_campaign", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                             p
                                                 .infoBlockAddCampaign
-                                                label Название кампании
+                                                label Название акции
                                                 input.form-control.name_campaign_input#nameCampaign(type="text")
                                                 .errors#nameError
-                                                label Описание кампании
+                                                label Описание акции
                                                 input.form-control.description_campaign_input#descriptionCampaign(type="text")
                                                 .errors#descriptionError
-                                                label Процент скидки кампании
+                                                label Процент скидки акции
                                                 input.form-control.percent_campaign_input#percentCampaign(type="text")
                                                 .errors#percentError
                                                 .morph-in-button
@@ -126,7 +126,7 @@ html
                                     .description-container
                                         .text
                                             .description-heading
-                                                | Описание кампании:
+                                                | Описание акции:
                                         .store-img-container
                                             img.store-img(src='/resources/img/mediamarkt.png')
                                         .text

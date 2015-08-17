@@ -16,7 +16,7 @@ public class NewDiscountNotificationService {
     public void notificateCreate(DiscountByCampaignForm form){
         Sender sender = new Sender();
         sender.send("Уведомление о получении новой скидки", "Пожалуйста проверьте свой аккаунт:\n" +
-                "http://localhost:9000/personal_area" +
+                "http://discounts.7bits.it/personal_area" +
                 "\n У вас появилась новая скидка. \n" +
                 "Информация о скидке: \n" +
                 "Акция: " + form.getName() + "\n" +
@@ -28,7 +28,7 @@ public class NewDiscountNotificationService {
     public void notificateSend(SendForm form){
         Sender sender = new Sender();
         sender.send("Уведомление о получении новой скидки", "Пожалуйста проверьте свой аккаунт:\n" +
-                "http://localhost:9000/personal_area" +
+                "http://discounts.7bits.it/personal_area" +
                 "\n Кто-то поделился с вами своей скидкой. \n" +
                 "Информация о скидке: \n" +
                 "Идентификационный номер(UIN): " + form.getUin() + "\n"
