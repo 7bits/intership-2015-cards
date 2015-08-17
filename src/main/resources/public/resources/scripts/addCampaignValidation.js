@@ -1,3 +1,12 @@
+function include(url) {
+    var script = document.createElement('script');
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+include("/resources/scripts/classie.js");
+include("/resources/scripts/uiMorphingButton_fixed.js");
+
 function doAjaxPostAddCampaign() {
     var name = $('#nameCampaign').val();
     var description = $('#descriptionCampaign').val();
@@ -41,7 +50,7 @@ function doAjaxPostAddCampaign() {
                                 +"</div>"
                             +"</div>"
                             +"<div class=\"btn\">"
-                                +"<div class=\"morph-button morph-button-modal morph-button-modal-2 morph-button-fixed morph-button-use-send\">"
+                                +"<div class=\"morph-button morph-button-modal morph-button-modal-2 morph-button-fixed morph-button-use-send\" id=\"magic_" + response.result.id + "\">"
                                     +"<button class=\"before-morph\" type=\"button\">Сгенерировать</button>"
                                     +"<div class=\"morph-content\">"
                                         +"<div>"
@@ -54,11 +63,12 @@ function doAjaxPostAddCampaign() {
                                                         +"<p>"
                                                             +"<div class=\"infoBlock\" id=\"infoBlock_campaign_" + response.result.id + "\"></div>"
                                                             +"<label>Email</label>"
-                                                            +"<input class=\"form-control email_create_discount_by_campaign_input\" name=\"email\" type=\"text\" id=\"discountEmail_" + response.result.id + "\">"
-                                                            +"<div class=\"errors\" id=\"emailErrorActive_" + response.result + "\"></div>"
+                                                            +"<input class=\"form-control email_create_discount_by_campaign_input\" name=\"email\" type=\"text\" id=\"discount_email_" + response.result.id + "\">"
+                                                            +"<div class=\"errors\" id=\"emailErrorActive_" + response.result.id + "\"></div>"
                                                             +"<input class=\"form-control\" name=\"name\" value=\"" +response.result.name + "\" type=\"hidden\" id=\"discountName_" + response.result.id + "\">"
                                                             +"<input class=\"form-control\" name=\"percent\" value=\"" + response.result.percent + "\" type=\"hidden\" id=\"discountPercent_" + response.result.id + "\">"
                                                             +"<input class=\"form-control\" name=\"description\" value=\"" + response.result.description + "\" type=\"hidden\" id=\"discountDescription_" + response.result.id + "\">"
+                                                            +"<input class=\"add\" onclick=\"doAjaxPostCreateDiscountByCampaign('" + response.result.id +"')\" type=\"button\" value =\"Сгенерировать\" >"
                                                         +"</p>"
                                                     +"</form>"
                                                 +"</div>"
@@ -71,23 +81,26 @@ function doAjaxPostAddCampaign() {
                     +"</div>")
 
                 $('.infoBlockAddCampaign').html("Кампания успешно создана!");
-                var inputs = document.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length; i++) {
-                    inputs[i].disabled = true;
-                }
-                $(".header a").click(function(e) {
-                    e.preventDefault();
+                new UIMorphingButton(document.getElementById("magic_"+response.result.id), {
+                    closeEl: '.icon-close'
                 });
-                $(".header_container").css('pointer-events','none');
-
-                $('.infoBlockAddCampaign').html("Кампания успешно создана!");
-                setTimeout(function() {
-                    for (var i = 0; i < inputs.length; i++) {
-                        inputs[i].disabled = false;
-                    }
-                    $(".header_container").css('pointer-events','');
-                timeoutRedirect();
-                }, 3000);
+                //var inputs = document.getElementsByTagName("input");
+                //for (var i = 0; i < inputs.length; i++) {
+                //    inputs[i].disabled = true;
+                //}
+                //$(".header a").click(function(e) {
+                //    e.preventDefault();
+                //});
+                //$(".header_container").css('pointer-events','none');
+                //
+                //$('.infoBlockAddCampaign').html("Кампания успешно создана!");
+                //setTimeout(function() {
+                //    for (var i = 0; i < inputs.length; i++) {
+                //        inputs[i].disabled = false;
+                //    }
+                //    $(".header_container").css('pointer-events','');
+                //timeoutRedirect();
+                //}, 3000);
             }
         },
         error: function(e){
