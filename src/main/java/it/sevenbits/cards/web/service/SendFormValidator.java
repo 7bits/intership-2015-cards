@@ -27,7 +27,6 @@ public class SendFormValidator {
         validator.shorterThan(form.getUin(), 8, errors, "uin", "Поле должно быть короче, чем 255 символов.");
 
         validator.isEmail(form.getEmail(), errors, "email", "В поле должен быть введён Email.");
-        validator.isUserExist(form.getEmail(), errors, "email", "Пользователь должен существовать в системе.");
         validator.isUserSelfSend(form.getEmail(), form.getUin(), errors, "email", "Пользователь не может отправить скидку самому себе.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {

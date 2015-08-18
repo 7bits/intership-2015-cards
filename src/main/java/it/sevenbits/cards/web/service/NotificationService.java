@@ -23,7 +23,18 @@ public class NotificationService {
 
     private Logger LOG = Logger.getLogger(NotificationService.class);
     @Async
-    public void notificateCreate(DiscountByCampaignForm discountByCampaignForm){
+    public void notificateCreate(DiscountByCampaignForm discountByCampaignForm, Long id) throws ServiceException{
+        DiscountHash discountHash = new DiscountHash();
+        discountHash.setDiscountId(id);
+        try {
+            discountHash.setHash(Sha.hash256());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }try {
+            discountHashRepository.save(discountHash);
+        } catch (Exception e) {
+            throw new ServiceException("An error while saving discountHash: " + e.getMessage(), e);
+        }
         Sender sender = new Sender();
         sender.send("Уведомление о получении новой скидки", "Пожалуйста проверьте свой аккаунт:\n" +
                 "http://discounts.7bits.it/personal_area" +
@@ -31,7 +42,8 @@ public class NotificationService {
                 "Информация о скидке: \n" +
                 "Акция: " + discountByCampaignForm.getName() + "\n" +
                 "Подробности: " + discountByCampaignForm.getDescription() + "\n" +
-                "Процент: " + discountByCampaignForm.getPercent()
+                "Процент: " + discountByCampaignForm.getPercent() + "\n" +
+                "http://discounts.7bits.it/welcome/?hash=" + discountHash.getHash() + "\n"
                 , discountByCampaignForm.getEmail());
     }
     @Async

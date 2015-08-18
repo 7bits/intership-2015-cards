@@ -25,7 +25,6 @@ public class DiscountByCampaignFormValidator {
         validator.shorterThan(form.getEmail(), 255, errors, "email", "Поле должно быть короче, чем 255 символов");
 
         validator.isEmail(form.getEmail(), errors, "email", "Поле должно содержать E-mail");
-        validator.isUserExist(form.getEmail(), errors, "email", "Пользователь с данным E-mail не существует.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",

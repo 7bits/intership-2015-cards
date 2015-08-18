@@ -39,7 +39,6 @@ public class GenerateDiscountFormValidator {
         validator.shorterThan(form.getDescription(), 255, errors, "description", "Поле должно быть короче, чем 255 символов");
 
         validator.isEmail(form.getUserName(), errors, "userName", "Введите E-mail");
-        validator.isUserExist(form.getUserName(), errors, "userName", "Пользователь с данным E-mail не существует.");
         validator.isPercent(form.getDiscountPercent(), errors, "discountPercent", "Поле должно содержать целочисленное значение от 1 до 99.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {

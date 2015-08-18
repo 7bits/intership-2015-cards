@@ -67,6 +67,9 @@ public class DiscountController {
     @Autowired
     private DiscountHashService discountHashService;
 
+    @Autowired
+    private EmailExistValidator emailExistValidator;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     @Secured("ROLE_USER")
@@ -132,10 +135,14 @@ public class DiscountController {
         final Map<String, String> errors = discountByCampaignFormValidator.validate(discountByCampaignForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
-            String generatedKey= generateKey.random();
-            String generatedUin= generateUin.random();
+            String generatedKey = generateKey.random();
+            String generatedUin = generateUin.random();
             discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
-            notificationService.notificateCreate(discountByCampaignForm);
+            Discount discount = discountService.findDiscountByUin(generatedUin);
+            final Map<String, String> exist = emailExistValidator.validate(discountByCampaignForm.getEmail());
+            if (exist.size() != 0) {
+                notificationService.notificateCreate(discountByCampaignForm, discount.getId());
+            }
             res.setStatus("SUCCESS");
             res.setResult(null);
             StoreHistory storeHistory = new StoreHistory();
@@ -173,13 +180,16 @@ public class DiscountController {
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm form) throws ServiceException {
-        final Map<String, String> errors = sendFormValidator.validate(form);
+    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm sendForm) throws ServiceException {
+        final Map<String, String> errors = sendFormValidator.validate(sendForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
-            discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
-            Discount discount = discountService.findDiscountByUin(form.getUin());
-            notificationService.notificateSend(form, discount.getId());
+            discountService.send(userService.findUserIdByUserName(sendForm.getEmail()), sendForm.getUin());
+            Discount discount = discountService.findDiscountByUin(sendForm.getUin());
+            final Map<String, String> exist = emailExistValidator.validate(sendForm.getEmail());
+            if (exist.size() != 0) {
+                notificationService.notificateSend(sendForm, discount.getId());
+            }
             res.setStatus("SUCCESS");
             res.setResult(null);
         }else{
