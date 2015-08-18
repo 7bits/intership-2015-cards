@@ -1,6 +1,7 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
+import it.sevenbits.cards.core.domain.DiscountHash;
 import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
@@ -31,7 +32,7 @@ public class DiscountController {
     private StoreService storeService;
 
     @Autowired
-    private NewDiscountNotificationService notificationService;
+    private NotificationService notificationService;
 
     @Autowired
     private DiscountFormValidator discountFormValidator;
@@ -59,6 +60,12 @@ public class DiscountController {
 
     @Autowired
     private StoreHistoryService storeHistoryService;
+
+    @Autowired
+    private DiscountHashValidator discountHashValidator;
+
+    @Autowired
+    private DiscountHashService discountHashService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -171,7 +178,8 @@ public class DiscountController {
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
             discountService.send(userService.findUserIdByUserName(form.getEmail()), form.getUin());
-            notificationService.notificateSend(form);
+            Discount discount = discountService.findDiscountByUin(form.getUin());
+            notificationService.notificateSend(form, discount.getId());
             res.setStatus("SUCCESS");
             res.setResult(null);
         }else{
@@ -198,5 +206,20 @@ public class DiscountController {
             res.setResult(errors);
         }
         return res;
+    }
+
+    @RequestMapping(value = "/welcome/", method = RequestMethod.GET)
+    public String activatebyhash(@RequestParam String hash, Model model) throws ServiceException{
+        final Map<String, String> errors = discountHashValidator.validate(hash);
+        if (errors.size() ==0) {
+            Long discountId = discountHashService.findIdByHash(hash);
+            discountHashService.delete(hash);
+            Discount discount = discountService.findDiscountById(discountId);
+            model.addAttribute("discount", discount);
+            return "home/discount_info";
+        }
+        else{
+            return "redirect:/homepage";
+        }
     }
 }

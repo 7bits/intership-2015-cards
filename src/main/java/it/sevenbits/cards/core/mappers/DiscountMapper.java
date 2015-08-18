@@ -124,4 +124,20 @@ public interface DiscountMapper {
             @Result(column = "store_image", property = "storeImage")
     })
     Discount findDiscountByUin(@Param("uin") String uin);
+
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image\n" +
+            "FROM discounts\n" +
+            "WHERE id=#{id}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "key", property = "key"),
+            @Result(column = "uin", property = "uin"),
+            @Result(column = "is_hidden", property = "isHidden"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
+            @Result(column = "store_image", property = "storeImage")
+    })
+    Discount findDiscountById(@Param("id") Long id);
 }
