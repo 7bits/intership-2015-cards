@@ -47,7 +47,7 @@ public class Sender {
             //текст
             //message.setText(text);
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent(text, "text/plain; charset=UTF-8");
+            messageBodyPart.setContent(text, "text/html; charset=UTF-8");
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
             message.setContent(multipart);
