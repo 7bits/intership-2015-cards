@@ -24,5 +24,6 @@ public interface DiscountRepository {
     Long findDiscountIdByKey(String key) throws RepositoryException;
     Long findDiscountIdByUin(String uin) throws RepositoryException;
     Discount findDiscountByUin(String uin) throws RepositoryException;
+    Discount findDiscountById(Long id) throws RepositoryException;
 }
 

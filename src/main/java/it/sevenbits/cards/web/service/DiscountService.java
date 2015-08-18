@@ -185,4 +185,11 @@ public class DiscountService {
             throw new ServiceException("An error while finding discount by uin: " + e.getMessage(), e);
         }
     }
+    public Discount findDiscountById(Long id) throws ServiceException {
+        try {
+            return repository.findDiscountById(id);
+        } catch (Exception e) {
+            throw new ServiceException("An error while finding discount by id: " + e.getMessage(), e);
+        }
+    }
 }
