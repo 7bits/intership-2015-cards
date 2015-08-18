@@ -52,7 +52,8 @@ public class NotificationService {
                 "http://discounts.7bits.it/personal_area" +
                 "\n Кто-то поделился с вами своей скидкой. \n" +
                 "Информация о скидке: \n" +
-                "Идентификационный номер(UIN): " + sendForm.getUin() + "\n"
+                "Идентификационный номер(UIN): " + sendForm.getUin() + "\n" +
+                "http://discounts.7bits.it/welcome/?hash=" + discountHash.getHash() + "\n"
                 , sendForm.getEmail());
     }
 }
