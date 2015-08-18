@@ -1,12 +1,12 @@
 @font-face {
 	font-family: Roboto;
-	src: url("/resources/fonts/RobotoCondensed-Light_0.ttf") format("opentype");
+	src: url("/resources/fonts/Roboto-Light_0.ttf") format("opentype");
 }
 
 @font-face {
 	font-family: Roboto;
 	font-weight: bold;
-	src: url("/resources/fonts/IgdfK4NT.otf") format("opentype");
+	src: url("/resources/fonts/Roboto-Bold_0.ttf") format("opentype");
 }
 
 body {
@@ -90,7 +90,7 @@ input.add[type="button"]{
 }
 
 .main {
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
 	clear: both;
 	margin-top: 40px;
