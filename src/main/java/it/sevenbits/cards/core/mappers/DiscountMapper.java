@@ -37,11 +37,12 @@ public interface DiscountMapper {
             @Result(column = "user_id", property = "userId"),
             @Result(column = "store_name", property = "storeName"),
             @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
             @Result(column = "store_image", property = "storeImage")
     })
     List<Discount> findAllForUse(@Param("userName") String userName);
     //FindAllForSend
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, store_image FROM discounts WHERE is_hidden = true and user_id = #{userName}")
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image FROM discounts WHERE is_hidden = true and user_id = #{userName}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),

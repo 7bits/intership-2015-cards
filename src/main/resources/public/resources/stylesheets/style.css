@@ -110,15 +110,14 @@ input.add[type="button"]{
 		width: 100%;
 	}
 
-
-.main .discounts {
+.discounts {
 	margin-top: 0;
 	float: left;
 	width: 60%;
 	height: 100%;
 }
 
-.main .advertisment {
+.advertisment {
 	clear: right;
 	float: right;
 	width: 35%;

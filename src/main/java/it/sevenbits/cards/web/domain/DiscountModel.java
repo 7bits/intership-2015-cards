@@ -9,6 +9,7 @@ public class DiscountModel {
     private String storeName;
     private String description;
     private String storeImage;
+    private int percent;
 
     public Long getId() {
         return id;
@@ -50,7 +51,7 @@ public class DiscountModel {
         this.userId = userId;
     }
 
-    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage){
+    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, int percent){
         this.id = id;
         this.key = key;
         this.uin = uin;
@@ -59,13 +60,13 @@ public class DiscountModel {
         this.storeName = storeName;
         this.description = description;
         this.storeImage = storeImage;
-
+        this.percent = percent;
     }
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s]",
-                id, key, uin, isHidden, userId, storeName,description, storeImage);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%d]",
+                id, key, uin, isHidden, userId, storeName,description, storeImage, percent);
     }
 
     public String getStoreName() {
@@ -90,5 +91,13 @@ public class DiscountModel {
 
     public void setStoreImage(String storeImage) {
         this.storeImage = storeImage;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 }

@@ -50,7 +50,8 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        d.getPercent()
                         ));
             }
             return models;
@@ -72,7 +73,8 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        d.getPercent()
                 ));
             }
             return models;
@@ -93,7 +95,8 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        d.getPercent()
                 ));
             }
             return models;
@@ -122,7 +125,8 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        d.getPercent()
                 ));
             }
             return models;
