@@ -314,5 +314,23 @@ public class CommonFieldValidator {
             }
         }
     }
+    public void isBackerPercent(
+            final String discountPercent,
+            final Map<String, String> errors,
+            final String field,
+            final String key
+    ) {
+        if (!errors.containsKey(field)) {
+            int percent;
+            try {
+                percent = Integer.parseInt(discountPercent);
+            } catch (Exception e) {
+                percent = -1;
+            }
+            if (percent == -1 ) {
+                errors.put(field, key);
+            }
+        }
+    }
 }
 

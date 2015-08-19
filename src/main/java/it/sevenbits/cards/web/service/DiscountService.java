@@ -16,11 +16,17 @@ import java.util.List;
 public class DiscountService {
     @Autowired
     @Qualifier(value = "discountPersistRepository")
-    private DiscountRepository repository;
+    private DiscountRepository discountRepository;
 
     @Autowired
     @Qualifier(value = "userRepository")
     private UserRepository userRepository;
+
+    @Autowired
+    private GenerateKey generateKey;
+
+    @Autowired
+    private GenerateUin generateUin;
 
     public void save(final DiscountForm form) throws ServiceException {
         final Discount discount = new Discount();
@@ -31,7 +37,7 @@ public class DiscountService {
         discount.setStoreName(form.getStoreName());
         discount.setDescription(form.getDescription());
         try {
-            repository.save(discount);
+            discountRepository.save(discount);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
@@ -39,7 +45,7 @@ public class DiscountService {
 
     public List<DiscountModel> findAll() throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAll();
+            List<Discount> discounts = discountRepository.findAll();
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(
@@ -50,7 +56,9 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        Integer.toString(d.getBackerPercent()),
+                        d.getBackerUserId()
                         ));
             }
             return models;
@@ -61,7 +69,7 @@ public class DiscountService {
 
     public List<DiscountModel> findAllForUse(String userName) throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAllForUse(userName);
+            List<Discount> discounts = discountRepository.findAllForUse(userName);
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(
@@ -72,7 +80,9 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        Integer.toString(d.getBackerPercent()),
+                        d.getBackerUserId()
                 ));
             }
             return models;
@@ -82,7 +92,7 @@ public class DiscountService {
     }
     public List<DiscountModel> findAllForSend(String userName) throws ServiceException {
         try {
-            List<Discount> discounts = repository.findAllForSend(userName);
+            List<Discount> discounts = discountRepository.findAllForSend(userName);
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d: discounts) {
                 models.add(new DiscountModel(
@@ -93,7 +103,9 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        Integer.toString(d.getBackerPercent()),
+                        d.getBackerUserId()
                 ));
             }
             return models;
@@ -104,14 +116,14 @@ public class DiscountService {
 
     public void delete(String key, String storeName) throws ServiceException {
         try {
-            repository.delete(key, storeName);
+            discountRepository.delete(key, storeName);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
     }
     public List<DiscountModel> findUserId(Discount discount) throws ServiceException {
         try {
-            List<Discount> discounts = repository.findUserId(discount);
+            List<Discount> discounts = discountRepository.findUserId(discount);
             List<DiscountModel> models = new ArrayList<>(discounts.size());
             for (Discount d : discounts) {
                 models.add(new DiscountModel(
@@ -122,7 +134,9 @@ public class DiscountService {
                         d.getUserId(),
                         d.getStoreName(),
                         d.getDescription(),
-                        d.getStoreImage()
+                        d.getStoreImage(),
+                        Integer.toString(d.getBackerPercent()),
+                        d.getBackerUserId()
                 ));
             }
             return models;
@@ -132,14 +146,14 @@ public class DiscountService {
     }
     public void changeUserId(String uin, String userId) throws ServiceException {
         try {
-            repository.changeUserId(uin, userId);
+            discountRepository.changeUserId(uin, userId);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
     }
     public void send(String email, String uin) throws ServiceException {
         try {
-            repository.send(email, uin);
+            discountRepository.send(email, uin);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while sending discount: " + e.getMessage(), e);
         }
@@ -155,7 +169,7 @@ public class DiscountService {
         discount.setDescription(generateDiscountForm.getDescription());
         discount.setPercent(Integer.parseInt(generateDiscountForm.getDiscountPercent()));
         try {
-            repository.save(discount);
+            discountRepository.save(discount);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
@@ -163,16 +177,19 @@ public class DiscountService {
     public void createDiscountByCampaign(DiscountByCampaignForm discountByCampaignForm, String generatedKey, String generatedUin, String storeName, String storeImage) throws ServiceException, RepositoryException
     {
         final Discount discount = new Discount();
+        String userId = userRepository.findUserIdByUserName(discountByCampaignForm.getEmail());
         discount.setKey(generatedKey);
         discount.setUin(generatedUin);
         discount.setIsHidden(Boolean.parseBoolean("true"));
-        discount.setUserId(userRepository.findUserIdByUserName(discountByCampaignForm.getEmail()));
+        discount.setUserId(userId);
         discount.setStoreName(storeName);
         discount.setDescription(discountByCampaignForm.getDescription());
         discount.setPercent(Integer.parseInt(discountByCampaignForm.getPercent()));
         discount.setStoreImage(storeImage);
+        discount.setBackerPercent(Integer.parseInt(discountByCampaignForm.getBackerPercent()));
+        discount.setBackerUserId(userId);
         try {
-            repository.saveByAcoustics(discount);
+            discountRepository.saveByAcoustics(discount);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
@@ -180,16 +197,44 @@ public class DiscountService {
 
     public Discount findDiscountByUin(String uin) throws ServiceException {
         try {
-            return repository.findDiscountByUin(uin);
+            return discountRepository.findDiscountByUin(uin);
         } catch (Exception e) {
             throw new ServiceException("An error while finding discount by uin: " + e.getMessage(), e);
         }
     }
     public Discount findDiscountById(Long id) throws ServiceException {
         try {
-            return repository.findDiscountById(id);
+            return discountRepository.findDiscountById(id);
         } catch (Exception e) {
             throw new ServiceException("An error while finding discount by id: " + e.getMessage(), e);
+        }
+    }
+    public void createFeedbackDiscountAfterUse(String key) throws ServiceException {
+        String generatedKey = generateKey.random();
+        String generatedUin = generateUin.random();
+        Discount oldDiscount;
+        try {
+            oldDiscount = discountRepository.findDiscountByKey(key);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding discount by uin: " + e.getMessage(), e);
+        }
+        if (oldDiscount.getBackerPercent() != 0) {
+            Discount newDiscount = new Discount();
+            newDiscount.setKey(generatedKey);
+            newDiscount.setUin(generatedUin);
+            newDiscount.setIsHidden(Boolean.parseBoolean("false"));
+            newDiscount.setUserId(oldDiscount.getBackerUserId());
+            newDiscount.setStoreName(oldDiscount.getStoreName());
+            newDiscount.setDescription(oldDiscount.getDescription());
+            newDiscount.setPercent(oldDiscount.getBackerPercent());
+            newDiscount.setStoreImage(oldDiscount.getStoreImage());
+            newDiscount.setBackerPercent(0);
+            newDiscount.setBackerUserId("");
+            try {
+                discountRepository.saveByAcoustics(newDiscount);
+            } catch (Exception e) {
+                throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
+            }
         }
     }
 }

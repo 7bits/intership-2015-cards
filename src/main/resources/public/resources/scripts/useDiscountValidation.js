@@ -3,7 +3,7 @@ var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var headers = {};
     headers[header] = token;
-var key = $('#keyUse').val();
+    var key = $('#keyUse').val();
     $.ajax({
         type: "POST",
         url: "/use_discount",
@@ -22,7 +22,7 @@ var key = $('#keyUse').val();
                 }
             }
             else {
-                $('.infoBlockUseDiscount').html("Скидка успешно добавлена!");
+                $('.infoBlockUseDiscount').html("Скидка успешно удалена!");
             }
         },
         error: function(e){

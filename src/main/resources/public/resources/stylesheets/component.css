@@ -209,6 +209,12 @@
 	height:420px;
 }
 
+.morph-button-modal-2.open .morph-content .use-form {
+	margin: -210px 0 0 -235px;
+	width: 470px;
+	height:210px;
+}
+
 .morph-button-add.open .morph-content {
 	height:220px;
 	width:470px;
@@ -273,7 +279,7 @@
 }
 
 .morph-button-add-campaign.open .morph-content {
-	height: 450px;
+	height: 540px;
 }
 
 .morph-button-add-campaign .morph-content {

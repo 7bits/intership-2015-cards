@@ -5,12 +5,14 @@ public class CampaignModel {
     private String name;
     private String description;
     private String percent;
+    private String backerPercent;
 
-    public CampaignModel(Long id, String name, String description, String percent){
+    public CampaignModel(Long id, String name, String description, String percent, String backerPercent){
         this.id = id;
         this.name = name;
         this.description = description;
         this.percent = percent;
+        this.backerPercent = backerPercent;
     }
 
     public Long getId() {
@@ -47,8 +49,15 @@ public class CampaignModel {
 
     @Override
     public String toString() {
-        return String.format("id=%d, name=%s, description=%s, percent=%s]",
-               id, name, description, percent);
+        return String.format("id=%d, name=%s, description=%s, percent=%s, backerPercent=%s]",
+               id, name, description, percent, backerPercent);
     }
 
+    public String getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(String backerPercent) {
+        this.backerPercent = backerPercent;
+    }
 }

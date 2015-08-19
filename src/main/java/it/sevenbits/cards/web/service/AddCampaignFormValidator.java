@@ -24,12 +24,15 @@ public class AddCampaignFormValidator {
         validator.isNotNullOrEmpty(addCampaignForm.getName(), errors, "name", "Поле не должно быть пустым");
         validator.isNotNullOrEmpty(addCampaignForm.getDescription(), errors, "description", "Поле не должно быть пустым");
         validator.isNotNullOrEmpty(addCampaignForm.getPercent(), errors, "percent", "Поле не должно быть пустым");
+        validator.isNotNullOrEmpty(addCampaignForm.getBackerPercent(), errors, "backerPercent", "Поле не должно быть пустым");
 
         validator.shorterThan(addCampaignForm.getName(), 255, errors, "name", "Поле должно быть короче, чем 255 символов.");
         validator.shorterThan(addCampaignForm.getDescription(), 255, errors, "description", "Поле должно быть короче, чем 255 символов.");
         validator.shorterThan(addCampaignForm.getPercent(), 2, errors, "percent", "Поле должно содержать число от 1 до 99.");
+        validator.shorterThan(addCampaignForm.getBackerPercent(), 2, errors, "backerPercent", "Поле должно содержать число от 1 до 99.");
 
-        validator.isPercent(addCampaignForm.getPercent(), errors, "percent", "Поле должно содержать целочисленное значение от 1 до 99.");
+        validator.isPercent(addCampaignForm.getPercent(), errors, "percent", "Число должно быть меньше 100.");
+        validator.isBackerPercent(addCampaignForm.getBackerPercent(), errors, "backerPercent", "Число должно быть меньше 100.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",

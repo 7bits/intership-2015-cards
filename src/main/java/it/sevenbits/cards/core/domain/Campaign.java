@@ -8,6 +8,7 @@ public class Campaign implements Serializable {
     private String name;
     private String description;
     private int percent;
+    private int backerPercent;
     private Boolean enabled;
 
     public Long getId() {
@@ -60,7 +61,15 @@ public class Campaign implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Campaign[id=%d, storeName=%s, name=%s, description=%s, percent=%d, enabled=%b]",
-                id, storeName, name, description, percent, enabled);
+        return String.format("Campaign[id=%d, storeName=%s, name=%s, description=%s, percent=%d, enabled=%b, backerPercent=%d]",
+                id, storeName, name, description, percent, enabled, backerPercent);
+    }
+
+    public int getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(int backerPercent) {
+        this.backerPercent = backerPercent;
     }
 }

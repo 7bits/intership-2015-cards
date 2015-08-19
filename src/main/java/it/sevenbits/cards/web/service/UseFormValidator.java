@@ -25,9 +25,9 @@ public class UseFormValidator {
 
         validator.isDiscountExistByKey(useForm.getKey(), errors, "key", "Скидки с данным ключом не существует.");
 
-        validator.isStoreMakerOfDiscount(useForm.getKey(), storeName, errors, "key", "Магазин должен быть создателем скидки.");
+        validator.isStoreMakerOfDiscount(useForm.getKey(), storeName, errors, "key", "Вы не являетесь создателем скидки.");
 
-        validator.isDiscountPrivateByKey(useForm.getKey(), errors, "key", "Магазин может удалить только скидки для использования, а не для отправки.");
+        validator.isDiscountPrivateByKey(useForm.getKey(), errors, "key", "Скидка должна быть для использования.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",
