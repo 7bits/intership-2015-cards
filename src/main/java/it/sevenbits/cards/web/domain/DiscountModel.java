@@ -9,7 +9,9 @@ public class DiscountModel {
     private String storeName;
     private String description;
     private String storeImage;
-    private int percent;
+    private String percent;
+    private String backerPercent;
+    private String backerUserId;
 
     public Long getId() {
         return id;
@@ -51,7 +53,7 @@ public class DiscountModel {
         this.userId = userId;
     }
 
-    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, int percent){
+    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, String percent, String backerPercent, String backerUserId) {
         this.id = id;
         this.key = key;
         this.uin = uin;
@@ -61,11 +63,13 @@ public class DiscountModel {
         this.description = description;
         this.storeImage = storeImage;
         this.percent = percent;
+        this.backerPercent = backerPercent;
+        this.backerUserId = backerUserId;
     }
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%d]",
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%s, backerPercent=%s, backerUserId=%s]",
                 id, key, uin, isHidden, userId, storeName,description, storeImage, percent);
     }
 
@@ -93,11 +97,27 @@ public class DiscountModel {
         this.storeImage = storeImage;
     }
 
-    public int getPercent() {
+    public String getPercent() {
         return percent;
     }
 
-    public void setPercent(int percent) {
+    public void setPercent(String percent) {
         this.percent = percent;
+    }
+
+    public String getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(String backerPercent) {
+        this.backerPercent = backerPercent;
+    }
+
+    public String getBackerUserId() {
+        return backerUserId;
+    }
+
+    public void setBackerUserId(String backerUserId) {
+        this.backerUserId = backerUserId;
     }
 }

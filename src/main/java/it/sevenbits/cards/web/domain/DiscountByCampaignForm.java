@@ -6,6 +6,7 @@ public class DiscountByCampaignForm {
     private String description;
     private String percent;
     private String email;
+    private String backerPercent;
 
 
     public String getEmail() {
@@ -44,6 +45,14 @@ public class DiscountByCampaignForm {
 
     @Override
     public String toString() {
-        return String.format("DiscountByCampaignForm[name=%s, description=%s, percent=%s, email=%s]", name, description, percent, email);
+        return String.format("DiscountByCampaignForm[name=%s, description=%s, percent=%s, email=%s, backerPercent=%s]", name, description, percent, email, backerPercent);
+    }
+
+    public String getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(String backerPercent) {
+        this.backerPercent = backerPercent;
     }
 }

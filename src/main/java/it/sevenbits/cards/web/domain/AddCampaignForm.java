@@ -5,6 +5,7 @@ public class AddCampaignForm {
     private String name;
     private String description;
     private String percent;
+    private String backerPercent;
 
     public Long getId() {
         return id;
@@ -40,10 +41,17 @@ public class AddCampaignForm {
 
     @Override
     public String toString() {
-        return String.format("id=%d, name=%s, description=%s, percent=%s]",
-                id, name, description, percent);
+        return String.format("id=%d, name=%s, description=%s, percent=%s, backerPercent=%s]",
+                id, name, description, percent, backerPercent);
     }
 
+    public String getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(String backerPercent) {
+        this.backerPercent = backerPercent;
+    }
 }
 
 

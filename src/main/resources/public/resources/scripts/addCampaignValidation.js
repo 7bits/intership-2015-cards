@@ -11,6 +11,7 @@ function doAjaxPostAddCampaign() {
     var name = $('#nameCampaign').val();
     var description = $('#descriptionCampaign').val();
     var percent = $('#percentCampaign').val();
+    var backerPercent = $('#backerPercentCampaign').val();
     var token = $("meta[name='_csrf']").attr("content");
                     var header = $("meta[name='_csrf_header']").attr("content");
                     var headers = {};
@@ -18,7 +19,7 @@ function doAjaxPostAddCampaign() {
     $.ajax({
         type: "POST",
         url: "/add_campaign",
-        data: "name=" + name + "&description=" + description + "&percent=" + percent,
+        data: "name=" + name + "&description=" + description + "&percent=" + percent + "&backerPercent=" + backerPercent,
         headers: headers,
         success: function(response){
             $('.errors').html("");
@@ -67,6 +68,7 @@ function doAjaxPostAddCampaign() {
                                                             +"<div class=\"errors\" id=\"emailErrorActive_" + response.result.id + "\"></div>"
                                                             +"<input class=\"form-control\" name=\"name\" value=\"" +response.result.name + "\" type=\"hidden\" id=\"discountName_" + response.result.id + "\">"
                                                             +"<input class=\"form-control\" name=\"percent\" value=\"" + response.result.percent + "\" type=\"hidden\" id=\"discountPercent_" + response.result.id + "\">"
+                                                            +"<input class=\"form-control\" name=\"backerPercent\" value=\"" + response.result.backerPercent + "\" type=\"hidden\" id=\"discountBackerPercent_" + response.result.id + "\">"
                                                             +"<input class=\"form-control\" name=\"description\" value=\"" + response.result.description + "\" type=\"hidden\" id=\"discountDescription_" + response.result.id + "\">"
                                                             +"<input class=\"add\" onclick=\"doAjaxPostCreateDiscountByCampaign('" + response.result.id +"')\" type=\"button\" value =\"Сгенерировать\" >"
                                                         +"</p>"

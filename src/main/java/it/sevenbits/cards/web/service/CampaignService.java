@@ -22,13 +22,14 @@ public class CampaignService {
     private CampaignRepository campaignRepository;
 
 
-    public Campaign save(final AddCampaignForm form, String storeName) throws ServiceException {
+    public Campaign save(final AddCampaignForm addCampaignForm, String storeName) throws ServiceException {
         final Campaign campaign = new Campaign();
-        campaign.setName(form.getName());
-        campaign.setDescription(form.getDescription());
-        campaign.setPercent(Integer.parseInt(form.getPercent()));
+        campaign.setName(addCampaignForm.getName());
+        campaign.setDescription(addCampaignForm.getDescription());
+        campaign.setPercent(Integer.parseInt(addCampaignForm.getPercent()));
         campaign.setEnabled(true);
         campaign.setStoreName(storeName);
+        campaign.setBackerPercent(Integer.parseInt(addCampaignForm.getBackerPercent()));
         try {
             campaignRepository.save(campaign);
             return campaign;
@@ -46,7 +47,8 @@ public class CampaignService {
                         c.getId(),
                         c.getName(),
                         c.getDescription(),
-                        Integer.toString(c.getPercent())
+                        Integer.toString(c.getPercent()),
+                        Integer.toString(c.getBackerPercent())
                 ));
             }
             return models;
@@ -64,7 +66,8 @@ public class CampaignService {
                         c.getId(),
                         c.getName(),
                         c.getDescription(),
-                        Integer.toString(c.getPercent())
+                        Integer.toString(c.getPercent()),
+                        Integer.toString(c.getBackerPercent())
                 ));
             }
             return models;

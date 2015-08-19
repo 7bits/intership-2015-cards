@@ -83,18 +83,19 @@ public class DiscountController {
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute UseForm form) throws ServiceException {
+    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute UseForm useForm) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         JsonResponse res = new JsonResponse();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        final Map<String, String> errors = useFormValidator.validate(form, storeName);
+        final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
         if (errors.size() == 0) {
-            discountService.delete(form.getKey(), storeName);
+            discountService.createFeedbackDiscountAfterUse(useForm.getKey());
+            discountService.delete(useForm.getKey(), storeName);
             res.setStatus("SUCCESS");
             res.setResult(null);
             StoreHistory storeHistory = new StoreHistory();
             storeHistory.setStoreName(storeName);
-            storeHistory.setDescription("Использована скидка с ключом " + form.getKey().toString());
+            storeHistory.setDescription("Использована скидка с ключом " + useForm.getKey().toString());
             storeHistoryService.save(storeHistory);
         }else{
             res.setStatus("FAIL");
@@ -157,6 +158,7 @@ public class DiscountController {
         return res;
     }
     //Generate discount
+    //DEAD METHOD
     @Secured("ROLE_STORE")
     @RequestMapping(value="/generate_discount", method = RequestMethod.POST)
     public String generateDiscount(@ModelAttribute GenerateDiscountForm generateDiscountForm, Model model) throws ServiceException, RepositoryException{

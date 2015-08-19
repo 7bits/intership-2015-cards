@@ -95,6 +95,9 @@ html
                                                 label Процент скидки акции
                                                 input.form-control.percent_campaign_input#percentCampaign(type="text")
                                                 .errors#percentError
+                                                label Процент поощрения
+                                                input.form-control.backerPercent_campaign_input#backerPercentCampaign(type="text")
+                                                .errors#backerPercentError
                                                 .morph-in-button
                                                     input.add(type="button",value="Создать", onClick='doAjaxPostAddCampaign()')
                     //button.add-campaign-button +
@@ -149,6 +152,7 @@ html
                                                                     .errors(id="emailErrorActive_" + campaign.id)
                                                                     input.form-control(name="name", value= "#{campaign.name}", type="hidden", id="discountName_"+campaign.id)
                                                                     input.form-control(name="percent", value= "#{campaign.percent}", type="hidden", id="discountPercent_"+campaign.id)
+                                                                    input.form-control(name="backerPercent", value= "#{campaign.backerPercent}", type="hidden", id="discountBackerPercent_"+campaign.id)
                                                                     input.form-control(name="description", value= "#{campaign.description}", type="hidden", id="discountDescription_"+campaign.id)
                                                                 .morph-in-button
                                                                     input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign('#{campaign.id}')", value="Сгенерировать")
