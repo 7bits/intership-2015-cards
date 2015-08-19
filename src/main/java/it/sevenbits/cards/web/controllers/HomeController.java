@@ -250,8 +250,7 @@ public class HomeController {
             res.setStatus("FAIL");
             res.setResult(errors);
         }
-        int a = 2;
-        a++;
+        int b = 3;
         return res;
     }
 
