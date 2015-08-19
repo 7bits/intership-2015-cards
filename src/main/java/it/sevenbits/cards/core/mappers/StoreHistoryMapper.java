@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface StoreHistoryMapper {
     //FindAll
-    @Select("SELECT id, store_name, description FROM store_history WHERE store_name = #{storeName}")
+    @Select("SELECT id, store_name, description , created_at FROM store_history WHERE store_name = #{storeName}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description")
+            @Result(column = "description", property = "description"),
+            @Result(column = "created_at", property = "createdAt")
+
     })
     List<StoreHistory> findAll(@Param("storeName") String storeName);
     //Save

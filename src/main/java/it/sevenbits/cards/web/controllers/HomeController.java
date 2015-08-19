@@ -1,19 +1,37 @@
 package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.AccountActivation;
 import it.sevenbits.cards.core.domain.Role;
+import it.sevenbits.cards.core.domain.Store;
+import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.domain.User;
+import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.web.domain.*;
 import it.sevenbits.cards.web.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
+import java.net.Authenticator;
+import java.security.Principal;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -242,6 +260,7 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         model.addAttribute("userName", userName);
+
         String userId = userService.findUserIdByUserName(userName);
         model.addAttribute("userId", userId);
         model.addAttribute("discountsForUse", discountService.findAllForUse(userId));

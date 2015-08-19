@@ -29,7 +29,8 @@ public class StoreHistoryService {
                 models.add(new StoreHistoryModel(
                         h.getId(),
                         h.getStoreName(),
-                        h.getDescription()
+                        h.getDescription(),
+                        h.getCreatedAt()
                 ));
             }
             return models;
