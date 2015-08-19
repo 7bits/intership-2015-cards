@@ -4,6 +4,7 @@ import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
 import org.apache.ibatis.annotations.*;
 
+import java.sql.Timestamp;
 
 
 public interface UserMapper {
@@ -53,4 +54,9 @@ public interface UserMapper {
     @Update("UPDATE users SET role =#{userRole} WHERE user_id = #{userId}")
     void changeUserRoleByUserId(@Param("userRole") String userRole, @Param("userId") String userId);
 
+    @Select("SELECT created_at\n" +
+            "FROM users\n" +
+            "WHERE email=#{email}")
+    @Result(column = "created_at")
+    Timestamp findCreateAtTimeByEmail(@Param("email") String email);
 }

@@ -23,7 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.net.Authenticator;
 import java.security.Principal;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -217,6 +224,7 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         model.addAttribute("userName", userName);
+
         String userId = userService.findUserIdByUserName(userName);
         model.addAttribute("userId", userId);
         model.addAttribute("discountsForUse", discountService.findAllForUse(userId));

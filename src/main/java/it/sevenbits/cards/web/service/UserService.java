@@ -17,6 +17,8 @@ import it.sevenbits.cards.web.domain.RegistrationForm;
 
 import org.apache.log4j.Logger;
 
+import java.sql.Timestamp;
+
 @Service
 public class UserService {
     @Autowired
@@ -92,5 +94,12 @@ public class UserService {
         String title = form.getTitle();
         String describe = form.getDescribe();
         sender.send(title, "Spasibo. Vashe pis'mo ochen' vazhno dlja nas! Ozhidajte otvet\n", email);
+    }
+    public Timestamp findCreateAtTimeByEmail(String email) throws ServiceException{
+        try {
+            return repository.findCreateAtTimeByEmail(email);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+        }
     }
 }

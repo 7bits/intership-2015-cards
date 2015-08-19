@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+
 @Repository
 public class UserRepository implements UserDetailsService {
     private static final Logger LOG = Logger.getLogger(UserRepository.class);
@@ -92,6 +94,16 @@ public class UserRepository implements UserDetailsService {
         }
         try {
             userMapper.changeUserRoleByUserId(userRole, userId);
+        } catch (Exception e) {
+            throw new RepositoryException("General database error " + e.getMessage(), e);
+        }
+    }
+    public Timestamp findCreateAtTimeByEmail(final String email) throws RepositoryException {
+        if (email == null) {
+            throw new RepositoryException("Email Name is null");
+        }
+        try {
+            return userMapper.findCreateAtTimeByEmail(email);
         } catch (Exception e) {
             throw new RepositoryException("General database error " + e.getMessage(), e);
         }
