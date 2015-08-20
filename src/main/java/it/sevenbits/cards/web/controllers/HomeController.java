@@ -287,6 +287,7 @@ public class HomeController {
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         model.addAttribute("history", storeHistoryService.findAll(storeName));
+        model.addAttribute("storeImage", storeService.findStoreImageByStoreName(storeName));
         return "home/store_area";
     }
 
@@ -299,6 +300,7 @@ public class HomeController {
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         model.addAttribute("history", storeHistoryService.findAll(storeName));
+        model.addAttribute("storeImage", storeService.findStoreImageByStoreName(storeName));
         return "home/store_area";
     }
 
