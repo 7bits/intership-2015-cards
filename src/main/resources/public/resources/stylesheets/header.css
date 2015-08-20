@@ -10,7 +10,7 @@
 
 .header {
 	margin: auto;
-	max-width: 960px;
+	max-width: 920px;
 	min-width: 320px;
 	width: 80%;
 
@@ -19,21 +19,18 @@
 .header-image {
 	float: left;
     margin-top: 5px;
-	width: 50%;
+	width: 400px;
     height: 110px;
-	min-width: 320px;
     content: url("../img/logoOS.png");
 }
 
 .header-image img {
-    height: 100px;
 }
 
 /*IMAGE END*/
 
 /*BUTTONS*/
 .header-buttons {
-    min-width: 320px;
     float: right;
     width: 50%;
     height: 120px;
@@ -157,22 +154,47 @@
 
 
 
-@media screen and (min-width: 320px) and (max-width: 814px) {
+@media screen and (min-width: 320px) and (max-width: 1023px) {
 	
-.header-image {
-    float: left;
-    margin-top: 5px;
-    min-width: 0px;
-    width: 72px;
-    height: 110px;
-    content: url('../img/logoM.png');
+.wrapper-dropdown-5 {
+        margin: 0;
+    } 
 
-}
+    .header-image {
+        margin-left: 10px;
+    }
+
+    .header-buttons {
+        margin-right: 10px;
+        width: 160px;
+    }
+
+    .info-button {
+        margin-top: 0;
+    }
+
+    .log-button {
+        width: 160px;
+        margin: 15px 0 10px 0;
+    }
 	
 }
 
-@media screen and (min-width: 320px) and (max-width: 500px) {
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .header {
+        width: 95%;
+    }
 
+    .header-image {
+        width: 250px;
+    }
+    .header-image {
+        width: 300px;
+        height: auto;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 550px) {
     .wrapper-dropdown-5 {
         margin: 0;
     } 
@@ -183,16 +205,93 @@
 
     .header-buttons {
         margin-right: 10px;
-        min-width: 160px;
+        width: 100px;
+    }
+
+    .info-button:after {
+        margin: 5px 28px 0 auto;
     }
 
     .info-button {
+        font-size: 12px;
+        line-height: 30px;
+        width: 100px;
         margin-top: 0;
     }
 
+.info-button li {
+    line-height: 40px;
+    }
+
     .log-button {
-        width: 160px;
+        font-size: 12px;
+        width: 100px;
         margin: 15px 0 10px 0;
+    }
+    .header-image {
+        margin-top: 15px;
+        width: 180px;
+        height: auto;
+    }
+
+    .header-image img {
+        margin-top: 20px;
+        height: auto;
+        width: 120px;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+
+
+
+    .header-buttons {
+        width: 340px;
+        float: right;
+        margin: 0;
+    }
+
+    .info-button {
+        line-height: 40px;
+        height: 60px;
+        font-size: 25px;
+        margin-top: 30px;
+        float: right;
+    }
+
+    .info-button:after {
+        margin: 10px 55px 0 0;
+    }
+
+    .info-button li {
+        line-height: 60px;
+    }
+
+    .log-button {
+        margin-top: 30px;
+        margin-left: 10px;
+        float: right;
+    }
+
+    .log-button > button {
+        height: 60px;
+    }
+
+    .forget-password-href {
+        font-size: 35px;
+    }
+
+    input.yes[type="submit"], input.yes[type="button"] {
+        height: 80px;
+        line-height: 80px;
+        font-size: 50px;
+    }
+
+    .registrarion-btn {
+        height: 80px;
+        line-height: 80px;
+        font-size: 50px;
+        margin-top: 20px;
     }
 
 }

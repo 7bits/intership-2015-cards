@@ -243,7 +243,8 @@ input.add[type="button"]{
 }
 
 .registration-form {
-width:470px;
+width:100%;
+max-width: 470px;
 margin: auto;
 text-align:center;
 min-width:320px;

@@ -1,0 +1,41 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+	.registration-form {
+		max-width: none;
+	}
+
+	.registration-form h2 {
+		font-size: 50px;
+	}
+
+	.registration-form label {
+		font-size: 40px;
+	}
+
+	.registration-form textarea{
+		font-size: 40px;
+	}
+
+	.registration-form input[type="email"],
+	.registration-form input[type="password"],
+	.registration-form input[type="text"],
+	.use-discount-form input[type="text"],
+	.use-discount-form input[type="email"],
+	.use-discount-form input[type="password"]{
+	    /*padding: 15px;*/
+	    height: 80px;
+	    width: 100%;
+	    border: 0px solid #e0e0e0;
+	    background: white;
+	    color: black;
+	    font-weight: 300;
+	    font-size: 40px;
+	    padding-left:5px;
+	}
+
+	input.yes[type="submit"], input.yes[type="button"] {
+		height: 100px;
+		line-height: 100px;
+		font-size: 40px;
+
+	}
+}
