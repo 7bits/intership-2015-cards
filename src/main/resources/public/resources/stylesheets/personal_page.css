@@ -1,0 +1,29 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+
+	.ss {
+		height: 100px;
+	}
+
+	.search-icon {
+		height: 100px;
+		width: 100px;
+	}
+
+	input.send-use-search[type='text'] {
+		height: 100px;
+	}
+
+	.discounts {
+		width: 100%;
+	}
+
+	.advertisment {
+		width: 0;
+		height: 0;
+	}
+
+	.tabs {
+		font-size: 35px;
+	}
+
+}

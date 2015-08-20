@@ -1,17 +1,90 @@
 .dev-ava-first{
- display:inline-block;
-    width:320px;
+	display: inline-block;
+    width: 27%;
+    margin: 0 0 0 5%;
 }
+
+.dev-ava-first img {
+	width: 100%
+}
+
 .dev-ava-second-one,.dev-ava-second-two{
     display:inline-block;
-    width:480px;
-    /*text-align:center;*/
+    width:27%;
+    margin: 0 0 0 15%;
+}
+
+.first-row {
+	margin-bottom: 20px;
+}
+
+.dev-ava-second-one img,.dev-ava-second-two img{
+    width: 100%
 }
 
 .dev-ava-second-one{
-    text-align:right;
-    padding-right:50px;
 }
 .dev-ava-second-two{
-    /*text-align:left;*/
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+	.first-row {
+		margin-bottom: 0;
+	}
+
+   	.dev-ava-first {
+   		display: block;
+   		margin: 0 auto 20px auto;
+   		width: 240px;
+   	}
+   	.dev-ava-second-one{
+   		display: block;
+   		width: 240px;
+   		margin: 0 auto 20px auto;
+	    text-align: none;
+	    padding-right:0;
+	}
+	.dev-ava-second-two{
+		display: block;
+		width: 240px;
+		margin: 0 auto 20px auto;
+	}
+	.dev-ava-second-one img{
+	    width: 240px;
+	}
+	.dev-ava-second-two img{
+		width: 240px;
+	}
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+    .first-row {
+		margin-bottom: 0;
+	}
+	
+   	.dev-ava-first {
+   		display: block;
+   		margin: 0 auto 20px auto;
+   		width: 50%;
+   	}
+
+   	.dev-ava-second-one{
+   		display: block;
+   		width: 50%;
+   		margin: 0 auto 20px auto;
+	    text-align: none;
+	    padding-right:0;
+	}
+	.dev-ava-second-two{
+		display: block;
+		width: 50%;
+		margin: 0 auto 20px auto;
+	}
+	.dev-ava-second-one img{
+	    width: 100%;
+	}
+	.dev-ava-second-two img{
+		width: 100%;
+	}
 }

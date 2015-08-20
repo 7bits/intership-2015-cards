@@ -144,6 +144,9 @@ public class DiscountController {
             if (exist.size() != 0) {
                 notificationService.notificateCreate(discountByCampaignForm, discount.getId());
             }
+            else{
+                notificationService.notificateCreateIfExist(discountByCampaignForm,discount.getId());
+            }
             res.setStatus("SUCCESS");
             res.setResult(null);
             StoreHistory storeHistory = new StoreHistory();
@@ -192,6 +195,9 @@ public class DiscountController {
             if (exist.size() != 0) {
                 notificationService.notificateSend(sendForm, discount.getId());
             }
+            else{
+                notificationService.notificateSendIfExist(sendForm,discount.getId());
+            }
             res.setStatus("SUCCESS");
             res.setResult(null);
         }else{
@@ -220,7 +226,7 @@ public class DiscountController {
         return res;
     }
 
-    @RequestMapping(value = "/welcome/", method = RequestMethod.GET)
+    @RequestMapping(value = "/discount_info/", method = RequestMethod.GET)
     public String activatebyhash(@RequestParam String hash, Model model) throws ServiceException{
         final Map<String, String> errors = discountHashValidator.validate(hash);
         if (errors.size() ==0) {
