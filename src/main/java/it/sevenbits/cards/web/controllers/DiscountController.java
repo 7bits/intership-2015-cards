@@ -199,7 +199,7 @@ public class DiscountController {
                 userId = "";
             }
             LOG.info(userId);
-            discountService.send(userId, sendForm.getUin());
+            discountService.send(userId, sendForm.getUin(), sendForm.getEmail());
             Discount discount = discountService.findDiscountByUin(sendForm.getUin());
             final Map<String, String> exist = emailExistValidator.validate(sendForm.getEmail());
             if (exist.size() != 0) {

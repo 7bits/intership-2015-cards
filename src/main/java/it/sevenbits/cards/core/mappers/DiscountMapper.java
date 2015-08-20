@@ -82,9 +82,11 @@ public interface DiscountMapper {
     })
     List<Discount> findUserId(final Discount discount);
     //ChangeUserId
-    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}")
+    void changeUserId(@Param("uin") String uin, @Param("userId") String userId);
     //Send
-    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}") void send(@Param("userId") String userId, @Param("uin") String uin);
+    @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false, email=#{email} WHERE uin = #{uin}")
+    void send(@Param("userId") String userId, @Param("uin") String uin, @Param("email") String email);
     //Find Discount Owner
     @Select("SELECT user_id\n" +
             "FROM discounts\n" +

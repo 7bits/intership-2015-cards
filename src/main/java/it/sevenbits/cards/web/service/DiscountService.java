@@ -159,9 +159,9 @@ public class DiscountService {
             throw new ServiceException("An error occurred while deleting discount: " + e.getMessage(), e);
         }
     }
-    public void send(String email, String uin) throws ServiceException {
+    public void send(String userId, String uin, String email) throws ServiceException {
         try {
-            discountRepository.send(email, uin);
+            discountRepository.send(userId, uin, email);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while sending discount: " + e.getMessage(), e);
         }
