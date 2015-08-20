@@ -182,6 +182,25 @@ public interface DiscountMapper {
     })
     Discount findDiscountByKey(@Param("key") String key);
 
+    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image, backer_percent, backer_user_id, email\n" +
+            "FROM discounts\n" +
+            "WHERE email=#{email}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "key", property = "key"),
+            @Result(column = "uin", property = "uin"),
+            @Result(column = "is_hidden", property = "isHidden"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "store_name", property = "storeName"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "percent", property = "percent"),
+            @Result(column = "store_image", property = "storeImage"),
+            @Result(column = "backer_percent", property = "backerPercent"),
+            @Result(column = "backer_user_id", property = "backerUserId"),
+            @Result(column = "email", property = "email")
+    })
+    Discount findDiscountByEmail(@Param("email") String email);
+
     //addExistDiscountsByEmail#1
     @Update("UPDATE discounts SET user_id = #{userId} WHERE email = #{email}")
     void addExistDiscountsByEmailFirst(@Param("email") String email, @Param("userId") String userId);

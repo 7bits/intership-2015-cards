@@ -26,6 +26,7 @@ public interface DiscountRepository {
     Discount findDiscountByUin(String uin) throws RepositoryException;
     Discount findDiscountByKey(String key) throws RepositoryException;
     Discount findDiscountById(Long id) throws RepositoryException;
+    Discount findDiscountByEmail(String email) throws RepositoryException;
     void addExistDiscountsByEmail(String email, String userId) throws RepositoryException;
 }
 

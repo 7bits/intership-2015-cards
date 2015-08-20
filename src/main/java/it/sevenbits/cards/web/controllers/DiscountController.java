@@ -187,6 +187,7 @@ public class DiscountController {
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm sendForm) throws ServiceException {
         final Map<String, String> errors = sendFormValidator.validate(sendForm);
+        LOG.info("после валидации формы");
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
             String userId;
