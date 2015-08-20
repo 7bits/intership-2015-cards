@@ -145,15 +145,15 @@ public class HomeController {
 
     //Registration
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse registration(@ModelAttribute RegistrationForm form) throws ServiceException {
-        final Map<String, String> errors = registrationFormValidator.validate(form);
+    public @ResponseBody JsonResponse registration(@ModelAttribute RegistrationForm registrationForm) throws ServiceException {
+        final Map<String, String> errors = registrationFormValidator.validate(registrationForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() != 0) {
             res.setStatus("FAIL");
             res.setResult(errors);
         } else {
-            userService.createUser(form);
-            AccountActivation activation = activationService.generateActivationHash(form);
+            userService.createUser(registrationForm);
+            AccountActivation activation = activationService.generateActivationHash(registrationForm);
             activationService.sendEmail(activation);
             res.setStatus("SUCCESS");
             res.setResult(null);
@@ -162,10 +162,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration/", method = RequestMethod.GET)
-    public String activatebyhash(@RequestParam(required = false) String hash, Model model) {
+    public String activatebyhash(@RequestParam(required = false) String hash, Model model) throws RepositoryException, ServiceException{
         final Map<String, String> errors = accountActivateHashValidator.validate(hash);
         if (errors.size() ==0) {
+            String email = activationService.findEmailByHash(hash);
+            String userId = userService.findUserIdByUserName(email);
             activationService.activateByHash(hash);
+            discountService.addExistDiscountsByEmail(email, userId);
             model.addAttribute("accActivate", "Регистрация успешно завершена");
         }else{
             return "redirect:/registration";

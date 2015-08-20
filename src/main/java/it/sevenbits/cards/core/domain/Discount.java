@@ -14,6 +14,7 @@ public class Discount implements Serializable {
     private String storeImage;
     private int backerPercent;
     private String backerUserId;
+    private String email;
 
     public Long getId() {
         return id;
@@ -80,8 +81,8 @@ public class Discount implements Serializable {
     }
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s, percent=%d, backerPercent=%d, backerUserId=%s]",
-                id, key, uin, isHidden, userId, storeName, description, percent, backerPercent, backerUserId);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s, percent=%d, backerPercent=%d, backerUserId=%s, email=%s]",
+                id, key, uin, isHidden, userId, storeName, description, percent, backerPercent, backerUserId, email);
     }
 
     public String getStoreImage() {
@@ -106,6 +107,14 @@ public class Discount implements Serializable {
 
     public void setBackerUserId(String backerUserId) {
         this.backerUserId = backerUserId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

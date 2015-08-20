@@ -186,7 +186,17 @@ public class DiscountController {
         final Map<String, String> errors = sendFormValidator.validate(sendForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
-            discountService.send(userService.findUserIdByUserName(sendForm.getEmail()), sendForm.getUin());
+            String userId;
+            try {
+                userId = userService.findUserIdByUserName(sendForm.getEmail());
+            } catch (Exception e) {
+                userId = "";
+            }
+            if(userId==null){
+                userId = "";
+            }
+            LOG.info(userId);
+            discountService.send(userId, sendForm.getUin());
             Discount discount = discountService.findDiscountByUin(sendForm.getUin());
             final Map<String, String> exist = emailExistValidator.validate(sendForm.getEmail());
             if (exist.size() != 0) {
@@ -194,7 +204,7 @@ public class DiscountController {
             }
             res.setStatus("SUCCESS");
             res.setResult(null);
-        }else{
+        } else {
             res.setStatus("FAIL");
             res.setResult(errors);
         }

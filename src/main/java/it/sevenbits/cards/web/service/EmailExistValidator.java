@@ -15,10 +15,10 @@ public class EmailExistValidator {
     private static final Logger LOG = Logger.getLogger(SendFormValidator.class);
 
     public HashMap<String, String> validate(final String email) {
-        LOG.info("SendFormValidator started for: " + email);
+        LOG.info("EmailExistValidator started for: " + email);
         HashMap<String, String> errors = new HashMap<>();
 
-        validator.isUserExist(email, errors, "email", "Юзер существует.");
+        validator.isUserExist(email, errors, "email", "Юзер не существует.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",
