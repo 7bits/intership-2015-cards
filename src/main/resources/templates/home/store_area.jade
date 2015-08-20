@@ -134,6 +134,9 @@ html
                                             img.store-img(src='/resources/img/'+storeImage)
                                         .text
                                             | #{campaign.description}
+                                    form(action="/change_campaign_status/?id="+campaign.id, method="post")
+                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                        input.add(type="submit", value="Деактивировать кампанию")
                                     .btn
                                         .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send(id="magic_"+campaign.id)
                                             button.before-morph(type='button') Сгенерировать
@@ -186,6 +189,9 @@ html
                                             img.store-img(src='/resources/img/'+storeImage)
                                         .text
                                             | #{campaign.description}
+                                        form(action="/change_campaign_status/?id="+campaign.id, method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            input.add(type="submit", value="Активировать кампанию")
                                 // morph-button
                 // Tabs content end
                 // DISCOUNTS LIST END

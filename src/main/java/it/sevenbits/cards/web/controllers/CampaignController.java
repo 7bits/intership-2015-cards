@@ -13,10 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -86,5 +83,11 @@ public class CampaignController {
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         return "home/campaigns";
+    }
+    @Secured("ROLE_STORE")
+    @RequestMapping(value = "/change_campaign_status/", method = RequestMethod.POST)
+    public String deactivateCampaign(@RequestParam Long id) throws ServiceException {
+        campaignService.changeCampaignEnableStatus(id.toString());
+        return "redirect:/store_area";
     }
 }
