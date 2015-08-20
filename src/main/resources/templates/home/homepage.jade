@@ -42,7 +42,7 @@ html
                                                        if loginError
                                                             #loginErrorMessage.errors
                                                        .form-group
-                                                            label Email
+                                                            label Введите адрес эл. почты
                                                             input.errorOutline(name="username", type="text")
                                                        .form-group
                                                             label Пароль
@@ -79,13 +79,13 @@ html
                                         a(href='feedback') Поддержка
           // HEADER END
           // MAIN
-          .main
-               .homepage_describe
-                    .greeting
-                         p Экономьте ваши деньги и деньги ваших друзей с помощью DISCOUNT
-                         a(href="/registration")
-                              .start-btn
-                                   Начать экономить
+          .homepage_describe
+               .greeting
+                    p Экономьте ваши деньги и деньги ваших друзей с помощью DISCOUNT
+                    a(href="/registration")
+                         .start-btn
+                              Начать экономить
+               .white_background
                     .info_img
                          .circle_info_img.circle_info_img_first
                               img(src='/resources/img/bag.png')
@@ -99,13 +99,13 @@ html
                          .not_circle_info_img
                               p После того как другой пользователь получит скидку и воспользуется ей, вы получите купон, который сможете использовать сами
                               img(src='/resources/img/coin.png')
-                    .feedback_message
-                         img(src='/resources/img/question.png')
-                         .question_text
-                              |Если у вас возникнут сложности с работой нашего сервиса, пожалуйста, обращайтесь в&nbsp
-                              a(href='feedback') службу поддержки
-                              |, мы всегда рады вам помочь!
-                         .copyright &copy 2015, Discount
+               .feedback_message
+                    img(src='/resources/img/question.png')
+                    .question_text
+                         |Если у вас возникнут сложности с работой нашего сервиса, пожалуйста, обращайтесь в&nbsp
+                         a(href='feedback') службу поддержки
+                         |, мы всегда рады вам помочь!
+                    .copyright &copy 2015, Discount
                // MAIN END
           // SCRIPTS
           if loginError

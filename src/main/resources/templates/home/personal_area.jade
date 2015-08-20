@@ -93,13 +93,13 @@ html
                          // Содержимое 1 вкладки
                          #send_tab.tab-pane
                               .ss#search_send
-                                   input#send-search.send-use-search(type='text')
+                                   input#send-search.send-use-search(type='text', placeholder='Поиск...')
                                    .yellow
                                         img.search-icon(src='resources/img/loupe.png')
                               for discount in discountsForSend
                                    .ellement.head-open(id='ellement_'+discount.id) #{discount.storeName}
                                         .accordion_arrow
-                                             img(src='/resources/img/arrow.png')
+                                             img(src='/resources/img/arrowDownWhite.png')
                                    .ellement_sub(id='ellement_'+discount.id+'_sub')
                                         .describe_shadow
                                         .accordion_description
@@ -148,13 +148,13 @@ html
 
                          #use_tab.tab-pane
                               .ss#search_use
-                                   input#use-search.send-use-search(type='text')
+                                   input#use-search.send-use-search(type='text', placeholder='Поиск...')
                                    .yellow
                                         img.search-icon(src='/resources/img/loupe.png')
                               for discount in discountsForUse
                                    .ellement.head-open(id='ellement_'+discount.id) #{discount.storeName}
                                         .accordion_arrow
-                                             img(src='/resources/img/arrow.png')
+                                             img(src='/resources/img/arrowDownWhite.png')
                                    .ellement_sub(id='ellement_'+discount.id+'_sub')
                                         .describe_shadow
                                         .accordion_description
@@ -169,7 +169,7 @@ html
                                                   img.store-img(src='/resources/img/'+discount.storeImage)
                                         .btn
                                              // <a href="#"><div class="b_text">Использовать</div></a>
-                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
+                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send.morph-button-use
                                                   button.before-morph(type='button') Показать код
                                                   .morph-content
                                                        div

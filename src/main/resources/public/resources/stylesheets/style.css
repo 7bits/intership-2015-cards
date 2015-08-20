@@ -1,4 +1,9 @@
 @font-face {
+    font-family: Splash;
+    src: url("/resources/fonts/IgdfK4NT.otf") format("opentype");
+}
+
+@font-face {
 	font-family: Roboto;
 	src: url("/resources/fonts/Roboto-Light_0.ttf") format("opentype");
 }
@@ -30,10 +35,14 @@ a.reg-href {
 a.reg-href:hover, a.reg-href:focus{
     color:#fff;
 }
+
+
+
 input.yes#bind[type="submit"],input.yes#bind[type="button"]{
     font-size: 1.45em;
 }
 input.yes[type="submit"],input.yes[type="button"]{
+    border-radius: 3px;
     display:block;
     /*margin-top:15px;*/
     height:50px;
@@ -46,7 +55,7 @@ input.yes[type="submit"],input.yes[type="button"]{
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 800;
-    font-size: 1.25em;
+    font-size: 20px;
 }
 
 input.add#bind[type="submit"]{
@@ -243,6 +252,7 @@ input.add[type="button"]{
 }
 
 .registration-form {
+    padding-bottom: 20px;
 width:100%;
 max-width: 470px;
 margin: auto;
@@ -297,6 +307,7 @@ input.form-control[type='password']:focus{
 }
 
 .registrarion-btn {
+    border-radius: 3px;
     color: #fff;
     background-color: #b8becf;
     height:50px;
@@ -305,7 +316,7 @@ input.form-control[type='password']:focus{
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;   font-weight: 800;
-    font-size: 0.65em;
+    font-size: 20px;
     line-height: 50px;
 }
 
@@ -356,7 +367,9 @@ input.form-control[type='password']:focus{
 }*/
 
 input.exit-button[type="submit"]{
+
         font-family: inherit;
+        font-family: Splash;
         font-size: 130%;
         margin: 0;
         -webkit-appearance: button;
@@ -429,8 +442,10 @@ label.reglable{
     text-align:left;
 }
 .reg-fill-heading{
+    font-family: Splash;
  display:inline-block;
  margin: 10px;
+ margin-top: 30px;
 }
 
 .forget-password-href a{

@@ -49,6 +49,7 @@
 	-webkit-transition: opacity 0.1s 0.5s;
 	transition: opacity 0.1s 0.5s;
 	font-family: inherit;
+	font-family: Splash;
 	margin: 0;
 	-webkit-appearance: button;
 	cursor: pointer;
@@ -206,7 +207,11 @@
 .morph-button-modal-2.open .morph-content {
 	margin: -210px 0 0 -235px;
 	width: 470px;
-	height:420px;
+	height:390px;
+}
+
+.morph-button-modal-2.open .morph-button-use .morph-content {
+	height: 200px;
 }
 
 .morph-button-modal-2.open .morph-content .use-form {

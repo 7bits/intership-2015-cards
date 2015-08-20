@@ -66,7 +66,7 @@ a:hover, a:focus {
 }
 
 .icon-close:hover {
-	color: #a50a05;
+	color: #1e3a86;
 }
 
 /* Styles for dummy content */
@@ -149,12 +149,12 @@ a:hover, a:focus {
 .content-style-form .icon-close {
 	top: 0;
 	right: 0;
-	color: #e0e0e0;
+	color: #fff;
 	font-size: 75%;
 }
 
 .content-style-form .icon-close:hover {
-	color: black;
+	color: #1e3a86;
 }
 
 .js .content-style-form-1 h2,

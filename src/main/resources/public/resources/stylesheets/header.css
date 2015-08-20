@@ -1,9 +1,9 @@
 .header_container {
 	width: 100%;
-	height: 120px;
+	height: 140px;
 	background-color: white;
 	overflow: visible;
-	box-shadow: 0 4px 2px -2px rgba(0,0,0,0.6);
+	box-shadow: 0 7px 2px -2px rgba(187,192,208,0.6);
     display: inline-block;
     min-width:320px;
 }
@@ -12,13 +12,13 @@
 	margin: auto;
 	max-width: 920px;
 	min-width: 320px;
-	width: 80%;
+	width: 100%;
 
 }
 /*IMAGE*/
 .header-image {
 	float: left;
-    margin-top: 5px;
+    margin-top: 15px;
 	width: 400px;
     height: 110px;
     content: url("../img/logoOS.png");
@@ -39,9 +39,23 @@
 /*LOG BUTTON*/
 .log-button {
     width: 120px;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-left: 10px;
 }
+
+    .log-button > button {
+        font-family: Splash;
+    }
+
+    .log-button h2 {
+        font-family: Splash;
+    }
+
+    .log-button label {
+        font-weight: normal;
+        text-transform: none;
+        font-size: 14px;
+    }
 /*LOG BUTTON END*/
 
 /*INFO BUTTON*/
@@ -51,12 +65,12 @@
     float: right;
     height: 40px;
     width: 160px;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-right: 0;
     text-align: center;
     line-height: 40px;
     /* Styles */
-    background: #b8becf;
+    background: #ebedf3;
     color: #304c8f;
     font-weight: bold;
     border-radius: 3px;
@@ -66,15 +80,14 @@
 }
  
 .info-button:after { /* Little arrow */
-    content: "";
+    content: url('/resources/img/arrowDownS.png');
     width: 0;
     height: 0;
     position: absolute;
-    top: 50%;
-    right: 15px;
-    margin-top: -3px;
+    right: 23px;
+    margin-top: -2px;
     border-width: 6px 6px 0 6px;
-    border-style: solid;
+    //border-style: solid;
     border-color: #304c8f transparent;
 }
 
@@ -87,7 +100,7 @@
     padding-left: 10px;
     margin-top: 0px;
     /* Styles */
-    background: #dddfe7;
+    background: #b8becf;
     box-shadow: 0 5px 2px -1px rgba(0,0,0,0.3);
     border-radius: 0 0 3px 3px;
     border: 1px solid rgba(0,0,0,0.2);
@@ -165,7 +178,7 @@
     }
 
     .header-buttons {
-        margin-right: 10px;
+        margin-right: 0;
         width: 160px;
     }
 
@@ -175,7 +188,7 @@
 
     .log-button {
         width: 160px;
-        margin: 15px 0 10px 0;
+        margin: 25px 0 10px 0;
     }
 	
 }
@@ -204,12 +217,12 @@
     }
 
     .header-buttons {
-        margin-right: 10px;
+        margin-right: 0;
         width: 100px;
     }
 
     .info-button:after {
-        margin: 5px 28px 0 auto;
+        margin: 15px 28px 0 auto;
     }
 
     .info-button {
@@ -226,7 +239,7 @@
     .log-button {
         font-size: 12px;
         width: 100px;
-        margin: 15px 0 10px 0;
+        margin: 25px 0 10px 0;
     }
     .header-image {
         margin-top: 15px;
@@ -235,7 +248,7 @@
     }
 
     .header-image img {
-        margin-top: 20px;
+        margin-top: 30px;
         height: auto;
         width: 120px;
     }
@@ -255,12 +268,13 @@
         line-height: 40px;
         height: 60px;
         font-size: 25px;
-        margin-top: 30px;
+        margin-top: 40px;
         float: right;
     }
 
     .info-button:after {
-        margin: 10px 55px 0 0;
+        content: url('/resources/img/arrowDownM.png');
+        margin: 25px 65px 0 0;
     }
 
     .info-button li {
@@ -268,7 +282,7 @@
     }
 
     .log-button {
-        margin-top: 30px;
+        margin-top: 40px;
         margin-left: 10px;
         float: right;
     }

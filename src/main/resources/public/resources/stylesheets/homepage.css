@@ -6,6 +6,8 @@
 }
 
 .greeting {
+	margin-top: 20px;
+	margin-bottom: 40px;
 	color: #4963aa;
 	width: 920px;
 	height: 320px;
@@ -33,7 +35,7 @@
 }
 
 .circle_info_img p {
-	margin-top: 0;
+	margin-top: -3px;
 	margin-bottom: 30px;
 }
 
@@ -46,6 +48,16 @@
 	height: 240px;
 }
 
+.main {
+	overflow: visible;
+}
+
+.white_backgraoud {
+	background-color: #fff;
+	width: 100%;
+	overflow: hidden;
+}
+
 .not_circle_info_img {
 	clear: both;
 	color: #5f77b5;
@@ -55,14 +67,14 @@
 }
 
 .not_circle_info_img p {
-	padding-top:50px; 
+	padding-top:20px; 
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
 .not_circle_info_img img {
 	width: 480px;
-	height: 240px;
+	height: auto;
 }
 
 .feedback_message {
@@ -75,9 +87,10 @@
 	width: 500px;
 	float: left;
 	margin-left: 40px;
+	padding-top: 40px;
 	text-align: left;
 	color:  #000;
-	font-size: 30px;
+	font-size: 20px;
 }
 
 .question_text a{
@@ -94,6 +107,7 @@
 }
 
 .copyright {
+	margin-top: 30px;
 	color: #7e8fc2;
 	clear: both;
 	float: right;
@@ -102,6 +116,8 @@
 
 
 .start-btn {
+	font-family: Splash;
+	border-radius: 3px;
   	color: #fff;
 	margin: 0 auto;
 	background-color: #f6556c;

@@ -81,21 +81,21 @@ html
         // MAIN
         .main
             .registration-form
-                h2.reg-fill-heading ОБРАТНАЯ СВЯЗЬ
+                h2.reg-fill-heading Заявка
                 .js-feedback
                     form#js-feedback-form(action="/feedback", method="post")
                         .reg-input-lable-container
                             .infoBlockFeedback
                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                            label.reglable Заголовок сообщения
+                            label.reglable Причина обращения:
                             input.form-control.not-morph.title_feedback_input#titleFeedback(type='text')
                             .errors#titleError
-                            label.reglable Email
-                            input.form-control.not-morph.email_feedback_input#emailFeedback(type='text', value="#{userName}")
-                            .errors#emailError
-                            label.reglable Сообщение
+                            label.reglable Опишите подробнее:
                             textarea.fb-textarea.describe_feedback_input#describeFeedback(rows="5", cols="5")
                             .errors#describeError
+                            label.reglable Адрес эл. почты, на который вам будет отправлен ответ
+                            input.form-control.not-morph.email_feedback_input#emailFeedback(type='text', value="#{userName}")
+                            .errors#emailError
                             input.form-control.registration-button.yes.fb-button(type='button', value='Отправить сообщение', onClick='doAjaxPostFeedback()')
         // MAIN END
         // SCRIPTS

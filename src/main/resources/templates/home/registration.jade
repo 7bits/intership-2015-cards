@@ -85,9 +85,6 @@ html
                 .js-registration
                     form#js-registration-form(action="/registration", method="post")
                         .reg-input-lable-container
-                            .infoBlock
-                                if accActivate!=null
-                                    | #{accActivate}
                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                             label.reglable Введите адрес эл. почты
                             input.form-control.email_input.not-morph(name='email', type='text')
@@ -96,6 +93,9 @@ html
                             input.form-control.password_input.not-morph(name='password', type='password')
                             .errors#passwordError
                             input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
+            .infoBlock
+                if accActivate!=null
+                    | #{accActivate}
         // MAIN END
         // SCRIPTS
         if loginError

@@ -1,10 +1,11 @@
 .ellement {
 	background-color: #3253a1;
 	border-radius: 4px;
-	height: 40px;
+	height: 50px;
 	margin-top: 10px;
 	font-weight: bold;
-	line-height: 40px;
+	font-size: 19px;
+	line-height: 50px;
 	padding-left: 15px;
 }
 
@@ -27,8 +28,9 @@
 
 .accordion_description_text {
 	width: 65%;
+	color: #383c48;
 	float: left;
-	margin: 10px 0 0 10px;
+	margin: 14px 0 0 14px;
 }
 
 .accordion_description_img {
@@ -56,9 +58,15 @@
 }
 
 .accordion_arrow img {
-	margin-right: 15px;
-	height: 20px;
-	width: 30px;
+	margin-right: 14px;
+	height: 13px;
+	width: 21px;
+}
+
+.head-open .accordion_arrow img {
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
 }
 
 @media only screen and (min-width: 768px) and (max-width: 920px) {
