@@ -59,7 +59,8 @@ public class DiscountService {
                         d.getStoreImage(),
                         Integer.toString(d.getPercent()),
                         Integer.toString(d.getBackerPercent()),
-                        d.getBackerUserId()
+                        d.getBackerUserId(),
+                        d.getEmail()
                         ));
             }
             return models;
@@ -84,7 +85,8 @@ public class DiscountService {
                         d.getStoreImage(),
                         Integer.toString(d.getPercent()),
                         Integer.toString(d.getBackerPercent()),
-                        d.getBackerUserId()
+                        d.getBackerUserId(),
+                        d.getEmail()
                 ));
             }
             return models;
@@ -108,7 +110,8 @@ public class DiscountService {
                         d.getStoreImage(),
                         Integer.toString(d.getPercent()),
                         Integer.toString(d.getBackerPercent()),
-                        d.getBackerUserId()
+                        d.getBackerUserId(),
+                        d.getEmail()
                 ));
             }
             return models;
@@ -140,7 +143,8 @@ public class DiscountService {
                         d.getStoreImage(),
                         Integer.toString(d.getPercent()),
                         Integer.toString(d.getBackerPercent()),
-                        d.getBackerUserId()
+                        d.getBackerUserId(),
+                        d.getEmail()
                 ));
             }
             return models;
@@ -180,7 +184,13 @@ public class DiscountService {
     }
     public void createDiscountByCampaign(DiscountByCampaignForm discountByCampaignForm, String generatedKey, String generatedUin, String storeName, String storeImage) throws ServiceException, RepositoryException {
         final Discount discount = new Discount();
-        String userId = userRepository.findUserIdByUserName(discountByCampaignForm.getEmail());
+        String userId;
+        try {
+            userId = userRepository.findUserIdByUserName(discountByCampaignForm.getEmail());
+        }
+        catch (Exception e){
+            userId="";
+        }
         discount.setKey(generatedKey);
         discount.setUin(generatedUin);
         discount.setIsHidden(Boolean.parseBoolean("true"));
@@ -191,6 +201,7 @@ public class DiscountService {
         discount.setStoreImage(storeImage);
         discount.setBackerPercent(Integer.parseInt(discountByCampaignForm.getBackerPercent()));
         discount.setBackerUserId(userId);
+        discount.setEmail(discountByCampaignForm.getEmail());
         try {
             discountRepository.saveByAcoustics(discount);
         } catch (Exception e) {
@@ -240,4 +251,12 @@ public class DiscountService {
             }
         }
     }
+    public void addExistDiscountsByEmail(String email, String userId) throws ServiceException {
+        try {
+            discountRepository.addExistDiscountsByEmail(email, userId);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while adding exist discounts: " + e.getMessage(), e);
+        }
+    }
+
 }

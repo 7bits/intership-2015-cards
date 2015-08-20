@@ -32,7 +32,7 @@ public class CommonFieldValidator {
     private DiscountHashRepository discountHashRepository;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
-            "^[A-Z0-9_]{1}+[A-Z0-9.%+-]{1,63}+@[A-Z0-9-]+\\.[A-Z]{2,63}$", Pattern.CASE_INSENSITIVE
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE
     );
     private static final String WHITESPACE_PATTERN = "\\s+";
     private static final Logger LOG = Logger.getLogger(CommonFieldValidator.class);

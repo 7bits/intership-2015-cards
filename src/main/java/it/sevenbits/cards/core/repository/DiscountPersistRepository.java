@@ -210,4 +210,19 @@ public class DiscountPersistRepository implements DiscountRepository {
             throw new RepositoryException("An error occurred while finding discount by key: " + e.getMessage(), e);
         }
     }
+    @Override
+    public void addExistDiscountsByEmail(String  email, String userId) throws RepositoryException{
+        if(email==null){
+            throw new RepositoryException("Email in null");
+        }
+        if(userId==null){
+            throw new RepositoryException("UserId in null");
+        }
+        try{
+            mapper.addExistDiscountsByEmailFirst(email, userId);
+            mapper.addExistDiscountsByEmailSecond(email, userId);
+        }catch(Exception e){
+            throw new RepositoryException("An error occurred while adding discounts by email: " + e.getMessage(), e);
+        }
+    }
 }

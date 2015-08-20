@@ -12,6 +12,7 @@ public class DiscountModel {
     private String percent;
     private String backerPercent;
     private String backerUserId;
+    private String email;
 
     public Long getId() {
         return id;
@@ -53,7 +54,7 @@ public class DiscountModel {
         this.userId = userId;
     }
 
-    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, String percent, String backerPercent, String backerUserId) {
+    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, String percent, String backerPercent, String backerUserId, String email) {
         this.id = id;
         this.key = key;
         this.uin = uin;
@@ -65,12 +66,13 @@ public class DiscountModel {
         this.percent = percent;
         this.backerPercent = backerPercent;
         this.backerUserId = backerUserId;
+        this.email = email;
     }
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%s, backerPercent=%s, backerUserId=%s]",
-                id, key, uin, isHidden, userId, storeName,description, storeImage, percent);
+        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%s, backerPercent=%s, backerUserId=%s, email=%s]",
+                id, key, uin, isHidden, userId, storeName,description, storeImage, percent, backerPercent, backerUserId, email);
     }
 
     public String getStoreName() {
@@ -119,5 +121,13 @@ public class DiscountModel {
 
     public void setBackerUserId(String backerUserId) {
         this.backerUserId = backerUserId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
