@@ -129,6 +129,12 @@ public class HomeController {
         return "home/homepage";
     }
 
+    @RequestMapping(value = "/discount_info", method = RequestMethod.GET)
+    public String discountInfo() {
+        return "home/discount_info";
+    }
+
+
     //About
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {return "home/about";}

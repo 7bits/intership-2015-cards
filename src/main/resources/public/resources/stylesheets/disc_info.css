@@ -1,0 +1,39 @@
+
+.discount-description-container{
+    width:100%;
+    min-height:400px;
+    float:left;
+    /*border-top-left-radius: 5px;*/
+    /*border-top-right-radius: 5px;*/
+}
+.reg_button {
+
+    color: #fff;
+    margin: 0 auto;
+    background-color: #BAC0D0;
+    height: 40px;
+    /* width: 100%; */
+    border-radius: 3px;
+    border-bottom: 4px solid #8990A3;
+    text-align: center;
+    text-transform: uppercase;
+    /*letter-spacing: 1px;*/
+    font-weight: 800;
+    /* font-size: 0.65em; */
+    line-height: 40px;
+    font-size:15px;
+    width: 200px;
+    display:inline-block;
+}
+.accordion_description{
+    margin-bottom: 180px;
+}
+.ellement{
+    margin-top:0px !important;
+}
+.ellement_sub{
+    color:black;
+}
+.prereg{
+    text-align:center;
+}
