@@ -28,7 +28,6 @@ a {
 	text-decoration: none;
 }
 a.reg-href {
-    font-size: 2em;
     margin-top:0.3em;
     display:block;
 }
@@ -42,6 +41,7 @@ input.yes#bind[type="submit"],input.yes#bind[type="button"]{
     font-size: 1.45em;
 }
 input.yes[type="submit"],input.yes[type="button"]{
+    font-family: Splash;
     border-radius: 3px;
     display:block;
     /*margin-top:15px;*/
@@ -55,7 +55,7 @@ input.yes[type="submit"],input.yes[type="button"]{
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 800;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 input.add#bind[type="submit"]{
@@ -82,6 +82,7 @@ input.add#bind[type="button"]{
     font-size: 1.45em;
 }
 input.add[type="button"]{
+    font-family: Splash;
     display:block;
     margin-top:5px;
     width:100%;
@@ -93,7 +94,7 @@ input.add[type="button"]{
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 800;
-    font-size: 1.25em;
+    font-size: 25px;
     height: 50px;
     line-height:50px;
 }
@@ -263,6 +264,10 @@ background-color:#3956a3;
 outline: none;
 }
 
+.registration-form h2 {
+    font-size: 35px;
+}
+
 .registration-form input , .use-discount-form input {
 	text-decoration:none;
 	border:none;
@@ -303,10 +308,10 @@ input.form-control[type='password']:focus{
 .reg-href {
 	text-decoration:none;
 	color: #fff;
-	font-size: 1.25em;
 }
 
 .registrarion-btn {
+    font-family: Splash;
     border-radius: 3px;
     color: #fff;
     background-color: #b8becf;
@@ -316,7 +321,7 @@ input.form-control[type='password']:focus{
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;   font-weight: 800;
-    font-size: 20px;
+    font-size: 25px;
     line-height: 50px;
 }
 
@@ -486,10 +491,16 @@ label.reglable{
  }
 
  .social {
- 	margin-top:10px;
- 	width: 30px;
- 	height: 30px;
+    margin-left: 8px;
+ 	margin-top:14px;
+ 	width: 38px;
+ 	height: 38px;
+    pointer-events: auto;
  	float: left;
+ }
+
+ .first-social {
+    margin-left: 76px;
  }
 
  #homepage_img img {

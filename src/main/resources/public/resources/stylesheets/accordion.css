@@ -27,10 +27,10 @@
 }
 
 .accordion_description_text {
-	width: 65%;
+	width: 60%;
 	color: #383c48;
 	float: left;
-	margin: 14px 0 0 14px;
+	margin: 20px 0 0 20px;
 }
 
 .accordion_description_img {
@@ -40,8 +40,9 @@
 
 .accordion_description_img img {
 	width: 90%;
+	float: right;
 	height: auto;
-	margin: 10px auto;
+	margin: 20px 20px 0 0;
 }
 
 .bold_text {
@@ -58,7 +59,7 @@
 }
 
 .accordion_arrow img {
-	margin-right: 14px;
+	margin-right: 20px;
 	height: 13px;
 	width: 21px;
 }
@@ -67,6 +68,10 @@
 	-ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
+}
+
+.btn button {
+	margin: 20px 20px 20px 0;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 920px) {

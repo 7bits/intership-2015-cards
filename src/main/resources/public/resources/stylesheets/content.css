@@ -82,11 +82,12 @@ a:hover, a:focus {
 .content-style-form h2 {
 	color: #fff;
 	margin: 0;
+	font-family: Splash;
 	text-transform: uppercase;
 	padding-top: 25px;
 	text-align: center;
 	font-weight: bold;
-	font-size: 3.5em;
+	font-size: 35px;
 }
 
 .content-style-form form {
@@ -105,8 +106,8 @@ a:hover, a:focus {
 	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	font-weight: bold;
-	font-size:1em;
+	font-weight: normal;
+	font-size:12px;
 }
 
 .content-style-form input[type="text"],

@@ -11,7 +11,7 @@
 .dev-ava-second-one,.dev-ava-second-two{
     display:inline-block;
     width:27%;
-    margin: 0 0 0 15%;
+    margin: 0;
 }
 
 .first-row {
@@ -23,8 +23,11 @@
 }
 
 .dev-ava-second-one{
+	margin-left: 20%;
 }
 .dev-ava-second-two{
+	margin-left: 6%;
+	margin-right: 20%;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {

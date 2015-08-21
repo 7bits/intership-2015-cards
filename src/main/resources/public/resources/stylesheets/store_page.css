@@ -1,0 +1,38 @@
+
+.btn {
+	width: 160px;
+}
+
+input.deactivation[type="submit"] {
+	width: 140px;
+	float: right;
+	font-size: 12px;
+	background-color: #b8becf;
+	border-bottom: 4px solid #868ea1;
+	text-transform: uppercase;
+	height: 37px;
+	line-height: 37px;
+	margin: 0 20px 20px 0;
+}
+
+input.activation[type="submit"] {
+	width: 140px;
+	float: right;
+	font-size: 12px;
+	text-transform: uppercase;
+	height: 37px;
+	line-height: 37px;
+	margin: 20px 20px 20px 0;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 799px) {
+	.use-discount-form {
+		float: none;
+		margin: 0 auto 20px auto;
+	}
+
+	.main .campaigns {
+		float: none;
+		margin: 0 auto;
+	}
+}

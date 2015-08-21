@@ -67,7 +67,7 @@
     width: 160px;
     margin-top: 50px;
     margin-right: 0;
-    text-align: center;
+    padding-left: 25px;
     line-height: 40px;
     /* Styles */
     background: #ebedf3;
@@ -84,7 +84,7 @@
     width: 0;
     height: 0;
     position: absolute;
-    right: 23px;
+    right: 33px;
     margin-top: -2px;
     border-width: 6px 6px 0 6px;
     //border-style: solid;
@@ -97,7 +97,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    padding-left: 10px;
+    padding-left: 0px;
     margin-top: 0px;
     /* Styles */
     background: #b8becf;
@@ -115,7 +115,8 @@
 }
 
 .info-button .dropdown li {
-    padding: 0;
+    padding-left: 10px;
+    border-top: 1px solid #e6e8ea; 
     text-align: left;
 }
  
@@ -125,7 +126,7 @@
     color: #304c8f;
     font-weight: normal;
     transition: all 0.3s ease-out;
-    border-bottom: 1px solid #e6e8ea;
+    border-bottom: 0px solid #e6e8ea;
 }
  
 .info-button .dropdown li:last-of-type a {
@@ -222,10 +223,12 @@
     }
 
     .info-button:after {
-        margin: 15px 28px 0 auto;
+        margin: 15px 20px 0 auto;
     }
 
     .info-button {
+        padding: 0;
+        text-align: center;
         font-size: 12px;
         line-height: 30px;
         width: 100px;
@@ -265,6 +268,8 @@
     }
 
     .info-button {
+        padding: 0;
+        text-align: center;
         line-height: 40px;
         height: 60px;
         font-size: 25px;
@@ -274,7 +279,7 @@
 
     .info-button:after {
         content: url('/resources/img/arrowDownM.png');
-        margin: 25px 65px 0 0;
+        margin: 25px 55px 0 0;
     }
 
     .info-button li {
@@ -306,6 +311,11 @@
         line-height: 80px;
         font-size: 50px;
         margin-top: 20px;
+    }
+
+    input.exit-button[type="submit"] {
+        height: 60px;
+        line-height: 60px;
     }
 
 }

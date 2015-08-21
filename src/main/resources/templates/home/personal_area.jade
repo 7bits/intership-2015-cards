@@ -134,7 +134,7 @@ html
                                                                            .morph-in-button
                                                                                 input.add(type="button",value="Отправить", onclick='doAjaxPostSend("#{discount.id}")')
                                                                            a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                img.social(src='/resources/img/vkontakte.png')
+                                                                                img.first-social.social(src='/resources/img/vkontakte.png')
                                                                            a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
                                                                                 img.social(src='/resources/img/facebook.png')
                                                                            a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
