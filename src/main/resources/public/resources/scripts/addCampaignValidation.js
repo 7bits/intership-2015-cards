@@ -91,7 +91,10 @@ function doAjaxPostAddCampaign() {
                         +"</div>"
                         +"</div>"
                     +"</div>")
-
+                $("#nameCampaign").val('');
+                $("#descriptionCampaign").val('');
+                $("#percentCampaign").val('');
+                $("#backerPercentCampaign").val('');
                 $('.infoBlockAddCampaign').html("Кампания успешно создана!");
                 new UIMorphingButton(document.getElementById("magic_"+response.result.id), {
                     closeEl: '.icon-close'

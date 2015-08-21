@@ -22,6 +22,7 @@ var token = $("meta[name='_csrf']").attr("content");
                 }
             }
             else {
+                $('.key_use_input').val('');
                 $('.infoBlockUseDiscount').html("Скидка успешно удалена!");
             }
         },

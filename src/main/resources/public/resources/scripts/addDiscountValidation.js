@@ -29,6 +29,7 @@ function doAjaxPost(data, headers) {
                 $('#info').html("");
             }
             else {
+                $(".email_create_discount_by_campaign_input").val('');
                 $('#info').html("<h4>"+"Скидка успешно добавлена!"+"</h4>");
             }
         },

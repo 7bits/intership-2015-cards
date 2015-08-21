@@ -28,6 +28,7 @@ function doAjaxPostCreateDiscountByCampaign(thisId) {
                 $('.infoBlock').html("");
             }
             else {
+                $(".email_create_discount_by_campaign_input").val('');
                 $('#infoBlock_campaign_'+thisId).html("Скидка успешно создана!");
             }
         },

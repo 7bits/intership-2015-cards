@@ -31,6 +31,7 @@ function doAjaxPostSend(data) {
                 setTimeout(function() {
                     $('#infoBlock_send_'+thisId).html("Скидка успешно отправлена!");
                 },3000);
+                $('.email_input').val('');
                 $('#ellement_'+thisId+'_sub').remove();
                 $('#ellement_'+thisId).remove();
 
