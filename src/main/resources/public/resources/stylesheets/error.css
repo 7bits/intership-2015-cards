@@ -3,9 +3,104 @@ body,html{
 }
 body{
     margin:0px;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
 }
-.error-page-container{
-    width:100%;
+
+@font-face {
+    font-family: Splash;
+    src: url("/resources/fonts/IgdfK4NT.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("/resources/fonts/Roboto-Light_0.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-weight: bold;
+    src: url("/resources/fonts/Roboto-Bold_0.ttf") format("opentype");
+}
+
+.error-page-container {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color:#dcdee6;
-    height:100%;
+}
+
+.error-content {
+    display: table-cell;
+    vertical-align:top;
+}
+
+.error-description {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    text-align:center;
+}
+
+.error-header{
+    width:400px;
+    color:#4D64AC;
+    font-weight:bold;
+    font-size:40px;
+   padding-left:50px;
+    font-family:Splash;
+}
+.error-advice{
+    font-weight:bold;
+    font-size:20px;
+    font-family: Roboto;
+}
+.homepg-btn{
+    color: #fff;
+    margin: 0 auto;
+    background-color: #f6556c;
+    height: 30px;
+    /* width: 100%; */
+    border-bottom: 4px solid #d4485d;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    /* font-size: 0.65em; */
+    line-height: 35px;
+    font-size: 20px;
+    width: 200px;
+    display: inline-block;
+    border-radius: 3px;
+    font-family:Splash;
+}
+.pckt{
+    padding-right:13%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+    .error-content{
+        padding-top:40%;
+    }
+    .error-header{
+        padding-left:0;
+        width:100%;
+        font-size:80px;
+    }
+    .error-description{
+        width:100%;
+    }
+    .error-advice{
+        font-size:35px;
+    }
+    .homepg-btn{
+        height: 100px;
+        border-bottom:8px solid #d4485d;
+        line-height: 100px;
+        width:600px;
+        font-size:60px;
+    }
 }

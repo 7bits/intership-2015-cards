@@ -7,6 +7,19 @@ html
         title Отказано в доступе
     body
         .error-page-container
-            |123
+            .error-content
+                .error-description
+                    img.pckt(src='/resources/img/pocket-error.png')
+                    .error-header
+                        | Ошибка
+                        br
+                        |Отказано в доступе
+                    p.error-advice
+                        | Пожалуйста, перейдите на главную страницу
+                        br
+                        |и продолжите работу с нашим сервисом.
+                    a(href='/homepage')
+                        .homepg-btn
+                            |На главную
 
 
