@@ -6,6 +6,22 @@
     /*border-top-left-radius: 5px;*/
     /*border-top-right-radius: 5px;*/
 }
+.advertisment{
+    background-color: white;
+    color:#3253a1;
+    border-radius:3px;
+    text-align: center;
+
+    order:1;
+}
+.adv-header{
+    font-size:20px;
+    font-weight:bold;
+
+}
+.adv-text{
+    color: black;
+}
 .reg_button {
 
     color: #fff;
@@ -40,4 +56,39 @@
 .ellement{
     text-align: center;
     text-transform: uppercase;
+}
+
+
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
+    .adv-header{
+        font-size:50px;
+    }
+    .advertisment{
+        order:1;
+        width:100%;
+        font-size:40px;
+    }
+    .discounts{
+        order:2;
+        width:100%;
+        margin-top:20px;
+    }
+
+    .disc-adv-wrapper{
+        display: flex;
+        flex-direction: column
+    }
+
+    .prereg{
+        font-size:50px;
+    }
+    .reg_button{
+        display:block;
+        width:100% !important;
+        font-size:40px;
+        height:70px;
+        line-height:1.5;
+    }
 }

@@ -1,0 +1,11 @@
+body,html{
+    height:100%;
+}
+body{
+    margin:0px;
+}
+.error-page-container{
+    width:100%;
+    background-color:#dcdee6;
+    height:100%;
+}

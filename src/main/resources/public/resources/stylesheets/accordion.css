@@ -99,16 +99,6 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
 
-    .prereg{
-        font-size:50px;
-    }
-    .reg_button{
-        display:block;
-        width:100% !important;
-        font-size:40px;
-        height:70px;
-        line-height:1.5;
-    }
 	.ellement {
 		background-color: #3253a1;
 		border-radius: 4px;

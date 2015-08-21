@@ -82,29 +82,47 @@ html
           // HEADER END
           // MAIN
           .main
-               .discounts
-                    .discount-description-container
-                         .ellement.head-open Медиа Маркт
-                         .ellement_sub
-                              .describe_shadow
-                              .accordion_description
-                                   .accordion_description_text
-                                        span.bold_text Скидка:
-                                        span.not_bold_text  10%
-                                        br
-                                        .accordion_description_space
-                                        span.bold_text Описание:
-                                        span.not_bold_text  описание скидки
-                                   .accordion_description_img
-                                        img.store-img(src='/resources/img/mediamarkt.png')
+               .disc-adv-wrapper
+                    .discounts
+                         .discount-description-container
+                              .ellement.head-open #{discount.storeName}
+                              .ellement_sub
+                                   .describe_shadow
+                                   .accordion_description
+                                        .accordion_description_text
+                                             span.bold_text Скидка:
+                                             span.not_bold_text  #{discount.percent}%
+                                             br
+                                             .accordion_description_space
+                                             span.bold_text Описание:
+                                             span.not_bold_text  #{discount.description}
+                                        .accordion_description_img
+                                             img.store-img(src='/resources/img/'+discount.storeImage)
 
-                              .prereg
-                                   |Для добавления скидки вам нужно
-                                   br
-                                   a(href="/registration")
-                                        .reg_button
-                                             |Зарегистрироваться
-               .advertisment
+                                   .prereg
+                                        |Для добавления скидки вам нужно
+                                        br
+                                        a(href="/registration")
+                                             .reg_button
+                                                  |Зарегистрироваться
+                    .advertisment
+                         span.adv-header
+                              p
+                              |DISCOUNT - первый сервис,
+                              br
+                              |который сэкономит деньги
+                         p.adv-text
+                              | Ресурс, который позволяет
+                              br
+                              |экономить вам и вашим близким.
+                         p.adv-text
+                              |Мы хотим, чтобы вы заботились
+                              br
+                              |о благосостоянии собственного
+                              br
+                              |кошелька и вспомнили о тех
+                              br
+                              |людях, которые вас окружают.
                .shadow
           // MAIN END
           // SCRIPTS
