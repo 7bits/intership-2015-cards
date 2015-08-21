@@ -28,7 +28,9 @@ function doAjaxPostSend(data) {
                 //$('#element_'+thisId+"_sub").remove();
             }
             else {
-                $('#infoBlock_send_'+thisId).html("Скидка успешно отправлена!");
+                setTimeout(function() {
+                    $('#infoBlock_send_'+thisId).html("Скидка успешно отправлена!");
+                },3000);
                 $('#ellement_'+thisId+'_sub').remove();
                 $('#ellement_'+thisId).remove();
 
