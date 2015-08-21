@@ -22,7 +22,7 @@ html
           // HEADER
           .header_container
                .header
-                    a(href='homepage')
+                    a(href='/homepage')
                          .header-image
                               img(src="/resources/img/logoOS.png")
                     .header-buttons
@@ -48,7 +48,7 @@ html
                                                             label Пароль
                                                             input.errorOutline(name="password", type="password")
                                                        .forget-password-href
-                                                            aforget(href="password_restore") Забыли пароль?
+                                                            a.forget(href="/password_restore") Забыли пароль?
                                                        input.yes(type="submit", value="Войти")
 
                                                        a.reg-href(href="/registration")
@@ -72,11 +72,11 @@ html
                               | Информация
                               ul.dropdown
                                    li
-                                        a(href='about') О проекте
+                                        a(href='/about') О проекте
                                    li
-                                        a(href='developers') Разработчики
+                                        a(href='/developers') Разработчики
                                    li
-                                        a(href='feedback') Поддержка
+                                        a(href='/feedback') Поддержка
           // HEADER END
           // MAIN
           .homepage_describe
@@ -103,7 +103,7 @@ html
                     img(src='/resources/img/question.png')
                     .question_text
                          |Если у вас возникнут сложности с работой нашего сервиса, пожалуйста, обращайтесь в&nbsp
-                         a(href='feedback') службу поддержки
+                         a(href='/feedback') службу поддержки
                          |, мы всегда рады вам помочь!
                     .copyright &copy 2015, Discount
                // MAIN END

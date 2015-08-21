@@ -206,7 +206,7 @@ public interface DiscountMapper {
     void addExistDiscountsByEmailFirst(@Param("email") String email, @Param("userId") String userId);
 
     //addExistDiscountsByEmail#2
-    @Update("UPDATE discounts SET backer_user_id = #{userId} WHERE email = #{email}")
+    @Update("UPDATE discounts SET backer_user_id = #{userId} WHERE email = #{email} AND backer_user_id=\'\'")
     void addExistDiscountsByEmailSecond(@Param("email") String email, @Param("userId") String userId);
 
 }
