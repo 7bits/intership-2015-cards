@@ -1,0 +1,117 @@
+body {
+	margin: 0;
+	outline: none;
+}
+
+.form {
+	margin: 0 auto;
+	padding: 35px;
+	width: 470px;
+	background-color: #3956a3;
+}
+
+.form__label {
+	display: block;
+	margin-bottom: 35px;
+	text-align: center;
+	font-size: 35px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.form__input {
+	width: 400px;
+	margin-bottom: 10px;
+}
+
+.input__label {
+	display: block;
+	font-family: Roboto;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+
+.input__input {
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 46px;
+}
+
+.input__button {
+	border: none;
+	border-radius: 3px;
+	border-bottom: solid 4px #de003c;
+	background-color: #ff466a;
+	height: 50px;
+	width: 100%;
+	margin-top: 15px;
+
+	font-size: 25px;
+	line-height: 50px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.form-style {
+	margin: 0 auto;
+	width: 500px;
+	background-color: blue;
+	color: #fff;
+}
+
+.form-style h2 {
+	text-align: center;
+}
+
+.form-style label {
+	margin-left: 20px;
+	display: block;
+}
+
+.form-style input {
+	border: none;
+	margin-left: 20px;
+	width: 460px;
+	outline: none;
+}
+
+.form-style textarea {
+	outline: none;
+	padding:0;
+	margin-left: 20px;
+	width: 460px;
+}
+
+.form-style input[type="button"] {
+	background-color: red;
+	color: #fff;
+	border-bottom: solid 4px orange;
+	border-radius: 3px;
+}
+
+.form-style {
+}
+
+@media only screen and (min-width: 320px) and (max-width: 500px) {
+	.form-style {
+		width: 300px;
+	}
+
+	.form-style label {
+		margin-left: 10px;
+		display: block;
+	}
+
+	.form-style input {
+		margin-left: 10px;
+		width: 280px;
+	}
+
+	.form-style textarea {
+		margin-left: 10px;
+		width: 280px;
+	}
+}
