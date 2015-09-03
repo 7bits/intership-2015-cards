@@ -57,11 +57,11 @@ public class CampaignController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
         if (errors.size() == 0) {
-            res.setStatus("SUCCESS");
             Campaign campaign = campaignService.save(addCampaignForm, storeName);
-            res.setResult(campaign);
             String description = "Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%";
             storeHistoryService.save(storeName, description);
+            res.setStatus("SUCCESS");
+            res.setResult(campaign);
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
