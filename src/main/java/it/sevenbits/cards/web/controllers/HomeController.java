@@ -1,8 +1,6 @@
 package it.sevenbits.cards.web.controllers;
-import it.sevenbits.cards.core.domain.AccountActivation;
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.service.*;
 import it.sevenbits.cards.service.validators.*;
 import it.sevenbits.cards.web.domain.forms.*;
@@ -132,7 +130,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registration/", method = RequestMethod.GET)
-    public String activatebyhash(@RequestParam(required = false) String hash, Model model) throws RepositoryException, ServiceException{
+    public String activatebyhash(@RequestParam(required = false) String hash, Model model) throws ServiceException{
         final Map<String, String> errors = accountActivateHashValidator.validate(hash);
         if (errors.size() ==0) {
             String email = activationService.findEmailByHash(hash);
