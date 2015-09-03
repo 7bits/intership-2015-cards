@@ -49,7 +49,7 @@ public class AdminController {
 
     //Add Store
     @RequestMapping(value = "/add_store", method=RequestMethod.GET)
-    public String addStore(Model model) throws ServiceException {
+    public String addStore(Model model){
         model.addAttribute("add", new AddStoreForm());
         return "home/add_store";
     }
