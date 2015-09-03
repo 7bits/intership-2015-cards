@@ -1,6 +1,22 @@
 server:
   port: 9000
+
 spring:
+  profiles: local
+  domain: localhost:9000
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cardsdb
+    username: admin
+    password: redline
+
+---
+
+server:
+  port: 9000
+
+spring:
+  profiles: staging
+  domain: discounts.7bits.it
   datasource:
     url: jdbc:postgresql://localhost:5432/cardsdb
     username: admin

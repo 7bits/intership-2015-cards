@@ -2,9 +2,6 @@ package it.sevenbits.cards.core.domain;
 
 import java.io.Serializable;
 
-/**
- * Created by taro on 27.07.15.
- */
 public class PasswordRestore implements Serializable {
     private String email;
     private String hash;

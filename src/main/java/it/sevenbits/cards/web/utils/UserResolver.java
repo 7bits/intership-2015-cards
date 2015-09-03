@@ -2,7 +2,7 @@ package it.sevenbits.cards.web.utils;
 
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.web.service.UserService;
+import it.sevenbits.cards.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

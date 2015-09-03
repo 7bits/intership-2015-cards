@@ -2,9 +2,6 @@ package it.sevenbits.cards.core.domain;
 
 import java.io.Serializable;
 
-/**
- * Created by deamor on 12.08.15.
- */
 public class AccountActivation implements Serializable {
     private String email;
     private String hash;

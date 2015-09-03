@@ -2,10 +2,11 @@ package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.core.domain.StoreHistory;
-import it.sevenbits.cards.web.domain.AddCampaignForm;
-import it.sevenbits.cards.web.domain.CampaignModel;
+import it.sevenbits.cards.web.domain.forms.AddCampaignForm;
+import it.sevenbits.cards.web.domain.models.CampaignModel;
 import it.sevenbits.cards.web.domain.JsonResponse;
-import it.sevenbits.cards.web.service.*;
+import it.sevenbits.cards.service.*;
+import it.sevenbits.cards.service.validators.AddCampaignFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -36,7 +37,7 @@ public class CampaignController {
     @Autowired
     private StoreHistoryService storeHistoryService;
 
-    private Logger LOG = Logger.getLogger(HomeController.class);
+    private Logger LOG = Logger.getLogger(CampaignController.class);
 
     //Add campaign
     @Secured("ROLE_STORE")
@@ -76,10 +77,13 @@ public class CampaignController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         List<CampaignModel> campaigns = campaignService.findAllActive(storeName);
-        if(campaigns.size()>10){
-            campaigns = campaigns.subList(campaigns.size()-10, campaigns.size());
+        //Should be use for Store History
+        int campaignsLenght = 10;
+        if(campaigns.size()>campaignsLenght){
+            campaigns = campaigns.subList(campaigns.size()-campaignsLenght, campaigns.size());
         }
         model.addAttribute("campaigns", campaigns);
+        //
         model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
         model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
         return "home/campaigns";

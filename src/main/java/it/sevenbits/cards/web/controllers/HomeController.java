@@ -1,36 +1,21 @@
 package it.sevenbits.cards.web.controllers;
 import it.sevenbits.cards.core.domain.AccountActivation;
 import it.sevenbits.cards.core.domain.Role;
-import it.sevenbits.cards.core.domain.Store;
-import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
-import it.sevenbits.cards.web.domain.*;
-import it.sevenbits.cards.web.service.*;
+import it.sevenbits.cards.service.*;
+import it.sevenbits.cards.service.validators.*;
+import it.sevenbits.cards.web.domain.forms.*;
+import it.sevenbits.cards.web.domain.JsonResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
-import java.net.Authenticator;
-import java.security.Principal;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -46,19 +31,10 @@ public class HomeController {
     private AccountActivationService activationService;
 
     @Autowired
-    private CampaignService campaignService;
-
-    @Autowired
-    private StoreHistoryService storeHistoryService;
-
-    @Autowired
     private PasswordRestoreService restoreService;
 
     @Autowired
     private RegistrationFormValidator registrationFormValidator;
-
-    @Autowired
-    private SettingsFormValidator settingsFormValidator;
 
     @Autowired
     private PasswordRestoreFormValidator passwordRestoreFormValidator;
@@ -73,12 +49,6 @@ public class HomeController {
     private AccountActivateHashValidator accountActivateHashValidator;
 
     @Autowired
-    private StoreService storeService;
-
-    @Autowired
-    private IdFormValidator idFormValidator;
-
-    @Autowired
     private FeedbackFormValidator feedbackFormValidator;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
@@ -86,6 +56,7 @@ public class HomeController {
     //Success
     @RequestMapping(value="/success",method = RequestMethod.GET)
     public String success(){
+        //NEED TO FIX THIS
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LOG.info(user.getRole());
         if(user.getRole().equals(Role.ROLE_ADMIN)) {
@@ -129,7 +100,6 @@ public class HomeController {
         return "home/homepage";
     }
 
-
     //About
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {return "home/about";}
@@ -145,7 +115,8 @@ public class HomeController {
 
     //Registration
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse registration(@ModelAttribute RegistrationForm registrationForm) throws ServiceException {
+    public @ResponseBody
+    JsonResponse registration(@ModelAttribute RegistrationForm registrationForm) throws ServiceException {
         final Map<String, String> errors = registrationFormValidator.validate(registrationForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() != 0) {
@@ -153,8 +124,7 @@ public class HomeController {
             res.setResult(errors);
         } else {
             userService.createUser(registrationForm);
-            AccountActivation activation = activationService.generateActivationHash(registrationForm);
-            activationService.sendEmail(activation);
+            activationService.sendEmail(activationService.generateActivationHash(registrationForm));
             res.setStatus("SUCCESS");
             res.setResult(null);
         }
@@ -166,15 +136,13 @@ public class HomeController {
         final Map<String, String> errors = accountActivateHashValidator.validate(hash);
         if (errors.size() ==0) {
             String email = activationService.findEmailByHash(hash);
-            String userId = userService.findUserIdByUserName(email);
             activationService.activateByHash(hash);
-            discountService.addExistDiscountsByEmail(email, userId);
+            discountService.addExistDiscountsByEmail(email, userService.findUserIdByUserName(email));
             model.addAttribute("accActivate", "Регистрация успешно завершена");
-        }else{
+        }else {
             return "redirect:/registration";
         }
         return "home/registration";
-
     }
 
     //Password Restore
@@ -182,6 +150,7 @@ public class HomeController {
     public String restorePassword() {return "home/password_restore";}
 
     //Password Restore
+    //Vlad should try to refactor it
     @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
     public String restorePasswordHash(@RequestParam String hash, Model model) {
         final Map<String, String> errors = hashValidator.validate(hash);
@@ -218,9 +187,9 @@ public class HomeController {
         JsonResponse res = new JsonResponse();
         final Map<String, String> errors = passwordRestoreFormValidator.validate(passwordRestoreForm);
         if (errors.size() == 0) {
+            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
             res.setStatus("SUCCESS");
             res.setResult(null);
-            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
@@ -233,6 +202,7 @@ public class HomeController {
     public String feedback(final Model model) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
+        //Can't remove logic from this function cuz we don't use services for it
         if (userName == "anonymousUser") {
             userName = "";
         }
@@ -246,97 +216,13 @@ public class HomeController {
         JsonResponse res = new JsonResponse();
         final Map<String, String> errors = feedbackFormValidator.validate(feedbackForm);
         if (errors.size() == 0) {
+            userService.sendMailToFeedback(feedbackForm);
             res.setStatus("SUCCESS");
             res.setResult(null);
-            userService.sendMailToFeedback(feedbackForm);
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
         }
-        int b = 3;
         return res;
-    }
-
-    //Personal Area Get Method
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/personal_area", method = RequestMethod.GET)
-    public String personalArea(final Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        model.addAttribute("userName", userName);
-
-        String userId = userService.findUserIdByUserName(userName);
-        model.addAttribute("userId", userId);
-        model.addAttribute("discountsForUse", discountService.findAllForUse(userId));
-        model.addAttribute("discountsForSend", discountService.findAllForSend(userId));
-        return "home/personal_area";
-    }
-
-    //Personal Area Post Method
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/personal_area", method = RequestMethod.POST)
-    public String personalAreaPost() throws ServiceException {
-        return "redirect:/personal_area";
-    }
-
-    //Store Area Get Method
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/store_area", method = RequestMethod.GET)
-    public String storePageNew(final Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
-        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
-        model.addAttribute("history", storeHistoryService.findAll(storeName));
-        model.addAttribute("storeImage", storeService.findStoreImageByStoreName(storeName));
-        return "home/store_area";
-    }
-
-    //Store Area Post Method
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/store_area", method = RequestMethod.POST)
-    public String storeAreaPost(final Model model) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
-        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
-        model.addAttribute("history", storeHistoryService.findAll(storeName));
-        model.addAttribute("storeImage", storeService.findStoreImageByStoreName(storeName));
-        return "home/store_area";
-    }
-
-    //Store Area Get Method
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/admin_area", method = RequestMethod.GET)
-    public String adminAreaGet(){
-        return "home/admin_area";
-    }
-
-    //Store Area Post Method
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/admin_area", method = RequestMethod.POST)
-    public String adminAreaPost() {
-        return "home/admin_area";
-    }
-
-    //Store Area Post Method
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/store_history", method = RequestMethod.GET)
-    public String storeHistory(final Model model) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        model.addAttribute("history", storeHistoryService.findAll(storeName));
-        return "home/store_history";
-    }
-
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/change_campaign_status", method = RequestMethod.POST)
-    public String changeCampaignEnableStatus(@ModelAttribute IdForm idForm) throws ServiceException{
-        final Map<String, String> errors = idFormValidator.validate(idForm.getId());
-        if(errors.size() == 0){
-            campaignService.changeCampaignEnableStatus(idForm.getId());
-        }
-        return "redirect:/store_area";
     }
 }

@@ -59,17 +59,17 @@ public class Campaign implements Serializable {
         this.enabled = enabled;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Campaign[id=%d, storeName=%s, name=%s, description=%s, percent=%d, enabled=%b, backerPercent=%d]",
-                id, storeName, name, description, percent, enabled, backerPercent);
-    }
-
     public int getBackerPercent() {
         return backerPercent;
     }
 
     public void setBackerPercent(int backerPercent) {
         this.backerPercent = backerPercent;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Campaign[id=%d, storeName=%s, name=%s, description=%s, percent=%d, enabled=%b, backerPercent=%d]",
+                id, storeName, name, description, percent, enabled, backerPercent);
     }
 }

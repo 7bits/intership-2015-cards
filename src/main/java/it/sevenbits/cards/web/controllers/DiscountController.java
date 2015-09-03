@@ -1,11 +1,11 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.domain.DiscountHash;
 import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.core.repository.RepositoryException;
-import it.sevenbits.cards.web.domain.*;
-import it.sevenbits.cards.web.service.*;
+import it.sevenbits.cards.service.*;
+import it.sevenbits.cards.service.validators.*;
+import it.sevenbits.cards.web.domain.forms.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -53,10 +53,10 @@ public class DiscountController {
     private DiscountByCampaignFormValidator discountByCampaignFormValidator;
 
     @Autowired
-    private GenerateKey generateKey;
+    private GenerateKeyService generateKeyService;
 
     @Autowired
-    private GenerateUin generateUin;
+    private GenerateUinService generateUinService;
 
     @Autowired
     private StoreHistoryService storeHistoryService;
@@ -70,8 +70,9 @@ public class DiscountController {
     @Autowired
     private EmailExistValidator emailExistValidator;
 
-    private Logger LOG = Logger.getLogger(HomeController.class);
+    private Logger LOG = Logger.getLogger(DiscountController.class);
 
+    //Add Discount by social networks
     @Secured("ROLE_USER")
     @RequestMapping(value = "/social_add_discount/", method = RequestMethod.GET)
     public String social_add_discount(@RequestParam String uin) throws ServiceException{
@@ -80,6 +81,7 @@ public class DiscountController {
         discountService.changeUserId(uin, userService.findUserIdByUserName(userName));
         return "redirect:/personal_area";
     }
+
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
@@ -91,18 +93,17 @@ public class DiscountController {
         if (errors.size() == 0) {
             discountService.createFeedbackDiscountAfterUse(useForm.getKey());
             discountService.delete(useForm.getKey(), storeName);
+            String description = "Использована скидка с ключом " + useForm.getKey().toString();
+            storeHistoryService.save(storeName, description);
             res.setStatus("SUCCESS");
             res.setResult(null);
-            StoreHistory storeHistory = new StoreHistory();
-            storeHistory.setStoreName(storeName);
-            storeHistory.setDescription("Использована скидка с ключом " + useForm.getKey().toString());
-            storeHistoryService.save(storeHistory);
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
         }
         return res;
     }
+
     //Show All Discounts
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
@@ -110,6 +111,7 @@ public class DiscountController {
         model.addAttribute("discounts", discountService.findAll());
         return "home/discounts";
     }
+
     //Save discount after add and show all discounts
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
@@ -126,6 +128,7 @@ public class DiscountController {
         }
         return res;
     }
+
     //Create discount by campaign
     @Secured("ROLE_STORE")
     @RequestMapping(value="/create_discount_by_campaign", method = RequestMethod.POST)
@@ -136,8 +139,8 @@ public class DiscountController {
         final Map<String, String> errors = discountByCampaignFormValidator.validate(discountByCampaignForm);
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
-            String generatedKey = generateKey.random();
-            String generatedUin = generateUin.random();
+            String generatedKey = generateKeyService.random();
+            String generatedUin = generateUinService.random();
             discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
             Discount discount = discountService.findDiscountByUin(generatedUin);
             final Map<String, String> exist = emailExistValidator.validate(discountByCampaignForm.getEmail());
@@ -147,12 +150,10 @@ public class DiscountController {
             else{
                 notificationService.notificateCreateIfExist(discountByCampaignForm,discount.getId());
             }
+            String description = "Скидка сгенерирована кампанией " + discountByCampaignForm.getName() + " и отправлена пользователю " + discountByCampaignForm.getEmail();
+            storeHistoryService.save(storeName, description);
             res.setStatus("SUCCESS");
             res.setResult(null);
-            StoreHistory storeHistory = new StoreHistory();
-            storeHistory.setStoreName(storeName);
-            storeHistory.setDescription("Скидка сгенерирована кампанией " + discountByCampaignForm.getName() + " и отправлена пользователю " + discountByCampaignForm.getEmail());
-            storeHistoryService.save(storeHistory);
         }
         else{
             res.setStatus("FAIL");
@@ -160,34 +161,19 @@ public class DiscountController {
         }
         return res;
     }
-    //Generate discount
-    //DEAD METHOD
-    @Secured("ROLE_STORE")
-    @RequestMapping(value="/generate_discount", method = RequestMethod.POST)
-    public String generateDiscount(@ModelAttribute GenerateDiscountForm generateDiscountForm, Model model) throws ServiceException, RepositoryException{
-        final Map<String, String> errors = generateDiscountFormValidator.validate(generateDiscountForm);
-        if (errors.size() != 0) {
-            model.addAttribute("errors", errors);
-            return "redirect:/store_area";
-        }
-        String generatedKey= generateKey.random();
-        String generatedUin= generateUin.random();
-        discountService.generateDiscount(generateDiscountForm, generatedKey, generatedUin);
-        return "redirect:/store_area";
-    }
+
     //Add discount
-    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/add_discount", method=RequestMethod.GET)
     public String addDiscount(Model model) throws ServiceException{
         model.addAttribute("add", new DiscountForm());
         return "home/add_discount";
     }
+
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
     public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm sendForm) throws ServiceException {
         final Map<String, String> errors = sendFormValidator.validate(sendForm);
-        LOG.info("после валидации формы");
         JsonResponse res = new JsonResponse();
         if (errors.size() == 0) {
             String userId;
@@ -196,10 +182,6 @@ public class DiscountController {
             } catch (Exception e) {
                 userId = "";
             }
-            if(userId==null){
-                userId = "";
-            }
-            LOG.info(userId);
             discountService.send(userId, sendForm.getUin(), sendForm.getEmail());
             Discount discount = discountService.findDiscountByUin(sendForm.getUin());
             final Map<String, String> exist = emailExistValidator.validate(sendForm.getEmail());
@@ -241,10 +223,8 @@ public class DiscountController {
     public String activatebyhash(@RequestParam String hash, Model model) throws ServiceException{
         final Map<String, String> errors = discountHashValidator.validate(hash);
         if (errors.size() ==0) {
-            Long discountId = discountHashService.findIdByHash(hash);
             discountHashService.delete(hash);
-            Discount discount = discountService.findDiscountById(discountId);
-            model.addAttribute("discount", discount);
+            model.addAttribute("discount", discountService.findDiscountById(discountHashService.findIdByHash(hash)));
             return "home/discount_info";
         }
         else{

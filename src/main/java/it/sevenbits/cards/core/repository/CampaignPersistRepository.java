@@ -1,7 +1,6 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.core.mappers.CampaignMapper;
-import it.sevenbits.cards.web.domain.CampaignModel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,7 +1,6 @@
 package it.sevenbits.cards.core.repository;
 
 import it.sevenbits.cards.core.domain.Campaign;
-import it.sevenbits.cards.web.domain.CampaignModel;
 
 import java.util.List;
 

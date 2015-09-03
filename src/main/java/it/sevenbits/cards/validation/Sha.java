@@ -2,9 +2,6 @@ package it.sevenbits.cards.validation;
 import java.security.*;
 import java.util.Random;
 
-/**
- * Created by taro on 27.07.15.
- */
 public class Sha {
     public static String hash256() throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");

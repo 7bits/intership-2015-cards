@@ -1,8 +1,6 @@
 package it.sevenbits.cards.core.domain;
 import org.springframework.security.core.GrantedAuthority;
-/**
- * Created by deamor on 20.07.15.
- */
+
 public enum Role implements GrantedAuthority {
     ROLE_ADMIN (0, "Admin"),
     ROLE_USER (2, "User"),

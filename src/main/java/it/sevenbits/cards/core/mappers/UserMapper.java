@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 
 public interface UserMapper {
 
+    //Find User by userName
     @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
             "FROM users\n" +
             "WHERE email=#{userName}")
@@ -22,6 +23,7 @@ public interface UserMapper {
     })
     User findByUsername(@Param("userName") String userName);
 
+    //Find User by Id
     @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
             "FROM users\n" +
             "WHERE id=#{id}")
@@ -35,28 +37,34 @@ public interface UserMapper {
     })
     User findById(@Param("id") Long id);
 
+    //Save User
     @Insert("INSERT INTO users (email, user_id, password_hash, role)\n" +
             "VALUES (#{email}, #{userId}, #{password}, 'ROLE_USER')")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(User user);
 
+    //Find max userId
     @Select("SELECT max(user_id)\n" +
             "FROM users")
     @Result(column = "user_id")
     String maxUserId();
 
+    //Find userId by userName
     @Select("SELECT user_id\n" +
             "FROM users\n" +
             "WHERE email=#{userName}")
     @Result(column = "user_id")
     String findUserIdByUserName(@Param("userName") String userName);
 
+    //Change user role by userId
     @Update("UPDATE users SET role =#{userRole} WHERE user_id = #{userId}")
     void changeUserRoleByUserId(@Param("userRole") String userRole, @Param("userId") String userId);
 
+    //Activate user
     @Update("UPDATE users SET enabled = TRUE WHERE email = #{email}")
     void enableUserByEmail(@Param("email") String email);
 
+    //Find createAtTime by email
     @Select("SELECT created_at\n" +
             "FROM users\n" +
             "WHERE email=#{email}")

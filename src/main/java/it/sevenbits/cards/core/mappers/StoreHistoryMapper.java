@@ -1,12 +1,12 @@
 package it.sevenbits.cards.core.mappers;
 
-
 import it.sevenbits.cards.core.domain.StoreHistory;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 public interface StoreHistoryMapper {
+
     //FindAll
     @Select("SELECT id, store_name, description , created_at FROM store_history WHERE store_name = #{storeName}")
     @Results({
@@ -17,6 +17,7 @@ public interface StoreHistoryMapper {
 
     })
     List<StoreHistory> findAll(@Param("storeName") String storeName);
+
     //Save
     @Insert("INSERT INTO store_history (store_name, description) VALUES (#{storeName}, #{description})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")

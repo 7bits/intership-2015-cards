@@ -1,10 +1,8 @@
 package it.sevenbits.cards.core.mappers;
 
-/**
- * Created by deamor on 12.08.15.
- */
 import it.sevenbits.cards.core.domain.AccountActivation;
 import org.apache.ibatis.annotations.*;
+
 public interface AccountActivationMapper {
     @Insert("INSERT INTO account_activation (email, hash) VALUES (#{email}, #{hash})")
     void save(final AccountActivation accountActivation);
