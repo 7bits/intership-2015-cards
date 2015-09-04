@@ -94,7 +94,7 @@ public class AccountActivationService {
         try {
             userRepository.enableUserByEmail(email);
         } catch (Exception e) {
-            throw new ServiceException("An error occurred while enabling : " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while enabling user by email: " + e.getMessage(), e);
         }
     }
     public String findEmailByHash(String hash) throws ServiceException {
