@@ -2,7 +2,6 @@ package it.sevenbits.cards.service;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.DiscountRepository;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.web.domain.forms.DiscountByCampaignForm;
 import it.sevenbits.cards.web.domain.forms.DiscountForm;
