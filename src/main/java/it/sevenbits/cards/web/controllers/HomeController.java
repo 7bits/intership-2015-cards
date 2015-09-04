@@ -150,7 +150,7 @@ public class HomeController {
     //Password Restore
     //Vlad should try to refactor it
     @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
-    public String restorePasswordHash(@RequestParam String hash, Model model) {
+    public String restorePasswordHash(@RequestParam String hash, Model model) throws ServiceException{
         final Map<String, String> errors = hashValidator.validate(hash);
         if (errors.size()==0) {
             if (hash.substring(0, 6).equals("delete")) {

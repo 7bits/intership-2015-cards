@@ -3,7 +3,6 @@ package it.sevenbits.cards.service;
 import it.sevenbits.cards.core.domain.AccountActivation;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.AccountActivationRepository;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.validation.Sender;
 import it.sevenbits.cards.validation.Sha;
@@ -38,34 +37,34 @@ public class AccountActivationService {
     }
 
 
-    public AccountActivation generateActivationHash(RegistrationForm form) throws ServiceException{
+    public AccountActivation generateActivationHash(RegistrationForm form) throws ServiceException {
+        AccountActivation accountActivation = new AccountActivation();
+        accountActivation.setEmail(form.getEmail());
         try {
-            user = userRepository.findByUsername(form.getEmail());
-        } catch (RepositoryException e) {
-            LOG.error("user doesn't exist1");
+            accountActivation.setHash(Sha.hash256());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-        if (user == null) {
-            LOG.error("user doesn't exist");
-            return null;
+        String hash = null;
+        try{
+            activationRepository.findHashByEmail(accountActivation.getEmail());
+        }catch (Exception e){
+            throw new ServiceException("An error occurred while finding hash by email: " + e.getMessage(), e);
+        }
+        if (hash == null) {
+            try {
+                activationRepository.save(accountActivation);
+            }catch (Exception e){
+                throw new ServiceException("An error occurred while saving account activation: " + e.getMessage(), e);
+            }
         } else {
-            AccountActivation activation = new AccountActivation();
-            activation.setEmail(form.getEmail());
             try {
-                activation.setHash(Sha.hash256());
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                activationRepository.updateHash(accountActivation.getHash(), accountActivation.getEmail());
+            }catch (Exception e){
+                throw new ServiceException("An error occurred while updating hash: " + e.getMessage(), e);
             }
-            try {
-                if(activationRepository.findHashByEmail(activation.getEmail()) == null) {
-                    activationRepository.save(activation);
-                } else {
-                    activationRepository.updateHash(activation.getHash(), activation.getEmail());
-                }
-            } catch (RepositoryException e) {
-                e.printStackTrace();
-            }
-            return activation;
         }
+        return accountActivation;
     }
     @Async
     public void sendEmail(AccountActivation accountActivation) throws ServiceException {
@@ -80,19 +79,22 @@ public class AccountActivationService {
 //                    "http://discounts.7bits.it/registration/?hash=" + accountActivation.getHash(), accountActivation.getEmail());
         }
     }
-    public void activateByHash(String hash) {
+    public void activateByHash(String hash) throws ServiceException{
         String email = null;
         try {
             email = activationRepository.findEmailByHash(hash);
-        } catch (RepositoryException e) {
-            LOG.error("Activation finding email by hash exception.");
+        } catch (Exception e){
+            throw new ServiceException("An error occurred while finding email by hash: " + e.getMessage(), e);
         }
         try {
-            LOG.info(email);
             activationRepository.delete(email);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while deleting by email: " + e.getMessage(), e);
+        }
+        try {
             userRepository.enableUserByEmail(email);
-        } catch (RepositoryException e) {
-            LOG.error("Activation deleting exception");
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while enabling : " + e.getMessage(), e);
         }
     }
     public String findEmailByHash(String hash) throws ServiceException {
