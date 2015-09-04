@@ -1,32 +1,97 @@
+doctype html
 html
-     head
-          meta(charset='UTF-8')
-          block head
-               title Cards
+    head
+        meta(charset='UTF-8')
+        block head
 
-               meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
 
-               link(rel="stylesheet", href="vendor/stylesheets/bootstrap.min.css")
-               link(rel="stylesheet", href="vendor/stylesheets/bootstrap-theme.min.css")
-               link(rel="stylesheet", href="stylesheets/app.css")
-               link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
+        link(rel="stylesheet", href="vendor/stylesheets/bootstrap.min.css")
+        link(rel="stylesheet", href="vendor/stylesheets/bootstrap-theme.min.css")
+        link(rel="stylesheet", href="stylesheets/app.css")
+        link(rel='shortcut icon', href='/resources/img/logoM.png', type="image/png")
 
-               script(type="application/javascript", src="vendor/scripts/jquery-2.1.4.min.js")
-               script(type="application/javascript", src="vendor/scripts/bootstrap.min.js")
+        meta(name="_csrf", content="#{_csrf.token}")
+        meta(name="_csrf_header", content="#{_csrf.headerName}")
 
-               link(rel="stylesheet", href="/resources/vendor/stylesheets/bootstrap.min.css")
-               link(rel="stylesheet", href="/resources/vendor/stylesheets/bootstrap-theme.min.css")
+        script(type="application/javascript", src="/resources/vendor/scripts/jquery-2.1.4.min.js")
+        script(type="application/javascript", src="/resources/vendor/scripts/bootstrap.min.js")
 
-               meta(name="_csrf", content="#{_csrf.token}")
-               meta(name="_csrf_header", content="#{_csrf.headerName}")
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
+        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
+        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
+        script(src='http://code.jquery.com/jquery-latest.js')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
+        script(src='/resources/scripts/modernizr.custom.js')
+        script(src='/resources/scripts/registrationValidation.js')
+        script(src='/resources/scripts/jquery-1.9.1.js')
+        // BOOTSTRAP END
+        link(href='/resources/stylesheets/style.css', rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/feedback.css')
 
-               script(type="application/javascript", src="/resources/vendor/scripts/jquery-2.1.4.min.js")
-               script(type="application/javascript", src="/resources/vendor/scripts/bootstrap.min.js")
 
-
-     body
-          .container
-               block content
+    body
+        // HEADER
+        .header_container
+            .header
+                a(href='homepage')
+                    .header-image
+                        img(src="/resources/img/logoOS.png")
+                .header-buttons
+                    .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-logout
+                        if !(security.isUserInRole("ROLE_USER") || security.isUserInRole("ROLE_ADMIN") || security.isUserInRole("ROLE_STORE"))
+                            button#login(type='button') Войти
+                            .morph-content
+                                .content-style-form.content-style-form-1
+                                    span.icon.icon-close Закрыть окно
+                                    h2 Войти
+                                    if param.error
+                                        .aler.alert-danger
+                                            p= param.error
+                                    form(action="/login", method="post")
+                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                        if loginError
+                                            #loginErrorMessage.errors
+                                        .form-group
+                                            label Email
+                                            input.errorOutline(name="username", type="text")
+                                        .form-group
+                                            label Пароль
+                                            input.errorOutline(name="password", type="password")
+                                        .forget-password-href
+                                            a(href="password_restore") Забыли пароль?
+                                        input.yes(type="submit", value="Войти")
+                                        a.reg-href(href="registration")
+                                            .registrarion-btn
+                                                Регистрация
+                        else
+                            if security.isUserInRole("ROLE_USER")
+                                form(action="/personal_area", method="post")
+                                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                    input.exit-button(type='submit', value="ЛК")
+                            if security.isUserInRole("ROLE_ADMIN")
+                                form(action="/admin_area", method="post")
+                                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                    input.exit-button(type='submit', value="ЛК")
+                            if security.isUserInRole("ROLE_STORE")
+                                form(action="/store_area", method="post")
+                                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                    input.exit-button(type='submit', value="ЛК")
+                    #js_info_button.info-button(tabindex='1')
+                        | Информация
+                        ul.dropdown
+                            li
+                                a(href='about') О проекте
+                            li
+                                a(href='developers') Разработчики
+                            li
+                                a(href='feedback') Поддержка
+        // HEADER END
+        // MAIN
+        block body
 
 
 
