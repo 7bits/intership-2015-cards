@@ -181,7 +181,7 @@ public class DiscountService {
         try {
             userId = userRepository.findUserIdByUserName(generateDiscountForm.getUserName());
         }catch (Exception e){
-            throw new ServiceException("An error occured while finding user id by user name: " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while finding user id by user name: " + e.getMessage(), e);
         }
         discount.setUserId(userId);
         discount.setStoreName(generateDiscountForm.getStoreName());
