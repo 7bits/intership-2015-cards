@@ -41,7 +41,7 @@ public class CustomerController {
 
     //Personal Area Post Method
     @RequestMapping(value = "/personal_area", method = RequestMethod.POST)
-    public String personalAreaPost() throws ServiceException {
+    public String personalAreaPost(){
         return "redirect:/personal_area";
     }
 }

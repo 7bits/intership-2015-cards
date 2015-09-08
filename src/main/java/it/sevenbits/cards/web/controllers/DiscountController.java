@@ -1,8 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
-import it.sevenbits.cards.core.domain.StoreHistory;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.service.*;
 import it.sevenbits.cards.service.validators.*;
 import it.sevenbits.cards.web.domain.forms.*;
@@ -132,7 +130,7 @@ public class DiscountController {
     //Create discount by campaign
     @Secured("ROLE_STORE")
     @RequestMapping(value="/create_discount_by_campaign", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException, RepositoryException{
+    public @ResponseBody JsonResponse createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         String storeImage = storeService.findStoreImageByStoreName(storeName);

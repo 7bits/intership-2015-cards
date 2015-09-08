@@ -32,7 +32,7 @@ public class AccountActivationRepository {
 
     public String findEmailByHash(String hash) throws RepositoryException {
         if (hash == null) {
-            throw new RepositoryException("hash is empty");
+            throw new RepositoryException("Hash is empty");
         }
         try {
             return activationMapper.findEmailByHash(hash);

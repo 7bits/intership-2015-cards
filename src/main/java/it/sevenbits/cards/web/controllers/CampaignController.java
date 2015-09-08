@@ -1,7 +1,6 @@
 package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Campaign;
-import it.sevenbits.cards.core.domain.StoreHistory;
 import it.sevenbits.cards.web.domain.forms.AddCampaignForm;
 import it.sevenbits.cards.web.domain.models.CampaignModel;
 import it.sevenbits.cards.web.domain.JsonResponse;
@@ -57,13 +56,11 @@ public class CampaignController {
         String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
         final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
         if (errors.size() == 0) {
-            res.setStatus("SUCCESS");
             Campaign campaign = campaignService.save(addCampaignForm, storeName);
+            String description = "Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%";
+            storeHistoryService.save(storeName, description);
+            res.setStatus("SUCCESS");
             res.setResult(campaign);
-            StoreHistory storeHistory = new StoreHistory();
-            storeHistory.setStoreName(storeName);
-            storeHistory.setDescription("Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%");
-            storeHistoryService.save(storeName,"");
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
