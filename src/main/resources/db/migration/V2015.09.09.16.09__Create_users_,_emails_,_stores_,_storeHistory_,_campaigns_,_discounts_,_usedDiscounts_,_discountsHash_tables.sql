@@ -1,0 +1,67 @@
+CREATE TABLE users (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "email" VARCHAR(255) NOT NULL UNIQUE,
+  "password_hash" VARCHAR(255) NOT NULL,
+  "role" VARCHAR(255) NOT NULL,
+  "enabled" BOOLEAN NOT NULL DEFAULT false,
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
+  "updated_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE emails (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "email" VARCHAR(255) NOT NULL UNIQUE REFERENCES users(email),
+  "hash" VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE stores (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "user_id" BIGSERIAL NOT NULL REFERENCES users(id),
+  "store_name" VARCHAR(255) NOT NULL UNIQUE,
+  "store_image" VARCHAR(255) NOT NULL,
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE stores_history (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "store_id" BIGSERIAL NOT NULL REFERENCES stores(id),
+  "action" VARCHAR(255) NOT NULL,
+  "subject" VARCHAR(255) NOT NULL,
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE campaigns (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "store_id" BIGSERIAL NOT NULL REFERENCES stores(id),
+  "name" VARCHAR(255) NOT NULL,
+  "description" VARCHAR(255) NOT NULL,
+  "percent" INT NOT NULL,
+  "backer_percent" INT NOT NULL,
+  "enabled" BOOLEAN NOT NULL DEFAULT TRUE,
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE discounts (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "key" VARCHAR(8) NOT NULL UNIQUE,
+  "is_hidden" BOOLEAN DEFAULT true NOT NULL,
+  "email" VARCHAR(255) NOT NULL REFERENCES users(email),
+  "backer_email" VARCHAR(255) NOT NULL REFERENCES users(email),
+  "campaign_id" BIGSERIAL NOT NULL REFERENCES campaigns(id),
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE used_discounts (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "email" VARCHAR(255) NOT NULL REFERENCES users(email),
+  "backer_email" VARCHAR(255) NOT NULL REFERENCES users(email),
+  "campaign_id" BIGSERIAL NOT NULL REFERENCES campaigns(id),
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+CREATE TABLE discounts_hash (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "discount_id" BIGSERIAL NOT NULL REFERENCES users(id),
+  "hash" VARCHAR(255) NOT NULL
+);
+

@@ -1,1 +1,0 @@
-ALTER TABLE discounts ADD "store_image" VARCHAR(255) NOT NULL;

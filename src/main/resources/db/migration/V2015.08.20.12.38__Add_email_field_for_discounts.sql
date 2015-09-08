@@ -1,1 +1,0 @@
-ALTER TABLE discounts ADD "email" VARCHAR(255);
