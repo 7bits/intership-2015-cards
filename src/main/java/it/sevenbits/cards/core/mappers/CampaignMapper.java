@@ -6,13 +6,27 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface CampaignMapper {
+    /*
+    private Long id;
+    private Long storeId;
+    private String name;
+    private String description;
+    private Long percent;
+    private Long backerPercent;
+    private Boolean enabled;
+    private Timestamp createdAt;
+    */
+
     //Save
-    @Insert("INSERT INTO campaigns (store_id, name, description, percent, backer_percent) VALUES (#{store_id}, #{name}, #{description}, #{percent}, #{backer_percent}")
+    @Insert("INSERT INTO campaigns (store_id, name, description, percent, backer_percent)\n" +
+            "VALUES (#{store_id}, #{name}, #{description}, #{percent}, #{backer_percent}")
     @Options(useGeneratedKeys = true)
     void save(final Campaign campaign);
 
-    //Find All Active
-    @Select("SELECT id, store_id, name, description, percent, backer_percent, enabled, created_at FROM campaigns WHERE enabled = #{enabled} and store_id = #{storeId}")
+    //Find All
+    @Select("SELECT id, store_id, name, description, percent, backer_percent, enabled, created_at\n" +
+            "FROM campaigns INNER JOIN stores on campaigns.store_id = stores.id\n +" +
+            "WHERE enabled = #{enabled} AND stores.user_id = (select id from users where email=#{email}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "store_id", property = "storeId"),
@@ -23,7 +37,7 @@ public interface CampaignMapper {
             @Result(column = "enabled", property = "enabled"),
             @Result(column = "created_at", property = "createdAt")
     })
-    List<Campaign> findAllWithEnabledStatus(@Param("storeId") Long storeId, @Param("enabled") Boolean enabled);
+    List<Campaign> findAllWithEnabledStatus(@Param("email") String email, @Param("enabled") Boolean enabled);
 
     //Change campaign enable status
     @Update("UPDATE campaigns SET enabled = not enabled where id = #{id}")

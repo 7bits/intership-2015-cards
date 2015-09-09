@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CampaignRepository {
     void save(final Campaign campaign) throws RepositoryException;
-    List<Campaign> findAllWithEnabledStatus(Long storeId, Boolean enabled) throws RepositoryException;
+    List<Campaign> findAllWithEnabledStatus(String email, Boolean enabled) throws RepositoryException;
     void changeEnableStatus(Long id) throws RepositoryException;
 }

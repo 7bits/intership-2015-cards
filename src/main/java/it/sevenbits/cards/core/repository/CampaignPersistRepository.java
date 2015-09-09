@@ -29,15 +29,15 @@ public class CampaignPersistRepository implements CampaignRepository {
     }
 
     @Override
-    public List<Campaign> findAllWithEnabledStatus(Long storeId, Boolean enabled) throws RepositoryException {
-        if (storeId == null) {
-            throw new RepositoryException("StoreId is null");
+    public List<Campaign> findAllWithEnabledStatus(String email, Boolean enabled) throws RepositoryException {
+        if (email == null) {
+            throw new RepositoryException("Email is null");
         }
         if (enabled == null) {
             throw new RepositoryException("Enabled is null");
         }
         try {
-            return campaignMapper.findAllWithEnabledStatus(storeId, enabled);
+            return campaignMapper.findAllWithEnabledStatus(email, enabled);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while finding campaign with enabled status: " + e.getMessage(), e);
         }

@@ -34,9 +34,9 @@ public class CampaignService {
         }
     }
 
-    public List<CampaignModel> findAllActive(Long storeId, Boolean enabled) throws ServiceException {
+    public List<CampaignModel> findAll(String email, Boolean enabled) throws ServiceException {
         try {
-            List<Campaign> campaigns = campaignRepository.findAllWithEnabledStatus(storeId, enabled);
+            List<Campaign> campaigns = campaignRepository.findAllWithEnabledStatus(email, enabled);
             List<CampaignModel> models = new ArrayList<>(campaigns.size());
             for (Campaign c: campaigns) {
                 models.add(new CampaignModel(
@@ -52,28 +52,9 @@ public class CampaignService {
             throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
-
-    public List<CampaignModel> findAllNotActive(String storeName) throws ServiceException {
-        try {
-            List<Campaign> campaigns = campaignRepository.findAllNotActive(storeName);
-            List<CampaignModel> models = new ArrayList<>(campaigns.size());
-            for (Campaign c: campaigns) {
-                models.add(new CampaignModel(
-                        c.getId(),
-                        c.getName(),
-                        c.getDescription(),
-                        Integer.toString(c.getPercent()),
-                        Integer.toString(c.getBackerPercent())
-                ));
-            }
-            return models;
-        } catch (Exception e) {
-            throw new ServiceException("An error occurred while retrieving discounts: " + e.getMessage(), e);
-        }
-    }
     public void changeCampaignEnableStatus(String id) throws ServiceException{
         try {
-            campaignRepository.changeCampaignEnableStatus(Long.parseLong(id));
+            campaignRepository.changeEnableStatus(Long.parseLong(id));
         } catch (Exception e) {
             throw new ServiceException("An error occurred while changing campaign status: " + e.getMessage(), e);
         }
