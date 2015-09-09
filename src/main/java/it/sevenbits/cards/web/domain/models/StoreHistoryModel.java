@@ -7,16 +7,14 @@ import java.util.Date;
 public class StoreHistoryModel {
     private Long id;
     private Long storeId;
-    private String action;
-    private String subject;
+    private String description;
     private Date createdAt;
 
 
-    public StoreHistoryModel(Long id, Long storeId, String action, String subject, Date createdAt) {
+    public StoreHistoryModel(Long id, Long storeId, String description, Date createdAt) {
         this.id = id;
         this.storeId = storeId;
-        this.action = action;
-        this.subject = subject;
+        this.description = description;
         this.createdAt = createdAt;
     }
 
@@ -45,26 +43,18 @@ public class StoreHistoryModel {
         this.storeId = storeId;
     }
 
-    public String getAction() {
-        return action;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return String.format("StoryHistoryModel[id=%d,storeId=%d, action=%s, subject=%s, createdAt=%s]",
-                id, storeId, action, subject, createdAt.toString());
+        return String.format("StoryHistoryModel[id=%d,storeId=%d, description=%s, createdAt=%s]",
+                id, storeId, description, createdAt.toString());
     }
 }
 

@@ -28,8 +28,7 @@ public class StoreHistoryService {
                 models.add(new StoreHistoryModel(
                         h.getId(),
                         h.getStoreId(),
-                        h.getAction(),
-                        h.getSubject(),
+                        h.getDescription(),
                         h.getCreatedAt()
                 ));
             }
@@ -38,11 +37,10 @@ public class StoreHistoryService {
             throw new ServiceException("An error occurred while retrieving history: " + e.getMessage(), e);
         }
     }
-    public void save(Long storeId, String action, String subject) throws ServiceException {
+    public void save(Long storeId, String description) throws ServiceException {
         StoreHistory storeHistory = new StoreHistory();
         storeHistory.setStoreId(storeId);
-        storeHistory.setAction(action);
-        storeHistory.setSubject(subject);
+        storeHistory.setDescription(description);
         try {
             storeHistoryRepository.save(storeHistory);
         } catch (Exception e) {
