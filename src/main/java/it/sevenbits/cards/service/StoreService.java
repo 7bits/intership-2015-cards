@@ -26,11 +26,11 @@ public class StoreService {
         }
     }
 
-    public Store findByUserId(String userId) throws ServiceException {
+    public Store findByEmail(String email) throws ServiceException {
         try {
-            return repository.findByUserId(userId);
+            return repository.findByEmail(email);
         } catch (Exception e) {
-            throw new ServiceException("An error occurred while finding store by user id: " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while finding store by email: " + e.getMessage(), e);
         }
     }
 }

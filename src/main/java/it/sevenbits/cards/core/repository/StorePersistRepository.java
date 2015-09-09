@@ -25,11 +25,11 @@ public class StorePersistRepository implements StoreRepository {
     }
 
     @Override
-    public Store findByUserId(String userId) throws RepositoryException{
+    public Store findByEmail(String email) throws RepositoryException{
         try {
-            return mapper.findByUserId(userId);
+            return mapper.findByEmail(email);
         } catch (Exception e) {
-            throw new RepositoryException("findStoreByUserId error: " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while finding store by email: " + e.getMessage(), e);
         }
     }
 }

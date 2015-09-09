@@ -4,6 +4,6 @@ import it.sevenbits.cards.core.domain.Store;
 
 public interface StoreRepository {
     void save(final Store store) throws RepositoryException;
-    Store findByUserId(String userId) throws RepositoryException;
+    Store findByEmail(String email) throws RepositoryException;
 }
 
