@@ -26,19 +26,11 @@ public class StoreService {
         }
     }
 
-    public Store findStoreByUserId(String userId) throws ServiceException {
-        Store store;
+    public Store findByUserId(String userId) throws ServiceException {
         try {
-            store = repository.findByUserId(userId);
-            if (store == null) {
-                store = new Store();
-                store.setUserId(userId);
-                store.setStoreName("unknown");
-                store.setStoreImage("Empty");
-            }
-            return store;
+            return repository.findByUserId(userId);
         } catch (Exception e) {
-            throw new ServiceException("findStoreByUserId error: " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while finding store by user id: " + e.getMessage(), e);
         }
     }
 }
