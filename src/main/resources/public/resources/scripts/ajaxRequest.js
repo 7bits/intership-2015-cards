@@ -20,6 +20,9 @@ function submit() {
         $('.input__input-error').each(function() {
             $(this).removeClass('input__input-error').addClass('input__input');
         });
+        $('.input__input-error').each(function() {
+            $(this).removeClass('input__input-textarea-error').addClass('input__input');
+        });
         $.ajax({
             type: "POST",
             data: data,
@@ -29,6 +32,8 @@ function submit() {
                         if (response.result.hasOwnProperty(p)) {
                             pressedButton.find(".input__input[name='" + p + "']").addClass('input__input-error').removeClass('input__input');
                             pressedButton.find(".input__input-error[name='" + p + "']").parent().find('.input__error').html(response.result[p]);
+                            pressedButton.find(".input__input-textarea[name='" + p + "']").addClass('input__input-textarea-error').removeClass('input__input-textarea');
+                            pressedButton.find(".input__input-textarea-error[name='" + p + "']").parent().find('.input__error').html(response.result[p]);
                         }
                     }
                 }
