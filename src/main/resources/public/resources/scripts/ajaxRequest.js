@@ -13,6 +13,7 @@ function submit() {
         e.preventDefault();
         var pressedButton = $(this).parent().parent(),
             data = $(this.form).serialize();
+        console.log($(this.form));
         $('.input__error').each(function() {
             $(this).html("");
         });
