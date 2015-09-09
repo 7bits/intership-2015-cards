@@ -17,15 +17,21 @@ public class StoreHistoryPersistRepository implements StoreHistoryRepository{
     private StoreHistoryMapper storeHistoryMapper;
 
     @Override
-    public List<StoreHistory> findAll(String storeName) throws RepositoryException {
+    public List<StoreHistory> findAll(Long storeId) throws RepositoryException {
+        if (storeId == null) {
+            throw new RepositoryException("StoreId is null");
+        }
         try {
-            return storeHistoryMapper.findAll(storeName);
+            return storeHistoryMapper.findAll(storeId);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while retrieving history: " + e.getMessage(), e);
         }
     }
     @Override
     public void save(StoreHistory storeHistory) throws RepositoryException{
+        if (storeHistory == null) {
+            throw new RepositoryException("StoreHistory is null");
+        }
         try{
             storeHistoryMapper.save(storeHistory);
         }catch(Exception e){

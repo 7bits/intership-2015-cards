@@ -22,11 +22,7 @@ public class CommonFieldValidator {
     private DiscountRepository discountRepository;
 
     @Autowired
-    @Qualifier(value = "restorePasswordRepository")
-    private RestorePasswordRepository restorePasswordRepository;
-
-    @Autowired
-    private AccountActivationRepository accountActivationRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     private DiscountHashRepository discountHashRepository;
@@ -287,7 +283,7 @@ public class CommonFieldValidator {
         if (!errors.containsKey(field)) {
             String email;
             try {
-                email = accountActivationRepository.findEmailByHash(hash);
+                email = accountRepository.findEmailByHash(hash);
             } catch (Exception e) {
                 email = null;
             }

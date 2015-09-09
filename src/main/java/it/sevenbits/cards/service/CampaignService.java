@@ -19,14 +19,13 @@ public class CampaignService {
     private CampaignRepository campaignRepository;
 
 
-    public Campaign save(final AddCampaignForm addCampaignForm, String storeName) throws ServiceException {
+    public Campaign save(final AddCampaignForm addCampaignForm, Long storeId) throws ServiceException {
         final Campaign campaign = new Campaign();
+        campaign.setStoreId(storeId);
         campaign.setName(addCampaignForm.getName());
         campaign.setDescription(addCampaignForm.getDescription());
-        campaign.setPercent(Integer.parseInt(addCampaignForm.getPercent()));
-        campaign.setEnabled(true);
-        campaign.setStoreName(storeName);
-        campaign.setBackerPercent(Integer.parseInt(addCampaignForm.getBackerPercent()));
+        campaign.setPercent(Long.parseLong(addCampaignForm.getPercent()));
+        campaign.setBackerPercent(Long.parseLong(addCampaignForm.getBackerPercent()));
         try {
             campaignRepository.save(campaign);
             return campaign;
@@ -35,17 +34,17 @@ public class CampaignService {
         }
     }
 
-    public List<CampaignModel> findAllActive(String storeName) throws ServiceException {
+    public List<CampaignModel> findAllActive(Long storeId, Boolean enabled) throws ServiceException {
         try {
-            List<Campaign> campaigns = campaignRepository.findAllActive(storeName);
+            List<Campaign> campaigns = campaignRepository.findAllWithEnabledStatus(storeId, enabled);
             List<CampaignModel> models = new ArrayList<>(campaigns.size());
             for (Campaign c: campaigns) {
                 models.add(new CampaignModel(
                         c.getId(),
                         c.getName(),
                         c.getDescription(),
-                        Integer.toString(c.getPercent()),
-                        Integer.toString(c.getBackerPercent())
+                        Long.toString(c.getPercent()),
+                        Long.toString(c.getBackerPercent())
                 ));
             }
             return models;

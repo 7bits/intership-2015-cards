@@ -15,9 +15,8 @@ public class StoreService {
     @Qualifier(value = "storePersistRepository")
     private StoreRepository repository;
 
-    public void save(String storeId, AddStoreForm addStoreForm) throws ServiceException {
+    public void save(AddStoreForm addStoreForm) throws ServiceException {
         Store store = new Store();
-        store.setUserId(storeId);
         store.setStoreName(addStoreForm.getStoreName());
         store.setStoreImage(addStoreForm.getStoreImage());
         try {
@@ -26,19 +25,11 @@ public class StoreService {
             throw new ServiceException("An error occurred while saving store: " + e.getMessage(), e);
         }
     }
-    public String findStoreNameByUserId(String userId) throws ServiceException {
-        try {
-            return repository.findStoreNameByUserId(userId);
-        } catch (Exception e) {
-            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
-        }
-    }
-
 
     public Store findStoreByUserId(String userId) throws ServiceException {
         Store store;
         try {
-            store = repository.findStoreByUserId(userId);
+            store = repository.findByUserId(userId);
             if (store == null) {
                 store = new Store();
                 store.setUserId(userId);
@@ -48,13 +39,6 @@ public class StoreService {
             return store;
         } catch (Exception e) {
             throw new ServiceException("findStoreByUserId error: " + e.getMessage(), e);
-        }
-    }
-    public String findStoreImageByStoreName(String storeName) throws ServiceException{
-        try{
-            return repository.findStoreImageByStoreName(storeName);
-        }catch (Exception e) {
-            throw new ServiceException("findStoreImageByStoreName error: " + e.getMessage(), e);
         }
     }
 }

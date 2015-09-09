@@ -20,15 +20,16 @@ public class StoreHistoryService {
 
     private Logger LOG = Logger.getLogger(StoreHistoryService.class);
 
-    public List<StoreHistoryModel> findAll(String storeName) throws ServiceException {
+    public List<StoreHistoryModel> findAll(Long storeId) throws ServiceException {
         try {
-            List<StoreHistory> history = storeHistoryRepository.findAll(storeName);
+            List<StoreHistory> history = storeHistoryRepository.findAll(storeId);
             List<StoreHistoryModel> models = new ArrayList<>(history.size());
             for (StoreHistory h: history) {
                 models.add(new StoreHistoryModel(
                         h.getId(),
-                        h.getStoreName(),
-                        h.getDescription(),
+                        h.getStoreId(),
+                        h.getAction(),
+                        h.getSubject(),
                         h.getCreatedAt()
                 ));
             }
@@ -37,10 +38,11 @@ public class StoreHistoryService {
             throw new ServiceException("An error occurred while retrieving history: " + e.getMessage(), e);
         }
     }
-    public void save(String storeName, String description) throws ServiceException {
+    public void save(Long storeId, String action, String subject) throws ServiceException {
         StoreHistory storeHistory = new StoreHistory();
-        storeHistory.setStoreName(storeName);
-        storeHistory.setDescription(description);
+        storeHistory.setStoreId(storeId);
+        storeHistory.setAction(action);
+        storeHistory.setSubject(subject);
         try {
             storeHistoryRepository.save(storeHistory);
         } catch (Exception e) {

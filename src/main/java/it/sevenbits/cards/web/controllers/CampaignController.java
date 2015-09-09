@@ -53,7 +53,7 @@ public class CampaignController {
     JsonResponse saveCampaign(@ModelAttribute AddCampaignForm addCampaignForm) throws ServiceException {
         JsonResponse res = new JsonResponse();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
+        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByEmail(authentication.getName()));
         final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
         if (errors.size() == 0) {
             Campaign campaign = campaignService.save(addCampaignForm, storeName);

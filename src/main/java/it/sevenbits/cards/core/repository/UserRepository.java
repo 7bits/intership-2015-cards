@@ -22,19 +22,19 @@ public class UserRepository implements UserDetailsService {
     private UserMapper userMapper;
 
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
-            LOG.info("Loading user by username: " + username);
-            User userDetails = this.findByUsername(username);
+            LOG.info("Loading user by email: " + email);
+            User userDetails = this.findByEmail(email);
             if (userDetails != null && (userDetails.getRole().equals(Role.ROLE_ADMIN)||userDetails.getRole().equals(Role.ROLE_STORE)||userDetails.getRole().equals(Role.ROLE_USER))) {
                 return userDetails;
             }
         } catch (Exception e) {
-            LOG.error("Cant load user by username due to repository error: " + e.getMessage(), e);
+            LOG.error("Cant load user by email due to repository error: " + e.getMessage(), e);
             throw new UsernameNotFoundException("User details can not be obtained because of " + e.getMessage(), e);
         }
-        LOG.info("Cannot load user by username because there are no user details for this username.");
-        throw new UsernameNotFoundException("There are no user details for this username");
+        LOG.info("Cannot load user by email because there are no user details for this email.");
+        throw new UsernameNotFoundException("There are no user details for this email");
     }
 
     public void save(final User user) throws RepositoryException {
@@ -47,63 +47,26 @@ public class UserRepository implements UserDetailsService {
             throw new RepositoryException("General database error" + e.getMessage(), e);
         }
     }
-
-    public User findById(final Long id) throws RepositoryException {
-        if (id == null) {
-            throw new RepositoryException("User id is null");
-        }
-        return userMapper.findById(id);
-    }
-
-    public User findByUsername(final String username) throws RepositoryException {
-        if (username == null) {
+    public User findByEmail(final String email) throws RepositoryException {
+        if (email == null) {
             throw new RepositoryException("User Name is null");
         }
         try {
-            return userMapper.findByUsername(username);
+            return userMapper.findByEmail(email);
         } catch (Exception e) {
             throw new RepositoryException("General database error " + e.getMessage(), e);
         }
     }
 
-    public String maxUserId() throws RepositoryException {
-        try {
-            return userMapper.maxUserId();
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
-        }
-    }
-
-    public String findUserIdByUserName(final String userName) throws RepositoryException {
-        if (userName == null) {
-            throw new RepositoryException("User Name is null");
-        }
-        try {
-            return userMapper.findUserIdByUserName(userName);
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
-        }
-    }
-
-    public void changeUserRoleByUserId(String userRole, String userId) throws RepositoryException {
+    public void changeUserRoleByEmail(String userRole, String email) throws RepositoryException {
         if (userRole == null) {
             throw new RepositoryException("User Role is null");
         }
-        if (userId == null) {
-            throw new RepositoryException("User Id is null");
-        }
-        try {
-            userMapper.changeUserRoleByUserId(userRole, userId);
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
-        }
-    }
-    public Timestamp findCreateAtTimeByEmail(final String email) throws RepositoryException {
         if (email == null) {
-            throw new RepositoryException("Email Name is null");
+            throw new RepositoryException("Email is null");
         }
         try {
-            return userMapper.findCreateAtTimeByEmail(email);
+            userMapper.changeUserRoleByEmail(userRole, email);
         } catch (Exception e) {
             throw new RepositoryException("General database error " + e.getMessage(), e);
         }
@@ -114,7 +77,7 @@ public class UserRepository implements UserDetailsService {
             throw new RepositoryException("Email is null");
         }
         try {
-            userMapper.enableUserByEmail(email);
+            userMapper.changeEnableStatusByEmail(email);
         } catch (Exception e) {
             throw new RepositoryException("General database error " + e.getMessage(), e);
         }

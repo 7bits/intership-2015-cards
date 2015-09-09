@@ -32,8 +32,6 @@ public class CustomerController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         model.addAttribute("userName", userName);
-        String userId = userService.findUserIdByUserName(userName);
-        model.addAttribute("userId", userId);
         model.addAttribute("discountsForUse", discountService.findAllForUse(userId));
         model.addAttribute("discountsForSend", discountService.findAllForSend(userId));
         return "home/personal_area";

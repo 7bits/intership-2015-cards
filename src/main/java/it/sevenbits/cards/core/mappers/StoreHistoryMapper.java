@@ -8,18 +8,19 @@ import java.util.List;
 public interface StoreHistoryMapper {
 
     //FindAll
-    @Select("SELECT id, store_name, description , created_at FROM store_history WHERE store_name = #{storeName}")
+    @Select("SELECT id, store_id, action, subject, created_at FROM stores_history WHERE store_id = #{storeId}")
     @Results({
             @Result(column = "id", property = "id"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description"),
+            @Result(column = "store_id", property = "storeId"),
+            @Result(column = "action", property = "action"),
+            @Result(column = "subject", property = "subject"),
             @Result(column = "created_at", property = "createdAt")
 
     })
-    List<StoreHistory> findAll(@Param("storeName") String storeName);
+    List<StoreHistory> findAll(@Param("storeId") Long storeId);
 
     //Save
-    @Insert("INSERT INTO store_history (store_name, description) VALUES (#{storeName}, #{description})")
+    @Insert("INSERT INTO stores_history (store_id, action, subject) VALUES (#{storeId}, #{action}, #{subject})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(StoreHistory storeHistory);
 }

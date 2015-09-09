@@ -6,8 +6,9 @@ import java.util.Date;
 
 public class StoreHistory {
     private Long id;
-    private String storeName;
-    private String description;
+    private Long storeId;
+    private String action;
+    private String subject;
     private Timestamp createdAt;
 
     public Long getId() {
@@ -18,20 +19,28 @@ public class StoreHistory {
         this.id = id;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAction() {
+        return action;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public Timestamp getCreatedAt() {
@@ -44,11 +53,9 @@ public class StoreHistory {
 
     @Override
     public String toString() {
-        return String.format("StoreHistory[id=%d, storeName=%s, description=%s, createdAt=%s]",
-                id, storeName, description, createdAt.toString());
+        return String.format("StoreHistory[id=%d, storeId=%d, action=%s, subject=%s, createdAt=%s]",
+                id, storeId, action, subject, createdAt.toString());
     }
-
-
 }
 
 

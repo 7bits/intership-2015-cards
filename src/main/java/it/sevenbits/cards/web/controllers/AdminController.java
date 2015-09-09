@@ -41,9 +41,8 @@ public class AdminController {
     //Add Store
     @RequestMapping(value = "/add_store", method = RequestMethod.POST)
     public String addStoreToDataBaseAndUpdateUserRole(@ModelAttribute AddStoreForm addStoreForm) throws ServiceException {
-        String storeId = userService.findUserIdByUserName(addStoreForm.getEmail());
-        storeService.save(storeId, addStoreForm);
-        userService.changeUserRoleByUserId("ROLE_STORE", storeId);
+        storeService.save(addStoreForm);
+        userService.changeUserRoleByEmail("ROLE_STORE", addStoreForm.getEmail());
         return "redirect:/add_store";
     }
 

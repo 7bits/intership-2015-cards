@@ -26,7 +26,7 @@ public class HomeController {
     private UserService userService;
 
     @Autowired
-    private AccountActivationService activationService;
+    private AccountService activationService;
 
     @Autowired
     private PasswordRestoreService restoreService;

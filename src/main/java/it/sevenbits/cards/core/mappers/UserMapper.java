@@ -9,65 +9,50 @@ import java.sql.Timestamp;
 
 public interface UserMapper {
 
-    //Find User by userName
-    @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
+    /*
+       private Long id;
+    private String email;
+    private String password;
+    private Role role;
+    private Boolean enabled;
+    private String accountHash;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+     */
+
+    //Find User by email
+    @Select("SELECT id, email, password_hash, role, enabled, account_hash, created_at, updated_at\n" +
             "FROM users\n" +
-            "WHERE email=#{userName}")
+            "WHERE email=#{email}")
     @Results({
         @Result(column = "id", property = "id"),
         @Result(column = "email", property = "email"),
-        @Result(column = "user_id", property = "userId"),
         @Result(column = "password_hash", property = "password"),
         @Result(column = "role", property = "role", javaType = Role.class),
-        @Result(column = "enabled", property = "enabled")
+        @Result(column = "enabled", property = "enabled"),
+        @Result(column = "account_hash", property = "accountHash"),
+        @Result(column = "created_at", property = "createdAt"),
+        @Result(column = "updated_at", property = "updatedAt")
     })
-    User findByUsername(@Param("userName") String userName);
-
-    //Find User by Id
-    @Select("SELECT id, email, user_id, password_hash, role, enabled\n" +
-            "FROM users\n" +
-            "WHERE id=#{id}")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "email", property = "email"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "password_hash", property = "password"),
-            @Result(column = "role", property = "role", javaType = Role.class),
-            @Result(column = "enabled", property = "enabled")
-    })
-    User findById(@Param("id") Long id);
+    User findByEmail(@Param("email") String email);
 
     //Save User
-    @Insert("INSERT INTO users (email, user_id, password_hash, role)\n" +
-            "VALUES (#{email}, #{userId}, #{password}, 'ROLE_USER')")
+    @Insert("INSERT INTO users (email, password_hash, role, account_hash)\n" +
+            "VALUES (#{email}, #{password}, #{role}, #{accountHash})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(User user);
 
-    //Find max userId
-    @Select("SELECT max(user_id)\n" +
-            "FROM users")
-    @Result(column = "user_id")
-    String maxUserId();
+    //Change user role by email
+    @Update("UPDATE users SET role =#{userRole} WHERE email = #{email}")
+    void changeUserRoleByEmail(@Param("userRole") String userRole, @Param("email") String email);
 
-    //Find userId by userName
-    @Select("SELECT user_id\n" +
-            "FROM users\n" +
-            "WHERE email=#{userName}")
-    @Result(column = "user_id")
-    String findUserIdByUserName(@Param("userName") String userName);
+    //Change enable status by email
+    @Update("UPDATE users SET enabled = not enabled WHERE email = #{email}")
+    void changeEnableStatusByEmail(@Param("email") String email);
 
-    //Change user role by userId
-    @Update("UPDATE users SET role =#{userRole} WHERE user_id = #{userId}")
-    void changeUserRoleByUserId(@Param("userRole") String userRole, @Param("userId") String userId);
-
-    //Activate user
-    @Update("UPDATE users SET enabled = TRUE WHERE email = #{email}")
-    void enableUserByEmail(@Param("email") String email);
-
-    //Find createAtTime by email
-    @Select("SELECT created_at\n" +
-            "FROM users\n" +
+    //Set new password
+    @Update("UPDATE users\n" +
+            "SET password_hash=#{passwordHash}\n" +
             "WHERE email=#{email}")
-    @Result(column = "created_at")
-    Timestamp findCreateAtTimeByEmail(@Param("email") String email);
+    void setNewPassword(@Param("email") String email, @Param("passwordHash") String passwordHash);
 }
