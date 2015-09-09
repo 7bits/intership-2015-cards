@@ -1,26 +1,21 @@
 extends ../layout.jade
 block append head
     title Регистрация
+    link(rel='stylesheet', type='text/css', href='/resources/stylesheets/form.css')
 block append body
     // MAIN
-    .main
-        .registration-form
-            h2.reg-fill-heading РЕГИСТРАЦИЯ
-            .js-registration
-                form#js-registration-form(action="/registration", method="post")
-                    .reg-input-lable-container
-                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                        .infoBlock
-                            if accActivate!=null
-                                | #{accActivate}
-                        label.reglable Введите адрес эл. почты
-                        input.form-control.email_input.not-morph(name='email', type='text')
-                        .errors#emailError
-                        label.reglable Введите пароль
-                        input.form-control.password_input.not-morph(name='password', type='password')
-                        .errors#passwordError
-                        input.form-control.yes.registration-button.reginp(type='submit', value='Зарегистрироваться')
-
+    form.form(action="/registration", method="post")
+        label.form__label #{registration}
+        .form__input
+            label.input__label #{enterEmail}
+            input.input__input(name="email", type="text")
+            .input__error
+        .form__input
+            label.input__label #{enterPassword}
+            input.input__input(name="password", type="password")
+            .input__error
+        .form__button
+            input.button__button-red.button__button-submit-js(type="submit", value="#{signup}")
     // MAIN END
     // SCRIPTS
     if loginError
