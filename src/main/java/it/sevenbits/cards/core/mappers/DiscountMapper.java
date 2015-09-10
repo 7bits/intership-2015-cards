@@ -6,38 +6,42 @@ import java.util.List;
 
 public interface DiscountMapper {
 
-    //FindAll
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image, backer_percent, backer_user_id, email FROM discounts")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "key", property = "key"),
-            @Result(column = "uin", property = "uin"),
-            @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "store_image", property = "storeImage"),
-            @Result(column = "backer_percent", property = "backerPercent"),
-            @Result(column = "backer_user_id", property = "backerUserId"),
-            @Result(column = "email", property = "email")
-    })
-    List<Discount> findAll();
-
     //Save
-    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent, store_image) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent})")
+    @Insert("INSERT INTO discounts (key, is_hidden, email, backer_email, campaign_id, deleted, hash, created_at)\n" +
+            "VALUES (#{key}, #{isHidden}, #{email}, #{backerEmail}, #{campaignId}, #{deleted}, #{hash}, #{createdAt})")
     void save(final Discount discount);
 
-    //Save
-    @Insert("INSERT INTO discounts (key, uin, is_hidden, user_id, store_name, description, percent, store_image, backer_percent, backer_user_id, email) VALUES (#{key}, #{uin}, #{isHidden}, #{userId}, #{storeName}, #{description}, #{percent}, #{storeImage}, #{backerPercent}, #{backerUserId}, #{email})")
-    void saveByAcoustics(final Discount discount);
+    //delete from discounts where key='BBBB' and
+    // (select email from users
+    // inner join stores
+    // on users.id=stores.user_id
+    // inner join campaigns
+    // on campaigns.store_id = stores.id
+    // where discounts.campaign_id = campaigns.id) = 'store';
 
-    //Delete
-    @Delete("DELETE FROM discounts WHERE key = #{key} AND store_name = #{storeName}")
-    void delete(@Param("key") String key, @Param("storeName") String storeName);
+    //Delete discount by key
+    @Delete("DELETE FROM discounts where discounts.key = #{key} AND discount.is_hidden = false AND\n +" +
+            "(SELECT users.email FROM users INNER JOIN stores ON users.id = stores.user_id\n" +
+            "INNER JOIN campaigns on campaigns.store_id = stores.id\n" +
+            "WHERE discounts.campaign_id = campaigns.id) = #{email}")
+    void delete(@Param("key") String key, @Param("email") String email);
+
+    /*
+     private Long id;
+    private String key;
+    private Boolean isHidden;
+    private String email;
+    private String backerEmail;
+    private Long campaignId;
+    private Boolean deleted;
+    private String hash;
+    private Timestamp createdAt;
+     */
 
     //FindAllForUse
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image, backer_percent, backer_user_id, email FROM discounts WHERE is_hidden = false and user_id = #{userName}")
+    @Select("SELECT id, key, is_hidden, email, backer_email, campaign_id, deleted, hash, created_at\n" +
+            "FROM discounts INNER JOIN users on discounts.email = users.email\n" +
+            "WHERE discounts.is_hidden = false and users.email = #{email}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
