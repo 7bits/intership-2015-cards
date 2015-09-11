@@ -7,8 +7,8 @@ public class Discount implements Serializable {
     private Long id;
     private String key;
     private Boolean isHidden;
-    private String email;
-    private String backerEmail;
+    private Long userId;
+    private Long backerUserId;
     private Long campaignId;
     private Boolean deleted;
     private String hash;
@@ -38,20 +38,20 @@ public class Discount implements Serializable {
         this.isHidden = isHidden;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getBackerEmail() {
-        return backerEmail;
+    public Long getBackerUserId() {
+        return backerUserId;
     }
 
-    public void setBackerEmail(String backerEmail) {
-        this.backerEmail = backerEmail;
+    public void setBackerUserId(Long backerUserId) {
+        this.backerUserId = backerUserId;
     }
 
     public Long getCampaignId() {
@@ -88,8 +88,8 @@ public class Discount implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, isHidden=%b, email=%s, backerEmail=%s, campaignId=%d, deleted=%b, hash=%s, createdAt=%s]",
-                id, key, isHidden, email, backerEmail, campaignId, deleted, hash, createdAt.toString());
+        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s]",
+                id, key, isHidden, userId, backerUserId, campaignId, deleted, hash, createdAt.toString());
     }
 }
 

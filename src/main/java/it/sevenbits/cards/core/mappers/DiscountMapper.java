@@ -7,8 +7,8 @@ import java.util.List;
 public interface DiscountMapper {
 
     //Save
-    @Insert("INSERT INTO discounts (key, is_hidden, email, backer_email, campaign_id, deleted, hash, created_at)\n" +
-            "VALUES (#{key}, #{isHidden}, #{email}, #{backerEmail}, #{campaignId}, #{deleted}, #{hash}, #{createdAt})")
+    @Insert("INSERT INTO discounts (key, is_hidden, user_id, backer_user_id, campaign_id, deleted, hash, created_at)\n" +
+            "VALUES (#{key}, #{isHidden}, #{userId}, #{backerUserId}, #{campaignId}, #{deleted}, #{hash}, #{createdAt})")
     void save(final Discount discount);
 
     //delete from discounts where key='BBBB' and
@@ -26,73 +26,22 @@ public interface DiscountMapper {
             "WHERE discounts.campaign_id = campaigns.id) = #{email}")
     void delete(@Param("key") String key, @Param("email") String email);
 
-    /*
-     private Long id;
-    private String key;
-    private Boolean isHidden;
-    private String email;
-    private String backerEmail;
-    private Long campaignId;
-    private Boolean deleted;
-    private String hash;
-    private Timestamp createdAt;
-     */
-
-    //FindAllForUse
-    @Select("SELECT id, key, is_hidden, email, backer_email, campaign_id, deleted, hash, created_at\n" +
+    //Find all discount with specified hidden status by email
+    @Select("SELECT discounts.id, discounts.key, discounts.is_hidden, discounts.user_id, discounts.backer_user_id, discounts.campaign_id, discounts.deleted, discounts.hash, discounts.created_at\n" +
             "FROM discounts INNER JOIN users on discounts.email = users.email\n" +
-            "WHERE discounts.is_hidden = false and users.email = #{email}")
+            "WHERE discounts.is_hidden = #{isHidden} and users.email = #{email}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "key", property = "key"),
-            @Result(column = "uin", property = "uin"),
             @Result(column = "is_hidden", property = "isHidden"),
             @Result(column = "user_id", property = "userId"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "store_image", property = "storeImage"),
-            @Result(column = "backer_percent", property = "backerPercent"),
             @Result(column = "backer_user_id", property = "backerUserId"),
-            @Result(column = "email", property = "email")
+            @Result(column = "campaign_id", property = "campaignId"),
+            @Result(column = "deleted", property = "deleted"),
+            @Result(column = "hash", property = "hash"),
+            @Result(column = "created_at", property = "createdAt")
     })
-    List<Discount> findAllForUse(@Param("userName") String userName);
-
-    //FindAllForSend
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, percent, store_image, backer_percent, backer_user_id, email FROM discounts WHERE is_hidden = true and user_id = #{userName}")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "key", property = "key"),
-            @Result(column = "uin", property = "uin"),
-            @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "store_image", property = "storeImage"),
-            @Result(column = "backer_percent", property = "backerPercent"),
-            @Result(column = "backer_user_id", property = "backerUserId"),
-            @Result(column = "email", property = "email")
-    })
-    List<Discount> findAllForSend(@Param("userName") String userName);
-
-    //FindUserId
-    @Select("SELECT id, key, uin, is_hidden, user_id, store_name, description, store_image, backer_percent, backer_user_id, email FROM discounts WHERE uin = #{uin}")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "key", property = "key"),
-            @Result(column = "uin", property = "uin"),
-            @Result(column = "is_hidden", property = "isHidden"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "store_image", property = "storeImage"),
-            @Result(column = "backer_percent", property = "backerPercent"),
-            @Result(column = "backer_user_id", property = "backerUserId"),
-            @Result(column = "email", property = "email")
-    })
-    List<Discount> findUserId(final Discount discount);
+    List<Discount> findAllWithSpecifiedHiddenStatusByEmail(@Param("isHidden") Boolean isHidden, @Param("email") String email);
 
     //ChangeUserId
     @Update("UPDATE discounts SET user_id = #{userId}, is_hidden = false WHERE uin = #{uin}")
