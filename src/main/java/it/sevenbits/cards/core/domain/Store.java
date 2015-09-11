@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class Store implements Serializable {
     private Long id;
-    private String userId;
+    private Long userId;
     private String storeName;
     private String storeImage;
     private Timestamp createdAt;
@@ -18,11 +18,11 @@ public class Store implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -52,7 +52,7 @@ public class Store implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Store[id=%d, userId=%s, storeName=%s, storeImage=%s, createdAt=%s]",
+        return String.format("Store[id=%d, userId=%d, storeName=%s, storeImage=%s, createdAt=%s]",
                 id, userId, storeName, storeImage, createdAt.toString());
     }
 }

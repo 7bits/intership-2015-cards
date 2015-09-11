@@ -15,14 +15,12 @@ import it.sevenbits.cards.web.domain.forms.RegistrationForm;
 
 import org.apache.log4j.Logger;
 
-import java.sql.Timestamp;
-
 @Service
 public class UserService {
     @Autowired
 
     @Qualifier(value = "userRepository")
-    private UserRepository repository;
+    private UserRepository userRepository;
     Logger LOG = Logger.getLogger(UserService.class);
 
     private static Sender sender = new Sender();
@@ -33,16 +31,24 @@ public class UserService {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(form.getPassword()));
         try {
-            repository.save(user);
+            userRepository.save(user);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
     public void changeUserRoleByEmail(String userRole, String email) throws ServiceException {
         try {
-            repository.changeUserRoleByEmail(userRole, email);
+            userRepository.changeUserRoleByEmail(userRole, email);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+        }
+    }
+
+    public User findByEmail(String email) throws ServiceException{
+        try{
+            return  userRepository.findByEmail(email);
+        } catch (Exception e){
+            throw new ServiceException("An error occurred while finding user by email: " + e.getMessage(), e);
         }
     }
 
