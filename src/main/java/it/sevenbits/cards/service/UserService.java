@@ -17,10 +17,11 @@ import org.apache.log4j.Logger;
 
 @Service
 public class UserService {
-    @Autowired
 
+    @Autowired
     @Qualifier(value = "userRepository")
     private UserRepository userRepository;
+
     Logger LOG = Logger.getLogger(UserService.class);
 
     private static Sender sender = new Sender();
@@ -36,6 +37,7 @@ public class UserService {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
+
     public void changeUserRoleByEmail(String userRole, String email) throws ServiceException {
         try {
             userRepository.changeUserRoleByEmail(userRole, email);

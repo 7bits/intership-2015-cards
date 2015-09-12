@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Discount implements Serializable {
+    //Discount
     private Long id;
     private String key;
     private Boolean isHidden;
@@ -13,6 +14,14 @@ public class Discount implements Serializable {
     private Boolean deleted;
     private String hash;
     private Timestamp createdAt;
+    //Campaign
+    private String campaignName;
+    private String description;
+    private Long percent;
+    private Long backerPercent;
+    //Store
+    private String storeName;
+    private String storeImage;
 
     public Long getId() {
         return id;
@@ -86,10 +95,58 @@ public class Discount implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Long percent) {
+        this.percent = percent;
+    }
+
+    public Long getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(Long backerPercent) {
+        this.backerPercent = backerPercent;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
+    }
+
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s]",
-                id, key, isHidden, userId, backerUserId, campaignId, deleted, hash, createdAt.toString());
+        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s, , campaignName=%s, description=%s, percent=%d, backerPercent=%d, storeName=%s, storeImage=%s]",
+                id, key, isHidden, userId, backerUserId, campaignId, deleted, hash, createdAt.toString(), campaignName, description, percent, backerPercent, storeName, storeImage);
     }
 }
 

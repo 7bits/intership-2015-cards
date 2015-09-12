@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface StoreHistoryRepository {
     List<StoreHistory> findAll(String email) throws RepositoryException;
-    void save(StoreHistory storeHistory) throws RepositoryException;
+    void save(StoreHistory storeHistory, String email) throws RepositoryException;
 }

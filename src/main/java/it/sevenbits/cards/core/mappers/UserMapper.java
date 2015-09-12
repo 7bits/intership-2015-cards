@@ -8,18 +8,6 @@ import java.sql.Timestamp;
 
 
 public interface UserMapper {
-
-    /*
-       private Long id;
-    private String email;
-    private String password;
-    private Role role;
-    private Boolean enabled;
-    private String accountHash;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-     */
-
     //Find User by email
     @Select("SELECT id, email, password_hash, role, enabled, account_hash, created_at, updated_at\n" +
             "FROM users\n" +
@@ -55,4 +43,30 @@ public interface UserMapper {
             "SET password_hash=#{passwordHash}\n" +
             "WHERE email=#{email}")
     void setNewPassword(@Param("email") String email, @Param("passwordHash") String passwordHash);
+
+    @Insert("INSERT INTO accounts (email, hash) VALUES (#{email}, #{hash})")
+    void save(@Param("email") String email, @Param("hash") String hash);
+
+    @Delete("DELETE FROM accounts\n" +
+            "WHERE email=#{email}")
+    void delete(@Param("email") String email);
+
+    @Select("SELECT email\n" +
+            "FROM accounts\n" +
+            "WHERE hash=#{hash}")
+    @Result(column = "email")
+    String findEmailByHash(@Param("hash") String hash);
+
+    //Find hash by email
+    @Select("SELECT hash\n" +
+            "FROM accounts\n" +
+            "WHERE email=#{email}")
+    @Result(column = "hash")
+    String findHashByEmail(@Param("email") String email);
+
+    //Update hash by email
+    @Update("UPDATE accounts\n" +
+            "SET hash=#{hash}\n" +
+            "WHERE email=#{email}")
+    void updateHash(@Param("hash") String hash, @Param("email") String email);
 }

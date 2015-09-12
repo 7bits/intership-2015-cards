@@ -18,77 +18,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Secured("ROLE_STORE")
 @Controller
 public class CampaignController {
 
     @Autowired
-    private AddCampaignFormValidator addCampaignFormValidator;
+    private ModelBuilder modelBuilder;
 
     @Autowired
-    private CampaignService campaignService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private StoreService storeService;
-
-    @Autowired
-    private StoreHistoryService storeHistoryService;
+    private JsonHandler jsonHandler;
 
     private Logger LOG = Logger.getLogger(CampaignController.class);
 
     //Add campaign
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/add_campaign", method=RequestMethod.GET)
-    public String addCampaign(Model model) throws ServiceException{
-        model.addAttribute("addCampaignForm", new AddCampaignForm());
-        return "home/add_campaign";
-    }
-
-    //Save campaign
-    @Secured("ROLE_STORE")
     @RequestMapping(value = "/add_campaign", method = RequestMethod.POST)
     public @ResponseBody
     JsonResponse saveCampaign(@ModelAttribute AddCampaignForm addCampaignForm) throws ServiceException {
-        JsonResponse res = new JsonResponse();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByEmail(authentication.getName()));
-        final Map<String, String> errors = addCampaignFormValidator.validate(addCampaignForm);
-        if (errors.size() == 0) {
-            Campaign campaign = campaignService.save(addCampaignForm, storeName);
-            String description = "Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%";
-            storeHistoryService.save(storeName, description);
-            res.setStatus("SUCCESS");
-            res.setResult(campaign);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+        return jsonHandler.saveCampaignAndSaveActionHistory(addCampaignForm);
     }
-    //Show Campaigns
-    @Secured("ROLE_STORE")
-    @RequestMapping(value = "/campaigns", method = RequestMethod.GET)
-    public String showAll(final Model model) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        List<CampaignModel> campaigns = campaignService.findAllActive(storeName);
-        //Should be use for Store History
-        int campaignsLenght = 10;
-        if(campaigns.size()>campaignsLenght){
-            campaigns = campaigns.subList(campaigns.size()-campaignsLenght, campaigns.size());
-        }
-        model.addAttribute("campaigns", campaigns);
-        //
-        model.addAttribute("activeCampaigns", campaignService.findAllActive(storeName));
-        model.addAttribute("notActiveCampaigns", campaignService.findAllNotActive(storeName));
-        return "home/campaigns";
-    }
-    @Secured("ROLE_STORE")
+
     @RequestMapping(value = "/change_campaign_status/", method = RequestMethod.POST)
-    public String deactivateCampaign(@RequestParam Long id) throws ServiceException {
-        campaignService.changeCampaignEnableStatus(id.toString());
-        return "redirect:/store_area";
+    public String deactivateCampaign(@RequestParam String id) throws ServiceException {
+        return jsonHandler.changeCampaignEnableStatus(id);
     }
 }

@@ -8,16 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class IdFormValidator {
+public class IdValidator {
 
     @Autowired
     private CommonFieldValidator validator;
 
-    private static final Logger LOG = Logger.getLogger(IdFormValidator.class);
+    private static final Logger LOG = Logger.getLogger(IdValidator.class);
 
     public HashMap<String, String> validate(String id) {
 
-        LOG.info("IdFormValidator started for: " + id);
+        LOG.info("IdValidator started for: " + id);
         HashMap<String, String> errors = new HashMap<>();
 
         validator.isNotNullOrEmpty(id, errors, "id", "Id не может быть пустым.");

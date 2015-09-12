@@ -19,36 +19,6 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private DiscountService discountService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AccountService activationService;
-
-    @Autowired
-    private PasswordRestoreService restoreService;
-
-    @Autowired
-    private RegistrationFormValidator registrationFormValidator;
-
-    @Autowired
-    private PasswordRestoreFormValidator passwordRestoreFormValidator;
-
-    @Autowired
-    private NewPasswordFormValidator newPasswordFormValidator;
-
-    @Autowired
-    private HashValidator hashValidator;
-
-    @Autowired
-    private AccountActivateHashValidator accountActivateHashValidator;
-
-    @Autowired
-    private FeedbackFormValidator feedbackFormValidator;
-
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Success
@@ -69,11 +39,13 @@ public class HomeController {
         return "redirect:/403";
     }
 
+    //403
     @RequestMapping(value="/403",method = RequestMethod.GET)
     public String accessDeny(){
         return "/403";
     }
 
+    //Login
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request) {
         return "redirect:/homepage";

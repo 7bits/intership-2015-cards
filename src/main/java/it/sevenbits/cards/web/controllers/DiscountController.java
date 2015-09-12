@@ -21,52 +21,10 @@ import java.util.Map;
 public class DiscountController {
 
     @Autowired
-    private DiscountService discountService;
+    private JsonHandler jsonHandler;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private StoreService storeService;
-
-    @Autowired
-    private NotificationService notificationService;
-
-    @Autowired
-    private DiscountFormValidator discountFormValidator;
-
-    @Autowired
-    private SendFormValidator sendFormValidator;
-
-    @Autowired
-    private UseFormValidator useFormValidator;
-
-    @Autowired
-    private BindFormValidator bindFormValidator;
-
-    @Autowired
-    private GenerateDiscountFormValidator generateDiscountFormValidator;
-
-    @Autowired
-    private DiscountByCampaignFormValidator discountByCampaignFormValidator;
-
-    @Autowired
-    private GenerateKeyService generateKeyService;
-
-    @Autowired
-    private GenerateUinService generateUinService;
-
-    @Autowired
-    private StoreHistoryService storeHistoryService;
-
-    @Autowired
-    private DiscountHashValidator discountHashValidator;
-
-    @Autowired
-    private DiscountHashService discountHashService;
-
-    @Autowired
-    private EmailExistValidator emailExistValidator;
+    private ModelBuilder modelBuilder;
 
     private Logger LOG = Logger.getLogger(DiscountController.class);
 

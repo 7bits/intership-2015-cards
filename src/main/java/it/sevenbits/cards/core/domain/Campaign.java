@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Campaign implements Serializable {
+    //Campaign
     private Long id;
     private Long storeId;
     private String name;
@@ -12,6 +13,9 @@ public class Campaign implements Serializable {
     private Long backerPercent;
     private Boolean enabled;
     private Timestamp createdAt;
+    //Store
+    private String storeName;
+    private String storeImage;
 
     public Long getId() {
         return id;
@@ -77,9 +81,26 @@ public class Campaign implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
+    }
+
     @Override
     public String toString() {
-        return String.format("Campaign[id=%d, storeId=%d, name=%s, description=%s, percent=%d, backerPercent=%d, enabled=%b, createdAt=%s]",
-                id, storeId, name, description, percent, backerPercent, enabled, createdAt.toString());
+        return String.format("Campaign[id=%d, storeId=%d, name=%s, description=%s, percent=%d, backerPercent=%d, enabled=%b, createdAt=%s, storeName=%s, storeImage=%s]",
+                id, storeId, name, description, percent, backerPercent, enabled, createdAt.toString(), storeName, storeImage);
     }
+
 }

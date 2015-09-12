@@ -21,7 +21,9 @@ public interface StoreHistoryMapper {
 
     //Save
     @Insert("INSERT INTO stores_history (store_id, description)\n"+
-            "VALUES (#{storeId}, #{description})")
+            "VALUES ((SELECT stores.id FROM stores" +
+            "INNER JOIN users ON stores.user_id = users.id" +
+            "WHERE users.email=#{email}), #{description})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-    void save(StoreHistory storeHistory);
+    void save(StoreHistory storeHistory, @Param("email") String email);
 }

@@ -1,7 +1,5 @@
 package it.sevenbits.cards.web.domain;
 
-import java.util.Map;
-
 public class JsonResponse {
     private String status = null;
     private Object result = null;

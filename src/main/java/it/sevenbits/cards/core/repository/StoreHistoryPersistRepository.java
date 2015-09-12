@@ -28,12 +28,15 @@ public class StoreHistoryPersistRepository implements StoreHistoryRepository{
         }
     }
     @Override
-    public void save(StoreHistory storeHistory) throws RepositoryException{
+    public void save(StoreHistory storeHistory, String email) throws RepositoryException{
         if (storeHistory == null) {
             throw new RepositoryException("StoreHistory is null");
         }
+        if (email == null) {
+            throw new RepositoryException("Email is null");
+        }
         try{
-            storeHistoryMapper.save(storeHistory);
+            storeHistoryMapper.save(storeHistory, email);
         }catch(Exception e){
             throw new RepositoryException("An error occurred while saving history: " + e.getMessage(), e);
         }

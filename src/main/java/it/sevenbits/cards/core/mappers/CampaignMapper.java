@@ -19,9 +19,13 @@ public interface CampaignMapper {
 
     //Save
     @Insert("INSERT INTO campaigns (store_id, name, description, percent, backer_percent)\n" +
-            "VALUES (#{store_id}, #{name}, #{description}, #{percent}, #{backer_percent}")
+            "VALUES (" +
+            "(select stores.id from stores" +
+            " inner join users on stores.user_id = users.id" +
+            " where users.email = #{email}" +
+            "), #{name}, #{description}, #{percent}, #{backer_percent}")
     @Options(useGeneratedKeys = true)
-    void save(final Campaign campaign);
+    void save(final Campaign campaign, @Param("email") String email);
 
     //Find All
     @Select("SELECT id, store_id, name, description, percent, backer_percent, enabled, created_at\n" +
