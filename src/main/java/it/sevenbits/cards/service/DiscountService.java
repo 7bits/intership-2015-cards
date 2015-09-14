@@ -2,7 +2,6 @@ package it.sevenbits.cards.service;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.repository.DiscountRepository;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.web.domain.forms.DiscountByCampaignForm;
 import it.sevenbits.cards.web.domain.forms.DiscountForm;
@@ -172,13 +171,19 @@ public class DiscountService {
             throw new ServiceException("An error occurred while sending discount: " + e.getMessage(), e);
         }
     }
-    public void generateDiscount(final GenerateDiscountForm generateDiscountForm, String generateKey, String generateUin) throws ServiceException, RepositoryException
+    public void generateDiscount(final GenerateDiscountForm generateDiscountForm, String generateKey, String generateUin) throws ServiceException
     {
         final Discount discount = new Discount();
         discount.setKey(generateKey);
         discount.setUin(generateUin);
         discount.setIsHidden(Boolean.parseBoolean("true"));
-        discount.setUserId(userRepository.findUserIdByUserName(generateDiscountForm.getUserName()));
+        String userId;
+        try {
+            userId = userRepository.findUserIdByUserName(generateDiscountForm.getUserName());
+        }catch (Exception e){
+            throw new ServiceException("An error occurred while finding user id by user name: " + e.getMessage(), e);
+        }
+        discount.setUserId(userId);
         discount.setStoreName(generateDiscountForm.getStoreName());
         discount.setDescription(generateDiscountForm.getDescription());
         discount.setPercent(Integer.parseInt(generateDiscountForm.getDiscountPercent()));
@@ -188,7 +193,7 @@ public class DiscountService {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
-    public void createDiscountByCampaign(DiscountByCampaignForm discountByCampaignForm, String generatedKey, String generatedUin, String storeName, String storeImage) throws ServiceException, RepositoryException {
+    public void createDiscountByCampaign(DiscountByCampaignForm discountByCampaignForm, String generatedKey, String generatedUin, String storeName, String storeImage) throws ServiceException {
         final Discount discount = new Discount();
         String userId;
         try {

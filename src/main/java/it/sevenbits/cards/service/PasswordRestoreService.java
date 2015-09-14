@@ -3,7 +3,6 @@ package it.sevenbits.cards.service;
 import de.neuland.jade4j.Jade4J;
 import it.sevenbits.cards.core.domain.PasswordRestore;
 import it.sevenbits.cards.core.domain.User;
-import it.sevenbits.cards.core.repository.RepositoryException;
 import it.sevenbits.cards.core.repository.RestorePasswordRepository;
 import it.sevenbits.cards.core.repository.UserRepository;
 import it.sevenbits.cards.validation.Sender;
@@ -25,14 +24,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by taro on 27.07.15.
- */
 @Service
 public class PasswordRestoreService {
     @Autowired
     @Qualifier(value = "restorePasswordRepository")
-    private RestorePasswordRepository repository;
+    private RestorePasswordRepository restorePasswordRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,56 +46,61 @@ public class PasswordRestoreService {
         LOG.info(hash);
     }
 
-    public void restorePassword(NewPasswordForm form) throws ServiceException{
+    public void restorePassword(NewPasswordForm form) throws ServiceException {
         String newPassword = form.getPassword();
         String hash = form.getHash();
         String email = null;
         try {
-            email = repository.findEmailByHash(hash);
-        } catch (RepositoryException e) {
-            e.printStackTrace();
+            email = restorePasswordRepository.findEmailByHash(hash);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding email by hash: " + e.getMessage(), e);
+        }
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        try {
+            restorePasswordRepository.setNewPassword(email, encoder.encode(newPassword));
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while setting new password: " + e.getMessage(), e);
         }
         try {
-            PasswordEncoder encoder = new BCryptPasswordEncoder();
-            repository.setNewPassword(email, encoder.encode(newPassword));
-            try {
-                repository.delete(email);
-            } catch (RepositoryException e) {
-                LOG.error("delete() service error");
-            }
-        } catch (RepositoryException e) {
-            LOG.error("setNewPassword() service error");
+            restorePasswordRepository.delete(email);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while deleting by email: " + e.getMessage(), e);
         }
     }
 
-    public PasswordRestore generateHash(PasswordRestoreForm form) throws ServiceException{
+    public PasswordRestore generateHash(PasswordRestoreForm form) throws ServiceException {
         try {
             user = userRepository.findByUsername(form.getEmail());
-        } catch (RepositoryException e) {
-            LOG.error("user doesn't exist1");
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding user by email(username): " + e.getMessage(), e);
         }
-        if (user == null) {
-            LOG.error("user doesn't exist");
-            return null;
+        PasswordRestore passwordRestore = new PasswordRestore();
+        passwordRestore.setEmail(form.getEmail());
+        try {
+            passwordRestore.setHash(Sha.hash256());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        String hash = null;
+        try {
+            hash = restorePasswordRepository.findHashByEmail(passwordRestore.getEmail());
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding hash by email: " + e.getMessage(), e);
+        }
+        if (hash == null) {
+            try {
+                restorePasswordRepository.save(passwordRestore);
+            } catch (Exception e) {
+                throw new ServiceException("An error occurred while saving hash and email: " + e.getMessage(), e);
+            }
         } else {
-            PasswordRestore restore = new PasswordRestore();
-            restore.setEmail(form.getEmail());
             try {
-                restore.setHash(Sha.hash256());
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                restorePasswordRepository.updateHash(passwordRestore.getHash(), passwordRestore.getEmail());
+            } catch (Exception e) {
+                throw new ServiceException("An error occurred while updating hash: " + e.getMessage(), e);
             }
-            try {
-                if(repository.findHashByEmail(restore.getEmail()) == null) {
-                    repository.save(restore);
-                } else {
-                    repository.updateHash(restore.getHash(), restore.getEmail());
-                }
-            } catch (RepositoryException e) {
-                e.printStackTrace();
-            }
-            return restore;
         }
+        return passwordRestore;
     }
     @Async
     public void sendEmail(PasswordRestore restore) throws ServiceException {
@@ -128,17 +129,17 @@ public class PasswordRestoreService {
 //                    + restore.getHash(), restore.getEmail());
         }
     }
-    public void deleteByHash(final String hash) {
+    public void deleteByHash(final String hash) throws ServiceException{
         String email = null;
         try {
-            email = repository.findEmailByHash(hash.substring(6));
-        } catch (RepositoryException e) {
-            LOG.error("WTF?!?!?!");
+            email = restorePasswordRepository.findEmailByHash(hash.substring(6));
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding email by hash: " + e.getMessage(), e);
         }
         try {
-            repository.delete(email);
-        } catch (RepositoryException e) {
-            LOG.error("WTF?!");
+            restorePasswordRepository.delete(email);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while deleting hash by email: " + e.getMessage(), e);
         }
     }
 }
