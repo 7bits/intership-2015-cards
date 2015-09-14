@@ -7,6 +7,7 @@ import it.sevenbits.cards.service.*;
 import it.sevenbits.cards.service.validators.*;
 import it.sevenbits.cards.web.domain.forms.*;
 import it.sevenbits.cards.web.domain.JsonResponse;
+import it.sevenbits.cards.web.utils.DomainResolver;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ public class HomeController {
 
     @Autowired
     private DiscountService discountService;
+
+    @Autowired
+    private DomainResolver domainResolver;
 
     @Autowired
     private UserService userService;
@@ -90,6 +94,7 @@ public class HomeController {
     //Homepage
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String homepage() {
+        LOG.info(domainResolver.getDomain());
         return "home/homepage";
     }
 

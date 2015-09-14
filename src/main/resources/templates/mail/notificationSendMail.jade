@@ -1,0 +1,40 @@
+doctype html
+html
+    head
+    body
+        table(style='border-collapse: collapse;font-family: Arial')
+            tr(style='width: 440px')
+                td
+                    img(src='http://i.imgur.com/yM3Q1N3.png')
+                td
+            tr.background-main(style='width: 440px;background-color: #DCDFE6;text-align: center')
+                td.background-main-data(style='border-top-left-radius: 5px;border-top-right-radius: 5px')
+                    h2
+                        span.welcome-header(style='font-weight: bold;color: #4D64AC') Здравствуйте!
+                    span.thanks
+                        | Поздравляем, с вами поделились скидкой!
+                        p
+                            | Нажмите на кнопку ниже, чтобы узнать
+                            br
+                            |  подробнее о скидке или воспользоваться ей.
+                    p
+                        a(href='http://' + domainString + '/discount_info/?hash='+discountHash)
+                            img(src='http://i.imgur.com/1hO0tFE.png')
+                    p
+            tr.back-main-second(style='width: 440px;background-color: #DCDFE6;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;text-align: right')
+                td.main-content(style='display: block;width: 380px')
+                    img.infoinline(src='http://i.imgur.com/aMirD7P.png')
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+                    span.feedback(style='text-align: left;display: inline-block;float: right')
+                        | Если у вас возникнут сложности
+                        br
+                        |  c работой нашего сервиса, пожалуйста,
+                        br
+                        |  обращайтесь в
+                        a.fb_href(href='http://' + domainString + '/feedback', style='color: #8796c6;text-decoration: underline')  службу поддержки
+                        | ,
+                        br
+                        | мы всегда рады вам помочь!
+                        span
+                            br
+                            br

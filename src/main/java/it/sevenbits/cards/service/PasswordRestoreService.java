@@ -1,5 +1,6 @@
 package it.sevenbits.cards.service;
 
+import de.neuland.jade4j.Jade4J;
 import it.sevenbits.cards.core.domain.PasswordRestore;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.RepositoryException;
@@ -9,6 +10,7 @@ import it.sevenbits.cards.validation.Sender;
 import it.sevenbits.cards.validation.Sha;
 import it.sevenbits.cards.web.domain.forms.NewPasswordForm;
 import it.sevenbits.cards.web.domain.forms.PasswordRestoreForm;
+import it.sevenbits.cards.web.utils.DomainResolver;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +18,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by taro on 27.07.15.
@@ -29,6 +36,9 @@ public class PasswordRestoreService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    DomainResolver domainResolver;
 
     private static Sender sender = new Sender();
 
@@ -96,6 +106,17 @@ public class PasswordRestoreService {
         if (restore == null) {
             LOG.error("User doesn't exist");
         } else {
+            Map<String, Object> model = new HashMap<String, Object>();
+
+            model.put("restoreHash", restore.getHash());
+            model.put("domainString",domainResolver.getDomain());
+            try {
+                URL url = this.getClass().getResource("../../../../../resources/templates/mail/passwordRestoreMail.jade");
+                String html = Jade4J.render(url, model);
+                sender.send("Уведомление о получении новой скидки",html,restore.getEmail());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
             sender.send("Восстановление пароля Discounts","<table style=\"border-collapse: collapse;font-family: Arial;\">\n" +
                     "<tr style=\"width: 440px;\"><td><img src=\"http://i.imgur.com/yM3Q1N3.png\"></td><td></td></tr>\n" +
                     "<tr class=\"background-main\" style=\"width: 440px;background-color: #DCDFE6;text-align: center;\"><td class=\"background-main-data\" style=\"border-top-left-radius: 5px;border-top-right-radius: 5px;\"><h2><span class=\"welcome-header\" style=\"font-weight: bold;color: #4D64AC;\">Здравствуйте!</span></h2><span class=\"thanks\"> Вы отправили запрос на восстановление<br>пароля вашего аккаунта<p>Для того, чтобы задать новый пароль,<br>нажмите на кнопку ниже</p></span><p></p><a href=\"http://discounts.7bits.it/password_restore/?hash="+restore.getHash()+"\"><img src=\"http://i.imgur.com/XPtKMmq.png\"></a><p></p><p>Пожалуйста, проигнорируйте данное письмо,<br> если оно попало к Вам по ошибке.</p>\n" +
