@@ -1,12 +1,16 @@
 package it.sevenbits.cards.web.domain.forms;
 
 public class DiscountByCampaignForm {
-    private String name;
-    private String description;
-    private String percent;
+    private Long campaignId;
     private String email;
-    private String backerPercent;
 
+    public Long getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(Long campaignId) {
+        this.campaignId = campaignId;
+    }
 
     public String getEmail() {
         return email;
@@ -16,42 +20,9 @@ public class DiscountByCampaignForm {
         this.email = email;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPercent() {
-        return percent;
-    }
-
-    public void setPercent(String percent) {
-        this.percent = percent;
-    }
-
-
     @Override
     public String toString() {
-        return String.format("DiscountByCampaignForm[name=%s, description=%s, percent=%s, email=%s, backerPercent=%s]", name, description, percent, email, backerPercent);
+        return String.format("DiscountByCampaignForm[campaignId=%d, email=%s]", campaignId, email);
     }
 
-    public String getBackerPercent() {
-        return backerPercent;
-    }
-
-    public void setBackerPercent(String backerPercent) {
-        this.backerPercent = backerPercent;
-    }
 }

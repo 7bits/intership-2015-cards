@@ -7,9 +7,9 @@ import java.util.List;
 public interface DiscountMapper {
 
     //Save
-    @Insert("INSERT INTO discounts (key, is_hidden, user_id, backer_user_id, campaign_id, deleted, hash, created_at)\n" +
-            "VALUES (#{key}, #{isHidden}, #{userId}, #{backerUserId}, #{campaignId}, #{deleted}, #{hash}, #{createdAt})")
-    void save(final Discount discount);
+    @Insert("INSERT INTO discounts (key, user_id, backer_user_id, campaign_id)\n" +
+            "VALUES (#{key}, (select id from users where email = #{email}), (select id from users where email = #{email}), #{campaignId})")
+    void createByCampaign(@Param("key") String key, @Param("email") String email, @Param("campaignId") Long campaignId);
 
     //Delete discount by key
     @Delete("DELETE FROM discounts where discounts.key = #{key} AND discount.is_hidden = false AND\n +" +

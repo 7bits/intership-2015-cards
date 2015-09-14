@@ -5,8 +5,8 @@ import it.sevenbits.cards.core.domain.Discount;
 import java.util.List;
 
 public interface DiscountRepository {
-    void save(final Discount discount) throws RepositoryException;
-    void delete(String key, String storeName) throws RepositoryException;
+    void createByCampaign(String key, String email, Long campaignId) throws RepositoryException;
+    void delete(String key, String email) throws RepositoryException;
     List<Discount> findAllWithHiddenStatus(Boolean isHidden, String email) throws RepositoryException;
 }
 

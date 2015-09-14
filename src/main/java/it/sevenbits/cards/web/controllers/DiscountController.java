@@ -2,7 +2,6 @@ package it.sevenbits.cards.web.controllers;
 
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.service.*;
-import it.sevenbits.cards.service.validators.*;
 import it.sevenbits.cards.web.domain.forms.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,81 +40,15 @@ public class DiscountController {
     //Use Discount
     @Secured("ROLE_STORE")
     @RequestMapping(value = "/use_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute UseForm useForm) throws ServiceException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JsonResponse res = new JsonResponse();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        final Map<String, String> errors = useFormValidator.validate(useForm, storeName);
-        if (errors.size() == 0) {
-            discountService.createFeedbackDiscountAfterUse(useForm.getKey());
-            discountService.delete(useForm.getKey(), storeName);
-            String description = "Использована скидка с ключом " + useForm.getKey().toString();
-            storeHistoryService.save(storeName, description);
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
-    }
-
-    //Show All Discounts
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/discounts", method = RequestMethod.GET)
-    public String showAll(final Model model) throws ServiceException {
-        model.addAttribute("discounts", discountService.findAll());
-        return "home/discounts";
-    }
-
-    //Save discount after add and show all discounts
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/add_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute(value="discount") DiscountForm discountForm) throws ServiceException {
-        JsonResponse res = new JsonResponse();
-        final Map<String, String> errors = discountFormValidator.validate(discountForm);
-        if (errors.size() == 0) {
-            discountService.save(discountForm);
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+    public @ResponseBody JsonResponse saveDiscounts(@ModelAttribute KeyForm keyForm) throws ServiceException {
+        return jsonHandler.useDiscount(keyForm);
     }
 
     //Create discount by campaign
     @Secured("ROLE_STORE")
     @RequestMapping(value="/create_discount_by_campaign", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm, Model model) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeName = storeService.findStoreNameByUserId(userService.findUserIdByUserName(authentication.getName()));
-        String storeImage = storeService.findStoreImageByStoreName(storeName);
-        final Map<String, String> errors = discountByCampaignFormValidator.validate(discountByCampaignForm);
-        JsonResponse res = new JsonResponse();
-        if (errors.size() == 0) {
-            String generatedKey = generateKeyService.random();
-            String generatedUin = generateUinService.random();
-            discountService.createDiscountByCampaign(discountByCampaignForm, generatedKey, generatedUin, storeName, storeImage);
-            Discount discount = discountService.findDiscountByUin(generatedUin);
-            final Map<String, String> exist = emailExistValidator.validate(discountByCampaignForm.getEmail());
-            if (exist.size() != 0) {
-                notificationService.notificateCreate(discountByCampaignForm, discount.getId());
-            }
-            else{
-                notificationService.notificateCreateIfExist(discountByCampaignForm,discount.getId());
-            }
-            String description = "Скидка сгенерирована кампанией " + discountByCampaignForm.getName() + " и отправлена пользователю " + discountByCampaignForm.getEmail();
-            storeHistoryService.save(storeName, description);
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }
-        else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+    public @ResponseBody JsonResponse createDiscountByCampaign(@ModelAttribute DiscountByCampaignForm discountByCampaignForm) throws ServiceException{
+        return jsonHandler.createDiscountByCampaign(discountByCampaignForm);
     }
 
     //Add discount
