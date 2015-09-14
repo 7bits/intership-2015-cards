@@ -1,295 +1,50 @@
-doctype html
-html
-     head
-          meta(charset='utf-8')
-          //meta(name="viewport", content="width=device-width, initial-scale=1.0")
-          title Личный кабинет
-          // BOOTSTRAP
-          script(src='/resources/scripts/jquery-1.9.1.js')
-          script(src='/resources/scripts/bootstrap.js')
-          link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
-          link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
-          script(src='/resources/scripts/modernizr.custom.js')
-          script(src='/resources/scripts/share.js')
-          script(src='/resources/scripts/bindValidator.js')
-          script(src='/resources/scripts/sendValidator.js')
-          script(src='/resources/scripts/accordion.js')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
-          meta(name="_csrf", content="#{_csrf.token}")
-          meta(name="_csrf_header", content="#{_csrf.headerName}")
-          script(src='/resources/scripts/search.js')
-          // BOOTSTRAP END
-          link(href='/resources/stylesheets/style.css', rel='stylesheet')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/searchstyle.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/accordion.css')
-          link(rel='stylesheet', type='text/css', href='/resources/stylesheets/personal_page.css')
+extends ../layout.jade
+block append head
+    title Личный кабинет
+block append body
+    .body--personal-area
+        .body__discount
+            .discount__search
+                input.search__input(type='text', placeholder='Поиск...')
+                img.search__icon(src='resources/img/loupe.png')
+            .discount__tab-head
+                input.tab-head__head.tab-head__head--1.tab-head__head--active(type="button", value="Поделиться скидкой")
+                input.tab-head__head.tab-head__head--2(type="button", value="Мои скидки")
+            .discount__tab-content
+                .tab-content__accordion.tab-content__accordion--1.tab-content__accordion--active
+                    for discount in discountsForSend
+                        .accordion
+                            .accordion__head
+                                .accordion__head__name #{discount.storeName}
+                                img.accordion__head__arrow(src="/resources/img/arrowUpWhite.png")
+                            .accordion__content
+                                .accordion__content__description
+                                    label.description__label--bold Скидка:
+                                    p.description__p #{discount.percent}%
+                                    label.description__label--bold Описание:
+                                    p.description__p #{discount.description}
+                                img.accordion__content__image(src="/resources/img/blizzard.png")
+                                .accordion__content__button
+                                    input.button__button--red--small(type="button", value="Отправить")
+                .tab-content__accordion.tab-content__accordion--2
+                    for discount in discountsForUse
+                        .accordion
+                            .accordion__head
+                                .accordion__head__name #{discount.storeName}
+                                img.accordion__head__arrow(src="/resources/img/arrowUpWhite.png")
+                            .accordion__content
+                                .accordion__content__description
+                                    label.description__label--bold Скидка:
+                                    p.description__p #{discount.percent}%
+                                    label.description__label--bold Описание:
+                                    p.description__p #{discount.description}
+                                img.accordion__content__image(src="/resources/img/blizzard.png")
+                                .accordion__content__button
+                                    input.button__button--red--small(type="button", value="Использовать")
+        .body__advertising
 
-     body
-          // HEADER
-          .header_container
-               .header
-                    a(href='homepage')
-                         .header-image
-                              img(src="/resources/img/logoOS.png")
-                    .header-buttons
-                         .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-                              form(action="/logout", method="post")
-                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                   input.exit-button(type='submit',value='Выход')
-                              .morph-content
-                                   .content-style-form.content-style-form-1
-                                        .morph-in-button
-                                             button magicbuttonwhichishidden
-                         // morph-button
-                         #js_info_button.info-button(tabindex='1')
-                              | Информация
-                              ul.dropdown
-                                   li
-                                        a(href='about') О проекте
-                                   li
-                                        a(href='developers') Разработчики
-                                   li
-                                        a(href='feedback') Поддержка
-          // HEADER END
-          // MAIN
-          .main
-               //.add-button
-               //     .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-add
-               //          button.before-morph(type='button') Добавить скидку
-               //          .morph-content
-               //               div
-               //                    .content-style-form.content-style-form-1
-               //                         span.icon.icon-close Закрыть окно
-               //                         h2 Добавить скидку
-               //                         .js-bind
-               //                              form#js-bind-form(action="/bind_discount", method="post")
-               //                                   input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-               //                                   p
-               //                                        label Номер
-               //                                        .infoBlockBind
-               //                                       input#bind-uin.form-control.uin_bind_input(name="uin", placeholder="UIN для добавления", type="text")
-               //                                        .errorsBind#uinErrorBind
-               //                                        input.add#bind(type='button',value="Добавить",onclick='doAjaxPostBind()')
-               //
-               // morph-button
-               .discounts
-                    // DISCOUNTS LIST
-                    // Tabs
-                    .tabs
-                         ul#myTabExample.nav.nav-pills(role='tablist')
-                              li(role='presentation')
-                                   a#first(href='#send_tab', role='tab', data-toggle='tab')
-                                        .tabs_text Поделиться скидкой
-                              li(role='presentation')
-                                   a(href='#use_tab', role='tab', data-toggle='tab')
-                                        .tabs_text Мои скидки
-                    // Tabs end
-                    // Tabs content
-                    .tab-content
-                         // Содержимое 1 вкладки
-                         #send_tab.tab-pane
-                              .ss#search_send
-                                   input#send-search.send-use-search(type='text', placeholder='Поиск...')
-                                   .yellow
-                                        img.search-icon(src='resources/img/loupe.png')
-                              for discount in discountsForSend
-                                   .ellement.head-open(id='ellement_'+discount.id) #{discount.storeName}
-                                        .accordion_arrow
-                                             img(src='/resources/img/arrowDownWhite.png')
-                                   .ellement_sub(id='ellement_'+discount.id+'_sub')
-                                        .describe_shadow
-                                        .accordion_description
-                                             .accordion_description_text
-                                                  span.bold_text Скидка:
-                                                  span.not_bold_text  #{discount.percent}%
-                                                  br
-                                                  .accordion_description_space
-                                                  span.bold_text Описание:
-                                                  span.not_bold_text  #{discount.description}
-                                             .accordion_description_img
-                                                  img.store-img(src='/resources/img/'+discount.storeImage)
-                                        .btn
-                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send
 
-                                                  button.before-morph(type='button') Отправить
-                                                  .morph-content.send-discount
-                                                       div
-                                                            .content-style-form.content-style-form-1
-                                                                 span.icon.icon-close Закрыть окно
-                                                                 h2 Скидка
-                                                                 .js-send
-                                                                      form#js-send-form(action="/send_discount", method="post")
-                                                                           input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                                           p
-                                                                                label Пользователь
-                                                                                .infoBlock(id='infoBlock_send_'+discount_id)
-                                                                                input.form-control(name="key", type="hidden", value="#{discount.key}", id="send_key_"+discount.id)
-                                                                                input.form-control(name="uin", type="hidden", value="#{discount.uin}", id="send_uin_"+discount.id)
-                                                                                input.form-control.email_input(name="email", placeholder="Email получателя", type="text", id="send_email_"+discount.id)
-                                                                                .errors(id='emailError'+discount.id)
-                                                                           .morph-in-button
-                                                                                input.add(type="button",value="Отправить", onclick='doAjaxPostSend("#{discount.id}")')
-                                                                           a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                img.first-social.social(src='/resources/img/vkontakte.png')
-                                                                           a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                img.social(src='/resources/img/facebook.png')
-                                                                           a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                                img.social(src='/resources/img/twitter.png')
-                                                                           a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                                                img.social(src='/resources/img/odnoklassniki.png')
-                                                                           a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                                                img.social(src='/resources/img/mir.png')
-                                             // morph-button
-                                        .describe_shadow_down
 
-                         #use_tab.tab-pane
-                              .ss#search_use
-                                   input#use-search.send-use-search(type='text', placeholder='Поиск...')
-                                   .yellow
-                                        img.search-icon(src='/resources/img/loupe.png')
-                              for discount in discountsForUse
-                                   .ellement.head-open(id='ellement_'+discount.id) #{discount.storeName}
-                                        .accordion_arrow
-                                             img(src='/resources/img/arrowDownWhite.png')
-                                   .ellement_sub(id='ellement_'+discount.id+'_sub')
-                                        .describe_shadow
-                                        .accordion_description
-                                             .accordion_description_text
-                                                  span.bold_text Скидка:
-                                                  span.not_bold_text  #{discount.percent}%
-                                                  br
-                                                  .accordion_description_space
-                                                  span.bold_text Описание:
-                                                  span.not_bold_text  #{discount.description}
-                                             .accordion_description_img
-                                                  img.store-img(src='/resources/img/'+discount.storeImage)
-                                        .btn
-                                             // <a href="#"><div class="b_text">Использовать</div></a>
-                                             .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send.morph-button-use
-                                                  button.before-morph(type='button') Показать код
-                                                  .morph-content
-                                                       div
-                                                            .content-style-form.content-style-form-1
-                                                                 span.icon.icon-close Закрыть окно
-                                                                 h2 Скидка
-                                                                 form(action="/personal_area",method="post")
-                                                                      input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                                      p
-                                                                           label Ключ
-                                                                           input(type='text',value="#{discount.key}")
-                              // morph-button
-                    // Tabs content end
-                    // DISCOUNTS LIST END
-               div
-               .advertisment
-                    img(src='/resources/img/mediamarkt.png')
-               .shadow
-          // MAIN END
-          // SCRIPTS
-          script(src='/resources/scripts/classie.js')
-          script(src='/resources/scripts/uiMorphingButton_fixed.js')
-          script.
-               (function() {
-                    var docElem = window.document.documentElement, didScroll, scrollPosition;
-                    // trick to prevent scrolling when opening/closing button
-                    function noScrollFn() {
-                         window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
-                    }
-                    function noScroll() {
-                         window.removeEventListener( 'scroll', scrollHandler );
-                         window.addEventListener( 'scroll', noScrollFn );
-                    }
-                    function scrollFn() {
-                         window.addEventListener( 'scroll', scrollHandler );
-                    }
-                    function canScroll() {
-                         window.removeEventListener( 'scroll', noScrollFn );
-                         scrollFn();
-                    }
-                    function scrollHandler() {
-                         if( !didScroll ) {
-                              didScroll = true;
-                              setTimeout( function() { scrollPage(); }, 60 );
-                         }
-                    };
-                    function scrollPage() {
-                         scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
-                         didScroll = false;
-                    };
-                    scrollFn();
-                    [].slice.call( document.querySelectorAll( '.morph-button' ) ).forEach( function( bttn ) {
-                         new UIMorphingButton( bttn, {
-                              closeEl : '.icon-close',
-                              onBeforeOpen : function() {
-                                   // don't allow to scroll
-                                   noScroll();
-                              },
-                              onAfterOpen : function() {
-                                   // can scroll again
-                                   canScroll();
-                              },
-                              onBeforeClose : function() {
-                                   // don't allow to scroll
-                                   noScroll();
-                              },
-                              onAfterClose : function() {
-                                   // can scroll again
-                                   canScroll();
-                              }
-                         } );
-                    } );
-                    [].slice.call( document.querySelectorAll( '.morph-button' ) ).forEach( function( bttn ) {
-                         new UIMorphingButton( bttn, {
-                              closeEl : '.no',
-                              onBeforeOpen : function() {
-                                   // don't allow to scroll
-                                   noScroll();
-                              },
-                              onAfterOpen : function() {
-                                   // can scroll again
-                                   canScroll();
-                              },
-                              onBeforeClose : function() {
-                                   // don't allow to scroll
-                                   noScroll();
-                              },
-                              onAfterClose : function() {
-                                   // can scroll again
-                                   canScroll();
-                              }
-                         } );
-                    } );
-                    // for demo purposes only
-                    [].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) {
-                         bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );
-                    } );
-               })();
-          script.
-               $(function() {
-                    $('#myTabExample a:first').tab('show')
-               });
-          script(type='text/javascript').
-               function DropDown(el) {
-                    this.dd = el;
-                    this.initEvents();
-               }
-               DropDown.prototype = {
-                    initEvents : function() {
-                         var obj = this;
-                         obj.dd.on('click', function(event){
-                              $(this).toggleClass('active');
-                              event.stopPropagation();
-                         });
-                    }
-               }
-               $(function() {
-                    var js_info_button = new DropDown( $('#js_info_button') );
-                    $(document).click(function() {
-                         // all dropdowns
-                         $('.info-button').removeClass('active');
-                    });
-               });
+
+
+

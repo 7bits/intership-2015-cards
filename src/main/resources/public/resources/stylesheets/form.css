@@ -72,7 +72,7 @@ body {
 	
 }
 
-.button__button-red {
+.button__button--red {
 	border: none;
 	border-radius: 3px;
 	border-bottom: solid 4px #de003c;
@@ -83,6 +83,22 @@ body {
 
 	font-size: 25px;
 	line-height: 50px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.button__button--red--small {
+	border: none;
+	border-radius: 3px;
+	border-bottom: solid 4px #de003c;
+	background-color: #ff466a;
+	height: 40px;
+	width: 100%;
+	margin-top: 15px;
+
+	font-size: 18px;
+	line-height: 40px;
 	text-transform: uppercase;
 	font-family: Splash;
 	color: #fff;

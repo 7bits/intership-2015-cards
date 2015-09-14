@@ -1,20 +1,88 @@
-.ellement {
-	background-color: #3253a1;
-	border-radius: 4px;
+.accordion__head {
 	height: 50px;
-	margin-top: 10px;
-	font-weight: bold;
-	font-size: 19px;
+	margin-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	background-color: #3253a1;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.accordion__head--closed {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.accordion__head__name {
+	float: left;
+
+	color: #fff;
 	line-height: 50px;
-	padding-left: 15px;
+	font-weight: bold;
+	font-size: 16px;
 }
 
-.head-open {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
+.accordion__head__arrow {
+	float: right;
+	width: 24px;
+	height: 14px;
+	margin-top: 18px;
 }
 
-.ellement_sub {
+.accordion__head__arrow--closed {
+		-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    		transform: rotate(180deg);
+}
+
+.accordion__content {
+	padding: 20px;
+	overflow: hidden;
+
+	background-color: #dcdee6;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.accordion__content__description {
+	float: left;
+	width: 60%;
+}
+
+.description__label--bold {
+	font-weight: bold;
+	font-size: 16px;
+	color: #000;
+}
+
+.description__p {
+	margin: 0;
+
+	font-size: 16px;
+	color: #000;
+}
+
+.accordion__content__image {
+	float: right;
+	width: 30%;
+	height: auto;
+}
+
+.accordion__content__button {
+	clear: both;
+	float: right;
+	width: 30%;
+}
+
+
+
+/*
+.accordion__accordion-content {
     overflow: hidden;
 	background-color: #dcdee6;
 	border-bottom-left-radius: 4px;
@@ -63,13 +131,10 @@
 	height: 13px;
 	width: 21px;
 }
-
-.head-open .accordion_arrow img {
-	-ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-}
-
+*/
+/*
+*/
+/*
 .btn button {
 	margin: 20px 20px 20px 0;
 }
@@ -143,3 +208,4 @@
 	}
 
 }
+*/

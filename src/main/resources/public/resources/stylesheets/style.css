@@ -1,3 +1,29 @@
+.body--personal-area {
+    width: 100%;
+    max-width: 920px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .body--personal-area {
+        max-width: 550px;
+    }
+}
+
+.body__advertising {
+    float: right;
+    width: 30%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .body__advertising {
+        float: none;
+        width: 0;
+    }
+}
+
 @font-face {
     font-family: Splash;
     src: url("/resources/fonts/IgdfK4NT.otf") format("opentype");
