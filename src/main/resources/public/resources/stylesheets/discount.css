@@ -3,6 +3,22 @@
 	width: 60%;
 }
 
+.body__discount--store-area {
+	float: left;
+	width: 60%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 919px) {
+
+	.body__discount--store-area {
+		margin: 0 auto;
+		float: none;
+		max-width: 600px;
+		width: 100%;
+	}
+
+}
+
 @media only screen and (min-width: 320px) and (max-width: 767px) {
 	.body__discount {
 		float: none;

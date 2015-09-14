@@ -10,6 +10,25 @@ body {
 	background-color: #3956a3;
 }
 
+.form--small {
+	float: right;
+	//margin: 50px auto 0 auto;
+	padding: 20px;
+	width: 35%;
+	background-color: #3956a3;
+}
+
+@media only screen and (max-width: 919px) {
+
+	.form--small {
+		width: 470px;
+		float: none;
+		padding: 35px;
+		margin: 0 auto 20px auto;
+	}
+
+}
+
 .form__label {
 	display: block;
 	margin-bottom: 35px;
@@ -21,7 +40,7 @@ body {
 }
 
 .form__input {
-	width: 400px;
+	//width: 400px;
 	margin-bottom: 10px;
 }
 

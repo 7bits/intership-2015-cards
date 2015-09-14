@@ -1,322 +1,50 @@
-doctype html
-html
-    head
-        meta(charset='utf-8')
-        title Личный кабинет
-        // BOOTSTRAP
-        script(src='http://code.jquery.com/jquery-latest.js')
-        script(src='/resources/scripts/jquery-1.9.1.js')
-        script(src='/resources/scripts/bootstrap.js')
-        link(rel='shortcut icon', href='/resources/img/favicon.png', type="image/png")
-        link(href='/resources/stylesheets/bootstrap.min.css', rel='stylesheet')
-        script(src='/resources/scripts/modernizr.custom.js')
-        script(src='/resources/scripts/share.js')
-        script(src='/resources/scripts/sendValidator.js')
-        script(src='/resources/scripts/useDiscountValidation.js')
-        script(src='/resources/scripts/addCampaignValidation.js')
-        script(src='/resources/scripts/createDiscountByCampaignValidation.js')
-        create_discount_by_campaign
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/normalize.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/component.css')
-        meta(name="_csrf", content="#{_csrf.token}")
-        meta(name="_csrf_header", content="#{_csrf.headerName}")
-        script(src='/resources/scripts/search.js')
-        // BOOTSTRAP END
-        link(href='/resources/stylesheets/style.css', rel='stylesheet')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/content.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/header.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/searchstyle.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/ajaxstyle.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/accordion.css')
-        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/store_page.css')
-        script(src='/resources/scripts/accordion.js')
-    body
-        // HEADER
-        .header_container
-            .header
-                a(href='homepage')
-                    .header-image
-                        img(src="/resources/img/logoOS.png")
-                .header-buttons
-                    .log-button.morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
-                        form(action="/logout", method="post")
-                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                            input.exit-button(type='submit',value='Выход')
-                        .morph-content
-                            .content-style-form.content-style-form-1
-                                .morph-in-button
-                                    button magicbuttonwhichishidden
-                    // morph-button
-                    #js_info_button.info-button(tabindex='1')
-                        | Информация
-                        ul.dropdown
-                            li
-                                a(href='about') О проекте
-                            li
-                                a(href='developers') Разработчики
-                            li
-                                a(href='feedback') Поддержка
-        // HEADER END
-        // MAIN
-        .main
-            .use-discount-form
-                h2.reg-fill-heading ИСПОЛЬЗОВАТЬ СКИДКУ
-                .js-use
-                    form#js-use-form(action="/use_discount", method="post")
-                        .reg-input-lable-container
-                            .infoBlockUseDiscount
-                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                            label.reglable Введите ключ скидки
-                            input.form-control.generate-input.key_use_input#keyUse(type='text')
-                            .errors#keyError
-                            input.form-control.registration-button.yes.reginp.add(type='button', value='ИСПОЛЬЗОВАТЬ', onClick='doAjaxPostUse()')
-                // morph-button
-            .campaigns
-                .campaign-heading
-                    | Акции
-                    .add-campaign-button
-                        .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-add-campaign
-                            button.before-morph(type='button') +
-                            .morph-content#morph-content-campaign
-                                .content-style-form.content-style-form-1
-                                    span.icon.icon-close Закрыть окно
-                                    p#campaign-info
-                                    h2 Добавить акцию
-                                    .js-add-campaign
-                                        form#js-add-campaign-from(action="/add_campaign", method="post")
-                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                            p
-                                                .infoBlockAddCampaign
-                                                label Название акции
-                                                input.form-control.name_campaign_input#nameCampaign(type="text")
-                                                .errors#nameError
-                                                label Описание акции
-                                                input.form-control.description_campaign_input#descriptionCampaign(type="text")
-                                                .errors#descriptionError
-                                                label Процент скидки акции
-                                                input.form-control.percent_campaign_input#percentCampaign(type="text")
-                                                .errors#percentError
-                                                label Процент поощрения
-                                                input.form-control.backerPercent_campaign_input#backerPercentCampaign(type="text")
-                                                .errors#backerPercentError
-                                                .morph-in-button
-                                                    input.add(type="button",value="Создать", onClick='doAjaxPostAddCampaign()')
-                    //button.add-campaign-button +
-                // DISCOUNTS LIST
-                // Tabs
-                .tabs
-                    ul#myTabExample.nav.nav-pills(role='tablist')
-                        li(role='presentation')
-                            a#first(href='#send_tab', role='tab', data-toggle='tab')
-                                .tabs_text Активные
-                        li(role='presentation')
-                            a(href='#use_tab', role='tab', data-toggle='tab')
-                                .tabs_text Неактивные
-                // Tabs end
-                // Tabs content
-                .tab-content
-                    // Содержимое 1 вкладки
-                    #send_tab.tab-pane
-                        .ss#search_use
-                            input#send-search.send-use-search(type='text', placeholder='Поиск...')
-                            .yellow
-                                img.search-icon(src='/resources/img/loupe.png')
-
-                        for campaign in activeCampaigns
-                            .ellement.head-open(id='ellement_'+campaign.id) #{campaign.name}
-                                .accordion_arrow
-                                    img(src='/resources/img/arrowDownWhite.png')
-                            .ellement_sub(id='ellement_'+campaign.id+'_sub')
-                                .accordion_description
-                                    .accordion_description_text
-                                        span.bold_text Скидка:
-                                        span.not_bolt_text  #{campaign.percent}%
-                                        span.not_bold_text
-                                        br
-                                        .accordion_description_space
-                                        span.bold_text Описание:
-                                        span.not_bold_text  #{campaign.description}
-                                    .accordion_description_img
-                                        img.store-img(src='/resources/img/'+storeImage)
-
-                                .btn
-                                    .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.morph-button-use-send(id="magic_"+campaign.id)
-                                        button.before-morph(type='button') Сгенерировать
-                                        .morph-content
-                                            div
-                                                .content-style-form.content-style-form-1
-                                                    span.icon.icon-close Закрыть окно
-                                                    h2 Скидка
-                                                    .js-create-discount-by-campaign
-                                                        form#js-create-discount-by-campaign-form(action="/create_discount_by_campaign", method="post")
-                                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                                            p
-                                                                .infoBlock(id="infoBlock_campaign_"+campaign.id)
-                                                                label Email
-                                                                input.form-control.email_create_discount_by_campaign_input(name="email", type="text", id="discount_email_"+campaign.id)
-                                                                .errors(id="emailErrorActive_" + campaign.id)
-                                                                input.form-control(name="name", value= "#{campaign.name}", type="hidden", id="discountName_"+campaign.id)
-                                                                input.form-control(name="percent", value= "#{campaign.percent}", type="hidden", id="discountPercent_"+campaign.id)
-                                                                input.form-control(name="backerPercent", value= "#{campaign.backerPercent}", type="hidden", id="discountBackerPercent_"+campaign.id)
-                                                                input.form-control(name="description", value= "#{campaign.description}", type="hidden", id="discountDescription_"+campaign.id)
-                                                            .morph-in-button
-                                                                input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign('#{campaign.id}')", value="Сгенерировать")
-                                                            //a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                            //    img.social(src='/resources/img/vkontakte.png')
-                                                            //a(onclick="Share.facebook('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                            //    img.social(src='/resources/img/facebook.png')
-                                                            //a(onclick="Share.twitter('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                            //    img.social(src='/resources/img/twitter.png')
-                                                            //a(onclick="Share.odnoklassniki('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount')")
-                                                            //    img.social(src='/resources/img/odnoklassniki.png')
-                                                            //a(onclick="Share.mailru('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
-                                                            //    img.social(src='/resources/img/mir.png')
-                                    form(action="/change_campaign_status/?id="+campaign.id, method="post")
-                                        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                        input.add.deactivation(type="submit", value="Деактивировать")
-                                    // morph-button
-                                    .describe_shadow_down
-                    #use_tab.tab-pane
-                        .ss
-                            input#use-search.send-use-search(type='text', placeholder='Поиск...')
-                            .yellow
-                                img.search-icon(src='/resources/img/loupe.png')
-                        for campaign in notActiveCampaigns
-                            .ellement.head-open(id='ellement_'+campaign.id) #{campaign.name}
-                                .accordion_arrow
-                                    img(src='/resources/img/arrowDownWhite.png')
-                            .ellement_sub(id='ellement_'+campaign.id+'_sub')
-                                .accordion_description
-                                    .accordion_description_text
-                                        span.bold_text Скидка:
-                                        span.not_bolt_text  #{campaign.percent}%
-                                        span.not_bold_text
-                                        br
-                                        .accordion_description_space
-                                        span.bold_text Описание:
-                                        span.not_bold_text  #{campaign.description}
-                                    .accordion_description_img
-                                        img.store-img(src='/resources/img/'+storeImage)
-                                form(action="/change_campaign_status/?id="+campaign.id, method="post")
-                                    input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                    input.add.activation(type="submit", value="Активировать")
-                                // morph-button
-                // Tabs content end
-                // DISCOUNTS LIST END
-            .shadow
-        // MAIN END
-        // SCRIPTS
-        script(src='/resources/scripts/classie.js')
-        script(src='/resources/scripts/uiMorphingButton_fixed.js')
-        script.
-            (function () {
-                var docElem = window.document.documentElement, didScroll, scrollPosition;
-                // trick to prevent scrolling when opening/closing button
-                function noScrollFn() {
-                    window.scrollTo(scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0);
-                }
-
-                function noScroll() {
-                    window.removeEventListener('scroll', scrollHandler);
-                    window.addEventListener('scroll', noScrollFn);
-                }
-
-                function scrollFn() {
-                    window.addEventListener('scroll', scrollHandler);
-                }
-
-                function canScroll() {
-                    window.removeEventListener('scroll', noScrollFn);
-                    scrollFn();
-                }
-
-                function scrollHandler() {
-                    if (!didScroll) {
-                        didScroll = true;
-                        setTimeout(function () {
-                            scrollPage();
-                        }, 60);
-                    }
-                };
-                function scrollPage() {
-                    scrollPosition = {
-                        x: window.pageXOffset || docElem.scrollLeft,
-                        y: window.pageYOffset || docElem.scrollTop
-                    };
-                    didScroll = false;
-                };
-                scrollFn();
-                [].slice.call(document.querySelectorAll('.morph-button')).forEach(function (bttn) {
-                    new UIMorphingButton(bttn, {
-                        closeEl: '.icon-close',
-                        onBeforeOpen: function () {
-                            // don't allow to scroll
-                            noScroll();
-                        },
-                        onAfterOpen: function () {
-                            // can scroll again
-                            canScroll();
-                        },
-                        onBeforeClose: function () {
-                            // don't allow to scroll
-                            noScroll();
-                        },
-                        onAfterClose: function () {
-                            // can scroll again
-                            canScroll();
-                        }
-                    });
-                });
-                [].slice.call(document.querySelectorAll('.morph-button')).forEach(function (bttn) {
-                    new UIMorphingButton(bttn, {
-                        closeEl: '.no',
-                        onBeforeOpen: function () {
-                            // don't allow to scroll
-                            noScroll();
-                        },
-                        onAfterOpen: function () {
-                            // can scroll again
-                            canScroll();
-                        },
-                        onBeforeClose: function () {
-                            // don't allow to scroll
-                            noScroll();
-                        },
-                        onAfterClose: function () {
-                            // can scroll again
-                            canScroll();
-                        }
-                    });
-                });
-                // for demo purposes only
-                [].slice.call(document.querySelectorAll('form button')).forEach(function (bttn) {
-                    bttn.addEventListener('click', function (ev) {
-                        ev.preventDefault();
-                    });
-                });
-            })();
-        script.
-            $(function () {
-                $('#myTabExample a:first').tab('show')
-            });
-        script(type='text/javascript').
-            function DropDown(el) {
-                this.dd = el;
-                this.initEvents();
-            }
-            DropDown.prototype = {
-                initEvents: function () {
-                    var obj = this;
-                    obj.dd.on('click', function (event) {
-                        $(this).toggleClass('active');
-                        event.stopPropagation();
-                    });
-                }
-            }
-            $(function () {
-                var js_info_button = new DropDown($('#js_info_button'));
-                $(document).click(function () {
-                    // all dropdowns
-                    $('.info-button').removeClass('active');
-                });
-            });
+extends ../layout.jade
+block append head
+    title Личный кабинет
+block append body
+    .body--store-area
+        form.form--small(action="/use_discount", method="post")
+            label.form__label ИСПОЛЬЗОВАТЬ СКИДКУ
+            .form__input
+                label.input__label Введте ключ скидки
+                input.input__input(name="key", type="text")
+                .input__error
+            input.button__button--red.button__button-submit-js(type='submit', value='ИСПОЛЬЗОВАТЬ')
+        .body__discount--store-area
+            .discount__search
+                input.search__input(type='text', placeholder='Поиск...')
+                img.search__icon(src='resources/img/loupe.png')
+            .discount__tab-head
+                input.tab-head__head.tab-head__head--1.tab-head__head--active(type="button", value="Активные")
+                input.tab-head__head.tab-head__head--2(type="button", value="Неактивные")
+            .discount__tab-content
+                .tab-content__accordion.tab-content__accordion--1.tab-content__accordion--active
+                    for campaign in activeCampaigns
+                        .accordion
+                            .accordion__head
+                                .accordion__head__name #{campaign.name}
+                                img.accordion__head__arrow(src="/resources/img/arrowUpWhite.png")
+                            .accordion__content
+                                .accordion__content__description
+                                    label.description__label--bold Скидка:
+                                    p.description__p #{campaign.percent}%
+                                    label.description__label--bold Описание:
+                                    p.description__p #{campaign.description}
+                                img.accordion__content__image(src="/resources/img/blizzard.png")
+                                .accordion__content__button
+                                    input.button__button--red--small(type="button", value="Сгенерировать")
+                .tab-content__accordion.tab-content__accordion--2
+                    for campaign in notActiveCampaigns
+                        .accordion
+                            .accordion__head
+                                .accordion__head__name #{campaign.name}
+                                img.accordion__head__arrow(src="/resources/img/arrowUpWhite.png")
+                            .accordion__content
+                                .accordion__content__description
+                                    label.description__label--bold Скидка:
+                                    p.description__p #{campaign.percent}%
+                                    label.description__label--bold Описание:
+                                    p.description__p #{campaign.description}
+                                img.accordion__content__image(src="/resources/img/blizzard.png")
+                                .accordion__content__button
+                                    input.button__button--red--small(type="button", value="Использовать")
