@@ -90,28 +90,12 @@ public class AccountActivationService {
             try {
                 URL url = this.getClass().getResource("../../../../../resources/templates/mail/activationmail.jade");
                 String html = Jade4J.render(url, model);
-
-
-
-
                 sender.send("Активация аккаунта Discounts",html,accountActivation.getEmail());
             }
             catch(IOException e){
                 LOG.info("не срендерилось!");
                 e.printStackTrace();
             }
-//            sender.send("Активация аккаунта Discounts", "<table style=\"border-collapse: collapse;font-family: Arial;\">\n" +
-//                   "<tr style=\"width: 440px;\"><td><img src=\"http://i.imgur.com/yM3Q1N3.png\"></td><td></td></tr>\n" +
-//                    "<tr class=\"background-main\" style=\"width: 440px;background-color: #DCDFE6;text-align: center;\"><td class=\"background-main-data\" style=\"border-top-left-radius: 5px;border-top-right-radius: 5px;\"><h2><span class=\"welcome-header\" style=\"font-weight: bold;color: #4D64AC;\">Добро пожаловать на DISCOUNT!</span></h2><span class=\"thanks\"> Cпасибо, что присоединились к нам!<p>Начните экономить с помощью нашего<br> сервиса прямо сейчас</p></span><p></p><a href=\"http://discounts.7bits.it/registration/?hash="+ accountActivation.getHash()+"\"><img src=\"http://i.imgur.com/PFnXAs1.png\"></a><p></p>\n" +
-//                    "</td></tr><tr class=\"back-main-second\" style=\"width: 440px;background-color: #DCDFE6;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;text-align: right;\"><td class=\"main-content\" style=\"display: block;width: 380px;\"><img class=\"infoinline\" src=\"http://i.imgur.com/aMirD7P.png\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"feedback\" style=\"text-align: left;display: inline-block;float: right;\">Если у вас возникнут сложности<br> c работой нашего сервиса, пожалуйста, <br> обращайтесь в <a href=\"http://discounts.7bits.it/feedback\" class=\"fb_href\" style=\"color: #8796c6;text-decoration: underline;\"> службу поддержки</a>,<br>мы всегда рады вам помочь!<span><br><br></span></span></td></tr></table>", accountActivation.getEmail());
-
-            sender.send("Активация аккаунта Discounts", "<table style=\"border-collapse: collapse;font-family: Arial;\">\n" +
-                    "<tr style=\"width: 440px;\"><td><img src=\"http://i.imgur.com/yM3Q1N3.png\"></td><td></td></tr>\n" +
-                    "<tr class=\"background-main\" style=\"width: 440px;background-color: #DCDFE6;text-align: center;\"><td class=\"background-main-data\" style=\"border-top-left-radius: 5px;border-top-right-radius: 5px;\"><h2><span class=\"welcome-header\" style=\"font-weight: bold;color: #4D64AC;\">Добро пожаловать на DISCOUNT!</span></h2><span class=\"thanks\"> Cпасибо, что присоединились к нам!<p>Начните экономить с помощью нашего<br> сервиса прямо сейчас</p></span><p></p><a href=\"http://discounts.7bits.it/registration/?hash=" + accountActivation.getHash() + "\"><img src=\"http://i.imgur.com/PFnXAs1.png\"></a><p></p>\n" +
-                    "</td></tr><tr class=\"back-main-second\" style=\"width: 440px;background-color: #DCDFE6;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;text-align: right;\"><td class=\"main-content\" style=\"display: block;width: 380px;\"><img class=\"infoinline\" src=\"http://i.imgur.com/aMirD7P.png\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"feedback\" style=\"text-align: left;display: inline-block;float: right;\">Если у вас возникнут сложности<br> c работой нашего сервиса, пожалуйста, <br> обращайтесь в <a href=\"http://discounts.7bits.it/feedback\" class=\"fb_href\" style=\"color: #8796c6;text-decoration: underline;\"> службу поддержки</a>,<br>мы всегда рады вам помочь!<span><br><br></span></span></td></tr></table>", accountActivation.getEmail());
-
-//            sender.send("Активация аккаунта Discounts", "Ссылка для активации:\n" +
-//                    "http://discounts.7bits.it/registration/?hash=" + accountActivation.getHash(), accountActivation.getEmail());
         }
     }
     public void activateByHash(String hash) throws ServiceException{
