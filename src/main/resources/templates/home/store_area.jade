@@ -11,6 +11,10 @@ block append body
                 .input__error
             input.button__button--red.button__button-submit-js(type='submit', value='ИСПОЛЬЗОВАТЬ')
         .body__discount--store-area
+            .discount__head
+                label.discount__head__label Акции
+                .discount__head__button
+                    input.button__button--red--squad(type="button", value="+")
             .discount__search
                 input.search__input(type='text', placeholder='Поиск...')
                 img.search__icon(src='resources/img/loupe.png')
@@ -33,6 +37,8 @@ block append body
                                 img.accordion__content__image(src="/resources/img/blizzard.png")
                                 .accordion__content__button
                                     input.button__button--red--small(type="button", value="Сгенерировать")
+                                .accordion__content__button
+                                    input.button__button--grey--small(type="button", value="Деактивировать")
                 .tab-content__accordion.tab-content__accordion--2
                     for campaign in notActiveCampaigns
                         .accordion
@@ -47,4 +53,4 @@ block append body
                                     p.description__p #{campaign.description}
                                 img.accordion__content__image(src="/resources/img/blizzard.png")
                                 .accordion__content__button
-                                    input.button__button--red--small(type="button", value="Использовать")
+                                    input.button__button--red--small(type="button", value="Активировать")

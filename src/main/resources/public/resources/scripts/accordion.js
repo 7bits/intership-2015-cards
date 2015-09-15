@@ -10,16 +10,5 @@ $(document).ready(function(){
             $(this).find('.accordion__head__arrow').removeClass('accordion__head__arrow--closed');
             content.slideDown();
         }
-
-     //    var ellementId = '#' + this.id + '_sub';
-    	// if( $(ellementId).is(':visible') ) {
-    	// 	$(this).removeClass('head-open');
-    	// 	$(ellementId).slideUp();
-    	// } else {
-    	// 	$(this).addClass('head-open');
-    	// 	$(ellementId).slideDown();
-    	// }
-
-
     })
 });

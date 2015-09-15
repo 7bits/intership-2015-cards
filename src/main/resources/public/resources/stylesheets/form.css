@@ -29,6 +29,17 @@ body {
 
 }
 
+@media only screen and (max-width: 470px) {
+
+	.form--small {
+		width: 320px;
+		float: none;
+		padding: 20px;
+		margin: 0 auto 20px auto;
+	}
+
+}
+
 .form__label {
 	display: block;
 	margin-bottom: 35px;
@@ -110,14 +121,61 @@ body {
 .button__button--red--small {
 	border: none;
 	border-radius: 3px;
-	border-bottom: solid 4px #de003c;
+	border-bottom: solid 3px #de003c;
 	background-color: #ff466a;
-	height: 40px;
+	height: 37px;
 	width: 100%;
 	margin-top: 15px;
 
-	font-size: 18px;
-	line-height: 40px;
+	font-size: 16px;
+	line-height: 37px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.button__button--grey {
+	border: none;
+	border-radius: 3px;
+	border-bottom: solid 4px #de003c;
+	background-color: #ff466a;
+	height: 50px;
+	width: 100%;
+	margin-top: 15px;
+
+	font-size: 25px;
+	line-height: 50px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.button__button--grey--small {
+	border: none;
+	border-radius: 3px;
+	border-bottom: solid 3px #868ea1;
+	background-color: #b8becf;
+	height: 37px;
+	width: 100%;
+	margin-top: 15px;
+
+	font-size: 16px;
+	line-height: 37px;
+	text-transform: uppercase;
+	font-family: Splash;
+	color: #fff;
+}
+
+.button__button--red--squad {
+	border: none;
+	border-radius: 3px;
+	border-bottom: solid 3px #de003c;
+	background-color: #ff466a;
+	height: 47px;
+	width: 100%;
+
+	font-size: 25px;
+	line-height: 47px;
 	text-transform: uppercase;
 	font-family: Splash;
 	color: #fff;
