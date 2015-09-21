@@ -10,6 +10,15 @@ body {
 	background-color: #3956a3;
 }
 
+@media only screen and (max-width: 470px) {
+
+	.form {
+		width: 320px;
+		padding: 20px;
+	}
+
+}
+
 .form--small {
 	float: right;
 	//margin: 50px auto 0 auto;
@@ -137,8 +146,8 @@ body {
 .button__button--grey {
 	border: none;
 	border-radius: 3px;
-	border-bottom: solid 4px #de003c;
-	background-color: #ff466a;
+	border-bottom: solid 4px #868ea1;
+	background-color: #b8becf;
 	height: 50px;
 	width: 100%;
 	margin-top: 15px;
