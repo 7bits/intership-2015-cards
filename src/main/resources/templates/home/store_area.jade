@@ -10,7 +10,7 @@ block append body
         form.form--small(action="/use_discount", method="post")
             label.form__label ИСПОЛЬЗОВАТЬ СКИДКУ
             .form__input
-                label.input__label Введте ключ скидки
+                label.input__label Введите ключ скидки
                 input.input__input(name="key", type="text")
                 .input__error
             input.button__button--red.button__button-submit-js(type='submit', value='ИСПОЛЬЗОВАТЬ')
@@ -44,10 +44,12 @@ block append body
                                         .morph-container
                                             input.button__button--red--small.morph__button--js(type="button", value="Сгенерировать")
                                             .morph__close &#10006
-                                            form.form.morph-content(action="/send_discount", method="post")
+                                            form.form.morph-content(action="/create_discount_by_campaign", method="post")
                                                 label.form__label Сгенерировать
-                                                input(name="key", type="hidden", value="#{discount.key}")
-                                                input(name="uin", type="hidden", value="#{discount.uin}")
+                                                input(name="name", value= "#{campaign.name}", type="hidden")
+                                                input(name="percent", value= "#{campaign.percent}", type="hidden")
+                                                input(name="backerPercent", value= "#{campaign.backerPercent}", type="hidden")
+                                                input(name="description", value= "#{campaign.description}", type="hidden")
                                                 .form__input
                                                     label.input__label email
                                                     input.input__input(name="email", type="text")

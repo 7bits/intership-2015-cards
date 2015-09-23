@@ -23,8 +23,11 @@ function submit() {
         $('.input__input-textarea-error').each(function() {
             $(this).removeClass('input__input-textarea-error').addClass('input__input-textarea');
         });
+        var token = $(this.form).find(".token").val();
+
         $.ajax({
             type: "POST",
+            url: $(this.form).attr('action'),
             data: data,
             success: function(response){
                 if(response.status =="FAIL") {
