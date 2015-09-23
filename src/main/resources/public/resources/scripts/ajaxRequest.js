@@ -20,8 +20,8 @@ function submit() {
         $('.input__input-error').each(function() {
             $(this).removeClass('input__input-error').addClass('input__input');
         });
-        $('.input__input-error').each(function() {
-            $(this).removeClass('input__input-textarea-error').addClass('input__input');
+        $('.input__input-textarea-error').each(function() {
+            $(this).removeClass('input__input-textarea-error').addClass('input__input-textarea');
         });
         $.ajax({
             type: "POST",
@@ -38,27 +38,28 @@ function submit() {
                     }
                 }
                 else {
-                    $('.infoBlock').html("Проверьте ваш почтовый ящик.");
-
-                            $('.email_input').val('');
-                            $('.password_input').val('');
-                    var inputs = document.getElementsByTagName("input");
-                    for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].disabled = true;
-                    }
-                    $(".header a").click(function(e) {
-                        e.preventDefault();
-                    });
-                    $(".header_container").css('pointer-events','none');
-
-
-                    setTimeout(function() {
-                        for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].disabled = false;
-                        }
-                        $(".header_container").css('pointer-events','');
-                        timeoutRedirect();
-                    }, 3000);
+                    //alert(response.status);
+//                    $('.infoBlock').html("Проверьте ваш почтовый ящик.");
+//
+//                            $('.email_input').val('');
+//                            $('.password_input').val('');
+//                    var inputs = document.getElementsByTagName("input");
+//                    for (var i = 0; i < inputs.length; i++) {
+//                            inputs[i].disabled = true;
+//                    }
+//                    $(".header a").click(function(e) {
+//                        e.preventDefault();
+//                    });
+//                    $(".header_container").css('pointer-events','none');
+//
+//
+//                    setTimeout(function() {
+//                        for (var i = 0; i < inputs.length; i++) {
+//                            inputs[i].disabled = false;
+//                        }
+//                        $(".header_container").css('pointer-events','');
+//                        timeoutRedirect();
+//                    }, 3000);
                 }
             },
             error: function(e){

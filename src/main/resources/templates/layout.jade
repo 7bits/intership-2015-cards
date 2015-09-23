@@ -42,10 +42,61 @@ html
         link(rel='stylesheet', type='text/css', href='/resources/stylesheets/morph.css')
         script(src='/resources/scripts/tab.js')
         script(src='/resources/scripts/morph.js')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/home.css')
+        link(rel='stylesheet', type='text/css', href='/resources/stylesheets/dropDown.css')
     body
-        // HEADER END
-        // MAIN
         block body
+            .header-container
+                .header-container__header
+                    a.header__link(href='homepage')
+                        img.header__link__image(src="/resources/img/logoOS.png")
+                    .header__buttons
+                        .morph-position--login.morph-position--js
+                            if !(security.isUserInRole("ROLE_USER") || security.isUserInRole("ROLE_ADMIN") || security.isUserInRole("ROLE_STORE"))
+                                .morph__background
+                                    .morph-container
+                                        input.morph__button--login.morph__button--js(type="button", value="login")
+                                        .morph__close &#10006
+                                        form.form.morph-content(action="/login", method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            label.form__label Login
+                                            .form__input
+                                                label.input__label email
+                                                input.input__input(name="username", type="text")
+                                                .input__error
+                                            .form__input
+                                                label.input__label Password
+                                                input.input__input(name="password", type="password")
+                                                .input__error
+                                            .form__button
+                                                input.button__button--red(type="submit", value="login")
+                                                a(href="/registration")
+                                                    input.button__button--grey(type="button", value="registration")
+                            else
+                                block login
+                                    if security.isUserInRole("ROLE_USER")
+                                        form(action="/personal_area", method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            input.morph__button--login(type='submit', value="ЛК")
+                                    if security.isUserInRole("ROLE_ADMIN")
+                                        form(action="/admin_area", method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            input.morph__button--login(type='submit', value="ЛК")
+                                    if security.isUserInRole("ROLE_STORE")
+                                        form(action="/store_area", method="post")
+                                            input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+                                            input.morph__button--login(type='submit', value="ЛК")
+                        .header__buttons__button--info.dropDown--js
+                            .button--info__head.dropDown--js__head
+                                    .head--info__text Information
+                                    img.head--info__image(src="resources/img/arrowDownS.png")
+                            .button--info__list--info.dropDown--js__list
+                                a.list--info__a(href="/about")
+                                    .list--info__item about
+                                a(href="developers")
+                                    .list--info__item developers
+                                a(href="/feedback")
+                                    .list--info__item feedback
 
 
 

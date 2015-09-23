@@ -10,7 +10,7 @@
 }
 
 .morph__background--open {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -18,12 +18,14 @@
 }
 
 .morph-container {
-	width: 120px;
-	height: 40px;
+	border-radius: 3px;
+	width: 100%;
+	background-color: #3956a3;
+	//height: 40px;
 }
 
 .morph-container--open {
-	position: absolute;
+	position: fixed;
 }
 
 .morph-content {
@@ -34,8 +36,14 @@
 .morph__close {
 	width: 40px;
 	height: 40px;
-	background-color: orange;
 	display: none;
+
+	font-size: 35px;
+	text-align: center;
+}
+
+.morph__close:hover {
+	color: #173884;
 }
 
 .morph__button--open {

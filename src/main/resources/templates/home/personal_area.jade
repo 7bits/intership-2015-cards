@@ -1,6 +1,10 @@
 extends ../layout.jade
 block append head
     title Личный кабинет
+block login
+    form(action="/logout", method="post")
+        input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
+        input.exit-button(type='submit',value='Выход')
 block append body
     .body--personal-area
         .body__discount
@@ -24,8 +28,21 @@ block append body
                                     label.description__label--bold Описание:
                                     p.description__p #{discount.description}
                                 img.accordion__content__image(src="/resources/img/blizzard.png")
-                                .accordion__content__button
-                                    input.button__button--red--small(type="button", value="Отправить")
+                                .accordion__content__button.morph-position--js
+                                    .morph__background
+                                        .morph-container
+                                            input.button__button--red--small.morph__button--js(type="button", value="Отправить")
+                                            .morph__close &#10006
+                                            form.form.morph-content(action="/send_discount", method="post")
+                                                label.form__label Отправить
+                                                input(name="key", type="hidden", value="#{discount.key}")
+                                                input(name="uin", type="hidden", value="#{discount.uin}")
+                                                .form__input
+                                                    label.input__label email
+                                                    input.input__input(name="email", type="text")
+                                                    .input__error
+                                                .form__button
+                                                    input.button__button--red.button__button-submit-js(type="submit", value="Отправить")
                 .tab-content__accordion.tab-content__accordion--2
                     for discount in discountsForUse
                         .accordion
@@ -39,9 +56,22 @@ block append body
                                     label.description__label--bold Описание:
                                     p.description__p #{discount.description}
                                 img.accordion__content__image(src="/resources/img/blizzard.png")
-                                .accordion__content__button
-                                    input.button__button--red--small(type="button", value="Использовать")
+                                .accordion__content__button.morph-position--js
+                                    .morph__background
+                                        .morph-container
+                                            input.button__button--red--small.morph__button--js(type="button", value="Использовать")
+                                            .morph__close &#10006
+                                            form.form.morph-content(action="", method="post")
+                                                label.form__label Использовать
+                                                .form__input
+                                                    label.input__label key
+                                                    input.input__input(name="key", type="text", value="#{discount.key}")
+                                                    .input__error
         .body__advertising
+            a(href="#")
+                img.advertising__image(src="resources/img/blizzard.png")
+            a(href="#")
+                img.advertising__image(src="resources/img/blizzard.png")
 
 
 

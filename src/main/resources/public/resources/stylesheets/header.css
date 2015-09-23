@@ -41,6 +41,19 @@
     cursor: pointer;  
 }   
 
+.head--info__text {
+    display: inline-block;
+    float: left;
+    margin-left: 25px;
+}
+
+.head--info__image {
+    display: inline-block;
+    float: right;
+    margin-top: 18px;
+    margin-right: 25px;
+}
+
 @media only screen and (max-width: 919px) {
     .header__link__image{
         height: 100px;

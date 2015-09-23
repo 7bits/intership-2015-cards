@@ -12,9 +12,11 @@ $(document).ready(function() {
 
 
             // //position at the begin
-            morphContainer.addClass("morph-container--open")
+            morphContainer.addClass("morph-container--open");
             morphContainer.css("top", morphPosition.position().top);
             morphContainer.css("left",  morphPosition.position().left);
+            morphContainer.css("width", morphPosition.width());
+            morphContainer.css("height", morphPosition.height());
             
             //morphContainer.css("position", "absolute");
             
@@ -26,7 +28,7 @@ $(document).ready(function() {
 
 
             //morph window color
-            morphContainer.css("background-color", $(this).css("background-color"));
+            //morphContainer.css("background-color", $(this).css("background-color"));
 
             
             //morph window size
@@ -99,8 +101,8 @@ $(document).ready(function() {
         morphContainer.delay(150).animate( {
             top: positionTop,
             left: positionLeft,
-            width: "120px",
-            height: "40px",
+            width: morphPosition.width(),
+            height: morphPosition.height(),
             margin: 0
         }, 300);
 
