@@ -1,4 +1,5 @@
 package it.sevenbits.cards.web.controllers;
+import it.sevenbits.cards.service.MessageMapService;
 import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.service.*;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -52,6 +54,12 @@ public class HomeController {
 
     @Autowired
     private FeedbackFormValidator feedbackFormValidator;
+
+  //  @Autowired
+   // private MessageByLocaleService messageByLocaleService;
+
+    @Autowired
+    private MessageMapService messageMapService;
 
     private Logger LOG = Logger.getLogger(HomeController.class);
 
@@ -91,8 +99,13 @@ public class HomeController {
 
     //Homepage
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
-    public String homepage() {
-        LOG.info(domainResolver.getDomain());
+    public String homepage(Locale locale, Model model) {
+        Map<String,String> tempmap = messageMapService.getMessageMap("lang/messages");
+        //for (Map.Entry<String, String> entry : tempmap.entrySet()) {
+        //    LOG.info("Key = " + entry.getKey() + ", Value = " + entry.getValue()+"\n");
+        //}
+        model.addAllAttributes(tempmap);
+
         return "home/homepage";
     }
 
