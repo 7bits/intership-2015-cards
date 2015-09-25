@@ -6,7 +6,7 @@ block append body
         p.greeting__p Экономьте ваши деньги и деньги ваших друзей с помощью DISCOUNT
         .greeting__button
             a(href="/registration")
-                input.button__button--red(type="button", value="Начать экономить")
+                input.button__button--red.button-registration-homepage--sl(type="button", value="Начать экономить")
     .info-container
         .info-container__background
         .info-container__info
@@ -26,6 +26,6 @@ block append body
         img.feedback__image(src='/resources/img/question.png')
         p.feedback__p
             |Если у вас возникнут сложности с работой нашего сервиса, пожалуйста, обращайтесь в&nbsp
-            a.feedback__a(href='/feedback') службу поддержки
+            a.feedback__a.link-feedback-homepage--sl(href='/feedback') службу поддержки
             |, мы всегда рады вам помочь!
         .feedback__copyright &copy 2015, Discount

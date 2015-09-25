@@ -4,21 +4,21 @@ block append head
 block login
     form(action="/logout", method="post")
         input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-        input.exit-button(type='submit',value='Выход')
+        input.morph__button--login.button-exit--sl(type='submit',value='Выход')
 block append body
     .body--personal-area
         .body__discount
             .discount__search
-                input.search__input(type='text', placeholder='Поиск...')
+                input.search__input.input-search--sl(type='text', placeholder='Поиск...')
                 img.search__icon(src='resources/img/loupe.png')
             .discount__tab-head
-                input.tab-head__head.tab-head__head--1.tab-head__head--active(type="button", value="Поделиться скидкой")
-                input.tab-head__head.tab-head__head--2(type="button", value="Мои скидки")
+                input.tab-head__head.tab-head__head--1.tab-head__head--active.tab-send--sl(type="button", value="Поделиться скидкой")
+                input.tab-head__head.tab-head__head--2.tab-use--sl(type="button", value="Мои скидки")
             .discount__tab-content
                 .tab-content__accordion.tab-content__accordion--1.tab-content__accordion--active
                     for discount in discountsForSend
                         .accordion
-                            .accordion__head
+                            .accordion__head.accordion__head--sl
                                 .accordion__head__name #{discount.storeName}
                                 img.accordion__head__arrow(src="/resources/img/arrowUpWhite.png")
                             .accordion__content
@@ -31,18 +31,18 @@ block append body
                                 .accordion__content__button.morph-position--js
                                     .morph__background
                                         .morph-container
-                                            input.button__button--red--small.morph__button--js(type="button", value="Отправить")
-                                            .morph__close &#10006
+                                            input.button__button--red--small.morph__button--js.button-morph-send--sl(type="button", value="Отправить")
+                                            .morph__close.morph__close--sl &#10006
                                             form.form.morph-content(action="/send_discount", method="post")
                                                 label.form__label Отправить
                                                 input(name="key", type="hidden", value="#{discount.key}")
                                                 input(name="uin", type="hidden", value="#{discount.uin}")
                                                 .form__input
                                                     label.input__label email
-                                                    input.input__input(name="email", type="text")
+                                                    input.input__input.input-send-email--sl(name="email", type="text")
                                                     .input__error
                                                 .form__button
-                                                    input.button__button--red.button__button-submit-js(type="submit", value="Отправить")
+                                                    input.button__button--red.button__button-submit-js.button-send--sl(type="submit", value="Отправить")
                 .tab-content__accordion.tab-content__accordion--2
                     for discount in discountsForUse
                         .accordion

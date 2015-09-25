@@ -6,15 +6,15 @@ block append body
         label.form__label Заявка #{registration}
         .form__input
             label.input__label Причина обращения #{enterEmail}
-            input.input__input(name="title", type="text")
+            input.input__input.input-feedback-title--sl(name="title", type="text")
             .input__error
         .form__input
             label.input__label Опиште подробнее#{enterEmail}
-            textarea.input__input-textarea(name="describe")
+            textarea.input__input-textarea.input-feedback-describe--sl(name="describe")
             .input__error
         .form__input
             label.input__label Введите адрес эл. почты #{enterEmail}
-            input.input__input(name="email", type="text")
+            input.input__input.input-feedback-email--sl(name="email", type="text")
             .input__error
         .form__button
-            input.button__button--red.button__button-submit-js(type="submit", value="Отправить#{signup}")
+            input.button__button--red.button__button-submit-js.button-feedback-submit--sl(type="submit", value="Отправить#{signup}")

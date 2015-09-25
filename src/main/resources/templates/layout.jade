@@ -48,54 +48,54 @@ html
         block body
             .header-container
                 .header-container__header
-                    a.header__link(href='homepage')
+                    a.header__link.header__link--sl(href='homepage')
                         img.header__link__image(src="/resources/img/logoOS.png")
                     .header__buttons
                         .morph-position--login.morph-position--js
                             if !(security.isUserInRole("ROLE_USER") || security.isUserInRole("ROLE_ADMIN") || security.isUserInRole("ROLE_STORE"))
                                 .morph__background
                                     .morph-container
-                                        input.morph__button--login.morph__button--js(type="button", value="login")
+                                        input.morph__button--login.morph__button--js.morph__button--login--sl(type="button", value="login")
                                         .morph__close &#10006
                                         form.form.morph-content(action="/login", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                                             label.form__label Login
                                             .form__input
                                                 label.input__label email
-                                                input.input__input(name="username", type="text")
+                                                input.input__input.input-login-email--sl(name="username", type="text")
                                                 .input__error
                                             .form__input
                                                 label.input__label Password
-                                                input.input__input(name="password", type="password")
+                                                input.input__input.input-login-password--sl(name="password", type="password")
                                                 .input__error
                                             .form__button
-                                                input.button__button--red(type="submit", value="login")
+                                                input.button__button--red.button--login--sl(type="submit", value="login")
                                                 a(href="/registration")
-                                                    input.button__button--grey(type="button", value="registration")
+                                                    input.button__button--grey.button--registration--sl(type="button", value="registration")
                             else
                                 block login
                                     if security.isUserInRole("ROLE_USER")
                                         form(action="/personal_area", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                            input.morph__button--login(type='submit', value="ЛК")
+                                            input.morph__button--login.button-pa--sl(type='submit', value="ЛК")
                                     if security.isUserInRole("ROLE_ADMIN")
                                         form(action="/admin_area", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                            input.morph__button--login(type='submit', value="ЛК")
+                                            input.morph__button--login.button-pa--sl(type='submit', value="ЛК")
                                     if security.isUserInRole("ROLE_STORE")
                                         form(action="/store_area", method="post")
                                             input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
-                                            input.morph__button--login(type='submit', value="ЛК")
+                                            input.morph__button--login.button-pa--sl(type='submit', value="ЛК")
                         .header__buttons__button--info.dropDown--js
-                            .button--info__head.dropDown--js__head
+                            .button--info__head.dropDown--js__head.dropDown-info--sl
                                     .head--info__text Information
                                     img.head--info__image(src="resources/img/arrowDownS.png")
                             .button--info__list--info.dropDown--js__list
-                                a.list--info__a(href="/about")
+                                a.list--info__a.link-about--sl(href="/about")
                                     .list--info__item about
-                                a(href="developers")
+                                a.link-developers--sl(href="developers")
                                     .list--info__item developers
-                                a(href="/feedback")
+                                a.link-feedback--sl(href="/feedback")
                                     .list--info__item feedback
 
 
