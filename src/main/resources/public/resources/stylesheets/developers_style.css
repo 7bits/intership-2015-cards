@@ -1,4 +1,43 @@
-.dev-ava-first{
+.developers {
+	margin: 0 auto;
+	max-width: 920px;
+	text-align: center;
+}
+
+.developers__developer {
+	display: inline-block;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 33.33%;
+}
+
+.developer__image {
+	width: 80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media only screen and (max-width: 767px) {
+	.developers__developer {
+		display: block;
+		width: 100%;
+	}
+
+	.developer__image {
+		width: auto;
+	}
+}
+
+
+
+
+
+
+
+/*.dev-ava-first{
 	display: inline-block;
     width: 27%;
     margin: 0 0 0 5%;
@@ -90,4 +129,4 @@
 	.dev-ava-second-two img{
 		width: 100%;
 	}
-}
+}*/

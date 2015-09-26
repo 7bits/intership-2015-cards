@@ -1,0 +1,70 @@
+.morph-position--login {
+	float: right;
+    width: 120px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.morph__background {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.morph__background--open {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.morph-container {
+	border-radius: 3px;
+	width: 100%;
+	background-color: #3956a3;
+	//height: 40px;
+}
+
+.morph-container--open {
+	position: fixed;
+}
+
+.morph-content {
+	margin: 0;
+	display: none;
+}
+
+.morph__close {
+	width: 40px;
+	height: 40px;
+	display: none;
+
+	font-size: 35px;
+	text-align: center;
+}
+
+.morph__close:hover {
+	color: #173884;
+}
+
+.morph__button--open {
+	display: none;
+	border-bottom: none;
+}
+
+.morph__button--login {
+	width: 120px;
+	height: 40px;
+
+	background-color: #3956a3;
+	border: none;
+	border-bottom: solid 3px #173884;
+	border-radius: 3px;
+
+	color: #fff;
+	line-height: 37px;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Splash;
+	text-transform: uppercase;
+	text-align: center;
+}

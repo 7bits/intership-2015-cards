@@ -1,321 +1,96 @@
-.header_container {
+.header-container {
 	width: 100%;
 	height: 140px;
 	background-color: white;
 	overflow: visible;
 	box-shadow: 0 7px 2px -2px rgba(187,192,208,0.6);
-    display: inline-block;
     min-width:320px;
 }
 
-.header {
+.header-container__header {
 	margin: auto;
 	max-width: 920px;
 	min-width: 320px;
 	width: 100%;
+    height: 140px;
+    overflow: visible;
 
 }
-/*IMAGE*/
-.header-image {
-	float: left;
-    margin-top: 15px;
-	width: 400px;
+
+.header__link {
+    float: left;
+}
+
+.header__link__image {
+    float: left;
     height: 110px;
-    content: url("../img/logoOS.png");
+    margin-top: 15px;
 }
 
-.header-image img {
-}
-
-/*IMAGE END*/
-
-/*BUTTONS*/
-.header-buttons {
+.header__buttons {
     float: right;
-    width: 50%;
-    height: 120px;
-}
-
-/*LOG BUTTON*/
-.log-button {
-    width: 120px;
-    margin-top: 50px;
-    margin-left: 10px;
-}
-
-    .log-button > button {
-        font-family: Splash;
-    }
-
-    .log-button h2 {
-        font-family: Splash;
-    }
-
-    .log-button label {
-        font-weight: normal;
-        text-transform: none;
-        font-size: 14px;
-    }
-/*LOG BUTTON END*/
-
-/*INFO BUTTON*/
-.info-button {
-    /* Size &amp; position */
-    position: relative;
-    float: right;
+    width: 300px;
     height: 40px;
-    width: 160px;
     margin-top: 50px;
-    margin-right: 0;
-    padding-left: 25px;
-    line-height: 40px;
-    /* Styles */
-    background: #ebedf3;
-    color: #304c8f;
-    font-weight: bold;
-    border-radius: 3px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease-out;
-}
- 
-.info-button:after { /* Little arrow */
-    content: url('/resources/img/arrowDownS.png');
-    width: 0;
-    height: 0;
-    position: absolute;
-    right: 33px;
-    margin-top: -2px;
-    border-width: 6px 6px 0 6px;
-    //border-style: solid;
-    border-color: #304c8f transparent;
 }
 
-.info-button .dropdown {
-    /* Size &amp; position */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding-left: 0px;
-    margin-top: 0px;
-    /* Styles */
-    background: #b8becf;
-    box-shadow: 0 5px 2px -1px rgba(0,0,0,0.3);
-    border-radius: 0 0 3px 3px;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-top: none;
-    border-bottom: none;
-    list-style: none;
-    transition: all 0.3s ease-out;
- 
-    /* Hiding */
-    max-height: 0;
-    overflow: hidden;
+.header__buttons__button--info {
+    float: left;
+    width: 160px;
+    height: 40px;
+    cursor: pointer;  
+}   
+
+.head--info__text {
+    display: inline-block;
+    float: left;
+    margin-left: 25px;
 }
 
-.info-button .dropdown li {
-    padding-left: 10px;
-    border-top: 1px solid #e6e8ea; 
-    text-align: left;
-}
- 
-.info-button .dropdown li a {
-    display: block;
-    text-decoration: none;
-    color: #304c8f;
-    font-weight: normal;
-    transition: all 0.3s ease-out;
-    border-bottom: 0px solid #e6e8ea;
-}
- 
-.info-button .dropdown li:last-of-type a {
-    border: none;
-}
- 
-.info-button .dropdown li i {
-    margin-right: 5px;
-    color: inherit;
-    vertical-align: middle;
-}
- 
-/* Hover state */
- 
-.info-button .dropdown li:hover a {
-    color: #57a9d9;
+.head--info__image {
+    display: inline-block;
+    float: right;
+    margin-top: 18px;
+    margin-right: 25px;
 }
 
-.info-button.active {
-    border-radius: 3px 3px 0 0;
-    background: #b8becf;
-    box-shadow: none;
-    border-bottom: none;
-    color: #304c8f;
-}
- 
-.info-button.active:after {
-    border-color: #304c8f transparent;
-}
- 
-.info-button.active .dropdown {
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    max-height: 400px;
-}
-/*INFO BUTTON END*/
-
-
-/*BUTTONS END*/
-
-
-
-@media screen and (min-width: 320px) and (max-width: 1023px) {
-	
-.wrapper-dropdown-5 {
-        margin: 0;
-    } 
-
-    .header-image {
-        margin-left: 10px;
-    }
-
-    .header-buttons {
-        margin-right: 0;
-        width: 160px;
-    }
-
-    .info-button {
-        margin-top: 0;
-    }
-
-    .log-button {
-        width: 160px;
-        margin: 25px 0 10px 0;
-    }
-	
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-    .header {
-        width: 95%;
-    }
-
-    .header-image {
-        width: 250px;
-    }
-    .header-image {
-        width: 300px;
-        height: auto;
-    }
-}
-
-@media screen and (min-width: 320px) and (max-width: 550px) {
-    .wrapper-dropdown-5 {
-        margin: 0;
-    } 
-
-    .header-image {
-        margin-left: 10px;
-    }
-
-    .header-buttons {
-        margin-right: 0;
-        width: 100px;
-    }
-
-    .info-button:after {
-        margin: 15px 20px 0 auto;
-    }
-
-    .info-button {
-        padding: 0;
-        text-align: center;
-        font-size: 12px;
-        line-height: 30px;
-        width: 100px;
-        margin-top: 0;
-    }
-
-.info-button li {
-    line-height: 40px;
-    }
-
-    .log-button {
-        font-size: 12px;
-        width: 100px;
-        margin: 25px 0 10px 0;
-    }
-    .header-image {
-        margin-top: 15px;
-        width: 180px;
-        height: auto;
-    }
-
-    .header-image img {
-        margin-top: 30px;
-        height: auto;
-        width: 120px;
-    }
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (   min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and (     -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and (        min-device-pixel-ratio: 2) and (min-width: 700px), only screen and (           min-resolution: 192dpi) and (min-width: 700px), only screen and (            min-resolution: 2dppx) and (min-width: 700px) {
-
-
-
-    .header-buttons {
-        width: 340px;
-        float: right;
-        margin: 0;
-    }
-
-    .info-button {
-        padding: 0;
-        text-align: center;
-        line-height: 40px;
-        height: 60px;
-        font-size: 25px;
-        margin-top: 40px;
-        float: right;
-    }
-
-    .info-button:after {
-        content: url('/resources/img/arrowDownM.png');
-        margin: 25px 55px 0 0;
-    }
-
-    .info-button li {
-        line-height: 60px;
-    }
-
-    .log-button {
-        margin-top: 40px;
-        margin-left: 10px;
-        float: right;
-    }
-
-    .log-button > button {
-        height: 60px;
-    }
-
-    .forget-password-href {
-        font-size: 35px;
-    }
-
-    input.yes[type="submit"], input.yes[type="button"] {
-        height: 80px;
-        line-height: 80px;
-        font-size: 50px;
-    }
-
-    .registrarion-btn {
-        height: 80px;
-        line-height: 80px;
-        font-size: 50px;
+@media only screen and (max-width: 919px) {
+    .header__link__image{
+        height: 100px;
         margin-top: 20px;
     }
+}
 
-    input.exit-button[type="submit"] {
-        height: 60px;
-        line-height: 60px;
+@media only screen and (max-width: 767px) {
+    .header__link {
+        width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        display: block;
     }
 
+    .header__link__image{
+        height: 70px;
+        margin-top: 0;
+        float: none;
+        display: block;
+    }
+
+    .header__buttons {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (max-width: 549px) {
+    .header__button--login {
+        margin-right: 0;
+    }
+
+    .header__button--info {
+        margin-left: 0;
+    }
 }

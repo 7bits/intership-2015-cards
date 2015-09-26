@@ -128,9 +128,9 @@ public class HomeController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("enterEmail", "Введите адрес эл. почты");
-        model.addAttribute("enterPassword", "Введите пароль");
+        model.addAttribute("enterPassword", "Ввведите пароль");
         model.addAttribute("registration", "Регистрация");
-        model.addAttribute("signUp", "Зарегистрироваться");
+        model.addAttribute("signup", "Зарегистрироваться");
         return "home/registration";
     }
 
@@ -171,6 +171,7 @@ public class HomeController {
     public String restorePassword() {return "home/password_restore";}
 
     //Password Restore
+    //Vlad should try to refactor it
     @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
     public String restorePasswordHash(@RequestParam String hash, Model model) throws ServiceException{
         final Map<String, String> errors = hashValidator.validate(hash);

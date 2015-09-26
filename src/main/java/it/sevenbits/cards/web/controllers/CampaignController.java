@@ -61,6 +61,12 @@ public class CampaignController {
             storeHistoryService.save(storeName, description);
             res.setStatus("SUCCESS");
             res.setResult(campaign);
+//=======
+//            StoreHistory storeHistory = new StoreHistory();
+//            storeHistory.setStoreName(storeName);
+//            storeHistory.setDescription("Создана кампания " + addCampaignForm.getName() + " " + " с описанием " + addCampaignForm.getDescription() + " " + " с скидкой " + addCampaignForm.getPercent() + "%");
+//            storeHistoryService.save(storeHistory.getStoreName(), storeHistory.getDescription());
+//>>>>>>> features/forms
         }else{
             res.setStatus("FAIL");
             res.setResult(errors);
