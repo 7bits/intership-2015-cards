@@ -10,8 +10,7 @@
 }
 
 .morph__background--open {
-	position: fixed;
-	top: 0;
+	position: absolute;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -25,7 +24,7 @@
 }
 
 .morph-container--open {
-	position: fixed;
+	position: absolute;
 }
 
 .morph-content {

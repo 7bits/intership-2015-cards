@@ -37,8 +37,10 @@ $(document).ready(function() {
 
             
             //animation of morphing
+            console.log($(window).height() / 2 + $(document).scrollTop());
             morphContainer.animate({
-                top: "50%",
+
+                top: $(window).height() / 2 + $(document).scrollTop(),
                 left: "50%",
                 width: width,
                 height: height,
@@ -48,11 +50,17 @@ $(document).ready(function() {
                  
 
             //background apear
-            morphBackground.delay(300).queue(function(next) { 
-                $(this).addClass("morph__background--open"); 
+            morphBackground.delay(400).queue(function(next) {
+                $(this).addClass("morph__background--open");
+                $(this).css("top", $(document).scrollTop());
                 next();
-            });       
+            });
 
+            morphContainer.delay(100).queue(function(next) {
+                console.log($(this).parent().height() / 2);
+                $(this).css("top", ($(this).parent().height() / 2));
+                next();
+            });
 
             //morph form apear
             morphContent.delay(300).fadeIn(100);
@@ -97,6 +105,8 @@ $(document).ready(function() {
             $(this).removeClass("morph__background--open"); 
             next();
         });  
+        console.log(morphContainer.css("top") + $(document).scrollTop());
+        morphContainer.css("top", parseInt(morphContainer.css("top").replace("px","")) + $(document).scrollTop());
 
         morphContainer.delay(150).animate( {
             top: positionTop,
