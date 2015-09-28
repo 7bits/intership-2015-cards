@@ -1,8 +1,11 @@
 package it.sevenbits.cards.service;
 
 
+import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.validation.Sender;
-import it.sevenbits.cards.web.domain.forms.FeedbackForm;
+import it.sevenbits.cards.validation.Sha;
+import it.sevenbits.cards.web.domain.forms.*;
+import org.springframework.aop.support.RegexpMethodPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
@@ -11,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.UserRepository;
-import it.sevenbits.cards.web.domain.forms.RegistrationForm;
 
 import org.apache.log4j.Logger;
 
@@ -26,13 +28,13 @@ public class UserService {
 
     private static Sender sender = new Sender();
 
-    public void createUser(RegistrationForm form) throws ServiceException {
+    public void updateUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
         user.setEmail(form.getEmail());
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(form.getPassword()));
         try {
-            userRepository.save(user);
+            userRepository.update(user);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
@@ -46,21 +48,55 @@ public class UserService {
         }
     }
 
-    public User findByEmail(String email) throws ServiceException{
-        try{
-            return  userRepository.findByEmail(email);
-        } catch (Exception e){
+    public User findByEmail(String email) throws ServiceException {
+        try {
+            return userRepository.findByEmail(email);
+        } catch (Exception e) {
             throw new ServiceException("An error occurred while finding user by email: " + e.getMessage(), e);
         }
     }
 
-    @Async
-    public void sendMailToFeedback(FeedbackForm form) {
-        String email = form.getEmail();
-        String title = form.getTitle();
-        String describe = form.getDescribe();
-        sender.send("Уведомление о получении письма обратной связи", "Спасибо, ваше мнение очень важно для нас. Ожидайте ответа в ближайшее время.\n", email);
-        sender.send("Обращение в службу поддержки от пользователя " + email, "Заголовок: " + title +"\n"+"Источник отправки: " + email + "\n" + "Сообщение: \n" + describe, "discountfeedback@gmail.com");
+    public void activateByHash(String hash) throws ServiceException {
+        try {
+            userRepository.activateByHash(hash);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while activating user by hash: " + e.getMessage(), e);
+        }
+    }
 
+    public void restorePassword(NewPasswordForm newPasswordForm) throws ServiceException {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordHash = passwordEncoder.encode(newPasswordForm.getPassword());
+        try {
+            userRepository.restorePassword(passwordHash, newPasswordForm.getHash());
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while restoring password: " + e.getMessage(), e);
+        }
+    }
+
+    public Long findIdByHash(String hash) throws ServiceException{
+        try {
+            return userRepository.findIdByHash(hash);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding id by hash: " + e.getMessage(), e);
+        }
+    }
+
+    public void createUser(String email) throws ServiceException {
+        final User user = new User();
+        user.setEmail(email);
+        String accountHash = null;
+        user.setRole(Role.ROLE_USER);
+        try {
+            accountHash = Sha.hash256();
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while generating SHA hash: " + e.getMessage(), e);
+        }
+        user.setAccountHash(accountHash);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
+        }
     }
 }

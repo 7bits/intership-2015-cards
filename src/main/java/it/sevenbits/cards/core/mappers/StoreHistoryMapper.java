@@ -8,9 +8,9 @@ import java.util.List;
 public interface StoreHistoryMapper {
 
     //FindAll
-    @Select("SELECT id, store_id, description, created_at FROM stores_history\n" +
-            "INNER JOIN stores on store_history.store_id = stores.id\n" +
-            "WHERE stores.user_id = (SELECT id FROM users where email = #{email}")
+    @Select("SELECT stores_history.id, stores_history.store_id, stores_history.description, stores_history.created_at FROM stores_history\n" +
+            "INNER JOIN stores on stores_history.store_id = stores.id\n" +
+            "INNER JOIN users ON stores.user_id = users.id WHERE users.email = #{email}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "store_id", property = "storeId"),
@@ -21,9 +21,8 @@ public interface StoreHistoryMapper {
 
     //Save
     @Insert("INSERT INTO stores_history (store_id, description)\n"+
-            "VALUES ((SELECT stores.id FROM stores" +
-            "INNER JOIN users ON stores.user_id = users.id" +
-            "WHERE users.email=#{email}), #{description})")
-    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-    void save(StoreHistory storeHistory, @Param("email") String email);
+            "VALUES ((SELECT stores.id FROM stores\n" +
+            "INNER JOIN users ON stores.user_id = users.id\n" +
+            "WHERE users.email=#{email}), #{storeHistory.description})")
+    void save(@Param("storeHistory") StoreHistory storeHistory, @Param("email") String email);
 }

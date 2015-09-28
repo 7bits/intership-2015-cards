@@ -9,8 +9,8 @@ public class Campaign implements Serializable {
     private Long storeId;
     private String name;
     private String description;
-    private Long percent;
-    private Long backerPercent;
+    private int percent;
+    private int backerPercent;
     private Boolean enabled;
     private Timestamp createdAt;
     //Store
@@ -49,19 +49,19 @@ public class Campaign implements Serializable {
         this.description = description;
     }
 
-    public Long getPercent() {
+    public int getPercent() {
         return percent;
     }
 
-    public void setPercent(Long percent) {
+    public void setPercent(int percent) {
         this.percent = percent;
     }
 
-    public Long getBackerPercent() {
+    public int getBackerPercent() {
         return backerPercent;
     }
 
-    public void setBackerPercent(Long backerPercent) {
+    public void setBackerPercent(int backerPercent) {
         this.backerPercent = backerPercent;
     }
 

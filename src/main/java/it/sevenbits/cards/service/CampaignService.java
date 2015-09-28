@@ -21,17 +21,16 @@ public class CampaignService {
     private CampaignRepository campaignRepository;
 
 
-    public Campaign save(final AddCampaignForm addCampaignForm) throws ServiceException {
+    public void save(AddCampaignForm addCampaignForm) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        final Campaign campaign = new Campaign();
+        Campaign campaign = new Campaign();
         campaign.setName(addCampaignForm.getName());
         campaign.setDescription(addCampaignForm.getDescription());
-        campaign.setPercent(Long.parseLong(addCampaignForm.getPercent()));
-        campaign.setBackerPercent(Long.parseLong(addCampaignForm.getBackerPercent()));
+        campaign.setPercent(Integer.parseInt(addCampaignForm.getPercent()));
+        campaign.setBackerPercent(Integer.parseInt(addCampaignForm.getBackerPercent()));
         try {
             campaignRepository.save(campaign, email);
-            return campaign;
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving campaign: " + e.getMessage(), e);
         }

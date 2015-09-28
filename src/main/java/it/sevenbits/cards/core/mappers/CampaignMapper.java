@@ -6,40 +6,28 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface CampaignMapper {
-    /*
-    private Long id;
-    private Long storeId;
-    private String name;
-    private String description;
-    private Long percent;
-    private Long backerPercent;
-    private Boolean enabled;
-    private Timestamp createdAt;
-    */
-
     //Save
     @Insert("INSERT INTO campaigns (store_id, name, description, percent, backer_percent)\n" +
             "VALUES (" +
-            "(select stores.id from stores" +
-            " inner join users on stores.user_id = users.id" +
-            " where users.email = #{email}" +
-            "), #{name}, #{description}, #{percent}, #{backer_percent}")
-    @Options(useGeneratedKeys = true)
-    void save(final Campaign campaign, @Param("email") String email);
+            "(select stores.id from stores\n" +
+            "inner join users on stores.user_id = users.id\n" +
+            "where users.email = #{email}\n" +
+            "), #{campaign.name}, #{campaign.description}, #{campaign.percent}, #{campaign.backerPercent})")
+    void save(@Param("campaign") Campaign campaign, @Param("email") String email);
 
     //Find All
-    @Select("SELECT id, store_id, name, description, percent, backer_percent, enabled, created_at\n" +
-            "FROM campaigns INNER JOIN stores on campaigns.store_id = stores.id\n +" +
-            "WHERE enabled = #{enabled} AND stores.user_id = (select id from users where email=#{email}")
+    @Select("SELECT campaigns.id, campaigns.store_id, campaigns.name, campaigns.description, campaigns.percent, campaigns.backer_percent, campaigns.enabled, campaigns.created_at\n" +
+            "FROM campaigns INNER JOIN stores on campaigns.store_id = stores.id\n" +
+            "INNER JOIN users ON stores.user_id = users.id WHERE users.email = #{email} AND campaigns.enabled = #{enabled}")
     @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "store_id", property = "storeId"),
-            @Result(column = "name", property = "name"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "backer_percent", property = "backerPercent"),
-            @Result(column = "enabled", property = "enabled"),
-            @Result(column = "created_at", property = "createdAt")
+            @Result(column = "campaigns.id", property = "id"),
+            @Result(column = "campaigns.store_id", property = "storeId"),
+            @Result(column = "campaigns.name", property = "name"),
+            @Result(column = "campaigns.description", property = "description"),
+            @Result(column = "campaigns.percent", property = "percent"),
+            @Result(column = "campaigns.backer_percent", property = "backerPercent"),
+            @Result(column = "campaigns.enabled", property = "enabled"),
+            @Result(column = "campaigns.created_at", property = "createdAt")
     })
     List<Campaign> findAllWithEnabledStatus(@Param("email") String email, @Param("enabled") Boolean enabled);
 

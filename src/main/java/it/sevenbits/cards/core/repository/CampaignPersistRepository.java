@@ -17,7 +17,7 @@ public class CampaignPersistRepository implements CampaignRepository {
     private CampaignMapper campaignMapper;
 
     @Override
-    public void save(final Campaign campaign, String email) throws RepositoryException {
+    public void save(Campaign campaign, String email) throws RepositoryException {
         if (campaign == null) {
             throw new RepositoryException("Campaign is null");
         }

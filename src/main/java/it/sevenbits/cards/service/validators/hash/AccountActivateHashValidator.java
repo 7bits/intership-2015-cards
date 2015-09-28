@@ -1,5 +1,6 @@
-package it.sevenbits.cards.service.validators;
+package it.sevenbits.cards.service.validators.hash;
 
+import it.sevenbits.cards.service.validators.CommonFieldValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ public class AccountActivateHashValidator {
     @Autowired
     private CommonFieldValidator validator;
 
-    private static final Logger LOG = Logger.getLogger(HashValidator.class);
+    private static final Logger LOG = Logger.getLogger(AccountActivateHashValidator.class);
 
     public HashMap<String, String> validate(String hash) {
 
-        LOG.info("HashValidator started for: " + hash);
+        LOG.info("AccountActivateHashValidator started for: " + hash);
         HashMap<String, String> errors = new HashMap<>();
 
         validator.isNotNullOrEmpty(hash, errors, "hash", "Хэш не может быть пустым.");

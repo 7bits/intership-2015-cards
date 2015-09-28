@@ -11,8 +11,7 @@ import java.util.Random;
 public class GenerateKeyService {
 
     @Autowired
-    @Qualifier(value = "discountPersistRepository")
-    private DiscountRepository repository;
+    private DiscountService discountService;
 
     private Logger LOG = Logger.getLogger(GenerateKeyService.class);
     public String random() {
@@ -27,13 +26,13 @@ public class GenerateKeyService {
                 char temp = chars.charAt(random.nextInt(chars.length()));
                 result += temp;
             }
-            Long discountId;
+            Boolean isHidden;
             try{
-                discountId = repository.findDiscountIdByKey(result);
+                isHidden = discountService.findDiscountHiddenStatusByKey(result);
             }catch (Exception e){
-                discountId = null;
+                isHidden = null;
             }
-            if(discountId!=null){
+            if(isHidden!=null){
                 codeExist = true;
             }
         }while(codeExist);

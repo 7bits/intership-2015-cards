@@ -1,22 +1,13 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.core.domain.Campaign;
 import it.sevenbits.cards.web.domain.forms.AddCampaignForm;
-import it.sevenbits.cards.web.domain.models.CampaignModel;
 import it.sevenbits.cards.web.domain.JsonResponse;
 import it.sevenbits.cards.service.*;
-import it.sevenbits.cards.service.validators.AddCampaignFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @Secured("ROLE_STORE")
 @Controller

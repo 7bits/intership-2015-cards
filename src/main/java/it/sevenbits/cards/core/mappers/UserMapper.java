@@ -25,48 +25,28 @@ public interface UserMapper {
     User findByEmail(@Param("email") String email);
 
     //Save User
-    @Insert("INSERT INTO users (email, password_hash, role, account_hash)\n" +
-            "VALUES (#{email}, #{password}, #{role}, #{accountHash})")
+    @Insert("INSERT INTO users(email, role, account_hash) VALUES (#{email}, #{role}, #{accountHash})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(User user);
+
+    //Update User
+    @Update("UPDATE users SET password_hash = #{password} WHERE email = #{email}")
+    void update(User user);
 
     //Change user role by email
     @Update("UPDATE users SET role =#{userRole} WHERE email = #{email}")
     void changeUserRoleByEmail(@Param("userRole") String userRole, @Param("email") String email);
 
-    //Change enable status by email
-    @Update("UPDATE users SET enabled = not enabled WHERE email = #{email}")
-    void changeEnableStatusByEmail(@Param("email") String email);
+    @Update("UPDATE users SET account_hash = '', enabled = true WHERE account_hash = #{hash}")
+    void activateByHash(@Param("hash") String hash);
 
-    //Set new password
-    @Update("UPDATE users\n" +
-            "SET password_hash=#{passwordHash}\n" +
-            "WHERE email=#{email}")
-    void setNewPassword(@Param("email") String email, @Param("passwordHash") String passwordHash);
+    @Update("UPDATE users SET password_hash = #{passwordHash} WHERE account_hash = #{hash}")
+    void restorePassword(@Param("passwordHash") String passwordHash, @Param("hash") String hash);
 
-    @Insert("INSERT INTO accounts (email, hash) VALUES (#{email}, #{hash})")
-    void save(@Param("email") String email, @Param("hash") String hash);
-
-    @Delete("DELETE FROM accounts\n" +
-            "WHERE email=#{email}")
-    void delete(@Param("email") String email);
-
-    @Select("SELECT email\n" +
-            "FROM accounts\n" +
-            "WHERE hash=#{hash}")
-    @Result(column = "email")
-    String findEmailByHash(@Param("hash") String hash);
-
-    //Find hash by email
-    @Select("SELECT hash\n" +
-            "FROM accounts\n" +
-            "WHERE email=#{email}")
-    @Result(column = "hash")
-    String findHashByEmail(@Param("email") String email);
-
-    //Update hash by email
-    @Update("UPDATE accounts\n" +
-            "SET hash=#{hash}\n" +
-            "WHERE email=#{email}")
-    void updateHash(@Param("hash") String hash, @Param("email") String email);
+    //Find id by hash
+    @Select("SELECT id FROM users where account_hash = #{hash}")
+    @Results({
+            @Result(column = "id")
+    })
+    Long findIdByHash(@Param("hash") String hash);
 }

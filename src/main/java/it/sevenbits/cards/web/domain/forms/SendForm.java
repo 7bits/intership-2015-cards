@@ -2,7 +2,7 @@ package it.sevenbits.cards.web.domain.forms;
 
 public class SendForm {
     private String email;
-    private String uin;
+    private String key;
 
     public String getEmail() {
         return email;
@@ -12,16 +12,16 @@ public class SendForm {
         this.email = email;
     }
 
-    public String getUin() {
-        return uin;
+    public String getKey() {
+        return key;
     }
 
-    public void setUin(String uin) {
-        this.uin = uin;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
     public String toString() {
-        return String.format("BindForm[email=%s, uin=%s]", email, uin);
+        return String.format("SendForm[email=%s, key=%s]", email, key);
     }
 }

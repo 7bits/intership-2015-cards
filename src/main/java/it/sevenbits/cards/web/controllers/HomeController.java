@@ -19,6 +19,12 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
+    @Autowired
+    ModelBuilder modelBuilder;
+
+    @Autowired
+    JsonHandler jsonHandler;
+
     private Logger LOG = Logger.getLogger(HomeController.class);
 
     //Success
@@ -80,11 +86,8 @@ public class HomeController {
 
     //Registration
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("enterEmail", "Введите адрес эл. почты");
-        model.addAttribute("enterPassword", "Введите пароль");
-        model.addAttribute("registration", "Регистрация");
-        model.addAttribute("signUp", "Зарегистрироваться");
+    public String registration(Model model) throws ServiceException{
+        model.addAllAttributes(modelBuilder.buildRegistration());
         return "home/registration";
     }
 
@@ -92,31 +95,12 @@ public class HomeController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public @ResponseBody
     JsonResponse registration(@ModelAttribute RegistrationForm registrationForm) throws ServiceException {
-        final Map<String, String> errors = registrationFormValidator.validate(registrationForm);
-        JsonResponse res = new JsonResponse();
-        if (errors.size() != 0) {
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        } else {
-            userService.createUser(registrationForm);
-            activationService.sendEmail(activationService.generateActivationHash(registrationForm));
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }
-        return res;
+        return jsonHandler.registerUser(registrationForm);
     }
 
     @RequestMapping(value = "/registration/", method = RequestMethod.GET)
-    public String activatebyhash(@RequestParam(required = false) String hash, Model model) throws ServiceException{
-        final Map<String, String> errors = accountActivateHashValidator.validate(hash);
-        if (errors.size() ==0) {
-            String email = activationService.findEmailByHash(hash);
-            activationService.activateByHash(hash);
-            discountService.addExistDiscountsByEmail(email, userService.findUserIdByUserName(email));
-            model.addAttribute("accActivate", "Регистрация успешно завершена");
-        }else {
-            return "redirect:/registration";
-        }
+    public String activateAccountByHash(@RequestParam String hash, Model model) throws ServiceException{
+        model.addAllAttributes(modelBuilder.activateUser(hash));
         return "home/registration";
     }
 
@@ -124,52 +108,42 @@ public class HomeController {
     @RequestMapping(value = "/password_restore", method = RequestMethod.GET)
     public String restorePassword() {return "home/password_restore";}
 
-    //Password Restore
-    @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
-    public String restorePasswordHash(@RequestParam String hash, Model model) throws ServiceException{
-        final Map<String, String> errors = hashValidator.validate(hash);
-        if (errors.size()==0) {
-            if (hash.substring(0, 6).equals("delete")) {
-                restoreService.deleteByHash(hash);
-                return "home/homepage";
-            }
-            model.addAttribute("hash", hash);
-            return "home/new_password";
-        } else {
-            return "redirect:/password_restore";
-        }
-    }
+//    //Password Restore
+//    @RequestMapping(value = "/password_restore/", method = RequestMethod.GET)
+//    public String restorePasswordHash(@RequestParam String hash, Model model) throws ServiceException{
+//        final Map<String, String> errors = hashValidator.validate(hash);
+//        if (errors.size()==0) {
+//            if (hash.substring(0, 6).equals("delete")) {
+//                restoreService.deleteByHash(hash);
+//                return "home/homepage";
+//            }
+//            model.addAttribute("hash", hash);
+//            return "home/new_password";
+//        } else {
+//            return "redirect:/password_restore";
+//        }
+//    }
     //Password Restore
     @RequestMapping(value = "/password_restore/", method = RequestMethod.POST)
     public @ResponseBody JsonResponse newPassword(@ModelAttribute NewPasswordForm newPasswordForm) throws ServiceException{
-        JsonResponse res = new JsonResponse();
-        final Map<String, String> errors = newPasswordFormValidator.validate(newPasswordForm);
-        if (errors.size() == 0) {
-            restoreService.restorePassword(newPasswordForm);
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+        return jsonHandler.newPassword(newPasswordForm);
     }
-
-    //Password Restore
-    @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse restorePassword(@ModelAttribute PasswordRestoreForm passwordRestoreForm) throws ServiceException {
-        JsonResponse res = new JsonResponse();
-        final Map<String, String> errors = passwordRestoreFormValidator.validate(passwordRestoreForm);
-        if (errors.size() == 0) {
-            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
-    }
+//
+//    //Password Restore
+//    @RequestMapping(value = "/password_restore", method = RequestMethod.POST)
+//    public @ResponseBody JsonResponse restorePassword(@ModelAttribute PasswordRestoreForm passwordRestoreForm) throws ServiceException {
+//        JsonResponse res = new JsonResponse();
+//        final Map<String, String> errors = passwordRestoreFormValidator.validate(passwordRestoreForm);
+//        if (errors.size() == 0) {
+//            restoreService.sendEmail(restoreService.generateHash(passwordRestoreForm));
+//            res.setStatus("SUCCESS");
+//            res.setResult(null);
+//        }else{
+//            res.setStatus("FAIL");
+//            res.setResult(errors);
+//        }
+//        return res;
+//    }
 
     //Feedback
     @RequestMapping(value = "/feedback", method = RequestMethod.GET)
@@ -187,16 +161,6 @@ public class HomeController {
     //Feedback send
     @RequestMapping(value = "/feedback", method = RequestMethod.POST)
     public @ResponseBody JsonResponse feedback(@ModelAttribute FeedbackForm feedbackForm) throws ServiceException {
-        JsonResponse res = new JsonResponse();
-        final Map<String, String> errors = feedbackFormValidator.validate(feedbackForm);
-        if (errors.size() == 0) {
-            userService.sendMailToFeedback(feedbackForm);
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+        return jsonHandler.feedback(feedbackForm);
     }
 }

@@ -17,8 +17,8 @@ public class Discount implements Serializable {
     //Campaign
     private String campaignName;
     private String description;
-    private Long percent;
-    private Long backerPercent;
+    private int percent;
+    private int backerPercent;
     //Store
     private String storeName;
     private String storeImage;
@@ -111,19 +111,19 @@ public class Discount implements Serializable {
         this.description = description;
     }
 
-    public Long getPercent() {
+    public int getPercent() {
         return percent;
     }
 
-    public void setPercent(Long percent) {
+    public void setPercent(int percent) {
         this.percent = percent;
     }
 
-    public Long getBackerPercent() {
+    public int getBackerPercent() {
         return backerPercent;
     }
 
-    public void setBackerPercent(Long backerPercent) {
+    public void setBackerPercent(int backerPercent) {
         this.backerPercent = backerPercent;
     }
 
@@ -145,7 +145,7 @@ public class Discount implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s, , campaignName=%s, description=%s, percent=%d, backerPercent=%d, storeName=%s, storeImage=%s]",
+        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s, campaignName=%s, description=%s, percent=%d, backerPercent=%d, storeName=%s, storeImage=%s]",
                 id, key, isHidden, userId, backerUserId, campaignId, deleted, hash, createdAt.toString(), campaignName, description, percent, backerPercent, storeName, storeImage);
     }
 }

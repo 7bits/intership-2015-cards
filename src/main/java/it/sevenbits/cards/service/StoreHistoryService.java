@@ -78,10 +78,8 @@ public class StoreHistoryService {
         String email = authentication.getName();
         StoreHistory storeHistory = new StoreHistory();
         String description =
-                discountByCampaignForm.getName() + " " +
-                        discountByCampaignForm.getDescription() + " " +
-                        discountByCampaignForm.getPercent() + " " +
-                        discountByCampaignForm.getBackerPercent();
+                discountByCampaignForm.getEmail()+ " " +
+                        discountByCampaignForm.getCampaignId();
         storeHistory.setDescription(description);
         try {
             storeHistoryRepository.save(storeHistory, email);

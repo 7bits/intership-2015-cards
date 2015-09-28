@@ -1,6 +1,7 @@
-package it.sevenbits.cards.service.validators;
+package it.sevenbits.cards.service.validators.form;
 
 
+import it.sevenbits.cards.service.validators.CommonFieldValidator;
 import it.sevenbits.cards.web.domain.forms.NewPasswordForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

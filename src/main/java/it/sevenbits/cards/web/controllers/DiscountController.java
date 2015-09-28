@@ -25,15 +25,16 @@ public class DiscountController {
     @Autowired
     private ModelBuilder modelBuilder;
 
+    @Autowired
+    private DiscountService discountService;
+
     private Logger LOG = Logger.getLogger(DiscountController.class);
 
     //Add Discount by social networks
     @Secured("ROLE_USER")
     @RequestMapping(value = "/social_add_discount/", method = RequestMethod.GET)
-    public String social_add_discount(@RequestParam String uin) throws ServiceException{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        discountService.changeUserId(uin, userService.findUserIdByUserName(userName));
+    public String socialAddDiscount(@RequestParam String hash) throws ServiceException{
+        discountService.changeDiscountOwner(hash);
         return "redirect:/personal_area";
     }
 
@@ -51,73 +52,21 @@ public class DiscountController {
         return jsonHandler.createDiscountByCampaign(discountByCampaignForm);
     }
 
-    //Add discount
-    @RequestMapping(value = "/add_discount", method=RequestMethod.GET)
-    public String addDiscount(Model model) throws ServiceException{
-        model.addAttribute("add", new DiscountForm());
-        return "home/add_discount";
-    }
-
     //Send discount
     @Secured("ROLE_USER")
     @RequestMapping(value = "/send_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute SendForm sendForm) throws ServiceException {
-        final Map<String, String> errors = sendFormValidator.validate(sendForm);
-        JsonResponse res = new JsonResponse();
-        if (errors.size() == 0) {
-            String userId;
-            try {
-                userId = userService.findUserIdByUserName(sendForm.getEmail());
-            } catch (Exception e) {
-                userId = "";
-            }
-            discountService.send(userId, sendForm.getUin(), sendForm.getEmail());
-            Discount discount = discountService.findDiscountByUin(sendForm.getUin());
-            final Map<String, String> exist = emailExistValidator.validate(sendForm.getEmail());
-            if (exist.size() != 0) {
-                notificationService.notificateSend(sendForm, discount.getId());
-            }
-            else{
-                notificationService.notificateSendIfExist(sendForm,discount.getId());
-            }
-            res.setStatus("SUCCESS");
-            res.setResult(null);
-        } else {
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
-    }
-    //Bind discount
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/bind_discount", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse bindDiscount(@ModelAttribute BindForm form) throws ServiceException {
-        JsonResponse res = new JsonResponse();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        final Map<String, String> errors = bindFormValidator.validate(form, userName);
-
-        if (errors.size() == 0) {
-            discountService.changeUserId(form.getUin(), userService.findUserIdByUserName(userName));
-            res.setStatus("SUCCESS");
-            res.setResult(discountService.findDiscountByUin(form.getUin()));
-        }else{
-            res.setStatus("FAIL");
-            res.setResult(errors);
-        }
-        return res;
+    public @ResponseBody JsonResponse sendDiscount(@ModelAttribute SendForm sendForm) throws ServiceException {
+        return jsonHandler.sendDiscount(sendForm);
     }
 
     @RequestMapping(value = "/discount_info/", method = RequestMethod.GET)
     public String activatebyhash(@RequestParam String hash, Model model) throws ServiceException{
-        final Map<String, String> errors = discountHashValidator.validate(hash);
-        if (errors.size() ==0) {
-            discountHashService.delete(hash);
-            model.addAttribute("discount", discountService.findDiscountById(discountHashService.findIdByHash(hash)));
-            return "home/discount_info";
-        }
-        else{
+        model.addAllAttributes(modelBuilder.buildDiscountInfo(hash));
+        if(model == null) {
             return "redirect:/homepage";
+        }
+        else {
+            return "home/discount_info";
         }
     }
 }

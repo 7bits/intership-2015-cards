@@ -1,10 +1,8 @@
 package it.sevenbits.cards.web.controllers;
 
-import it.sevenbits.cards.web.domain.forms.SaveStoreForm;
 import it.sevenbits.cards.web.domain.forms.AddStoreForm;
 import it.sevenbits.cards.service.ServiceException;
 import it.sevenbits.cards.service.StoreService;
-import it.sevenbits.cards.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;

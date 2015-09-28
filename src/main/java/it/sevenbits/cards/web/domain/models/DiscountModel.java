@@ -1,32 +1,43 @@
 package it.sevenbits.cards.web.domain.models;
 
+import java.sql.Timestamp;
+
 public class DiscountModel {
+    //Discount
     private Long id;
     private String key;
-    private String uin;
     private Boolean isHidden;
-    private String userId;
-    private String storeName;
+    private Long userId;
+    private Long backerUserId;
+    private Long campaignId;
+    private Boolean deleted;
+    private String hash;
+    private Timestamp createdAt;
+    //Campaign
+    private String campaignName;
     private String description;
+    private int percent;
+    private int backerPercent;
+    //Store
+    private String storeName;
     private String storeImage;
-    private String percent;
-    private String backerPercent;
-    private String backerUserId;
-    private String email;
 
-    public DiscountModel(Long id, String key, String uin, Boolean isHidden, String userId, String storeName, String description, String storeImage, String percent, String backerPercent, String backerUserId, String email) {
+    public DiscountModel(Long id, String key, Boolean isHidden, Long userId, Long backerUserId, Long campaignId, Boolean deleted, String hash, Timestamp createdAt, String campaignName, String description, int percent, int backerPercent, String storeName, String storeImage) {
         this.id = id;
         this.key = key;
-        this.uin = uin;
         this.isHidden = isHidden;
         this.userId = userId;
-        this.storeName = storeName;
+        this.backerUserId = backerUserId;
+        this.campaignId = campaignId;
+        this.deleted = deleted;
+        this.hash = hash;
+        this.createdAt = createdAt;
+        this.campaignName = campaignName;
         this.description = description;
-        this.storeImage = storeImage;
         this.percent = percent;
         this.backerPercent = backerPercent;
-        this.backerUserId = backerUserId;
-        this.email = email;
+        this.storeName = storeName;
+        this.storeImage = storeImage;
     }
 
     public Long getId() {
@@ -45,14 +56,6 @@ public class DiscountModel {
         this.key = key;
     }
 
-    public String getUin() {
-        return uin;
-    }
-
-    public void setUin(String uin) {
-        this.uin = uin;
-    }
-
     public Boolean getIsHidden() {
         return isHidden;
     }
@@ -61,20 +64,60 @@ public class DiscountModel {
         this.isHidden = isHidden;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public Long getBackerUserId() {
+        return backerUserId;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setBackerUserId(Long backerUserId) {
+        this.backerUserId = backerUserId;
+    }
+
+    public Long getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(Long campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
     }
 
     public String getDescription() {
@@ -85,6 +128,30 @@ public class DiscountModel {
         this.description = description;
     }
 
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+
+    public int getBackerPercent() {
+        return backerPercent;
+    }
+
+    public void setBackerPercent(int backerPercent) {
+        this.backerPercent = backerPercent;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public String getStoreImage() {
         return storeImage;
     }
@@ -93,41 +160,9 @@ public class DiscountModel {
         this.storeImage = storeImage;
     }
 
-    public String getPercent() {
-        return percent;
-    }
-
-    public void setPercent(String percent) {
-        this.percent = percent;
-    }
-
-    public String getBackerPercent() {
-        return backerPercent;
-    }
-
-    public void setBackerPercent(String backerPercent) {
-        this.backerPercent = backerPercent;
-    }
-
-    public String getBackerUserId() {
-        return backerUserId;
-    }
-
-    public void setBackerUserId(String backerUserId) {
-        this.backerUserId = backerUserId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public String toString() {
-        return String.format("Discount[id=%d, key=%s, uid=%s, isHidden=%b, userId=%s, storeName=%s, description=%s. storeImage=%s, percent=%s, backerPercent=%s, backerUserId=%s, email=%s]",
-                id, key, uin, isHidden, userId, storeName,description, storeImage, percent, backerPercent, backerUserId, email);
+        return String.format("Discount[id=%d, key=%s, isHidden=%b, userId=%d, backerUserId=%d, campaignId=%d, deleted=%b, hash=%s, createdAt=%s, , campaignName=%s, description=%s, percent=%d, backerPercent=%d, storeName=%s, storeImage=%s]",
+                id, key, isHidden, userId, backerUserId, campaignId, deleted, hash, createdAt.toString(), campaignName, description, percent, backerPercent, storeName, storeImage);
     }
 }

@@ -1,5 +1,6 @@
-package it.sevenbits.cards.service.validators;
+package it.sevenbits.cards.service.validators.form;
 
+import it.sevenbits.cards.service.validators.CommonFieldValidator;
 import it.sevenbits.cards.web.domain.forms.KeyForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class KeyFormValidator {
 
         validator.isDiscountExistByKey(keyForm.getKey(), errors, "key", "Скидки с данным ключом не существует.");
 
-        validator.isStoreMakerOfDiscount(keyForm.getKey(), storeName, errors, "key", "Вы не являетесь создателем скидки.");
+        validator.isStoreMakerOfDiscount(keyForm.getKey(), errors, "key", "Вы не являетесь создателем скидки.");
 
         validator.isDiscountPrivateByKey(keyForm.getKey(), errors, "key", "Скидка должна быть для использования.");
 

@@ -1,7 +1,7 @@
 CREATE TABLE users (
   "id" BIGSERIAL NOT NULL PRIMARY KEY,
   "email" VARCHAR(255) NOT NULL UNIQUE,
-  "password_hash" VARCHAR(255) NOT NULL,
+  "password_hash" VARCHAR(255),
   "role" VARCHAR(255) NOT NULL,
   "enabled" BOOLEAN NOT NULL DEFAULT false,
   "account_hash" VARCHAR(255),

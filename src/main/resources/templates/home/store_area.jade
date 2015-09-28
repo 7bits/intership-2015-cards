@@ -155,11 +155,7 @@ html
                                                                 label Email
                                                                 input.form-control.email_create_discount_by_campaign_input(name="email", type="text", id="discount_email_"+campaign.id)
                                                                 .errors(id="emailErrorActive_" + campaign.id)
-                                                                input.form-control(name="name", value= "#{campaign.name}", type="hidden", id="discountName_"+campaign.id)
-                                                                input.form-control(name="percent", value= "#{campaign.percent}", type="hidden", id="discountPercent_"+campaign.id)
-                                                                input.form-control(name="backerPercent", value= "#{campaign.backerPercent}", type="hidden", id="discountBackerPercent_"+campaign.id)
-                                                                input.form-control(name="description", value= "#{campaign.description}", type="hidden", id="discountDescription_"+campaign.id)
-                                                            .morph-in-button
+                                                                input.form-control(name="campaignId", value= "#{campaign.id}", type="hidden", id="campaignId_"+campaign.id)                                                            .morph-in-button
                                                                 input.add(type="button", onclick="doAjaxPostCreateDiscountByCampaign('#{campaign.id}')", value="Сгенерировать")
                                                             //a(onclick="Share.vkontakte('http://discounts.7bits.it/social_add_discount/?uin=#{discount.uin}','Скидка от сервиса Discount','http://vk.com/doc19409783_410016163','#{discount.description}')")
                                                             //    img.social(src='/resources/img/vkontakte.png')
