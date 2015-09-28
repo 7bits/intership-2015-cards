@@ -36,7 +36,6 @@ block append body
                                             form.form.morph-content(action="/send_discount", method="post")
                                                 label.form__label Отправить
                                                 input(name="key", type="hidden", value="#{discount.key}")
-                                                input(name="uin", type="hidden", value="#{discount.uin}")
                                                 .form__input
                                                     label.input__label email
                                                     input.input__input.input-send-email--sl(name="email", type="text")

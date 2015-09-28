@@ -47,10 +47,7 @@ block append body
                                             .morph__close &#10006
                                             form.form.morph-content(action="/create_discount_by_campaign", method="post")
                                                 label.form__label Сгенерировать
-                                                input(name="name", value= "#{campaign.name}", type="hidden")
-                                                input(name="percent", value= "#{campaign.percent}", type="hidden")
-                                                input(name="backerPercent", value= "#{campaign.backerPercent}", type="hidden")
-                                                input(name="description", value= "#{campaign.description}", type="hidden")
+                                                input(name="campaignId", value= "#{campaign.id}", type="hidden")
                                                 .form__input
                                                     label.input__label email
                                                     input.input__input(name="email", type="text")
