@@ -31,7 +31,7 @@ public class AddStoreForm {
 
     @Override
     public String toString() {
-        return String.format("StoreuserId=%s, storeName=%s, storeImage=%s]",
+        return String.format("email=%s, storeName=%s, storeImage=%s]",
                 email, storeName, storeImage);
     }
 }

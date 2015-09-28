@@ -25,36 +25,11 @@ public class StorePersistRepository implements StoreRepository {
     }
 
     @Override
-    public Store findStoreByUserId(String userId) throws RepositoryException{
+    public Store findByEmail(String email) throws RepositoryException{
         try {
-            return mapper.findStoreByUserId(userId);
+            return mapper.findByEmail(email);
         } catch (Exception e) {
-            throw new RepositoryException("findStoreByUserId error: " + e.getMessage(), e);
-        }
-    }
-
-
-    @Override
-    public String findStoreNameByUserId(final String userId) throws RepositoryException {
-        if (userId == null) {
-            throw new RepositoryException("UserId is null");
-        }
-        try {
-            return mapper.findStoreNameByUserId(userId);
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public String findStoreImageByStoreName(final String storeName) throws RepositoryException{
-        if(storeName == null){
-            throw new RepositoryException("StoreName is null");
-        }
-        try {
-            return mapper.findStoreImageByStoreName(storeName);
-        } catch (Exception e) {
-            throw new RepositoryException("General database error " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while finding store by email: " + e.getMessage(), e);
         }
     }
 }

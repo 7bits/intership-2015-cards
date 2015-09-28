@@ -7,37 +7,31 @@ import java.util.List;
 
 public interface CampaignMapper {
     //Save
-    @Insert("INSERT INTO campaign (store_name, name, description, percent, enabled, backer_percent) VALUES (#{storeName}, #{name}, #{description}, #{percent}, #{enabled}, #{backerPercent})")
-    @Options(useGeneratedKeys = true)
-    void save(final Campaign campaign);
+    @Insert("INSERT INTO campaigns (store_id, name, description, percent, backer_percent)\n" +
+            "VALUES (" +
+            "(select stores.id from stores\n" +
+            "inner join users on stores.user_id = users.id\n" +
+            "where users.email = #{email}\n" +
+            "), #{campaign.name}, #{campaign.description}, #{campaign.percent}, #{campaign.backerPercent})")
+    void save(@Param("campaign") Campaign campaign, @Param("email") String email);
 
-    //Find All Active
-    @Select("SELECT id, store_name, name, description, percent, enabled, backer_percent FROM campaign WHERE enabled = true and store_name = #{storeName}")
+    //Find All
+    @Select("SELECT campaigns.id, campaigns.store_id, campaigns.name, campaigns.description, campaigns.percent, campaigns.backer_percent, campaigns.enabled, campaigns.created_at\n" +
+            "FROM campaigns INNER JOIN stores on campaigns.store_id = stores.id\n" +
+            "INNER JOIN users ON stores.user_id = users.id WHERE users.email = #{email} AND campaigns.enabled = #{enabled}")
     @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "name", property = "name"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "enabled", property = "enabled"),
-            @Result(column = "backer_percent", property = "backerPercent")
+            @Result(column = "campaigns.id", property = "id"),
+            @Result(column = "campaigns.store_id", property = "storeId"),
+            @Result(column = "campaigns.name", property = "name"),
+            @Result(column = "campaigns.description", property = "description"),
+            @Result(column = "campaigns.percent", property = "percent"),
+            @Result(column = "campaigns.backer_percent", property = "backerPercent"),
+            @Result(column = "campaigns.enabled", property = "enabled"),
+            @Result(column = "campaigns.created_at", property = "createdAt")
     })
-    List<Campaign> findAllActive(@Param("storeName") String storeName);
-
-    //Find All Not Active
-    @Select("SELECT id, store_name, name, description, percent, enabled, backer_percent FROM campaign WHERE enabled = false and store_name = #{storeName}")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "store_name", property = "storeName"),
-            @Result(column = "name", property = "name"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "percent", property = "percent"),
-            @Result(column = "enabled", property = "enabled"),
-            @Result(column = "backer_percent", property = "backerPercent")
-    })
-    List<Campaign> findAllNotActive(@Param("storeName") String storeName);
+    List<Campaign> findAllWithEnabledStatus(@Param("email") String email, @Param("enabled") Boolean enabled);
 
     //Change campaign enable status
-    @Update("UPDATE campaign SET enabled = not enabled where id = #{id}")
-    void changeCampaignEnableStatus(@Param("id") Long id);
+    @Update("UPDATE campaigns SET enabled = not enabled where id = #{id}")
+    void changeEnableStatus(@Param("id") Long id);
 }

@@ -5,8 +5,7 @@ import it.sevenbits.cards.core.domain.Campaign;
 import java.util.List;
 
 public interface CampaignRepository {
-    void save(final Campaign campaign) throws RepositoryException;
-    List<Campaign> findAllActive(String storeName) throws RepositoryException;
-    List<Campaign> findAllNotActive(String storeName) throws RepositoryException;
-    void changeCampaignEnableStatus(Long id) throws RepositoryException;
+    void save(Campaign campaign, String email) throws RepositoryException;
+    List<Campaign> findAllWithEnabledStatus(String email, Boolean enabled) throws RepositoryException;
+    void changeEnableStatus(Long id) throws RepositoryException;
 }

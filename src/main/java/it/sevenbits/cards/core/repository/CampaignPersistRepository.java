@@ -17,48 +17,42 @@ public class CampaignPersistRepository implements CampaignRepository {
     private CampaignMapper campaignMapper;
 
     @Override
-    public void save(final Campaign campaign) throws RepositoryException {
+    public void save(Campaign campaign, String email) throws RepositoryException {
         if (campaign == null) {
             throw new RepositoryException("Campaign is null");
         }
+        if (email == null) {
+            throw new RepositoryException("Email is null");
+        }
         try {
-            campaignMapper.save(campaign);
+            campaignMapper.save(campaign, email);
         } catch (Exception e) {
             throw new RepositoryException("An error occurred while saving campaign: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public List<Campaign> findAllActive(String storeName) throws RepositoryException {
-        if (storeName == null) {
-            throw new RepositoryException("StoreName is null");
+    public List<Campaign> findAllWithEnabledStatus(String email, Boolean enabled) throws RepositoryException {
+        if (email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if (enabled == null) {
+            throw new RepositoryException("Enabled is null");
         }
         try {
-            return campaignMapper.findAllActive(storeName);
+            return campaignMapper.findAllWithEnabledStatus(email, enabled);
         } catch (Exception e) {
-            throw new RepositoryException("An error occurred while saving campaign: " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while finding campaign with enabled status: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public List<Campaign> findAllNotActive(String storeName) throws RepositoryException {
-        if (storeName == null) {
-            throw new RepositoryException("StoreName is null");
-        }
-        try {
-            return campaignMapper.findAllNotActive(storeName);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while saving campaign: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public void changeCampaignEnableStatus(Long id) throws RepositoryException{
+    public void changeEnableStatus(Long id) throws RepositoryException{
         if(id == null) {
             throw new RepositoryException("Id in null");
         }
         try{
-            campaignMapper.changeCampaignEnableStatus(id);
+            campaignMapper.changeEnableStatus(id);
         }catch (Exception e) {
             throw new RepositoryException("An error occurred while changing campaign status: " + e.getMessage(), e);
         }

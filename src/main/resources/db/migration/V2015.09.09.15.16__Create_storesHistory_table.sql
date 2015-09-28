@@ -1,0 +1,6 @@
+CREATE TABLE stores_history (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "store_id" BIGSERIAL NOT NULL REFERENCES stores(id),
+  "description" VARCHAR(255) NOT NULL,
+  "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);

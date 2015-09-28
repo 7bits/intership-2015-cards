@@ -1,9 +1,6 @@
 function doAjaxPostCreateDiscountByCampaign(thisId) {
     var email = $('#discount_email_' + thisId).val();
-    var name = $('#discountName_' + thisId).val();
-    var description = $('#discountDescription_' + thisId).val();
-    var percent = $('#discountPercent_' + thisId).val();
-    var backerPercent = $('#discountBackerPercent_' + thisId).val();
+    var campaignId = $('#campaignId_' + thisId).val();
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var headers = {};
@@ -12,7 +9,7 @@ function doAjaxPostCreateDiscountByCampaign(thisId) {
     $.ajax({
         type: "POST",
         url: "/create_discount_by_campaign",
-        data: "name=" + name + "&description=" + description + "&percent=" + percent + "&email=" + email + "&backerPercent=" + backerPercent,
+        data: "email=" + email + "&campaignId=" + campaignId,
         headers: headers,
         success: function(response){
             $('.errors').html("");

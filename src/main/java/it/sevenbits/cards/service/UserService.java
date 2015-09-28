@@ -1,8 +1,11 @@
 package it.sevenbits.cards.service;
 
 
+import it.sevenbits.cards.core.domain.Role;
 import it.sevenbits.cards.validation.Sender;
-import it.sevenbits.cards.web.domain.forms.FeedbackForm;
+import it.sevenbits.cards.validation.Sha;
+import it.sevenbits.cards.web.domain.forms.*;
+import org.springframework.aop.support.RegexpMethodPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
@@ -11,103 +14,89 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import it.sevenbits.cards.core.domain.User;
 import it.sevenbits.cards.core.repository.UserRepository;
-import it.sevenbits.cards.web.domain.forms.RegistrationForm;
 
 import org.apache.log4j.Logger;
 
-import java.sql.Timestamp;
-
 @Service
 public class UserService {
-    @Autowired
 
+    @Autowired
     @Qualifier(value = "userRepository")
-    private UserRepository repository;
+    private UserRepository userRepository;
+
     Logger LOG = Logger.getLogger(UserService.class);
 
     private static Sender sender = new Sender();
 
-    public String findUserIdByUserName(String userName) throws ServiceException {
-        try {
-            return repository.findUserIdByUserName(userName);
-        } catch (Exception e) {
-            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
-        }
-    }
-
-    public void createUser(RegistrationForm form) throws ServiceException {
+    public void updateUser(RegistrationForm form) throws ServiceException {
         final User user = new User();
         user.setEmail(form.getEmail());
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(form.getPassword()));
-        String maxUserId;
         try {
-            maxUserId = repository.maxUserId();
-        } catch (Exception e) {
-            throw new ServiceException("An error occurred while finding by User Name: " + e.getMessage(), e);
-        }
-        if (maxUserId == null) {
-            user.setUserId("1000");
-        } else {
-            String userId = maxUserId.substring(0, maxUserId.length() - 1);
-            boolean again = true;
-            char ch = ' ';
-            for (int i = 1; i <= maxUserId.length() && again; i++) {
-                again = false;
-                ch = maxUserId.charAt(maxUserId.length() - i);
-
-                if ((ch >= '0' && ch < '9') || (ch >= 'A' && ch < 'Z') || (ch >= 'a' && ch < 'z')) {
-                    ch = (char) ((int) ch + 1);
-                } else if (ch == '9') {
-                    ch = 'A';
-                } else if (ch == 'Z') {
-                    ch = 'a';
-                } else if (ch == 'z') {
-                    if (i == maxUserId.length()) {
-                        maxUserId = "0" + maxUserId;
-                    }
-                    ch = '0';
-                    again = true;
-                }
-            }
-            userId = userId + Character.toString(ch);
-            user.setUserId(userId);
-        }
-        try {
-            repository.save(user);
+            userRepository.update(user);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
-    public void changeUserRoleByUserId(String userRole, String userId) throws ServiceException {
+
+    public void changeUserRoleByEmail(String userRole, String email) throws ServiceException {
         try {
-            repository.changeUserRoleByUserId(userRole, userId);
+            userRepository.changeUserRoleByEmail(userRole, email);
         } catch (Exception e) {
             throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
         }
     }
 
-    public void enableUserByEmail(String email) throws ServiceException {
+    public User findByEmail(String email) throws ServiceException {
         try {
-            repository.enableUserByEmail(email);
+            return userRepository.findByEmail(email);
         } catch (Exception e) {
-            throw new ServiceException("An error occurred while changing User enabled property to true: " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while finding user by email: " + e.getMessage(), e);
         }
     }
-    @Async
-    public void sendMailToFeedback(FeedbackForm form) {
-        String email = form.getEmail();
-        String title = form.getTitle();
-        String describe = form.getDescribe();
-        sender.send("Уведомление о получении письма обратной связи", "Спасибо, ваше мнение очень важно для нас. Ожидайте ответа в ближайшее время.\n", email);
-        sender.send("Обращение в службу поддержки от пользователя " + email, "Заголовок: " + title +"\n"+"Источник отправки: " + email + "\n" + "Сообщение: \n" + describe, "discountfeedback@gmail.com");
 
-    }
-    public Timestamp findCreateAtTimeByEmail(String email) throws ServiceException{
+    public void activateByHash(String hash) throws ServiceException {
         try {
-            return repository.findCreateAtTimeByEmail(email);
+            userRepository.activateByHash(hash);
         } catch (Exception e) {
-            throw new ServiceException("An error occurred while finding UserId by User Name discount: " + e.getMessage(), e);
+            throw new ServiceException("An error occurred while activating user by hash: " + e.getMessage(), e);
+        }
+    }
+
+    public void restorePassword(NewPasswordForm newPasswordForm) throws ServiceException {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordHash = passwordEncoder.encode(newPasswordForm.getPassword());
+        try {
+            userRepository.restorePassword(passwordHash, newPasswordForm.getHash());
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while restoring password: " + e.getMessage(), e);
+        }
+    }
+
+    public Long findIdByHash(String hash) throws ServiceException{
+        try {
+            return userRepository.findIdByHash(hash);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while finding id by hash: " + e.getMessage(), e);
+        }
+    }
+
+    public void createUser(String email) throws ServiceException {
+        final User user = new User();
+        user.setEmail(email);
+        String accountHash = null;
+        user.setRole(Role.ROLE_USER);
+        try {
+            accountHash = Sha.hash256();
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while generating SHA hash: " + e.getMessage(), e);
+        }
+        user.setAccountHash(accountHash);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new ServiceException("An error occurred while saving discount: " + e.getMessage(), e);
         }
     }
 }

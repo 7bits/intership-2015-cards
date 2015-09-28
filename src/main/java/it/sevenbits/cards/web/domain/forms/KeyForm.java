@@ -1,6 +1,6 @@
 package it.sevenbits.cards.web.domain.forms;
 
-public class UseForm {
+public class KeyForm {
     private String key;
 
     public String getKey() {
@@ -13,6 +13,6 @@ public class UseForm {
 
     @Override
     public String toString() {
-        return String.format("UseForm[key=%s]", key);
+        return String.format("KeyForm[key=%s]", key);
     }
 }

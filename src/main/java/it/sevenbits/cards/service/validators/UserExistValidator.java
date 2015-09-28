@@ -8,17 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class EmailExistValidator {
+public class UserExistValidator {
+
     @Autowired
     private CommonFieldValidator validator;
 
-    private static final Logger LOG = Logger.getLogger(SendFormValidator.class);
+    private static final Logger LOG = Logger.getLogger(IdValidator.class);
 
-    public HashMap<String, String> validate(final String email) {
-        LOG.info("EmailExistValidator started for: " + email);
+    public HashMap<String, String> validate(String email) {
+
+        LOG.info("UserExistValidator started for: " + email);
         HashMap<String, String> errors = new HashMap<>();
 
-        validator.isUserExist(email, errors, "email", "Юзер не существует.");
+        validator.isUserExist(email, errors, "email", "Пользователь с данным электронным адресом уже существует.");
 
         for (Map.Entry<String, String> entry : errors.entrySet()) {
             LOG.info(String.format("Error found: Filed=%s, Error=%s",
@@ -27,5 +29,6 @@ public class EmailExistValidator {
 
         return errors;
     }
-}
 
+
+}

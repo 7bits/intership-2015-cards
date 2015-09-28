@@ -1,12 +1,14 @@
 package it.sevenbits.cards.core.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class Store implements Serializable {
     private Long id;
-    private String userId;
+    private Long userId;
     private String storeName;
     private String storeImage;
+    private Timestamp createdAt;
 
     public Long getId() {
         return id;
@@ -16,11 +18,11 @@ public class Store implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -40,10 +42,17 @@ public class Store implements Serializable {
         this.storeImage = storeImage;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 
     @Override
     public String toString() {
-        return String.format("Store[id=%d, userId=%s, storeName=%s, storeImage=%s]",
-                id, userId, storeName, storeImage);
+        return String.format("Store[id=%d, userId=%d, storeName=%s, storeImage=%s, createdAt=%s]",
+                id, userId, storeName, storeImage, createdAt.toString());
     }
 }

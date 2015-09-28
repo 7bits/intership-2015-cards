@@ -3,16 +3,19 @@ package it.sevenbits.cards.core.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class User implements UserDetails {
     private Long id;
     private String email;
-    private String userId;
     private String password;
     private Role role;
     private Boolean enabled;
+    private String accountHash;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -83,11 +86,27 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAccountHash() {
+        return accountHash;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAccountHash(String accountHash) {
+        this.accountHash = accountHash;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

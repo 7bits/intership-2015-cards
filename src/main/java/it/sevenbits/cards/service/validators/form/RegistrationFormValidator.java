@@ -1,5 +1,6 @@
-package it.sevenbits.cards.service.validators;
+package it.sevenbits.cards.service.validators.form;
 
+import it.sevenbits.cards.service.validators.CommonFieldValidator;
 import it.sevenbits.cards.web.domain.forms.RegistrationForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class RegistrationFormValidator {
     @Autowired
     private CommonFieldValidator validator;
 
-    private static final Logger LOG = Logger.getLogger(DiscountFormValidator.class);
+    private static final Logger LOG = Logger.getLogger(RegistrationFormValidator.class);
 
     public HashMap<String, String> validate(final RegistrationForm form){
         LOG.info("RegistrationFormValidator started for: " + form.toString());

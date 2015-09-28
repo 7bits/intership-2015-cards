@@ -26,7 +26,7 @@ html
      h1 Aloha, Cards team! Do you want add new discount to database?
      div
           h3 Add discount
-          form(action="/add_store", method="post")
+          form(action="/create_store", method="post")
                input(type="hidden", name="#{_csrf.parameterName}", value="#{_csrf.token}")
                input.form-control(name="email", placeholder="Email магазина.", type="text")
                input.form-control(name="storeName", placeholder="Название магазина.", type="text")

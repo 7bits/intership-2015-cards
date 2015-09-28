@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class StoreHistory {
     private Long id;
-    private String storeName;
+    private Long storeId;
     private String description;
     private Timestamp createdAt;
 
@@ -18,12 +18,12 @@ public class StoreHistory {
         this.id = id;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public String getDescription() {
@@ -44,11 +44,9 @@ public class StoreHistory {
 
     @Override
     public String toString() {
-        return String.format("StoreHistory[id=%d, storeName=%s, description=%s, createdAt=%s]",
-                id, storeName, description, createdAt.toString());
+        return String.format("StoreHistory[id=%d, storeId=%d, description=%s, createdAt=%s]",
+                id, storeId, description, createdAt.toString());
     }
-
-
 }
 
 

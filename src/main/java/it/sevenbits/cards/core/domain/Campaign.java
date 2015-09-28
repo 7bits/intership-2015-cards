@@ -1,15 +1,21 @@
 package it.sevenbits.cards.core.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class Campaign implements Serializable {
+    //Campaign
     private Long id;
-    private String storeName;
+    private Long storeId;
     private String name;
     private String description;
     private int percent;
     private int backerPercent;
     private Boolean enabled;
+    private Timestamp createdAt;
+    //Store
+    private String storeName;
+    private String storeImage;
 
     public Long getId() {
         return id;
@@ -19,12 +25,12 @@ public class Campaign implements Serializable {
         this.id = id;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public String getName() {
@@ -51,14 +57,6 @@ public class Campaign implements Serializable {
         this.percent = percent;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public int getBackerPercent() {
         return backerPercent;
     }
@@ -67,9 +65,42 @@ public class Campaign implements Serializable {
         this.backerPercent = backerPercent;
     }
 
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
+    }
+
     @Override
     public String toString() {
-        return String.format("Campaign[id=%d, storeName=%s, name=%s, description=%s, percent=%d, enabled=%b, backerPercent=%d]",
-                id, storeName, name, description, percent, enabled, backerPercent);
+        return String.format("Campaign[id=%d, storeId=%d, name=%s, description=%s, percent=%d, backerPercent=%d, enabled=%b, createdAt=%s, storeName=%s, storeImage=%s]",
+                id, storeId, name, description, percent, backerPercent, enabled, createdAt.toString(), storeName, storeImage);
     }
+
 }

@@ -1,5 +1,6 @@
-package it.sevenbits.cards.service.validators;
+package it.sevenbits.cards.service.validators.form;
 
+import it.sevenbits.cards.service.validators.CommonFieldValidator;
 import it.sevenbits.cards.web.domain.forms.DiscountByCampaignForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -5,12 +5,11 @@ function doAjaxPostSend(data) {
     headers[header] = token;
     var thisId = data;
     var send_email = $('#send_email_' + thisId).val();
-    var send_uin = $('#send_uin_' + thisId).val();
     var send_key = $('#send_key_' + thisId).val();
     $.ajax({
         type: "POST",
         url: "/send_discount",
-        data: "uin=" + send_uin + "&email=" + send_email,
+        data: "email=" + send_email + "&key=" + send_key,
         headers: headers,
         success: function(response){
             $('.errors').html("");

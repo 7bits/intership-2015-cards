@@ -1,1 +1,0 @@
-ALTER TABLE store_history ADD "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL;

@@ -5,6 +5,6 @@ import it.sevenbits.cards.core.domain.StoreHistory;
 import java.util.List;
 
 public interface StoreHistoryRepository {
-    List<StoreHistory> findAll(String storeName) throws RepositoryException;
-    void save(StoreHistory storeHistory) throws RepositoryException;
+    List<StoreHistory> findAll(String email) throws RepositoryException;
+    void save(StoreHistory storeHistory, String email) throws RepositoryException;
 }

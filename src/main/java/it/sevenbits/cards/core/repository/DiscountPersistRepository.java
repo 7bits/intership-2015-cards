@@ -1,7 +1,7 @@
 package it.sevenbits.cards.core.repository;
 import it.sevenbits.cards.core.domain.Discount;
 import it.sevenbits.cards.core.mappers.DiscountMapper;
-import org.apache.catalina.startup.ClassLoaderFactory;
+import it.sevenbits.cards.web.domain.forms.SendForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,236 +10,192 @@ import java.util.List;
 @Repository
 @Qualifier(value = "discountPersistRepository")
 public class DiscountPersistRepository implements DiscountRepository {
+
     private static Logger LOG = Logger.getLogger(DiscountPersistRepository.class);
+
     @Autowired
-    private DiscountMapper mapper;
-    @Override
-    public void save(final Discount discount) throws RepositoryException {
-        if (discount == null) {
-            throw new RepositoryException("Discount is null");
-        }
-        try {
-            mapper.save(discount);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while saving discount: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public void saveByAcoustics(final Discount discount) throws RepositoryException {
-        if (discount == null) {
-            throw new RepositoryException("Discount is null");
-        }
-        try {
-            mapper.saveByAcoustics(discount);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while saving discount: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public List<Discount> findAll() throws RepositoryException {
-        try {
-            return mapper.findAll();
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public void delete(String key, String storeName) throws RepositoryException {
-        if (key == null) {
-            throw new RepositoryException("Key is null");
-        }
-        if (storeName == null) {
-            throw new RepositoryException("StoreName is null");
-        }
-        try {
-            mapper.delete(key, storeName);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public List<Discount> findAllForUse(String userName) throws RepositoryException {
-        try {
-            return mapper.findAllForUse(userName);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public List<Discount> findAllForSend(String userName) throws RepositoryException {
-        try {
-            return mapper.findAllForSend(userName);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public List<Discount> findUserId(Discount discount) throws RepositoryException {
-        try {
-            return mapper.findUserId(discount);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
-        }
-    }
+    private DiscountMapper discountMapper;
+
 
     @Override
-    public void changeUserId(String uin, String userId) throws RepositoryException {
-        if (uin == null) {
-            throw new RepositoryException("Uin is null");
-        }
-        if (userId == null) {
-            throw new RepositoryException("Discount is null");
-        }
-        try {
-            mapper.changeUserId(uin, userId);
-        } catch (Exception e) {
-            throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public void send(String userId, String uin, String email) throws RepositoryException {
-        if (userId == null) {
-            throw new RepositoryException("userId is null");
-        }
-        if (uin == null) {
-            throw new RepositoryException("Uin is null");
+    public List<Discount> findAllWithHiddenStatus(Boolean isHidden, String email) throws RepositoryException {
+        if (isHidden == null) {
+            throw new RepositoryException("IsHidden is null");
         }
         if (email == null) {
             throw new RepositoryException("Email is null");
         }
         try {
-            mapper.send(userId, uin, email);
+            return discountMapper.findAllWithHiddenStatus(isHidden, email);
         } catch (Exception e) {
-            throw new RepositoryException("An error occurred while sending discount: " + e.getMessage(), e);
+            throw new RepositoryException("An error occurred while retrieving discounts: " + e.getMessage(), e);
         }
     }
+
     @Override
-    public String findDiscountOwner(String uin) throws RepositoryException{
-        if (uin == null) {
-            throw new RepositoryException("Uin is null");
+    public void delete(String key) throws RepositoryException {
+        if (key == null) {
+            throw new RepositoryException("Key is null");
+        }
+        try {
+            discountMapper.delete(key);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while deleting discount: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void createByCampaign(String key, String email, Long campaignId, String hash) throws RepositoryException {
+        if (key == null) {
+            throw new RepositoryException("Key is null");
+        }
+        if (email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if (campaignId == null) {
+            throw new RepositoryException("CampaignId is null");
+        }
+        if(hash == null){
+            throw new RepositoryException("Hash is null");
+        }
+        try {
+            discountMapper.createByCampaign(key, email, campaignId, hash);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while saving discount: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void changeDiscountOwner(String email, String hash) throws RepositoryException{
+        if(email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if(hash == null) {
+            throw new RepositoryException("Hash is null");
         }
         try{
-            return mapper.findDiscountOwner(uin);
-        }catch (Exception e) {
-            throw new RepositoryException("An error occurred while finding discount owner: " + e.getMessage(), e);
+            discountMapper.changeDiscountOwner(email, hash);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while changing discount owner: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void changeDiscountOwnerByForm(String email, String key, String hash) throws RepositoryException{
+        if(email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if(key == null) {
+            throw new RepositoryException("Key is null");
+        }
+        if(hash == null) {
+            throw new RepositoryException("Hash is null");
+        }
+        try{
+            discountMapper.changeDiscountOwnerByForm(email, key, hash);
+        } catch (Exception e) {
+            throw new RepositoryException("An error occurred while changing discount owner: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Discount findDiscountByHash(String hash) throws RepositoryException{
+        if(hash == null) {
+            throw new RepositoryException("Hash is null");
+        }
+        try{
+            return discountMapper.findDiscountByHash(hash);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount by hash: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void deleteHash(String hash) throws RepositoryException{
+        if(hash == null) {
+            throw new RepositoryException("Hash is null");
+        }
+        try{
+            discountMapper.deleteHash(hash);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while deleting hash by hash: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Long findDiscountIdByEmailAndKey(String email, String key) throws RepositoryException{
+        if(email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if(key == null) {
+            throw new RepositoryException("Key is null");
+        }
+        try{
+            return discountMapper.findDiscountIdByEmailAndKey(email, key);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount id by email and key: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Long findDiscountIdByMakerEmailAndKey(String email, String key) throws RepositoryException{
+        if(email == null) {
+            throw new RepositoryException("Email is null");
+        }
+        if(key == null) {
+            throw new RepositoryException("Key is null");
+        }
+        try{
+            return discountMapper.findDiscountIdByMakerEmailAndKey(email, key);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount id by maker email and key: " + e.getMessage(), e);
         }
     }
     @Override
-    public String findDiscountMaker(String key) throws RepositoryException{
-        if(key==null){
+    public Boolean findDiscountHiddenStatusByKey(String key)throws RepositoryException{
+        if(key == null) {
             throw new RepositoryException("Key is null");
         }
-        try {
-            return mapper.findDiscountMaker(key);
-        }catch (Exception e){
-            throw new RepositoryException("An error occurred while finding discount maker: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public Boolean findHiddenStatusByKey(String key) throws RepositoryException{
-        if(key==null){
-            throw new RepositoryException("Key is null");
-        }
-        try {
-            return mapper.findHiddenStatusByKey(key);
-        }catch (Exception e){
+        try{
+            return discountMapper.findDiscountHiddenStatusByKey(key);
+        } catch (Exception e){
             throw new RepositoryException("An error occurred while finding discount hidden status by key: " + e.getMessage(), e);
         }
     }
+
     @Override
-    public Boolean findHiddenStatusByUin(String uin) throws RepositoryException{
-        if(uin==null){
-            throw new RepositoryException("Uin is null");
+    public Long findIdByHash(String hash)throws RepositoryException{
+        if(hash == null) {
+            throw new RepositoryException("Hash is null");
         }
-        try {
-            return mapper.findHiddenStatusByUin(uin);
-        }catch (Exception e){
-            throw new RepositoryException("An error occurred while finding discount hidden status by uin: " + e.getMessage(), e);
+        try{
+            return discountMapper.findIdByHash(hash);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while finding discount id by hash: " + e.getMessage(), e);
         }
     }
+
     @Override
-    public Long findDiscountIdByKey(String key) throws RepositoryException{
-        if(key==null){
+    public Discount findDiscountByKey(String key) throws RepositoryException{
+        if(key == null) {
             throw new RepositoryException("Key is null");
         }
         try{
-            return mapper.findDiscountIdByKey(key);
-        }catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount id by key: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public Long findDiscountIdByUin(String uin) throws RepositoryException{
-        if(uin==null){
-            throw new RepositoryException("Uin is null");
-        }
-        try{
-            return mapper.findDiscountIdByUin(uin);
-        }catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount id by uin: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public Discount findDiscountByUin(String uin) throws RepositoryException {
-        if(uin==null){
-            throw new RepositoryException("Uin is null");
-        }
-        try{
-            return mapper.findDiscountByUin(uin);
-        }catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount by uin: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public Discount findDiscountById(Long id) throws RepositoryException {
-        if(id==null){
-            throw new RepositoryException("Id is null");
-        }
-        try{
-            return mapper.findDiscountById(id);
-        }catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount by id: " + e.getMessage(), e);
-        }
-    }
-    @Override
-    public Discount findDiscountByKey(String key) throws RepositoryException {
-        if(key==null){
-            throw new RepositoryException("Uin is null");
-        }
-        try{
-            return mapper.findDiscountByKey(key);
-        }catch(Exception e){
+            return discountMapper.findDiscountByKey(key);
+        } catch (Exception e){
             throw new RepositoryException("An error occurred while finding discount by key: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public Discount findDiscountByEmail(String email) throws RepositoryException{
-        if(email==null){
-            throw new RepositoryException("Email is null.");
+    public void createFeedbackDiscountAfterUse(Discount discount) throws RepositoryException{
+        if(discount == null){
+            throw new RepositoryException("Discount is null");
         }
         try{
-            return mapper.findDiscountByEmail(email);
-        }
-        catch(Exception e){
-            throw new RepositoryException("An error occurred while finding discount by key: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public void addExistDiscountsByEmail(String  email, String userId) throws RepositoryException{
-        if(email==null){
-            throw new RepositoryException("Email in null");
-        }
-        if(userId==null){
-            throw new RepositoryException("UserId in null");
-        }
-        try{
-            mapper.addExistDiscountsByEmailFirst(email, userId);
-            mapper.addExistDiscountsByEmailSecond(email, userId);
-        }catch(Exception e){
-            throw new RepositoryException("An error occurred while adding discounts by email: " + e.getMessage(), e);
+            discountMapper.createFeedbackDiscountAfterUse(discount);
+        } catch (Exception e){
+            throw new RepositoryException("An error occurred while creating discount after use: " + e.getMessage(), e);
         }
     }
 }

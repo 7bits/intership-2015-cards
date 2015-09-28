@@ -1,21 +1,23 @@
 package it.sevenbits.cards.web.domain.models;
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class StoreHistoryModel {
     private Long id;
-    private String storeName;
+    private Long storeId;
     private String description;
     private Date createdAt;
 
 
-    public StoreHistoryModel(Long id, String storeName, String description, Date createdAt) {
+    public StoreHistoryModel(Long id, Long storeId, String description, Date createdAt) {
         this.id = id;
-        this.storeName = storeName;
+        this.storeId = storeId;
         this.description = description;
         this.createdAt = createdAt;
     }
+
 
     public Long getId() {
         return id;
@@ -23,22 +25,6 @@ public class StoreHistoryModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Date getCreatedAt() {
@@ -49,10 +35,26 @@ public class StoreHistoryModel {
         this.createdAt = createdAt;
     }
 
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return String.format("StoryHistoryModel[id=%d, storeName=%s, description=%s, createdAt=%s]",
-                id, storeName, description, createdAt.toString());
+        return String.format("StoryHistoryModel[id=%d,storeId=%d, description=%s, createdAt=%s]",
+                id, storeId, description, createdAt.toString());
     }
 }
 
