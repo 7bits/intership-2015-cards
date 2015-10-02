@@ -6,8 +6,8 @@ spring:
   domain: localhost:9000
   datasource:
     url: jdbc:postgresql://localhost:5432/cardsdb
-    username: admin
-    password: redline
+    username: <enter here your username from database>
+    password: <enter here your password from database>
 
 ---
 
@@ -19,5 +19,5 @@ spring:
   domain: discounts.7bits.it
   datasource:
     url: jdbc:postgresql://localhost:5432/cardsdb
-    username: admin
-    password: redline
+    username: <enter here your username from database>
+    password: <enter here your password from database>
